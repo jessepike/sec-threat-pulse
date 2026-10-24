@@ -20,9 +20,9 @@ const OVERRIDES: Record<string, Override[]> = {
     (r) => {
       const m = r.reason.match(V1_REPORTED_NEW);
       if (!m) return undefined;
-      // The backtest contradicts the old sentence: in the corrected replay, fewer than half of these
-      // calls were followed by a CISA KEV listing within 30 days. Say so.
-      return `Attacks are reported and the vulnerability is ${m[1]}. No authoritative source has confirmed the attacks yet. In our backtest fewer than half of reports this early were confirmed within 30 days, so check whether the product applies to you before you spend effort.`;
+      // The backtest contradicts the old sentence: in the corrected replay about one in six of these
+      // calls was followed by a CISA KEV listing within 30 days. Say so.
+      return `Attacks are reported and the vulnerability is ${m[1]}. No authoritative source has confirmed the attacks yet. In our backtest fewer than one in five reports this early were confirmed within 30 days, so check whether the product applies to you before you spend effort.`;
     },
   ],
 };

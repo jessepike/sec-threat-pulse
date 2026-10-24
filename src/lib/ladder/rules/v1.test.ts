@@ -100,10 +100,12 @@ describe("rules v1: wording", () => {
 });
 
 describe("rules registry", () => {
-  it("keeps v0 frozen and makes v1 current", () => {
+  it("keeps v0 and v1 frozen and makes v2 current", () => {
     expect(getRules("v1")).toBe(RULES.v1);
-    expect(CURRENT_RULES_VERSION).toBe("v1");
-    expect(evaluateVerdict(EMPTY_LADDER, none).rulesVersion).toBe("v1");
+    expect(CURRENT_RULES_VERSION).toBe("v2");
+    expect(evaluateVerdict(EMPTY_LADDER, none).rulesVersion).toBe("v2");
+    // v1 still answers the same as before for the same inputs (the backtest replays it).
+    expect(evaluateV1(L({ exploited: "reported" }), { ...none, daysSincePublished: 10 }).verdict).toBe("act_now");
     // v0 still answers the same as before for the same inputs (the backtest replays it).
     expect(evaluateV0(L({ exploited: "reported" }), { exploitMaturity: "weaponized" }).verdict).toBe("act_now");
     expect(evaluateV0(L({ exploited: "confirmed" }), { ...none, daysSincePublished: 10 }).verdict).toBe("watch");

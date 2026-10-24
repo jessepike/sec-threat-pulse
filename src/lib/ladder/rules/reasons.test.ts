@@ -16,7 +16,7 @@ describe("reasons", () => {
     expect(shown.verdict).toBe(raw.verdict);
     expect(shown.reason).not.toContain("usually confirmed within days");
     expect(shown.reason).toContain("12 days old");
-    expect(shown.reason).toContain("fewer than half");
+    expect(shown.reason).toContain("fewer than one in five");
     expect(shown.reason).not.toMatch(/—/);
     expect(evaluateVerdict(ladder, ctx, "v1").reason).toBe(shown.reason);
   });

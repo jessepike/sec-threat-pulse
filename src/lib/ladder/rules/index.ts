@@ -1,6 +1,7 @@
 import type { Ladder } from "../types";
 import { rulesV0 } from "./v0";
 import { rulesV1 } from "./v1";
+import { rulesV2 } from "./v2";
 import { presentReason } from "./reasons";
 import type { RulesVersion, VerdictContext, VerdictResult } from "./types";
 
@@ -10,9 +11,10 @@ export type { RulesVersion, VerdictContext, VerdictResult } from "./types";
 export const RULES: Record<string, RulesVersion> = {
   v0: rulesV0,
   v1: rulesV1,
+  v2: rulesV2,
 };
 
-export const CURRENT_RULES_VERSION = "v1";
+export const CURRENT_RULES_VERSION = "v2";
 
 export function getRules(version: string = CURRENT_RULES_VERSION): RulesVersion {
   const r = RULES[version];

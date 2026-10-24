@@ -15,9 +15,10 @@ export interface VerdictContext {
   /** Public GitHub repositories claiming a proof of concept. */
   pocRepoCount?: number;
   /**
-   * Where the reported (unconfirmed) exploitation observations came from, one entry per source
-   * kind: "telegram", a host name, "news". Lets a rule ask for corroboration of social posts.
-   * Empty or missing when exploitation is not reported.
+   * One entry per reported (unconfirmed) exploitation observation, naming its source: "telegram",
+   * a host name, "news". The length is the number of separate reports. Lets a rule ask for a
+   * second report or for corroboration of social posts. Empty or missing when exploitation is
+   * not reported.
    */
   reportedExploitationSources?: string[];
 }
