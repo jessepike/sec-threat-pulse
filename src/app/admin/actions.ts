@@ -1,0 +1,249 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { eq, inArray } from "drizzle-orm";
+import { getDb, schema } from "@/lib/db/client";
+import { requireAdmin } from "@/lib/admin/session";
+import { writeAudit, auditInsert } from "@/lib/admin/audit";
+import { applyOverride, clearOverride, validateOverride, validateReason } from "@/lib/admin/override";
+import { runSourceNow, SOURCE_ID } from "@/lib/admin/ingest-trigger";
+import { parseFlags, parseRecipients, parseTheme } from "@/lib/admin/settings";
+import { createIssue } from "@/lib/admin/github";
+
+// Server actions get Next's built-in Origin check (CSRF). Each one also re-checks the session.
+
+function str(fd: FormData, k: string): string {
+  const v = fd.get(k);
+  return typeof v === "string" ? v : "";
+}
+
+function back(path: string, kind: "ok" | "error", msg: string): never {
+  const sep = path.includes("?") ? "&" : "?";
+  redirect(`${path}${sep}${kind}=${encodeURIComponent(msg)}`);
+}
+
+async function ctx(path: string) {
+  const admin = await requireAdmin();
+  const db = getDb();
+  if (!db) back(path, "error", "Database not connected.");
+  return { admin, db };
+}
+
+const EVENT_ID = /^[a-z0-9][a-z0-9._-]{0,120}$/i;
+
+async function loadEvent(db: NonNullable<ReturnType<typeof getDb>>, id: string, path: string) {
+  if (!EVENT_ID.test(id)) back(path, "error", "Invalid event id.");
+  const [event] = await db.select().from(schema.events).where(eq(schema.events.id, id));
+  if (!event) back(path, "error", "Event not found.");
+  return event;
+}
+
+// ---- Sources ----
+
+export async function toggleSource(fd: FormData) {
+  const path = "/admin/sources";
+  const { admin, db } = await ctx(path);
+  const id = str(fd, "id");
+  if (!SOURCE_ID.test(id)) back(path, "error", "Invalid source id.");
+  const enabled = str(fd, "enabled") === "true";
+  await db.update(schema.sources).set({ enabled }).where(eq(schema.sources.id, id));
+  await writeAudit(db, { actor: admin.login, action: "source.toggle", target: id, details: { enabled } });
+  revalidatePath(path);
+  back(path, "ok", `${id} ${enabled ? "enabled" : "disabled"}.`);
+}
+
+export async function setSourceInterval(fd: FormData) {
+  const path = "/admin/sources";
+  const { admin, db } = await ctx(path);
+  const id = str(fd, "id");
+  const minutes = Number(str(fd, "minutes"));
+  if (!SOURCE_ID.test(id)) back(path, "error", "Invalid source id.");
+  if (!Number.isInteger(minutes) || minutes < 5 || minutes > 10080) back(path, "error", "Interval must be 5 to 10080 minutes.");
+  await db.update(schema.sources).set({ intervalMinutes: minutes }).where(eq(schema.sources.id, id));
+  await writeAudit(db, { actor: admin.login, action: "source.interval", target: id, details: { minutes } });
+  revalidatePath(path);
+  back(path, "ok", `${id} interval set to ${minutes} minutes.`);
+}
+
+export async function runSourceAction(fd: FormData) {
+  const path = str(fd, "from") === "sources" ? "/admin/sources" : "/admin/runs";
+  const { admin, db } = await ctx(path);
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host");
+  const proto = h.get("x-forwarded-proto") ?? (host?.startsWith("localhost") ? "http" : "https");
+  if (!host) back(path, "error", "Cannot work out the site address.");
+  const id = str(fd, "id");
+  const res = await runSourceNow(db, admin.login, `${proto}://${host}`, id);
+  revalidatePath("/admin/runs");
+  if (!res.ok) back(path, "error", res.error);
+  back(path, "ok", `Run started for ${id}.`);
+}
+
+// ---- Events ----
+
+export async function overrideVerdictAction(fd: FormData) {
+  const id = str(fd, "id");
+  const path = `/admin/events/${encodeURIComponent(id)}`;
+  const { admin, db } = await ctx(path);
+  const v = validateOverride({ verdict: str(fd, "verdict"), reason: str(fd, "reason") });
+  if (!v.ok) back(path, "error", v.error);
+  const event = await loadEvent(db, id, path);
+  await applyOverride(db, {
+    actor: admin.login,
+    event: { id, ladder: event.ladder, rulesVersion: event.rulesVersion, verdict: event.verdict },
+    verdict: v.value.verdict,
+    reason: v.value.reason,
+  });
+  revalidatePath("/admin", "layout");
+  back(path, "ok", "Verdict override saved.");
+}
+
+export async function clearOverrideAction(fd: FormData) {
+  const id = str(fd, "id");
+  const path = `/admin/events/${encodeURIComponent(id)}`;
+  const { admin, db } = await ctx(path);
+  const reason = validateReason(str(fd, "reason"));
+  if (!reason.ok) back(path, "error", reason.error);
+  const event = await loadEvent(db, id, path);
+  if (!event.overrideVerdict) back(path, "error", "This event has no override.");
+  await clearOverride(db, {
+    actor: admin.login,
+    event: { id, ladder: event.ladder, rulesVersion: event.rulesVersion, verdict: event.verdict },
+    reason: reason.value,
+  });
+  revalidatePath("/admin", "layout");
+  back(path, "ok", "Override cleared.");
+}
+
+export async function setHiddenAction(fd: FormData) {
+  const id = str(fd, "id");
+  const path = `/admin/events/${encodeURIComponent(id)}`;
+  const { admin, db } = await ctx(path);
+  await loadEvent(db, id, path);
+  const hidden = str(fd, "hidden") === "true";
+  await db.batch([
+    db.update(schema.events).set({ hidden, updatedAt: new Date() }).where(eq(schema.events.id, id)),
+    auditInsert(db, { actor: admin.login, action: hidden ? "event.hide" : "event.unhide", target: id }),
+  ]);
+  revalidatePath("/admin", "layout");
+  back(path, "ok", hidden ? "Event hidden from the public site." : "Event is visible again.");
+}
+
+export async function renameEventAction(fd: FormData) {
+  const id = str(fd, "id");
+  const path = `/admin/events/${encodeURIComponent(id)}`;
+  const { admin, db } = await ctx(path);
+  const event = await loadEvent(db, id, path);
+  const title = str(fd, "title").trim();
+  if (title.length < 3 || title.length > 200) back(path, "error", "Title must be 3 to 200 characters.");
+  await db.batch([
+    db.update(schema.events).set({ title, updatedAt: new Date() }).where(eq(schema.events.id, id)),
+    auditInsert(db, { actor: admin.login, action: "event.rename", target: id, details: { from: event.title, to: title } }),
+  ]);
+  revalidatePath("/admin", "layout");
+  back(path, "ok", "Event renamed.");
+}
+
+/** Moves observations and CVEs from one event into another and hides the source event. */
+export async function mergeEventsAction(fd: FormData) {
+  const fromId = str(fd, "id");
+  const intoId = str(fd, "into").trim();
+  const path = `/admin/events/${encodeURIComponent(fromId)}`;
+  const { admin, db } = await ctx(path);
+  if (fromId === intoId) back(path, "error", "Choose a different event to merge into.");
+  const from = await loadEvent(db, fromId, path);
+  const into = await loadEvent(db, intoId, path);
+  const cves = (await db.select().from(schema.eventCves).where(eq(schema.eventCves.eventId, fromId))).map((c) => c.cveId);
+  const ops = [
+    db.update(schema.observations).set({ eventId: intoId }).where(eq(schema.observations.eventId, fromId)),
+    ...(cves.length
+      ? [db.insert(schema.eventCves).values(cves.map((cveId) => ({ eventId: intoId, cveId }))).onConflictDoNothing()]
+      : []),
+    db.delete(schema.eventCves).where(eq(schema.eventCves.eventId, fromId)),
+    db
+      .update(schema.events)
+      .set({ hidden: true, summary: `Merged into ${intoId}.`, updatedAt: new Date() })
+      .where(eq(schema.events.id, fromId)),
+    db.update(schema.events).set({ updatedAt: new Date() }).where(eq(schema.events.id, intoId)),
+    auditInsert(db, {
+      actor: admin.login,
+      action: "event.merge",
+      target: fromId,
+      details: { into: intoId, fromTitle: from.title, intoTitle: into.title, cves },
+    }),
+  ] as const;
+  await db.batch(ops as unknown as Parameters<typeof db.batch>[0]);
+  revalidatePath("/admin", "layout");
+  redirect(`/admin/events/${encodeURIComponent(intoId)}?ok=${encodeURIComponent(`Merged ${fromId} into this event. The event job recomputes its ladder.`)}`);
+}
+
+// ---- Corrections ----
+
+export async function addCorrectionAction(fd: FormData) {
+  const path = "/admin/corrections";
+  const { admin, db } = await ctx(path);
+  const text = str(fd, "text").trim();
+  const eventId = str(fd, "eventId").trim();
+  if (text.length < 10 || text.length > 2000) back(path, "error", "Write 10 to 2000 characters.");
+  if (eventId) {
+    if (!EVENT_ID.test(eventId)) back(path, "error", "Invalid event id.");
+    const found = await db.select({ id: schema.events.id }).from(schema.events).where(inArray(schema.events.id, [eventId]));
+    if (!found.length) back(path, "error", "Event not found.");
+  }
+  await db.batch([
+    db.insert(schema.corrections).values({ eventId: eventId || null, text, actor: `admin:${admin.login}` }),
+    auditInsert(db, { actor: admin.login, action: "correction.add", target: eventId || null, details: { text } }),
+  ]);
+  revalidatePath(path);
+  back(path, "ok", "Correction added.");
+}
+
+// ---- Settings ----
+
+export async function saveSettingsAction(fd: FormData) {
+  const path = "/admin/settings";
+  const { admin, db } = await ctx(path);
+  const theme = parseTheme(str(fd, "theme"));
+  if (!theme.ok) back(path, "error", theme.error);
+  const flags = parseFlags(str(fd, "flags"));
+  if (!flags.ok) back(path, "error", flags.error);
+  const recipients = parseRecipients(str(fd, "recipients"));
+  if (!recipients.ok) back(path, "error", recipients.error);
+  const upsert = (key: string, value: unknown) =>
+    db
+      .insert(schema.settings)
+      .values({ key, value })
+      .onConflictDoUpdate({ target: schema.settings.key, set: { value, updatedAt: new Date() } });
+  await db.batch([
+    upsert("default_theme", theme.value),
+    upsert("feature_flags", flags.value),
+    upsert("alert_recipients", recipients.value),
+    auditInsert(db, {
+      actor: admin.login,
+      action: "settings.save",
+      details: { theme: theme.value, flags: flags.value, recipients: recipients.value },
+    }),
+  ]);
+  revalidatePath(path);
+  back(path, "ok", "Settings saved.");
+}
+
+// ---- Roadmap ----
+
+export async function addIdeaAction(fd: FormData) {
+  const path = "/admin/roadmap";
+  const admin = await requireAdmin();
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) back(path, "error", "GITHUB_TOKEN is not set, so ideas cannot be created.");
+  const title = str(fd, "title").trim();
+  const body = str(fd, "body").trim();
+  if (title.length < 3 || title.length > 140) back(path, "error", "Title must be 3 to 140 characters.");
+  const res = await createIssue(token, { title, body: `${body}\n\nAdded from the admin console by ${admin.login}.`.trim() });
+  if (!res.ok) back(path, "error", res.error);
+  const db = getDb();
+  if (db) await writeAudit(db, { actor: admin.login, action: "roadmap.add_idea", target: res.url, details: { title } });
+  revalidatePath(path);
+  back(path, "ok", "Idea added as a GitHub issue.");
+}
