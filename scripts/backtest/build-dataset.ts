@@ -1,7 +1,17 @@
 // Builds the historical dataset for the verdict backtest from public sources.
 //
 // Usage: npx tsx scripts/backtest/build-dataset.ts [--from 2025-04-01] [--to 2026-10-01]
-//        [--seed 42] [--signal-cap 3000] [--random 2000] [--out data/backtest/dataset.json.gz]
+//        [--seed 42] [--reported-cap 4000] [--signal-cap 3000] [--random 2000]
+//        [--out data/backtest/dataset.json.gz]
+//
+// Strata (see src/lib/backtest/types.ts): kev is every KEV addition in the window, any CVSS and
+// any publish year. The never-KEV strata are every CVE record with a 2025 or 2026 id, any CVSS,
+// published on or before the window end (so Jan to Mar 2025 records are in), split by the
+// strongest public signal they carry: reported (a CIRCL exploitation report from Telegram or
+// another non catalog, non honeypot source), signal (any other exploit signal) and random (none).
+// Never-KEV CVEs with older ids are not in the population; under v1 they cannot reach Act now
+// before confirmation (the rule needs a CVE 90 days old or newer), so this gap affects the Watch
+// and Low figures only.
 //
 // Everything downloaded lands under .cache/backtest/ (gitignored). Git clones give point-in-time
 // history for Vulnrichment (SSVC), Metasploit and nuclei. See docs/methodology-rules.md for the
@@ -29,10 +39,10 @@ const flag = (name: string, dflt: string) => {
 const FROM = flag("from", "2025-04-01");
 const TO = flag("to", "2026-10-01");
 const SEED = Number(flag("seed", "42"));
+const REPORTED_CAP = Number(flag("reported-cap", "4000"));
 const SIGNAL_CAP = Number(flag("signal-cap", "3000"));
 const RANDOM_N = Number(flag("random", "2000"));
 const OUT = flag("out", "data/backtest/dataset.json.gz");
-const CVSS_MIN = 7;
 const MAX_COMMITTED_BYTES = 20 * 1024 * 1024;
 
 const CACHE = ".cache/backtest";
@@ -459,24 +469,28 @@ async function main() {
   const poc = loadPocGithub();
   log(`signals: metasploit ${metasploit.size}, nuclei ${nuclei.size}, exploitdb ${exploitdb.size}, poc ${poc.size}, circl ${circl.size}, ssvc active ${vulnrichment.active.size}, ssvc poc ${vulnrichment.poc.size}`);
 
+  const hasReported = (c: string) => (circl.get(c) ?? []).some((x) => x.type === "exploited" && x.sourceKind !== "kev-catalog" && x.sourceKind !== "honeypot");
   const hasSignal = (c: string) =>
     metasploit.has(c) || nuclei.has(c) || exploitdb.has(c) || poc.has(c) || circl.has(c) || vulnrichment.active.has(c) || vulnrichment.poc.has(c) || !!vulncheck?.has(c);
 
   // Stratum kev: every CVE added to KEV from the window start until today.
   const kevIds = [...kev.map.values()].filter((v) => v.dateAdded >= FROM && v.dateAdded <= today).map((v) => v.cveID.toUpperCase()).sort();
-  // Candidates: published in the window, CVSS 7 or more, not in KEV.
-  const candidates = [...cvelist.values()]
-    .filter((s) => s.state !== "REJECTED" && s.published && s.published >= FROM && s.published <= TO && (s.cvss ?? 0) >= CVSS_MIN && !kev.map.has(s.cveId))
+  // Never-KEV universe: every 2025 or 2026 record published by the window end, any CVSS.
+  const universe = [...cvelist.values()]
+    .filter((s) => s.state !== "REJECTED" && s.published && s.published <= TO && !kev.map.has(s.cveId))
     .map((s) => s.cveId)
     .sort();
-  const signalIds = candidates.filter(hasSignal);
-  const randomPool = candidates.filter((c) => !hasSignal(c));
+  const reportedIds = universe.filter(hasReported);
+  const signalIds = universe.filter((c) => !hasReported(c) && hasSignal(c));
+  const randomPool = universe.filter((c) => !hasSignal(c));
   const rnd = mulberry32(SEED);
+  const reportedSample = reportedIds.length > REPORTED_CAP ? sample(reportedIds, REPORTED_CAP, rnd).sort() : reportedIds;
   const signalSample = signalIds.length > SIGNAL_CAP ? sample(signalIds, SIGNAL_CAP, rnd).sort() : signalIds;
   const randomSample = sample(randomPool, Math.min(RANDOM_N, randomPool.length), rnd).sort();
-  log(`population: kev ${kevIds.length}, signal ${signalIds.length}, random ${randomPool.length}; sampled ${kevIds.length}/${signalSample.length}/${randomSample.length}`);
+  log(`population: kev ${kevIds.length}, reported ${reportedIds.length}, signal ${signalIds.length}, random ${randomPool.length}; sampled ${kevIds.length}/${reportedSample.length}/${signalSample.length}/${randomSample.length}`);
 
-  const chosen: [string, Stratum][] = [...kevIds.map((c): [string, Stratum] => [c, "kev"]), ...signalSample.map((c): [string, Stratum] => [c, "signal"]), ...randomSample.map((c): [string, Stratum] => [c, "random"])];
+  const tag = (ids: string[], stratum: Stratum): [string, Stratum][] => ids.map((c) => [c, stratum]);
+  const chosen: [string, Stratum][] = [...tag(kevIds, "kev"), ...tag(reportedSample, "reported"), ...tag(signalSample, "signal"), ...tag(randomSample, "random")];
   const cveSet = new Set(chosen.map(([c]) => c));
 
   // CVE records for KEV members outside 2025 and 2026.
@@ -524,10 +538,11 @@ async function main() {
     historyHorizon: HISTORY_HORIZON,
     sampling: {
       seed: SEED,
-      population: { kev: kevIds.length, signal: signalIds.length, random: randomPool.length },
-      sampled: { kev: kevIds.length, signal: signalSample.length, random: randomSample.length },
+      population: { kev: kevIds.length, reported: reportedIds.length, signal: signalIds.length, random: randomPool.length },
+      sampled: { kev: kevIds.length, reported: reportedSample.length, signal: signalSample.length, random: randomSample.length },
     },
     sources: {
+      population: `kev: KEV additions ${FROM} to ${today}; never-KEV: 2025 and 2026 CVE records published by ${TO}, any CVSS, split into reported, signal, random`,
       "cisa-kev": `catalog ${kev.version}`,
       cvelist: `cvelistV5 sparse clone (2025, 2026) read ${today}`,
       vulnrichment: `cisagov/vulnrichment git history since ${HISTORY_HORIZON}`,

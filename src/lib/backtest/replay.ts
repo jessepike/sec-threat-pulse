@@ -2,10 +2,11 @@
 // compute the ladder and exploit maturity with the production functions, and apply a rules version.
 // No I/O here. The dataset loader lives in io.ts and the scoring in score.ts.
 
-import { computeExploitMaturity, computeLadder, type LadderObservation } from "@/lib/ladder/compute";
+import { computeExploitMaturity, computeLadder, reportedExploitationSources, type LadderObservation } from "@/lib/ladder/compute";
 import { getRules, type VerdictContext } from "@/lib/ladder/rules";
 import type { Verdict } from "@/lib/ladder/types";
-import type { BacktestCve, BacktestDataset, CirclSighting, CveReplay, VerdictTransition } from "./types";
+import { circlRung } from "@/lib/ingest/adapters/circl-sightings";
+import type { BacktestCve, BacktestDataset, CirclSighting, ConfirmedBy, CveReplay, TruthMode, VerdictTransition } from "./types";
 
 const DAY = 86400000;
 
@@ -14,13 +15,27 @@ export const dayString = (n: number): string => new Date(n * DAY).toISOString().
 export const addDays = (d: string, n: number): string => dayString(dayNumber(d) + n);
 export const daysBetween = (a: string, b: string): number => dayNumber(b) - dayNumber(a);
 
+/** CIRCL sightings are seen this many days after their creation timestamp. See circlSeenOn. */
+export const DEFAULT_CIRCL_LAG_DAYS = 1;
+
 export interface ReplayOptions {
   rulesVersion: string;
   from: string;
   to: string;
   /** Count CIRCL sightings that mirror a KEV catalog. Off by default: they repeat the catalogs. */
   includeKevCatalogSightings?: boolean;
+  /** Days between a CIRCL sighting's timestamp and the day the replay first sees it. Default 1. */
+  circlLagDays?: number;
+  /** Ground truth definition. Default "catalog". */
+  truth?: TruthMode;
 }
+
+/**
+ * The day a CIRCL sighting becomes visible to the replay. The live site polls hourly, so most
+ * sightings are seen the same day or the next, and CIRCL backfills some sightings with earlier
+ * creation timestamps. One day of lag is the default; zero shows the optimistic figure.
+ */
+export const circlSeenOn = (s: CirclSighting, lagDays: number): string => (lagDays ? addDays(s.date, lagDays) : s.date);
 
 /** EPSS score in force on a day: the last change point at or before it. */
 export function epssAsOf(points: [string, number][], day: string): number | undefined {
@@ -38,7 +53,8 @@ export interface DayState {
 }
 
 /** Everything that was public about the CVE on `day`, in the shape the ladder and rules expect. */
-export function stateAsOf(cve: BacktestCve, day: string, opts: Pick<ReplayOptions, "includeKevCatalogSightings"> = {}): DayState {
+export function stateAsOf(cve: BacktestCve, day: string, opts: Pick<ReplayOptions, "includeKevCatalogSightings" | "circlLagDays"> = {}): DayState {
+  const lag = opts.circlLagDays ?? DEFAULT_CIRCL_LAG_DAYS;
   const obs: LadderObservation[] = [];
   const maturities: string[] = [];
   const on = (d?: string) => !!d && d <= day;
@@ -56,7 +72,7 @@ export function stateAsOf(cve: BacktestCve, day: string, opts: Pick<ReplayOption
   if (repos.length) obs.push({ sourceId: "poc-github", kind: "exploit_available", strength: "claimed", metadata: { maturity: "poc", repoCount: repos.length } });
   for (const d of cve.exploitdb) if (on(d)) obs.push({ sourceId: "exploitdb", kind: "exploit_available", strength: "reported", metadata: { maturity: "poc" } });
   for (const s of cve.circl) {
-    if (!on(s.date)) continue;
+    if (!on(circlSeenOn(s, lag))) continue;
     const mapped = circlObservation(s, opts.includeKevCatalogSightings ?? false);
     if (mapped) obs.push(mapped);
   }
@@ -70,49 +86,53 @@ export function stateAsOf(cve: BacktestCve, day: string, opts: Pick<ReplayOption
     cvss: cve.cvss,
     daysSincePublished: cve.published ? Math.max(0, daysBetween(cve.published, day)) : undefined,
     pocRepoCount: repos.length,
+    reportedExploitationSources: reportedExploitationSources(obs),
   };
   return { observations: obs, ctx };
 }
 
 /**
- * CIRCL sighting to observation, the same way the live adapter maps them. Honeypot telemetry is a
- * confirmed attack attempt. Telegram posts and other links are reported exploitation. Sightings
- * copied from a KEV catalog are skipped unless asked for, because the catalogs are already inputs.
+ * CIRCL sighting to observation through the live adapter's own mapping (circlRung), so the
+ * backtest and production cannot drift. The parity test in replay.test.ts checks this. The one
+ * extra switch, includeKevCatalog, exists only to show what the old production mapping did.
  */
 export function circlObservation(s: CirclSighting, includeKevCatalog: boolean): LadderObservation | undefined {
   const sourceId = "circl-sightings";
-  if (s.type === "poc" || s.type === "confirmed") return { sourceId, kind: "exploit_available", strength: "reported", metadata: { maturity: "poc" } };
-  switch (s.sourceKind) {
-    case "honeypot":
-      return { sourceId, kind: "attempts", strength: "confirmed", metadata: { telemetry: true } };
-    case "kev-catalog":
-      return includeKevCatalog ? { sourceId, kind: "exploited", strength: "reported" } : undefined;
-    default:
-      return { sourceId, kind: "exploited", strength: "reported" };
-  }
+  if (includeKevCatalog && s.type === "exploited" && s.sourceKind === "kev-catalog") return { sourceId, kind: "exploited", strength: "reported" };
+  const r = circlRung(s.type, s.sourceKind, s.sourceId);
+  return r ? { sourceId, kind: r.kind, strength: r.strength, metadata: r.metadata } : undefined;
 }
 
 const VERDICT_RANK: Record<Verdict, number> = { low: 0, watch: 1, act_now: 2 };
 export const verdictRank = (v: Verdict) => VERDICT_RANK[v];
 
 /**
- * The day exploitation counts as confirmed for scoring: CISA KEV, VulnCheck KEV, a CISA SSVC
- * "active" decision, or two independent exploitation reports (distinct non catalog sources).
+ * The day exploitation counts as confirmed for scoring. Default truth: CISA KEV, VulnCheck KEV
+ * (when the dataset has it) and vendor confirmed exploitation. A CISA SSVC "active" decision is
+ * an input to the ladder but not ground truth: in this data it is the KEV decision seen through
+ * another feed. Honeypot hits are attack attempts and never confirm exploitation.
+ *
+ * truth "circl" adds two independent CIRCL exploitation reports (distinct non catalog, non
+ * honeypot sources) as a secondary view. Reports are placed on the day the replay sees them.
  */
-export function confirmation(cve: BacktestCve): { at?: string; by?: CveReplay["confirmedBy"] } {
-  const candidates: { at: string; by: NonNullable<CveReplay["confirmedBy"]> }[] = [];
+export function confirmation(cve: BacktestCve, opts: Pick<ReplayOptions, "truth" | "circlLagDays"> = {}): { at?: string; by?: ConfirmedBy } {
+  const candidates: { at: string; by: ConfirmedBy }[] = [];
   if (cve.kev) candidates.push({ at: cve.kev.dateAdded, by: "cisa-kev" });
   if (cve.vulncheckKev) candidates.push({ at: cve.vulncheckKev.dateAdded, by: "vulncheck-kev" });
-  if (cve.ssvc?.active) candidates.push({ at: cve.ssvc.active, by: "ssvc-active" });
-  const reports = cve.circl
-    .filter((s) => s.type === "exploited" && s.sourceKind !== "kev-catalog")
-    .sort((a, b) => a.date.localeCompare(b.date));
-  const seen = new Set<string>();
-  for (const r of reports) {
-    seen.add(r.sourceId);
-    if (seen.size >= 2) {
-      candidates.push({ at: r.date, by: "two-reports" });
-      break;
+  if (cve.vendorConfirmed) candidates.push({ at: cve.vendorConfirmed, by: "vendor" });
+  if (opts.truth === "circl") {
+    const lag = opts.circlLagDays ?? DEFAULT_CIRCL_LAG_DAYS;
+    const reports = cve.circl
+      .filter((s) => s.type === "exploited" && s.sourceKind !== "kev-catalog" && s.sourceKind !== "honeypot")
+      .map((s) => ({ ...s, date: circlSeenOn(s, lag) }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+    const seen = new Set<string>();
+    for (const r of reports) {
+      seen.add(r.sourceId);
+      if (seen.size >= 2) {
+        candidates.push({ at: r.date, by: "circl-reports" });
+        break;
+      }
     }
   }
   candidates.sort((a, b) => a.at.localeCompare(b.at));
@@ -137,7 +157,7 @@ export function replayCve(cve: BacktestCve, opts: ReplayOptions): CveReplay {
       }
     }
   }
-  const c = confirmation(cve);
+  const c = confirmation(cve, opts);
   return { cveId: cve.cveId, stratum: cve.stratum, start, end, transitions, confirmedAt: c.at, confirmedBy: c.by, kevDate: cve.kev?.dateAdded };
 }
 

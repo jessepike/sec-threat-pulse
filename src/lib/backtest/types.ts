@@ -3,7 +3,15 @@
 
 import type { Verdict } from "@/lib/ladder/types";
 
-export type Stratum = "kev" | "signal" | "random";
+/**
+ * Sampling strata. kev: every CISA KEV addition in the window. The other three are never-KEV CVE
+ * records with a 2025 or 2026 id (any CVSS, any publish date up to the window end):
+ * reported: at least one CIRCL exploitation report from a Telegram or other non catalog, non
+ * honeypot source (the only way a never-KEV CVE can reach Act now before confirmation under v1);
+ * signal: some other public exploit signal; random: no signal at all.
+ */
+export type Stratum = "kev" | "reported" | "signal" | "random";
+export const STRATA: Stratum[] = ["kev", "reported", "signal", "random"];
 
 /** How a CIRCL "exploited" sighting was sourced. Decides which rung it feeds and whether it is independent of KEV. */
 export type CirclSourceKind = "kev-catalog" | "honeypot" | "telegram" | "other";
@@ -26,6 +34,8 @@ export interface BacktestCve {
   product?: string;
   kev?: { dateAdded: string; ransomware: boolean };
   vulncheckKev?: { dateAdded: string };
+  /** Day a vendor advisory confirmed exploitation. Not collected by the builder yet; counted as ground truth when present. */
+  vendorConfirmed?: string;
   /** First day the CISA ADP SSVC decision showed this value, from Vulnrichment git history. */
   ssvc?: { active?: string; poc?: string };
   /** Change points of the daily EPSS score: [date, score]. The score holds until the next point. */
@@ -60,6 +70,16 @@ export interface BacktestDataset {
   cves: BacktestCve[];
 }
 
+export type ConfirmedBy = "cisa-kev" | "vulncheck-kev" | "vendor" | "circl-reports";
+
+/**
+ * Ground truth. "catalog" (default): CISA KEV, VulnCheck KEV when present, and vendor confirmed
+ * exploitation. "circl": the same plus two independent CIRCL exploitation reports from distinct
+ * non catalog, non honeypot sources. The second is a secondary view only: the same feed then
+ * both triggers a call and confirms it.
+ */
+export type TruthMode = "catalog" | "circl";
+
 export interface VerdictTransition {
   day: string;
   verdict: Verdict;
@@ -75,7 +95,7 @@ export interface CveReplay {
   transitions: VerdictTransition[];
   /** Earliest day exploitation counts as confirmed, or undefined. */
   confirmedAt?: string;
-  /** Which evidence confirmed it first. */
-  confirmedBy?: "cisa-kev" | "vulncheck-kev" | "ssvc-active" | "two-reports";
+  /** Which evidence confirmed it first. "circl-reports" only appears in the secondary truth view. */
+  confirmedBy?: ConfirmedBy;
   kevDate?: string;
 }

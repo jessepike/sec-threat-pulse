@@ -1,6 +1,9 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { computeLadder } from "@/lib/ladder/compute";
+import { circlSightingsAdapter, classifyCirclSource } from "@/lib/ingest/adapters/circl-sightings";
 import { circlObservation, confirmation, epssAsOf, firstDayAtLeast, replayCve, stateAsOf, verdictOn } from "./replay";
-import type { BacktestCve } from "./types";
+import type { BacktestCve, CirclSighting } from "./types";
 
 const base = (p: Partial<BacktestCve> = {}): BacktestCve => ({
   cveId: "CVE-2026-1000",
@@ -69,18 +72,80 @@ describe("circlObservation", () => {
 });
 
 describe("confirmation", () => {
-  it("takes the earliest of KEV, VulnCheck, SSVC active and two independent reports", () => {
+  const reports = base({
+    circl: [
+      { type: "exploited", date: "2026-01-15", sourceKind: "telegram", sourceId: "telegram" },
+      { type: "exploited", date: "2026-01-16", sourceKind: "telegram", sourceId: "telegram" },
+      { type: "exploited", date: "2026-01-20", sourceKind: "kev-catalog", sourceId: "circl-kev-catalog" },
+      { type: "exploited", date: "2026-01-22", sourceKind: "honeypot", sourceId: "shadowserver" },
+      { type: "exploited", date: "2026-01-25", sourceKind: "other", sourceId: "www.example.com" },
+    ],
+  });
+
+  it("uses only KEV, VulnCheck KEV and vendor confirmation by default", () => {
     expect(confirmation(base())).toEqual({});
-    expect(confirmation(base({ kev: { dateAdded: "2026-03-01", ransomware: false }, ssvc: { active: "2026-02-20" } }))).toEqual({ at: "2026-02-20", by: "ssvc-active" });
-    const reports = base({
-      circl: [
-        { type: "exploited", date: "2026-01-15", sourceKind: "telegram", sourceId: "telegram" },
-        { type: "exploited", date: "2026-01-16", sourceKind: "telegram", sourceId: "telegram" },
-        { type: "exploited", date: "2026-01-20", sourceKind: "kev-catalog", sourceId: "circl-kev-catalog" },
-        { type: "exploited", date: "2026-01-22", sourceKind: "honeypot", sourceId: "shadowserver" },
-      ],
-    });
-    expect(confirmation(reports)).toEqual({ at: "2026-01-22", by: "two-reports" });
+    expect(confirmation(base({ kev: { dateAdded: "2026-03-01", ransomware: false }, ssvc: { active: "2026-02-20" } }))).toEqual({ at: "2026-03-01", by: "cisa-kev" });
+    expect(confirmation(base({ kev: { dateAdded: "2026-03-01", ransomware: false }, vulncheckKev: { dateAdded: "2026-02-20" } }))).toEqual({ at: "2026-02-20", by: "vulncheck-kev" });
+    expect(confirmation(base({ vendorConfirmed: "2026-02-01", kev: { dateAdded: "2026-03-01", ransomware: false } }))).toEqual({ at: "2026-02-01", by: "vendor" });
+    expect(confirmation(reports)).toEqual({});
+  });
+
+  it("in the secondary circl view, two distinct non catalog non honeypot sources confirm, on the day they are seen", () => {
+    expect(confirmation(reports, { truth: "circl", circlLagDays: 0 })).toEqual({ at: "2026-01-25", by: "circl-reports" });
+    expect(confirmation(reports, { truth: "circl" })).toEqual({ at: "2026-01-26", by: "circl-reports" });
+    const telegramOnly = base({ circl: reports.circl.slice(0, 4) });
+    expect(confirmation(telegramOnly, { truth: "circl" })).toEqual({});
+  });
+});
+
+describe("CIRCL lag", () => {
+  const s: CirclSighting = { type: "exploited", date: "2026-01-20", sourceKind: "telegram", sourceId: "telegram" };
+  it("sees a sighting one day after its timestamp by default, same day with lag 0", () => {
+    const cve = base({ circl: [s] });
+    expect(stateAsOf(cve, "2026-01-20").observations).toEqual([]);
+    expect(stateAsOf(cve, "2026-01-21").observations.map((o) => o.kind)).toEqual(["exploited"]);
+    expect(stateAsOf(cve, "2026-01-20", { circlLagDays: 0 }).observations.map((o) => o.kind)).toEqual(["exploited"]);
+  });
+});
+
+describe("production parity", () => {
+  it("maps the recorded CIRCL fixtures the same way through the live adapter and the replay", async () => {
+    const files: Record<string, string> = { exploited: "circl-exploited.json", "published-proof-of-concept": "circl-published-proof-of-concept.json", confirmed: "circl-confirmed.json", seen: "circl-seen.json" };
+    const typeOf: Record<string, CirclSighting["type"]> = { exploited: "exploited", "published-proof-of-concept": "poc", confirmed: "confirmed" };
+    const raw: { type: string; source?: string; vulnerability?: string; uuid: string }[] = [];
+    const fetchFixture: typeof fetch = async (url) => {
+      const type = String(url).match(/type=([a-z-]+)/)![1];
+      return new Response(readFileSync(`src/lib/ingest/__fixtures__/${files[type]}`), { status: 200, headers: { "content-type": "application/json" } });
+    };
+    for (const f of Object.values(files)) raw.push(...(JSON.parse(readFileSync(`src/lib/ingest/__fixtures__/${f}`, "utf8")) as { data: typeof raw }).data);
+    const live = await circlSightingsAdapter.run({ fetch: fetchFixture, now: new Date(), sleep: async () => {} });
+    const liveByKey = new Map(live.observations.map((o) => [o.dedupeKey, o]));
+
+    let compared = 0;
+    let dropped = 0;
+    for (const r of raw) {
+      const type = typeOf[r.type];
+      if (!type) continue; // "seen" sightings are not in the backtest dataset
+      const k = classifyCirclSource(r.source);
+      const replay = circlObservation({ type, date: "2026-01-01", sourceKind: k.kind, sourceId: k.id }, false);
+      const prod = liveByKey.get(`circl:${r.uuid}`);
+      if (!replay) {
+        expect(prod, `${r.uuid} dropped by replay but kept live`).toBeUndefined();
+        dropped++;
+        continue;
+      }
+      expect(prod, `${r.uuid} kept by replay but dropped live`).toBeDefined();
+      expect({ kind: prod!.kind, strength: prod!.strength }).toEqual({ kind: replay.kind, strength: replay.strength });
+      compared++;
+    }
+    expect(compared).toBeGreaterThan(0);
+    expect(dropped).toBeGreaterThan(0); // the fixture has KEV catalog mirrors, and both sides drop them
+    // Catalog mirrors never reach the exploited rung on either side.
+    const catalog = raw.filter((r) => classifyCirclSource(r.source).kind === "kev-catalog");
+    expect(catalog.length).toBeGreaterThan(0);
+    for (const r of catalog) expect(liveByKey.has(`circl:${r.uuid}`)).toBe(false);
+    const ladder = computeLadder(catalog.map(() => circlObservation({ type: "exploited", date: "2026-01-01", sourceKind: "kev-catalog", sourceId: "circl-kev-catalog" }, false)).filter((o) => !!o));
+    expect(ladder.exploited).toBe("none");
   });
 });
 
