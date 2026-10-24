@@ -1,4 +1,4 @@
-import type { AdapterResult, ObservationInput, SourceAdapter, VulnerabilityInput } from "@/lib/ladder/types";
+import type { AdapterResult, ObservationInput, ObservationKind, ObservationStrength, SourceAdapter, VulnerabilityInput } from "@/lib/ladder/types";
 import { defaultSleep, getJson } from "../http";
 import { isoOrUndefined, isCveId, truncate } from "../util";
 
@@ -34,34 +34,68 @@ export function classifyCirclSource(source?: string | null): { kind: CirclSource
   return { kind: "other", id: host ?? (s ? s.slice(0, 40).toLowerCase() : "unknown") };
 }
 
-function mapSighting(s: Sighting): { obs: ObservationInput; maturity?: "poc" } | undefined {
-  const cve = s.vulnerability?.toUpperCase();
-  if (!cve || !isCveId(cve) || !s.uuid) return undefined;
-  const link = s.source && /^https?:\/\//.test(s.source) ? s.source : `https://vulnerability.circl.lu/vuln/${cve}`;
-  const publishedAt = isoOrUndefined(s.creation_timestamp);
-  const base = { sourceId: "circl-sightings", dedupeKey: `circl:${s.uuid}`, cveIds: [cve], url: link, publishedAt };
-  // Sighting text is not stored. We keep type, link and time only.
-  switch (s.type as SightingType) {
-    case "exploited": {
-      const src = classifyCirclSource(s.source);
-      if (src.kind === "honeypot") {
-        // Honeypot telemetry shows attackers trying the vulnerability. That is an attempt, confirmed.
-        return { obs: { ...base, kind: "attempts", strength: "confirmed", title: `Attack attempts on ${cve} seen by honeypots (Shadowserver via CIRCL)`, metadata: { sightingType: s.type, sourceKind: src.kind, telemetry: true } } };
-      }
-      return { obs: { ...base, kind: "exploited", strength: "reported", title: `Exploitation of ${cve} reported (CIRCL sighting)`, metadata: { sightingType: s.type, sourceKind: src.kind } } };
-    }
-    case "published-proof-of-concept":
-      return { obs: { ...base, kind: "exploit_available", strength: "reported", title: `Public proof of concept for ${cve} (CIRCL sighting)`, metadata: { sightingType: s.type, maturity: "poc" } }, maturity: "poc" };
+/** The ladder meaning of one sighting. Shared by the live adapter and the backtest replay. */
+export type CirclSightingType = "exploited" | "poc" | "confirmed" | "seen";
+export interface CirclRung {
+  kind: ObservationKind;
+  strength: ObservationStrength;
+  metadata: Record<string, unknown>;
+  maturity?: "poc";
+}
+
+/**
+ * One mapping for both the live adapter and the backtest, so the two cannot drift.
+ *
+ * - exploited from a honeypot feed: confirmed attack attempt (telemetry).
+ * - exploited from a KEV catalog mirror: dropped. CIRCL imports whole catalogs in bulk, so these
+ *   entries repeat what the KEV adapters already say and carry no independent evidence.
+ * - exploited from Telegram or any other link: reported exploitation.
+ * - published-proof-of-concept and confirmed: proof of concept exists (exploit_available, poc).
+ *   "confirmed" is often a scanner template or a social post, so it stays below exploitation.
+ * - seen: talk.
+ */
+export function circlRung(type: CirclSightingType, sourceKind: CirclSourceKind, sourceLabel?: string): CirclRung | undefined {
+  switch (type) {
+    case "exploited":
+      if (sourceKind === "honeypot") return { kind: "attempts", strength: "confirmed", metadata: { sourceKind, telemetry: true } };
+      if (sourceKind === "kev-catalog") return undefined;
+      // sourceLabel ("telegram" or a host name) lets the rules tell independent reporters apart.
+      return { kind: "exploited", strength: "reported", metadata: { sourceKind, sourceLabel: sourceLabel ?? sourceKind } };
+    case "poc":
     case "confirmed":
-      // The registry maps this to confirmed exploitation. Samples show it is often a scanner
-      // template or a social post, which proves an exploit exists but not that it is used.
-      // Kept below the exploited rung until the owner decides otherwise.
-      return { obs: { ...base, kind: "exploit_available", strength: "reported", title: `Vulnerability ${cve} confirmed by a researcher (CIRCL sighting)`, metadata: { sightingType: s.type, maturity: "poc" } }, maturity: "poc" };
+      return { kind: "exploit_available", strength: "reported", metadata: { maturity: "poc" }, maturity: "poc" };
     case "seen":
-      return { obs: { ...base, kind: "talk", strength: "reported", title: truncate(`${cve} discussed publicly (CIRCL sighting)`, 120), metadata: { sightingType: s.type } } };
+      return { kind: "talk", strength: "reported", metadata: {} };
     default:
       return undefined;
   }
+}
+
+const API_TYPE: Record<SightingType, CirclSightingType> = { exploited: "exploited", "published-proof-of-concept": "poc", confirmed: "confirmed", seen: "seen" };
+
+function mapSighting(s: Sighting): { obs: ObservationInput; maturity?: "poc" } | undefined {
+  const cve = s.vulnerability?.toUpperCase();
+  if (!cve || !isCveId(cve) || !s.uuid) return undefined;
+  const type = API_TYPE[s.type as SightingType];
+  if (!type) return undefined;
+  const src = classifyCirclSource(s.source);
+  const rung = circlRung(type, src.kind, src.id);
+  if (!rung) return undefined;
+  const link = s.source && /^https?:\/\//.test(s.source) ? s.source : `https://vulnerability.circl.lu/vuln/${cve}`;
+  const publishedAt = isoOrUndefined(s.creation_timestamp);
+  // Sighting text is not stored. We keep type, link and time only.
+  const base = { sourceId: "circl-sightings", dedupeKey: `circl:${s.uuid}`, cveIds: [cve], url: link, publishedAt, kind: rung.kind, strength: rung.strength, metadata: { sightingType: s.type, ...rung.metadata } };
+  const title =
+    rung.kind === "attempts"
+      ? `Attack attempts on ${cve} seen by honeypots (Shadowserver via CIRCL)`
+      : rung.kind === "exploited"
+        ? `Exploitation of ${cve} reported (CIRCL sighting)`
+        : type === "poc"
+          ? `Public proof of concept for ${cve} (CIRCL sighting)`
+          : type === "confirmed"
+            ? `Vulnerability ${cve} confirmed by a researcher (CIRCL sighting)`
+            : truncate(`${cve} discussed publicly (CIRCL sighting)`, 120);
+  return { obs: { ...base, title }, maturity: rung.maturity };
 }
 
 export const circlSightingsAdapter: SourceAdapter = {

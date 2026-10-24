@@ -238,6 +238,16 @@ describe("circl-sightings", () => {
     expect(reported.every((o) => o.metadata?.sourceKind !== "honeypot")).toBe(true);
   });
 
+  it("drops sightings that mirror a KEV catalog, as the backtest does", async () => {
+    const raw = JSON.parse(fixture("circl-exploited.json")) as { data: { uuid: string; source?: string }[] };
+    const catalog = raw.data.filter((s) => classifyCirclSource(s.source).kind === "kev-catalog");
+    expect(catalog.length).toBeGreaterThan(0);
+    const r = await circlSightingsAdapter.run(ctx(routes().fetch));
+    const keys = new Set(r.observations.map((o) => o.dedupeKey));
+    for (const s of catalog) expect(keys.has(`circl:${s.uuid}`)).toBe(false);
+    expect(r.observations.every((o) => o.metadata?.sourceKind !== "kev-catalog")).toBe(true);
+  });
+
   it("stops at the cursor", async () => {
     const first = await circlSightingsAdapter.run(ctx(routes().fetch));
     const second = await circlSightingsAdapter.run(ctx(routes().fetch, { cursor: first.cursor }));
