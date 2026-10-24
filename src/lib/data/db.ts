@@ -83,6 +83,7 @@ interface Rec {
   e: EventRecord;
   verdict: Verdict;
   evidenceAt: number;
+  signalAt?: number;
   reports: number;
 }
 
@@ -93,29 +94,33 @@ async function loadRecords(db: Db): Promise<Rec[]> {
       eventId: schema.observations.eventId,
       n: sql<number>`count(*)`.as("n"),
       latest: sql<string | Date | null>`max(coalesce(${schema.observations.publishedAt}, ${schema.observations.observedAt}))`.as("latest"),
+      // Newest dated report of attacks, exploitation or damage. Ingest time does not count.
+      signal: sql<string | Date | null>`max(${schema.observations.publishedAt}) filter (where ${schema.observations.kind} in ('attempts', 'exploited', 'damage'))`.as("signal"),
     })
     .from(schema.observations)
     .where(isNotNull(schema.observations.eventId))
     .groupBy(schema.observations.eventId)
     .as("agg");
   const rows = await db
-    .select({ e: schema.events, n: agg.n, latest: agg.latest })
+    .select({ e: schema.events, n: agg.n, latest: agg.latest, signal: agg.signal })
     .from(schema.events)
     .leftJoin(agg, eq(agg.eventId, schema.events.id))
     .where(eq(schema.events.hidden, false));
   const recs = rows.map((r): Rec => {
     const latest = r.latest ? new Date(r.latest).getTime() : NaN;
+    const signal = r.signal ? new Date(r.signal).getTime() : NaN;
     return {
+      signalAt: Number.isFinite(signal) ? signal : undefined,
       e: r.e,
       verdict: asVerdict(r.e.overrideVerdict ?? r.e.verdict),
       evidenceAt: Number.isFinite(latest) ? latest : r.e.updatedAt.getTime(),
       reports: Number(r.n ?? 0),
     };
   });
-  return sortListed(recs.map((r) => ({ ...r, id: r.e.id }))).map(({ e, verdict, evidenceAt, reports }) => ({ e, verdict, evidenceAt, reports }));
+  return sortListed(recs.map((r) => ({ ...r, id: r.e.id }))).map(({ e, verdict, evidenceAt, signalAt, reports }) => ({ e, verdict, evidenceAt, signalAt, reports }));
 }
 
-const listable = (r: Rec): Listable => ({ id: r.e.id, verdict: r.verdict, evidenceAt: r.evidenceAt, reports: r.reports });
+const listable = (r: Rec): Listable => ({ id: r.e.id, verdict: r.verdict, evidenceAt: r.evidenceAt, signalAt: r.signalAt, reports: r.reports });
 
 async function summarize(db: Db, recs: Rec[]): Promise<EventSummary[]> {
   const rows = recs.map((r) => r.e);

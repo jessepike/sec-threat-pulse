@@ -21,6 +21,12 @@ describe("homeSelection", () => {
     const out = homeSelection([mk("fresh", "act_now", now - 29 * DAY), mk("edge", "act_now", now - 30 * DAY), mk("old", "act_now", now - 31 * DAY)], now);
     expect(out.map((x) => x.id)).toEqual(["fresh", "edge"]);
   });
+  it("judges Act now recency by the exploitation report date when there is one", () => {
+    const now = 100 * DAY;
+    const old = { ...mk("old-kev", "act_now", now), signalAt: now - 90 * DAY };
+    const recent = { ...mk("new-kev", "act_now", now - 90 * DAY), signalAt: now - 2 * DAY };
+    expect(homeSelection([old, recent], now).map((x) => x.id)).toEqual(["new-kev"]);
+  });
   it("shows every recent Act now event and caps Watch at 12 and Low at 6", () => {
     const out = homeSelection([...many("a", "act_now", 30), ...many("w", "watch", 40), ...many("l", "low", 20)], NOW);
     expect(out.filter((x) => x.verdict === "act_now")).toHaveLength(30);

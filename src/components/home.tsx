@@ -209,7 +209,7 @@ export function EventsTable({ events, total }: { events: EventRow[]; total: numb
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-[15px] text-muted">
         <p className="m-0">
           {total > events.length
-            ? `Showing ${events.length} of ${total} tracked events. Act now events with new evidence in the last 30 days are listed first, and the most recent Watch and Low events fill the rest. Older Act now events are on the events page.`
+            ? `Showing ${events.length} of ${total} tracked events. Act now events with an attack or exploitation report from the last 30 days are listed first, and the most recent Watch and Low events fill the rest. Older Act now events are on the events page.`
             : `Showing all ${total} tracked events.`}
         </p>
         <Link href="/events" className="py-2 font-mono text-sm font-bold tracking-[0.06em]">

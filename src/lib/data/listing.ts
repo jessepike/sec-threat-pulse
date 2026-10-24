@@ -14,6 +14,11 @@ export interface Listable {
   verdict: Verdict;
   /** Milliseconds since the epoch of the newest evidence on the event. */
   evidenceAt: number;
+  /**
+   * Milliseconds since the epoch of the newest dated report of attacks, exploitation or damage.
+   * The home page uses it to decide whether an Act now event is recent; falls back to evidenceAt.
+   */
+  signalAt?: number;
   /** Number of reports (observations) attached to the event. */
   reports: number;
 }
@@ -32,7 +37,7 @@ export function sortListed<T extends Listable>(items: T[]): T[] {
 }
 
 /**
- * What the home page shows from the full list: every Act now with evidence in the last 30 days,
+ * What the home page shows from the full list: every Act now with an attack, exploitation or damage report dated in the last 30 days,
  * then up to 12 Watch and 6 Low. Older Act now events stay on the /events index.
  */
 export function homeSelection<T extends Listable>(items: T[], now: number = Date.now()): T[] {
@@ -42,7 +47,7 @@ export function homeSelection<T extends Listable>(items: T[], now: number = Date
   let low = 0;
   for (const it of sortListed(items)) {
     if (it.verdict === "act_now") {
-      if (it.evidenceAt >= actNowSince) out.push(it);
+      if ((it.signalAt ?? it.evidenceAt) >= actNowSince) out.push(it);
     }
     else if (it.verdict === "watch") {
       if (isEarlyEvent(it.id) && it.reports < EARLY_HOME_MIN_REPORTS) continue;
