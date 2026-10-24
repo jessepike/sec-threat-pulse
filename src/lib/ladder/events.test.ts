@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { buildEvents, clusterKev, kevDate, slug, type EventObservation, type EventVuln } from "./events";
+import { CURRENT_RULES_VERSION } from "./rules";
 
 const now = new Date("2026-10-24T00:00:00Z");
 const v = (cveId: string, kev: string, vendor = "Plex", product = "Media Server", extra: Partial<EventVuln> = {}): EventVuln => ({
@@ -59,7 +60,7 @@ describe("buildEvents", () => {
     expect(e.ladder.damage).toBe("none");
     expect(e.exploitMaturity).toBe("weaponized");
     expect(e.verdict).toBe("act_now");
-    expect(e.rulesVersion).toBe("v0");
+    expect(e.rulesVersion).toBe(CURRENT_RULES_VERSION);
     expect(e.firstSeenAt).toBe("2026-10-20T00:00:00.000Z");
   });
 

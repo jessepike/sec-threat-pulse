@@ -30,8 +30,8 @@ Each rung is `confirmed`, `reported` or `none`, computed from observations:
 |---|---|---|
 | Talk | 2+ independent talk or advisory observations | 1 talk observation |
 | Exposure | Exposure figure from a government or vendor advisory | Exposure figure quoted in news (strength `quoted`) |
-| Attack attempts | Telemetry partner data (later), 2+ independent reports, or confirmed exploitation (an exploitation is a successful attempt) | 1 report (news, vendor, CIRCL sighting), or reported exploitation |
-| Exploited | CISA KEV, VulnCheck KEV, vendor "exploited" flag, CISA ADP SSVC `active` | CIRCL `exploited` sighting, news report |
+| Attack attempts | Telemetry (Shadowserver honeypot sightings via CIRCL, partners later), 2+ independent reports, or confirmed exploitation (an exploitation is a successful attempt) | 1 report (news, vendor, CIRCL sighting), or reported exploitation |
+| Exploited | CISA KEV, VulnCheck KEV, vendor "exploited" flag, CISA ADP SSVC `active` | CIRCL `exploited` sighting from a news, social or other non catalog source; news report |
 | Damage | SEC 8-K, state AG notice or HIBP breach linked to the event | Never from leak-site claims alone (those stay `claim`) |
 
 Exploit maturity is shown beside the ladder: `none`, `poc` (PoC-in-GitHub, Exploit-DB, CIRCL PoC
@@ -48,8 +48,19 @@ sighting) or `weaponized` (Metasploit module, nuclei template).
 ## Verdict rules
 
 Versioned in `src/lib/ladder/rules/`. Each version is a pure function
-`(ladder, context) -> { verdict, reason }`. Changing rules means adding a new version, never editing
-an old one, so the backtest can replay any version. v0 is a placeholder until Phase 2.
+`(ladder, context) -> { verdict, reason }`. The context carries exploit maturity, EPSS, the KEV
+ransomware flag, vendor and product, CVSS, days since the CVE was published and the PoC repository
+count. Changing rules means adding a new version, never editing an old one, so the backtest can
+replay any version. v1 is current; v0 stays for replay. [docs/methodology-rules.md](methodology-rules.md)
+describes v1 and its backtest.
+
+## Backtest
+
+`scripts/backtest/build-dataset.ts` assembles point in time signal timelines from public history
+(KEV dates, Vulnrichment git history for SSVC, daily EPSS files, Metasploit and nuclei git history,
+PoC-in-GitHub, Exploit-DB, CIRCL sightings) into `data/backtest/dataset.json.gz`.
+`src/lib/backtest/` replays any rules version day by day and scores it (pure, tested).
+`npm run backtest -- --rules v1` prints the scorecard and writes `reports/backtest/`.
 
 ## Failure handling
 

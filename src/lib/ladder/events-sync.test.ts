@@ -5,6 +5,7 @@ import type { Db } from "@/lib/ingest/db";
 import { insertObservations, seedSources, upsertVulnerabilities } from "@/lib/ingest/runner";
 import { createTestDb } from "@/lib/ingest/testdb";
 import { syncEvents } from "./events-sync";
+import { CURRENT_RULES_VERSION } from "./rules";
 import type { ObservationInput } from "./types";
 
 const now = new Date("2026-10-24T12:00:00Z");
@@ -33,7 +34,7 @@ describe("syncEvents", () => {
     const evs = await db.select().from(events);
     expect(evs.map((e) => e.id).sort()).toEqual(["kev-2026-10-20-plex-media-server", "kev-2026-10-21-cisco-asa"]);
     const plex = evs.find((e) => e.vendor === "Plex")!;
-    expect(plex).toMatchObject({ kind: "vulnerability", rulesVersion: "v0", verdict: "watch", hidden: false });
+    expect(plex).toMatchObject({ kind: "vulnerability", rulesVersion: CURRENT_RULES_VERSION, verdict: "watch", hidden: false });
     expect(plex.ladder).toMatchObject({ exploited: "confirmed", damage: "none" });
     const cisco = evs.find((e) => e.vendor === "Cisco")!;
     expect(cisco.verdict).toBe("act_now");

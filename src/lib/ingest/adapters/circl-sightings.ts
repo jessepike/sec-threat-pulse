@@ -18,6 +18,22 @@ interface Sighting {
   creation_timestamp?: string;
 }
 
+export type CirclSourceKind = "kev-catalog" | "honeypot" | "telegram" | "other";
+
+/**
+ * Where a CIRCL sighting came from. Shadowserver honeypot feeds are telemetry (attack attempts).
+ * Entries that mirror a KEV catalog repeat what the catalogs already tell us. Telegram posts and
+ * other links are reports. The id tells independent sources apart (host name or feed label).
+ */
+export function classifyCirclSource(source?: string | null): { kind: CirclSourceKind; id: string } {
+  const s = (source ?? "").trim();
+  if (/shadowserver/i.test(s)) return { kind: "honeypot", id: "shadowserver" };
+  if (/known-exploited-vulnerabilities-catalog/i.test(s)) return { kind: "kev-catalog", id: "circl-kev-catalog" };
+  if (/^telegram\//i.test(s) || /^https?:\/\/t\.me\//i.test(s)) return { kind: "telegram", id: "telegram" };
+  const host = s.match(/^https?:\/\/([^/]+)/)?.[1]?.toLowerCase();
+  return { kind: "other", id: host ?? (s ? s.slice(0, 40).toLowerCase() : "unknown") };
+}
+
 function mapSighting(s: Sighting): { obs: ObservationInput; maturity?: "poc" } | undefined {
   const cve = s.vulnerability?.toUpperCase();
   if (!cve || !isCveId(cve) || !s.uuid) return undefined;
@@ -26,8 +42,14 @@ function mapSighting(s: Sighting): { obs: ObservationInput; maturity?: "poc" } |
   const base = { sourceId: "circl-sightings", dedupeKey: `circl:${s.uuid}`, cveIds: [cve], url: link, publishedAt };
   // Sighting text is not stored. We keep type, link and time only.
   switch (s.type as SightingType) {
-    case "exploited":
-      return { obs: { ...base, kind: "exploited", strength: "reported", title: `Exploitation of ${cve} reported (CIRCL sighting)`, metadata: { sightingType: s.type } } };
+    case "exploited": {
+      const src = classifyCirclSource(s.source);
+      if (src.kind === "honeypot") {
+        // Honeypot telemetry shows attackers trying the vulnerability. That is an attempt, confirmed.
+        return { obs: { ...base, kind: "attempts", strength: "confirmed", title: `Attack attempts on ${cve} seen by honeypots (Shadowserver via CIRCL)`, metadata: { sightingType: s.type, sourceKind: src.kind, telemetry: true } } };
+      }
+      return { obs: { ...base, kind: "exploited", strength: "reported", title: `Exploitation of ${cve} reported (CIRCL sighting)`, metadata: { sightingType: s.type, sourceKind: src.kind } } };
+    }
     case "published-proof-of-concept":
       return { obs: { ...base, kind: "exploit_available", strength: "reported", title: `Public proof of concept for ${cve} (CIRCL sighting)`, metadata: { sightingType: s.type, maturity: "poc" } }, maturity: "poc" };
     case "confirmed":

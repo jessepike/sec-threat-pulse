@@ -67,8 +67,8 @@ describe("rules v0", () => {
 describe("rules registry", () => {
   it("resolves versions and stamps the version used", () => {
     expect(getRules("v0")).toBe(RULES.v0);
-    expect(CURRENT_RULES_VERSION).toBe("v0");
-    expect(evaluateVerdict(EMPTY_LADDER, { exploitMaturity: "none" }).rulesVersion).toBe("v0");
+    expect(RULES[CURRENT_RULES_VERSION]).toBeDefined();
+    expect(evaluateVerdict(EMPTY_LADDER, { exploitMaturity: "none" }, "v0").rulesVersion).toBe("v0");
     expect(() => getRules("v99")).toThrow(/Unknown rules version/);
   });
 });
