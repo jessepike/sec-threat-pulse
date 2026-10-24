@@ -1,8 +1,9 @@
 # Verdict rules v2 and the backtest behind them
 
-Written Oct 24, 2026, after an independent review of the first backtest (see
-`docs/backtest-review-2026-10-24.md`). The numbers come from `reports/backtest/v2-2025-04-01-2026-10-01.json` and the v1 and v0 reports beside
-it, produced by `npm run backtest -- --rules <version> --reveal-heldout`.
+Written Oct 24, 2026. An independent review of our first backtest found that its figures were
+overstated. Every figure on this page comes from the corrected run.
+
+
 
 ## The short version
 

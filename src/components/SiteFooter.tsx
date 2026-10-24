@@ -45,7 +45,7 @@ export async function SiteFooter() {
             <Link href="/terms" className="py-2">TERMS</Link>
             <Link href="/privacy" className="py-2">PRIVACY</Link>
           </nav>
-          <div>SECURITYTHREATPULSE.COM · V0 DRAFT</div>
+          <div>SECURITYTHREATPULSE.COM · PRE-LAUNCH PREVIEW</div>
         </div>
       </div>
     </footer>
