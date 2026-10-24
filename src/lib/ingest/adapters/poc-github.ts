@@ -27,7 +27,7 @@ export function parsePocFile(cve: string, repos: PocRepo[]): { obs?: Observation
       kind: "exploit_available",
       strength: "claimed",
       cveIds: [cve],
-      title: `${repos.length} public GitHub repositories claim a proof of concept for ${cve}`,
+      title: `${repos.length} public GitHub ${repos.length === 1 ? "repository claims" : "repositories claim"} a proof of concept for ${cve}`,
       url: `https://github.com/nomi-sec/PoC-in-GitHub/blob/master/${year}/${cve}.json`,
       publishedAt: earliest,
       metadata: { maturity: "poc", repoCount: repos.length, top },

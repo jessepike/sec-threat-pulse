@@ -24,12 +24,12 @@ export function evaluateV0(ladder: Ladder, ctx: VerdictContext): VerdictResult {
 
   if (ladder.exploited === "confirmed") {
     const why: string[] = [];
-    if (ctx.kevRansomware) why.push("ransomware groups are known to use it");
-    if (weaponized) why.push("ready-made attack tools are public");
-    if (epss >= 0.5) why.push(`the exploit prediction score is ${pct(epss)}`);
-    if (edge) why.push("it affects a product that faces the internet or gives remote access");
+    if (ctx.kevRansomware) why.push("Ransomware groups are known to use it.");
+    if (weaponized) why.push("Ready-made attack tools are public.");
+    if (epss >= 0.5) why.push(`The exploit prediction score is ${pct(epss)}.`);
+    if (edge) why.push("It affects a product that faces the internet or gives remote access.");
     if (why.length) {
-      return { verdict: "act_now", reason: `Attacks are confirmed and ${joinList(why)}.` };
+      return { verdict: "act_now", reason: `Attacks are confirmed. ${why.join(" ")}` };
     }
     return { verdict: "watch", reason: "Attacks are confirmed, but we see no sign of ransomware use, public attack tools or a high prediction score yet." };
   }
@@ -54,11 +54,6 @@ export function evaluateV0(ladder: Ladder, ctx: VerdictContext): VerdictResult {
     return { verdict: "watch", reason: `No attacks are reported, but the exploit prediction score is ${pct(epss)}.` };
   }
   return { verdict: "low", reason: "No confirmed or reported attacks, and no sign of widespread exploit tools." };
-}
-
-function joinList(items: string[]): string {
-  if (items.length === 1) return items[0];
-  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
 }
 
 export const rulesV0: RulesVersion = { version: "v0", evaluate: evaluateV0 };

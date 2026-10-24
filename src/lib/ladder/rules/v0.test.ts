@@ -9,7 +9,7 @@ describe("rules v0", () => {
   it("act_now: confirmed exploitation with ransomware use", () => {
     const r = evaluateV0(L({ exploited: "confirmed" }), { exploitMaturity: "none", kevRansomware: true });
     expect(r.verdict).toBe("act_now");
-    expect(r.reason).toContain("ransomware");
+    expect(r.reason).toMatch(/ransomware/i);
   });
 
   it("act_now: confirmed with weaponized tools, high EPSS or edge product", () => {
@@ -70,5 +70,12 @@ describe("rules registry", () => {
     expect(CURRENT_RULES_VERSION).toBe("v0");
     expect(evaluateVerdict(EMPTY_LADDER, { exploitMaturity: "none" }).rulesVersion).toBe("v0");
     expect(() => getRules("v99")).toThrow(/Unknown rules version/);
+  });
+});
+
+describe("rules v0 reason wording", () => {
+  it("lists each factor as its own sentence", () => {
+    const r = evaluateV0(L({ exploited: "confirmed" }), { exploitMaturity: "weaponized", kevRansomware: true, vendor: "Cisco", product: "ASA" });
+    expect(r.reason).toBe("Attacks are confirmed. Ransomware groups are known to use it. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access.");
   });
 });

@@ -6,7 +6,7 @@ const BASE = "https://vulnerability.circl.lu/api/sighting/";
 const TYPES = ["exploited", "published-proof-of-concept", "confirmed", "seen"] as const;
 type SightingType = (typeof TYPES)[number];
 const PER_PAGE = 100;
-const MAX_PAGES = 3;
+const MAX_PAGES = 2;
 // CIRCL allows 20 requests per minute.
 const GAP_MS = 3200;
 
