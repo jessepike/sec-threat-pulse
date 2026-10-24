@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import { ProsePage } from "@/components/prose";
 
-export const metadata: Metadata = { title: "About and disclosure", description: "Who runs Security Threat Pulse, how it stays vendor neutral, and how it uses AI." };
+export const metadata: Metadata = pageMeta({ title: "About and disclosure", description: "Who runs Security Threat Pulse, how it stays vendor neutral, and how it uses AI.", path: "/about" });
 
 export default function About() {
   return (

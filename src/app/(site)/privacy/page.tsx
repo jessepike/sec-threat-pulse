@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import { ProsePage } from "@/components/prose";
 
-export const metadata: Metadata = { title: "Privacy", description: "What Security Threat Pulse collects about visitors. Very little." };
+export const metadata: Metadata = pageMeta({ title: "Privacy", description: "What Security Threat Pulse collects about visitors. Very little.", path: "/privacy" });
 
 export default function Privacy() {
   return (
