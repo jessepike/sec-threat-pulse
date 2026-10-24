@@ -1,6 +1,7 @@
-import { and, desc, eq, isNotNull, isNull, or, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, isNotNull, isNull, or, sql } from "drizzle-orm";
 import { observations, sourceRuns, sources, vulnerabilities } from "@/lib/db/schema";
 import type { AdapterResult, ExploitMaturity, SourceAdapter, VulnerabilityInput } from "@/lib/ladder/types";
+import { loadEarlyCandidateCves } from "@/lib/ladder/events-sync";
 import type { Db } from "./db";
 import { sha256Hex } from "./http";
 import { archiveKey, createR2Archive, type RawArchive } from "./r2";
@@ -180,15 +181,32 @@ export async function seedSources(db: Db, defs: SourceDefinition[] = SOURCE_REGI
 
 const kevDateExpr = sql`greatest(coalesce(${vulnerabilities.kevCisaDateAdded}, ''), coalesce(${vulnerabilities.kevVulncheckDateAdded}, ''))`;
 
-/** CVEs in either KEV, newest first. */
-export async function loadTrackedCves(db: Db, limit = MAX_TRACKED): Promise<string[]> {
+/**
+ * CVEs in either KEV, newest first, plus CVEs with early evidence (reported exploitation or
+ * confirmed attack attempts, no KEV listing). Early CVEs whose publish date is still unknown go
+ * first so the enrichment sources reach them quickly; the rest follow the KEV list.
+ */
+export async function loadTrackedCves(db: Db, limit = MAX_TRACKED, now = new Date()): Promise<string[]> {
   const rows = await db
     .select({ cveId: vulnerabilities.cveId })
     .from(vulnerabilities)
     .where(or(isNotNull(vulnerabilities.kevCisaDateAdded), isNotNull(vulnerabilities.kevVulncheckDateAdded)))
     .orderBy(desc(kevDateExpr), desc(vulnerabilities.cveId))
     .limit(limit);
-  return rows.map((r) => r.cveId);
+  const kev = rows.map((r) => r.cveId);
+  let early: string[] = [];
+  try {
+    early = await loadEarlyCandidateCves(db, now);
+  } catch {
+    // Early tracking is best effort; KEV tracking must not depend on it.
+  }
+  if (!early.length) return kev;
+  const dated = new Set(
+    (await db.select({ cveId: vulnerabilities.cveId }).from(vulnerabilities).where(and(inArray(vulnerabilities.cveId, early), isNotNull(vulnerabilities.publishedAt)))).map((r) => r.cveId.toUpperCase()),
+  );
+  const undated = early.filter((c) => !dated.has(c)).slice(0, 25);
+  const seen = new Set<string>();
+  return [...undated, ...kev, ...early.filter((c) => dated.has(c))].filter((c) => !seen.has(c) && !!seen.add(c)).slice(0, limit);
 }
 
 /** Tracked CVEs that still have no CVSS score. */

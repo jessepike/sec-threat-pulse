@@ -1,8 +1,18 @@
-import { and, eq, inArray, like, sql } from "drizzle-orm";
+import { and, eq, inArray, like, or, sql } from "drizzle-orm";
 import { eventCves, events, observations, verdictHistory, vulnerabilities } from "@/lib/db/schema";
 import type { Db } from "@/lib/ingest/db";
 import { ladderEquals } from "./compute";
-import { buildEvents, DEFAULT_LOOKBACK_DAYS, type ComputedEvent, type EventObservation, type EventVuln } from "./events";
+import {
+  buildEarlyEvents,
+  buildEvents,
+  DEFAULT_LOOKBACK_DAYS,
+  EARLY_PREFIX,
+  EARLY_WINDOW_DAYS,
+  MAX_NEW_EARLY_EVENTS_PER_RUN,
+  type ComputedEvent,
+  type EventObservation,
+  type EventVuln,
+} from "./events";
 import { CURRENT_RULES_VERSION } from "./rules";
 import type { ObservationKind, ObservationStrength } from "./types";
 
@@ -10,6 +20,8 @@ export interface SyncOptions {
   now?: Date;
   lookbackDays?: number;
   rulesVersion?: string;
+  /** New early events created per run. Defaults to MAX_NEW_EARLY_EVENTS_PER_RUN. */
+  maxNewEarly?: number;
 }
 
 export interface SyncSummary {
@@ -20,6 +32,12 @@ export interface SyncSummary {
   verdictChanges: number;
   observationsAttached: number;
   eventsHidden: number;
+  /** CVEs with early evidence and no KEV listing this run. */
+  earlyCandidates: number;
+  /** Early events not created this run because of the per run cap. They are picked up next run. */
+  earlyDeferred: number;
+  /** Early candidates left out because the CVE publish date is not known yet. */
+  earlySkippedNoAge: number;
 }
 
 const CHUNK = 300;
@@ -29,7 +47,57 @@ const chunks = <T>(xs: T[], n: number): T[][] => {
   return out;
 };
 
-const AUTO_PREFIX = "kev-";
+/** Automatic events: KEV events and early (pre-listing) events. Anything else is admin owned. */
+const AUTO_PREFIXES = ["kev-", EARLY_PREFIX];
+const isAuto = (id: string) => AUTO_PREFIXES.some((p) => id.startsWith(p));
+const autoLike = (col: typeof events.id | typeof eventCves.eventId) => or(...AUTO_PREFIXES.map((p) => like(col, `${p}%`)))!;
+
+const OBS_COLUMNS = {
+  id: observations.id,
+  sourceId: observations.sourceId,
+  kind: observations.kind,
+  strength: observations.strength,
+  cveIds: observations.cveIds,
+  metadata: observations.metadata,
+  eventId: observations.eventId,
+  publishedAt: observations.publishedAt,
+  observedAt: observations.observedAt,
+};
+
+type ObsRow = EventObservation & { eventId: string | null; publishedAt: Date | null; observedAt: Date };
+
+async function loadObservationsFor(db: Db, cves: string[]): Promise<ObsRow[]> {
+  const out: ObsRow[] = [];
+  for (const part of chunks(cves, 400)) {
+    const list = sql.join(part.map((c) => sql`${c}`), sql`, `);
+    const rows = await db.select(OBS_COLUMNS).from(observations).where(sql`${observations.cveIds} ?| array[${list}]::text[]`);
+    for (const r of rows) out.push({ ...r, kind: r.kind as ObservationKind, strength: r.strength as ObservationStrength });
+  }
+  return [...new Map(out.map((o) => [o.id, o])).values()];
+}
+
+/**
+ * CVEs with early evidence (exploitation reported or confirmed, or confirmed attack attempts) in
+ * the window and no KEV listing. Shared with the ingest runner so these CVEs get enriched.
+ */
+export async function loadEarlyCandidateCves(db: Db, now: Date, limit = 200): Promise<string[]> {
+  const since = new Date(now.getTime() - EARLY_WINDOW_DAYS * 86400000);
+  const res = await db.execute(sql`
+    select upper(c.cve) as cve, count(*)::int as n
+    from observations o
+    cross join lateral jsonb_array_elements_text(o.cve_ids) as c(cve)
+    where ((o.kind = 'exploited' and o.strength in ('reported', 'confirmed')) or (o.kind = 'attempts' and o.strength = 'confirmed'))
+      and coalesce(o.published_at, o.observed_at) >= ${since.toISOString()}::timestamptz
+      and not exists (
+        select 1 from vulnerabilities v
+        where upper(v.cve_id) = upper(c.cve) and (v.kev_cisa_date_added is not null or v.kev_vulncheck_date_added is not null)
+      )
+    group by 1
+    order by n desc, cve
+    limit ${limit}`);
+  const rows = ((res as unknown as { rows?: { cve: string }[] }).rows ?? (res as unknown as { cve: string }[]));
+  return rows.map((r) => r.cve);
+}
 
 /**
  * Rebuild automatic (KEV) events from vulnerabilities and observations. Idempotent.
@@ -41,37 +109,65 @@ export async function syncEvents(db: Db, opts: SyncOptions = {}): Promise<SyncSu
   const now = opts.now ?? new Date();
   const lookback = opts.lookbackDays ?? DEFAULT_LOOKBACK_DAYS;
   const rulesVersion = opts.rulesVersion ?? CURRENT_RULES_VERSION;
-  const summary: SyncSummary = { considered: 0, created: 0, updated: 0, unchanged: 0, verdictChanges: 0, observationsAttached: 0, eventsHidden: 0 };
+  const summary: SyncSummary = { considered: 0, created: 0, updated: 0, unchanged: 0, verdictChanges: 0, observationsAttached: 0, eventsHidden: 0, earlyCandidates: 0, earlyDeferred: 0, earlySkippedNoAge: 0 };
 
-  // Load a margin beyond the lookback so a cluster that straddles the cutoff keeps its full CVE set.
+  // Early events that already exist, so a later KEV listing can adopt them.
+  const earlyRows = await db
+    .select({ id: events.id, firstSeenAt: events.firstSeenAt, cveId: eventCves.cveId })
+    .from(events)
+    .innerJoin(eventCves, eq(eventCves.eventId, events.id))
+    .where(like(events.id, `${EARLY_PREFIX}%`));
+  const earlyExisting = new Map<string, { id: string; cveIds: string[]; firstSeenAt: string }>();
+  for (const r of earlyRows) {
+    const e = earlyExisting.get(r.id) ?? { id: r.id, cveIds: [], firstSeenAt: r.firstSeenAt.toISOString() };
+    e.cveIds.push(r.cveId.toUpperCase());
+    earlyExisting.set(r.id, e);
+  }
+
+  // 1) KEV events (a margin beyond the lookback keeps a straddling cluster whole).
   const loadFrom = new Date(now.getTime() - (lookback + 30) * 86400000).toISOString().slice(0, 10);
   const vulnRows = await db
     .select()
     .from(vulnerabilities)
     .where(sql`${vulnerabilities.kevCisaDateAdded} >= ${loadFrom} or ${vulnerabilities.kevVulncheckDateAdded} >= ${loadFrom}`);
-  if (!vulnRows.length) return summary;
   const vulns: EventVuln[] = vulnRows;
+  const kevObs = vulnRows.length ? await loadObservationsFor(db, vulnRows.map((v) => v.cveId)) : [];
+  const kevComputed = vulnRows.length ? buildEvents(vulns, kevObs, { now, lookbackDays: lookback, rulesVersion, earlyEvents: [...earlyExisting.values()] }) : [];
 
-  const obsRows: (EventObservation & { eventId: string | null })[] = [];
-  for (const part of chunks(vulnRows.map((v) => v.cveId), 400)) {
-    const list = sql.join(part.map((c) => sql`${c}`), sql`, `);
-    const rows = await db
-      .select({
-        id: observations.id,
-        sourceId: observations.sourceId,
-        kind: observations.kind,
-        strength: observations.strength,
-        cveIds: observations.cveIds,
-        metadata: observations.metadata,
-        eventId: observations.eventId,
-      })
-      .from(observations)
-      .where(sql`${observations.cveIds} ?| array[${list}]::text[]`);
-    for (const r of rows) obsRows.push({ ...r, kind: r.kind as ObservationKind, strength: r.strength as ObservationStrength });
+  // 2) Early events: exploitation reported or confirmed attempts, no KEV listing yet.
+  const kevCves = new Set(kevComputed.flatMap((e) => e.cveIds));
+  const candidateCves = (await loadEarlyCandidateCves(db, now)).filter((c) => !kevCves.has(c));
+  summary.earlyCandidates = candidateCves.length;
+  const earlyComputed: ComputedEvent[] = [];
+  let earlyObs: ObsRow[] = [];
+  if (candidateCves.length) {
+    const vrows: EventVuln[] = [];
+    for (const part of chunks(candidateCves, 400)) vrows.push(...(await db.select().from(vulnerabilities).where(inArray(vulnerabilities.cveId, part))));
+    const have = new Set(vrows.map((v) => v.cveId.toUpperCase()));
+    for (const c of candidateCves) if (!have.has(c)) vrows.push({ cveId: c });
+    earlyObs = await loadObservationsFor(db, candidateCves);
+    const built = buildEarlyEvents(vrows, earlyObs, { now, rulesVersion });
+    summary.earlySkippedNoAge = built.skippedNoAge.length;
+    const present = new Set<string>();
+    for (let i = 0; i < built.events.length; i += CHUNK) {
+      for (const r of await db.select({ id: events.id }).from(events).where(inArray(events.id, built.events.slice(i, i + CHUNK).map((e) => e.id)))) present.add(r.id);
+    }
+    const cap = opts.maxNewEarly ?? MAX_NEW_EARLY_EVENTS_PER_RUN;
+    let fresh = 0;
+    for (const e of built.events) {
+      if (!present.has(e.id)) {
+        if (fresh >= cap) {
+          summary.earlyDeferred++;
+          continue;
+        }
+        fresh++;
+      }
+      earlyComputed.push(e);
+    }
   }
-  const uniqueObs = [...new Map(obsRows.map((o) => [o.id, o])).values()];
 
-  const computed = buildEvents(vulns, uniqueObs, { now, lookbackDays: lookback, rulesVersion });
+  const computed = [...kevComputed, ...earlyComputed];
+  const uniqueObs = [...new Map([...kevObs, ...earlyObs].map((o) => [o.id, o])).values()];
   summary.considered = computed.length;
   if (!computed.length) return summary;
 
@@ -149,10 +245,11 @@ export async function syncEvents(db: Db, opts: SyncOptions = {}): Promise<SyncSu
   const missing = computed.flatMap((e) => e.cveIds.filter((c) => !haveKeys.has(`${e.id}|${c}`)).map((cveId) => ({ eventId: e.id, cveId })));
   for (const part of chunks(missing, 500)) await db.insert(eventCves).values(part).onConflictDoNothing();
   const extra = have.filter((h) => !wanted.has(`${h.eventId}|${h.cveId}`));
-  const emptied = new Set<string>();
+  const emptied = new Map<string, string[]>();
+  const release = (eventId: string, cveId: string) => emptied.set(eventId, [...(emptied.get(eventId) ?? []), cveId.toUpperCase()]);
   for (const x of extra) {
     await db.delete(eventCves).where(and(eq(eventCves.eventId, x.eventId), eq(eventCves.cveId, x.cveId)));
-    emptied.add(x.eventId);
+    release(x.eventId, x.cveId);
   }
   // Automatic events outside this rebuild that still hold CVEs now owned by a rebuilt event
   // (two clusters merged because a bridging CVE arrived). Release those CVEs.
@@ -162,11 +259,11 @@ export async function syncEvents(db: Db, opts: SyncOptions = {}): Promise<SyncSu
     const stale = await db
       .select()
       .from(eventCves)
-      .where(and(inArray(eventCves.cveId, part), like(eventCves.eventId, `${AUTO_PREFIX}%`)));
+      .where(and(inArray(eventCves.cveId, part), autoLike(eventCves.eventId)));
     for (const x of stale) {
       if (idSet.has(x.eventId)) continue;
       await db.delete(eventCves).where(and(eq(eventCves.eventId, x.eventId), eq(eventCves.cveId, x.cveId)));
-      emptied.add(x.eventId);
+      release(x.eventId, x.cveId);
     }
   }
 
@@ -176,7 +273,7 @@ export async function syncEvents(db: Db, opts: SyncOptions = {}): Promise<SyncSu
   const attach = uniqueObs.filter((o) => {
     const target = eventOfObs.get(o.id);
     if (!target || o.eventId === target) return false;
-    return o.eventId === null || o.eventId.startsWith(AUTO_PREFIX);
+    return o.eventId === null || isAuto(o.eventId);
   });
   for (const part of chunks(attach, 500)) {
     const values = sql.join(part.map((o) => sql`(${o.id}::int, ${eventOfObs.get(o.id)!}::text)`), sql`, `);
@@ -184,12 +281,30 @@ export async function syncEvents(db: Db, opts: SyncOptions = {}): Promise<SyncSu
   }
   summary.observationsAttached = attach.length;
 
-  // 5) Automatic events that lost all their CVEs to another event are hidden.
-  for (const id of emptied) {
+  // 5) Automatic events that lost all their CVEs to another event are hidden. An early event that
+  // is absorbed by a KEV event gets a closing history row that names the event it merged into, so
+  // the early call stays on record.
+  const ownerOfCve = new Map<string, string>();
+  for (const e of computed) for (const c of e.cveIds) ownerOfCve.set(c, e.id);
+  for (const [id, movedCves] of emptied) {
     const left = await db.select({ n: sql<number>`count(*)::int` }).from(eventCves).where(eq(eventCves.eventId, id));
-    if (left[0].n === 0 && id.startsWith(AUTO_PREFIX)) {
-      await db.update(events).set({ hidden: true, updatedAt: now }).where(and(eq(events.id, id), like(events.id, `${AUTO_PREFIX}%`)));
+    if (left[0].n === 0 && isAuto(id)) {
+      const [cur] = await db.select().from(events).where(eq(events.id, id));
+      if (!cur || cur.hidden) continue;
+      await db.update(events).set({ hidden: true, updatedAt: now }).where(and(eq(events.id, id), autoLike(events.id)));
       summary.eventsHidden++;
+      if (id.startsWith(EARLY_PREFIX)) {
+        const target = movedCves.map((c) => ownerOfCve.get(c)).find(Boolean);
+        await db.insert(verdictHistory).values({
+          eventId: id,
+          verdict: cur.verdict,
+          ladder: cur.ladder as Record<string, string>,
+          rulesVersion: cur.rulesVersion,
+          reason: target ? `Merged into ${target} after a KEV listing. This event is hidden; its history stays here.` : "Merged into another event after a KEV listing. This event is hidden; its history stays here.",
+          actor: "rules",
+        });
+        summary.verdictChanges++;
+      }
     }
   }
   return summary;

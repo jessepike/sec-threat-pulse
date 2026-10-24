@@ -112,11 +112,52 @@ function eventTitle(c: Cluster): string {
   return `${name || "Multiple products"}: ${c.vulns.length} vulnerabilities exploited`;
 }
 
+export interface Assessment {
+  ladder: Ladder;
+  exploitMaturity: ExploitMaturity;
+  verdict: Verdict;
+  verdictReason: string;
+  observationIds: number[];
+}
+
+/** Ladder, maturity and verdict for one group of CVEs and the observations that mention them. */
+function assessGroup(vulns: EventVuln[], obs: EventObservation[], vendor: string | undefined, product: string | undefined, now: Date, rulesVersion: string): Assessment {
+  const ladder = computeLadder(obs);
+  const exploitMaturity = computeExploitMaturity(obs, vulns.map((v) => v.exploitMaturity));
+  const epss = Math.max(0, ...vulns.map((v) => v.epss ?? 0));
+  const cvss = Math.max(0, ...vulns.map((v) => v.cvssScore ?? 0));
+  const ages = vulns.map((v) => (v.publishedAt ? Math.floor((now.getTime() - new Date(v.publishedAt).getTime()) / DAY) : undefined)).filter((n): n is number => n !== undefined && Number.isFinite(n));
+  const pocRepoCount = Math.max(0, ...obs.map((o) => (o.sourceId === "poc-github" && typeof o.metadata?.repoCount === "number" ? o.metadata.repoCount : 0)));
+  const { verdict, reason } = evaluateVerdict(
+    ladder,
+    {
+      exploitMaturity,
+      epss: epss || undefined,
+      kevRansomware: vulns.some((v) => v.kevCisaRansomware === true),
+      vendor,
+      product,
+      cvss: cvss || undefined,
+      // The newest CVE in the event decides how new the event is.
+      daysSincePublished: ages.length ? Math.max(0, Math.min(...ages)) : undefined,
+      pocRepoCount,
+      reportedExploitationSources: reportedExploitationSources(obs),
+    },
+    rulesVersion,
+  );
+  return { ladder, exploitMaturity, verdict, verdictReason: reason, observationIds: obs.map((o) => o.id).sort((a, b) => a - b) };
+}
+
 export interface BuildOptions {
   rulesVersion?: string;
   now?: Date;
   /** Only clusters with a KEV addition inside this many days are returned. */
   lookbackDays?: number;
+  /**
+   * Early (pre-listing) events that already exist. When a KEV cluster contains CVEs they hold, the
+   * cluster takes the id of the earliest of them, so the event keeps one id and one history from
+   * the first early call through the listing.
+   */
+  earlyEvents?: { id: string; cveIds: string[]; firstSeenAt: string }[];
 }
 
 /**
@@ -133,6 +174,14 @@ export function buildEvents(vulns: EventVuln[], observations: EventObservation[]
     for (const c of o.cveIds) (byCve.get(c.toUpperCase()) ?? byCve.set(c.toUpperCase(), []).get(c.toUpperCase())!).push(o);
   }
 
+  const earlyOf = new Map<string, { id: string; firstSeenAt: string }>();
+  for (const e of [...(opts.earlyEvents ?? [])].sort((a, b) => a.firstSeenAt.localeCompare(b.firstSeenAt) || a.id.localeCompare(b.id))) {
+    for (const c of e.cveIds) if (!earlyOf.has(c.toUpperCase())) earlyOf.set(c.toUpperCase(), e);
+  }
+  /** The earliest early event among these CVEs, if any. */
+  const adoptId = (cveIds: string[]): string | undefined =>
+    cveIds.map((c) => earlyOf.get(c)).filter((e): e is { id: string; firstSeenAt: string } => !!e).sort((a, b) => a.firstSeenAt.localeCompare(b.firstSeenAt) || a.id.localeCompare(b.id))[0]?.id;
+
   const usedIds = new Set<string>();
   const events: ComputedEvent[] = [];
   for (const c of clusterKev(vulns)) {
@@ -145,46 +194,97 @@ export function buildEvents(vulns: EventVuln[], observations: EventObservation[]
     const cveIds = c.vulns.map((v) => v.cveId.toUpperCase()).sort();
     const seen = new Map<number, EventObservation>();
     for (const cve of cveIds) for (const o of byCve.get(cve) ?? []) seen.set(o.id, o);
-    const obs = [...seen.values()];
-
-    const ladder = computeLadder(obs);
-    const exploitMaturity = computeExploitMaturity(obs, c.vulns.map((v) => v.exploitMaturity));
-    const epss = Math.max(0, ...c.vulns.map((v) => v.epss ?? 0));
-    const cvss = Math.max(0, ...c.vulns.map((v) => v.cvssScore ?? 0));
-    const ages = c.vulns.map((v) => (v.publishedAt ? Math.floor((now.getTime() - new Date(v.publishedAt).getTime()) / DAY) : undefined)).filter((n): n is number => n !== undefined && Number.isFinite(n));
-    const pocRepoCount = Math.max(0, ...obs.map((o) => (o.sourceId === "poc-github" && typeof o.metadata?.repoCount === "number" ? o.metadata.repoCount : 0)));
-    const { verdict, reason } = evaluateVerdict(
-      ladder,
-      {
-        exploitMaturity,
-        epss: epss || undefined,
-        kevRansomware: c.vulns.some((v) => v.kevCisaRansomware === true),
-        vendor: c.vendor,
-        product: c.product,
-        cvss: cvss || undefined,
-        // The newest CVE in the event decides how new the event is.
-        daysSincePublished: ages.length ? Math.max(0, Math.min(...ages)) : undefined,
-        pocRepoCount,
-        reportedExploitationSources: reportedExploitationSources(obs),
-      },
-      rulesVersion,
-    );
+    const a = assessGroup(c.vulns, [...seen.values()], c.vendor, c.product, now, rulesVersion);
     const first = c.vulns[0];
     events.push({
-      id,
+      id: adoptId(cveIds) ?? id,
       title: eventTitle(c),
       summary: first.description?.slice(0, 400) || undefined,
       vendor: c.vendor,
       product: c.product,
       cveIds,
       firstSeenAt: new Date(`${c.firstDate}T00:00:00Z`).toISOString(),
-      ladder,
-      exploitMaturity,
-      verdict,
-      verdictReason: reason,
+      ...a,
       rulesVersion,
-      observationIds: obs.map((o) => o.id).sort((a, b) => a - b),
     });
   }
   return events;
+}
+
+// ---------------------------------------------------------------------------------------------
+// Early (pre-listing) events
+// ---------------------------------------------------------------------------------------------
+
+/** Evidence must be this recent for a CVE to get an early event. */
+export const EARLY_WINDOW_DAYS = 30;
+/** New early events created per run. Existing ones are always refreshed. */
+export const MAX_NEW_EARLY_EVENTS_PER_RUN = 25;
+export const EARLY_PREFIX = "early-";
+
+export const earlyEventId = (cveId: string) => `${EARLY_PREFIX}${cveId.toLowerCase()}`;
+
+/** An observation that qualifies a CVE for an early event: exploitation reported or confirmed, or confirmed attack attempts. */
+export function isEarlyEvidence(o: { kind: string; strength: string }): boolean {
+  if (o.kind === "exploited") return o.strength === "reported" || o.strength === "confirmed";
+  return o.kind === "attempts" && o.strength === "confirmed";
+}
+
+export interface EarlyEvent extends ComputedEvent {
+  /** Corroboration score used to pick which new events to create first when over the cap. */
+  priority: number;
+}
+
+/**
+ * Pure: one event per CVE that has exploitation or confirmed attack attempts in the last
+ * EARLY_WINDOW_DAYS and is not in KEV. `vulns` holds the facts we have for those CVEs (a CVE with
+ * no row is skipped: without a publish date the age rules cannot be applied honestly).
+ * Returned in priority order: more separate reports and honeypot attempts first, then newest.
+ */
+export function buildEarlyEvents(
+  vulns: EventVuln[],
+  observations: (EventObservation & { observedAt?: Date | string | null; publishedAt?: Date | string | null })[],
+  opts: { rulesVersion?: string; now?: Date } = {},
+): { events: EarlyEvent[]; skippedNoAge: string[] } {
+  const rulesVersion = opts.rulesVersion ?? CURRENT_RULES_VERSION;
+  const now = opts.now ?? new Date();
+  const since = now.getTime() - EARLY_WINDOW_DAYS * DAY;
+  const when = (o: { observedAt?: Date | string | null; publishedAt?: Date | string | null }) => {
+    const t = new Date((o.publishedAt ?? o.observedAt ?? now) as Date | string).getTime();
+    return Number.isFinite(t) ? t : now.getTime();
+  };
+
+  const byCve = new Map<string, typeof observations>();
+  for (const o of observations) for (const c of o.cveIds) (byCve.get(c.toUpperCase()) ?? byCve.set(c.toUpperCase(), []).get(c.toUpperCase())!).push(o);
+
+  const out: EarlyEvent[] = [];
+  const skippedNoAge: string[] = [];
+  for (const v of vulns) {
+    if (kevDate(v)) continue;
+    const cve = v.cveId.toUpperCase();
+    const obs = byCve.get(cve) ?? [];
+    const qualifying = obs.filter((o) => isEarlyEvidence(o) && when(o) >= since);
+    if (!qualifying.length) continue;
+    if (!v.publishedAt) {
+      skippedNoAge.push(cve);
+      continue;
+    }
+    const a = assessGroup([v], obs, v.vendor ?? undefined, v.product ?? undefined, now, rulesVersion);
+    const earliest = Math.min(...qualifying.map(when));
+    const reports = qualifying.filter((o) => o.kind === "exploited").length;
+    const honeypot = qualifying.some((o) => o.kind === "attempts") ? 1 : 0;
+    out.push({
+      id: earlyEventId(cve),
+      title: v.title?.trim() || [v.vendor, v.product, cve].filter(Boolean).join(" "),
+      summary: v.description?.slice(0, 400) || undefined,
+      vendor: v.vendor ?? undefined,
+      product: v.product ?? undefined,
+      cveIds: [cve],
+      firstSeenAt: new Date(earliest).toISOString(),
+      ...a,
+      rulesVersion,
+      priority: reports + honeypot * 2,
+    });
+  }
+  out.sort((x, y) => y.priority - x.priority || y.firstSeenAt.localeCompare(x.firstSeenAt) || x.id.localeCompare(y.id));
+  return { events: out, skippedNoAge };
 }
