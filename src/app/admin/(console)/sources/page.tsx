@@ -7,7 +7,7 @@ import { Flash, NoDb, PageHead, StatusPill, fmt, type SP } from "../../_componen
 export const metadata = { title: "Sources" };
 
 // Admin pages always render per request. (force-dynamic is replaced by this under Cache Components.)
-export const instant = false;
+export const dynamic = "force-dynamic";
 
 export default async function SourcesPage({ searchParams }: { searchParams: SP }) {
   await requireAdmin();

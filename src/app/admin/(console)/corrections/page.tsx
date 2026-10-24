@@ -7,7 +7,7 @@ import { Flash, NoDb, PageHead, fmt, type SP } from "../../_components/ui";
 export const metadata = { title: "Corrections" };
 
 // Admin pages always render per request. (force-dynamic is replaced by this under Cache Components.)
-export const instant = false;
+export const dynamic = "force-dynamic";
 
 export default async function CorrectionsPage({ searchParams }: { searchParams: SP }) {
   await requireAdmin();

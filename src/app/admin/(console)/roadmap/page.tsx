@@ -9,7 +9,7 @@ import { Empty, Flash, PageHead, fmt, type SP } from "../../_components/ui";
 export const metadata = { title: "Roadmap" };
 
 // Admin pages always render per request. (force-dynamic is replaced by this under Cache Components.)
-export const instant = false;
+export const dynamic = "force-dynamic";
 
 async function loadPhases(): Promise<BacklogPhase[]> {
   try {

@@ -8,7 +8,7 @@ import { Flash, NoDb, PageHead, VerdictPill, fmt, one, type SP } from "../../_co
 export const metadata = { title: "Events" };
 
 // Admin pages always render per request. (force-dynamic is replaced by this under Cache Components.)
-export const instant = false;
+export const dynamic = "force-dynamic";
 
 export default async function EventsPage({ searchParams }: { searchParams: SP }) {
   await requireAdmin();

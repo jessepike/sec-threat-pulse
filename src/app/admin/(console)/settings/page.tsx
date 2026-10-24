@@ -7,7 +7,7 @@ import { Flash, NoDb, PageHead, type SP } from "../../_components/ui";
 export const metadata = { title: "Settings" };
 
 // Admin pages always render per request. (force-dynamic is replaced by this under Cache Components.)
-export const instant = false;
+export const dynamic = "force-dynamic";
 
 export default async function SettingsPage({ searchParams }: { searchParams: SP }) {
   await requireAdmin();

@@ -6,7 +6,7 @@ import { Empty, NoDb, PageHead, StatusPill, VerdictPill, fmt } from "../_compone
 export const metadata = { title: "Overview" };
 
 // Admin pages always render per request. (force-dynamic is replaced by this under Cache Components.)
-export const instant = false;
+export const dynamic = "force-dynamic";
 
 export default async function OverviewPage() {
   await requireAdmin();

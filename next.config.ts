@@ -13,7 +13,8 @@ const csp = [
   "connect-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self'",
+  // Sign-in posts to /api/auth and redirects to GitHub; Chrome applies form-action to the redirect.
+  "form-action 'self' https://github.com",
   "frame-ancestors 'none'",
   ...(isProd ? ["upgrade-insecure-requests"] : []),
 ].join("; ");
@@ -30,6 +31,7 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  outputFileTracingIncludes: { "/admin/roadmap": ["./BACKLOG.md"] },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

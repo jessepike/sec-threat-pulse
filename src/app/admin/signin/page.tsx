@@ -5,7 +5,7 @@ import { devBypassEnabled } from "@/lib/admin/allowlist";
 export const metadata = { title: "Sign in" };
 
 // Admin pages always render per request. (force-dynamic is replaced by this under Cache Components.)
-export const instant = false;
+export const dynamic = "force-dynamic";
 
 async function Body({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const { error } = await searchParams;
