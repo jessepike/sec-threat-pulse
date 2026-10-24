@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "ingest:seed": "tsx scripts/seed-sources.ts",
+    "ingest:local": "tsx scripts/ingest-local.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.0",
