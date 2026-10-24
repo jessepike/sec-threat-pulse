@@ -55,7 +55,7 @@ docs/                  architecture, source registry, design prototypes
   no "X, not Y" constructions. Claims from criminal leak sites are always labeled as claims.
 - Every public claim carries a source link and a timestamp. Missing evidence shows as missing.
 - Respect source terms (see the registry). Send `User-Agent: SecurityThreatPulse/0.1
-  (+https://securitythreatpulse.com; jesse@keatingpike.com)` on every request.
+  (+https://securitythreatpulse.com; jp@jessepike.dev)` on every request.
 - Adapters must be idempotent: re-running a source never creates duplicates (use `dedupe_key`).
 - A failed source never breaks the site: record the failure, keep the last good data.
 - Tests: every adapter has a fixture-based test. `npm test` must pass before pushing.

@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 
 export const STP_USER_AGENT =
-  "SecurityThreatPulse/0.1 (+https://securitythreatpulse.com; jesse@keatingpike.com)";
+  "SecurityThreatPulse/0.1 (+https://securitythreatpulse.com; jp@jessepike.dev)";
 
 export class HttpError extends Error {
   constructor(

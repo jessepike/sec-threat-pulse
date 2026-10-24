@@ -9,7 +9,7 @@ export default function About() {
     <ProsePage title="About and disclosure" intro="Security Threat Pulse is a free site for security leaders, executives, boards, insurers and investors. It says what is happening, what is real and what to do.">
       <section>
         <h2>Who runs it</h2>
-        <p>Jesse Pike runs this site as an independent project. Contact: jesse@keatingpike.com.</p>
+        <p>Jesse Pike runs this site as an independent project. Contact: jp@jessepike.dev.</p>
         <p>The site is not run by, paid for or reviewed by any employer or vendor. Views and verdicts on this site are not those of any company Jesse works with.</p>
       </section>
       <section>

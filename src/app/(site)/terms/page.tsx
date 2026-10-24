@@ -29,7 +29,7 @@ export default function Terms() {
       </section>
       <section>
         <h2>Changes</h2>
-        <p>We may change these terms. The date at the bottom shows the latest update. Questions: jesse@keatingpike.com.</p>
+        <p>We may change these terms. The date at the bottom shows the latest update. Questions: jp@jessepike.dev.</p>
       </section>
     </ProsePage>
   );

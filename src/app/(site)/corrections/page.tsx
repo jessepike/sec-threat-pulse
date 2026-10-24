@@ -24,7 +24,7 @@ export default async function CorrectionsPage() {
       footer="NEWEST FIRST"
     >
       <p>
-        See something wrong? Write to <a href="mailto:jesse@keatingpike.com">jesse@keatingpike.com</a>. You can also follow this log as an{" "}
+        See something wrong? Write to <a href="mailto:jp@jessepike.dev">jp@jessepike.dev</a>. You can also follow this log as an{" "}
         <a href="/corrections/feed.xml">RSS feed</a>. How verdicts are set is in the <Link href="/methodology">methodology</Link>.
       </p>
       {rows.length === 0 ? (

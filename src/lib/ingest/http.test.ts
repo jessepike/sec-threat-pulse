@@ -7,7 +7,7 @@ describe("httpGet", () => {
     const f = fakeFetch([["example.com", "hello"]]);
     const r = await httpGet(f.fetch, "https://example.com/x", { sleep: noSleep });
     expect(f.calls[0].headers["User-Agent"]).toBe(STP_USER_AGENT);
-    expect(STP_USER_AGENT).toBe("SecurityThreatPulse/0.1 (+https://securitythreatpulse.com; jesse@keatingpike.com)");
+    expect(STP_USER_AGENT).toBe("SecurityThreatPulse/0.1 (+https://securitythreatpulse.com; jp@jessepike.dev)");
     expect(r.sha256).toBe(sha256Hex("hello"));
   });
 

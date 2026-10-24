@@ -29,7 +29,7 @@ export default function Privacy() {
       </section>
       <section>
         <h2>Contact</h2>
-        <p>Questions or requests: jesse@keatingpike.com.</p>
+        <p>Questions or requests: jp@jessepike.dev.</p>
       </section>
     </ProsePage>
   );

@@ -115,7 +115,7 @@ export default function Methodology() {
         <p>
           Every correction is logged in public with its date and reason. Read the <Link href="/corrections">corrections log</Link>, or follow it as an <a href="/corrections/feed.xml">RSS feed</a>.
         </p>
-        <p>If something is wrong, tell us at <a href="mailto:jesse@keatingpike.com">jesse@keatingpike.com</a>. We aim to correct errors within 24 hours.</p>
+        <p>If something is wrong, tell us at <a href="mailto:jp@jessepike.dev">jp@jessepike.dev</a>. We aim to correct errors within 24 hours.</p>
       </section>
     </ProsePage>
   );
