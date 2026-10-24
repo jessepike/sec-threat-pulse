@@ -14,6 +14,9 @@ export interface EventVuln {
   kevCisaRansomware?: boolean | null;
   epss?: number | null;
   exploitMaturity?: string | null;
+  cvssScore?: number | null;
+  /** CVE record publish time (Date or ISO string). */
+  publishedAt?: Date | string | null;
 }
 
 export interface EventObservation extends LadderObservation {
@@ -147,6 +150,9 @@ export function buildEvents(vulns: EventVuln[], observations: EventObservation[]
     const ladder = computeLadder(obs);
     const exploitMaturity = computeExploitMaturity(obs, c.vulns.map((v) => v.exploitMaturity));
     const epss = Math.max(0, ...c.vulns.map((v) => v.epss ?? 0));
+    const cvss = Math.max(0, ...c.vulns.map((v) => v.cvssScore ?? 0));
+    const ages = c.vulns.map((v) => (v.publishedAt ? Math.floor((now.getTime() - new Date(v.publishedAt).getTime()) / DAY) : undefined)).filter((n): n is number => n !== undefined && Number.isFinite(n));
+    const pocRepoCount = Math.max(0, ...obs.map((o) => (o.sourceId === "poc-github" && typeof o.metadata?.repoCount === "number" ? o.metadata.repoCount : 0)));
     const { verdict, reason } = evaluateVerdict(
       ladder,
       {
@@ -155,6 +161,10 @@ export function buildEvents(vulns: EventVuln[], observations: EventObservation[]
         kevRansomware: c.vulns.some((v) => v.kevCisaRansomware === true),
         vendor: c.vendor,
         product: c.product,
+        cvss: cvss || undefined,
+        // The newest CVE in the event decides how new the event is.
+        daysSincePublished: ages.length ? Math.max(0, Math.min(...ages)) : undefined,
+        pocRepoCount,
       },
       rulesVersion,
     );

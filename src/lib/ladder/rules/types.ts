@@ -8,6 +8,12 @@ export interface VerdictContext {
   kevRansomware?: boolean;
   vendor?: string;
   product?: string;
+  /** Highest CVSS base score among the event's CVEs, if known. */
+  cvss?: number;
+  /** Days since the CVE record was published, if known. */
+  daysSincePublished?: number;
+  /** Public GitHub repositories claiming a proof of concept. */
+  pocRepoCount?: number;
 }
 
 export interface VerdictResult {

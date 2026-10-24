@@ -12,7 +12,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "ingest:seed": "tsx scripts/seed-sources.ts",
-    "ingest:local": "tsx scripts/ingest-local.ts"
+    "ingest:local": "tsx scripts/ingest-local.ts",
+    "backtest": "tsx scripts/backtest/run.ts",
+    "backtest:dataset": "tsx scripts/backtest/build-dataset.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.0",
