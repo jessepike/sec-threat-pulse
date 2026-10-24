@@ -66,7 +66,8 @@ const SAMPLE_LISTED: (Listable & { view: EventView })[] = SAMPLE_EVENTS.map((vie
 });
 
 function sampleHome(): HomeData {
-  const shown = homeSelection(SAMPLE_LISTED).map((x) => x.view);
+  // Sample dates are fixed, so measure the 30-day Act now window from the newest sample evidence.
+  const shown = homeSelection(SAMPLE_LISTED, Math.max(...SAMPLE_LISTED.map((x) => x.evidenceAt))).map((x) => x.view);
   const events = shown.map(toRow);
   // The sample hero blurb is written for the flagship sample event, so it stays the hero.
   const hero = SAMPLE_EVENTS[0];

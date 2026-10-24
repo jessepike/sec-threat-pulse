@@ -12,9 +12,17 @@ describe("sortListed", () => {
   });
 });
 
+const DAY = 86_400_000;
+const NOW = 10_000;
+
 describe("homeSelection", () => {
-  it("shows every Act now event and caps Watch at 12 and Low at 6", () => {
-    const out = homeSelection([...many("a", "act_now", 30), ...many("w", "watch", 40), ...many("l", "low", 20)]);
+  it("leaves out Act now events whose newest evidence is older than 30 days", () => {
+    const now = 100 * DAY;
+    const out = homeSelection([mk("fresh", "act_now", now - 29 * DAY), mk("edge", "act_now", now - 30 * DAY), mk("old", "act_now", now - 31 * DAY)], now);
+    expect(out.map((x) => x.id)).toEqual(["fresh", "edge"]);
+  });
+  it("shows every recent Act now event and caps Watch at 12 and Low at 6", () => {
+    const out = homeSelection([...many("a", "act_now", 30), ...many("w", "watch", 40), ...many("l", "low", 20)], NOW);
     expect(out.filter((x) => x.verdict === "act_now")).toHaveLength(30);
     expect(out.filter((x) => x.verdict === "watch")).toHaveLength(12);
     expect(out.filter((x) => x.verdict === "low")).toHaveLength(6);
@@ -30,7 +38,7 @@ describe("homeSelection", () => {
     expect(out.map((x) => x.id)).toEqual(["early-cve-2", "kev-x"]);
   });
   it("does not hold back early Act now or Low events", () => {
-    const out = homeSelection([mk("early-a", "act_now", 5, 1), mk("early-l", "low", 4, 1)]);
+    const out = homeSelection([mk("early-a", "act_now", 5, 1), mk("early-l", "low", 4, 1)], NOW);
     expect(out).toHaveLength(2);
   });
   it("does not let held back early events use up the Watch cap", () => {

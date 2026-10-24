@@ -136,7 +136,7 @@ function countsOf(recs: Rec[]): CountsView {
   return countVerdicts(recs.map((r) => ({ verdict: r.verdict })));
 }
 
-/** Home page events: every Act now, up to 12 Watch and 6 Low, early Watch events need 2+ reports. */
+/** Home page events: Act now with evidence in the last 30 days, up to 12 Watch and 6 Low, early Watch events need 2+ reports. */
 export async function dbHomeEvents(): Promise<{ counts: CountsView; items: EventSummary[] }> {
   const db = getDb();
   if (!db) return { counts: countVerdicts([]), items: [] };

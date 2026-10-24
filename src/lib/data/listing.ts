@@ -1,7 +1,8 @@
 import type { Verdict } from "@/lib/ladder/types";
 import type { VerdictFilter } from "./types";
 
-/** Home page caps. Act now events are never capped. */
+/** Home page caps. Act now events are not capped by count, only by how recent their evidence is. */
+export const HOME_ACT_NOW_DAYS = 30;
 export const HOME_WATCH_CAP = 12;
 export const HOME_LOW_CAP = 6;
 export const EVENTS_PAGE_SIZE = 50;
@@ -30,13 +31,19 @@ export function sortListed<T extends Listable>(items: T[]): T[] {
   return [...items].sort(compareListed);
 }
 
-/** What the home page shows from the full list: every Act now, then up to 12 Watch and 6 Low. */
-export function homeSelection<T extends Listable>(items: T[]): T[] {
+/**
+ * What the home page shows from the full list: every Act now with evidence in the last 30 days,
+ * then up to 12 Watch and 6 Low. Older Act now events stay on the /events index.
+ */
+export function homeSelection<T extends Listable>(items: T[], now: number = Date.now()): T[] {
+  const actNowSince = now - HOME_ACT_NOW_DAYS * 86_400_000;
   const out: T[] = [];
   let watch = 0;
   let low = 0;
   for (const it of sortListed(items)) {
-    if (it.verdict === "act_now") out.push(it);
+    if (it.verdict === "act_now") {
+      if (it.evidenceAt >= actNowSince) out.push(it);
+    }
     else if (it.verdict === "watch") {
       if (isEarlyEvent(it.id) && it.reports < EARLY_HOME_MIN_REPORTS) continue;
       if (watch < HOME_WATCH_CAP) {
