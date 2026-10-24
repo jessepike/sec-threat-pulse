@@ -14,12 +14,20 @@ export interface VerdictContext {
   daysSincePublished?: number;
   /** Public GitHub repositories claiming a proof of concept. */
   pocRepoCount?: number;
+  /**
+   * Where the reported (unconfirmed) exploitation observations came from, one entry per source
+   * kind: "telegram", a host name, "news". Lets a rule ask for corroboration of social posts.
+   * Empty or missing when exploitation is not reported.
+   */
+  reportedExploitationSources?: string[];
 }
 
 export interface VerdictResult {
   verdict: Verdict;
-  /** Plain language, no em dashes. Shown to readers. */
+  /** Plain language, no em dashes. Shown to readers after reasons.ts has applied any wording override. */
   reason: string;
+  /** Stable id of the rule that fired, for wording overrides and audits. v0 and v1 predate this field. */
+  ruleId?: string;
 }
 
 export interface RulesVersion {

@@ -112,6 +112,21 @@ export function computeExploitMaturity(
   return best;
 }
 
+/**
+ * Distinct labels of the sources behind reported (unconfirmed) exploitation: "telegram", a host
+ * name, or the adapter id. Sorted. Empty when nothing reports exploitation. Feeds
+ * VerdictContext.reportedExploitationSources so a rule can ask for corroboration.
+ */
+export function reportedExploitationSources(observations: LadderObservation[]): string[] {
+  const out = new Set<string>();
+  for (const o of observations) {
+    if (o.kind !== "exploited" || o.strength !== "reported") continue;
+    const label = o.metadata?.sourceLabel;
+    out.add(typeof label === "string" && label ? label : o.sourceId);
+  }
+  return [...out].sort();
+}
+
 export function ladderEquals(a: Record<string, string>, b: Record<string, string>): boolean {
   return (["talk", "exposure", "attempts", "exploited", "damage"] as Rung[]).every((r) => (a[r] ?? "none") === (b[r] ?? "none"));
 }

@@ -1,6 +1,7 @@
 import type { Ladder } from "../types";
 import { rulesV0 } from "./v0";
 import { rulesV1 } from "./v1";
+import { presentReason } from "./reasons";
 import type { RulesVersion, VerdictContext, VerdictResult } from "./types";
 
 export type { RulesVersion, VerdictContext, VerdictResult } from "./types";
@@ -19,6 +20,7 @@ export function getRules(version: string = CURRENT_RULES_VERSION): RulesVersion 
   return r;
 }
 
+/** Evaluate and apply reader-facing wording (reasons.ts). The backtest calls the version's evaluate directly. */
 export function evaluateVerdict(ladder: Ladder, ctx: VerdictContext, version: string = CURRENT_RULES_VERSION): VerdictResult & { rulesVersion: string } {
-  return { ...getRules(version).evaluate(ladder, ctx), rulesVersion: version };
+  return { ...presentReason(version, getRules(version).evaluate(ladder, ctx)), rulesVersion: version };
 }

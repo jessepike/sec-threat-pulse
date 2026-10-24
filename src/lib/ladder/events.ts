@@ -1,4 +1,4 @@
-import { computeExploitMaturity, computeLadder, type LadderObservation } from "./compute";
+import { computeExploitMaturity, computeLadder, reportedExploitationSources, type LadderObservation } from "./compute";
 import { CURRENT_RULES_VERSION, evaluateVerdict } from "./rules";
 import type { ExploitMaturity, Ladder, Verdict } from "./types";
 
@@ -165,6 +165,7 @@ export function buildEvents(vulns: EventVuln[], observations: EventObservation[]
         // The newest CVE in the event decides how new the event is.
         daysSincePublished: ages.length ? Math.max(0, Math.min(...ages)) : undefined,
         pocRepoCount,
+        reportedExploitationSources: reportedExploitationSources(obs),
       },
       rulesVersion,
     );
