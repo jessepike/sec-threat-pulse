@@ -61,3 +61,5 @@ docs/                  architecture, source registry, design prototypes
 - Tests: every adapter has a fixture-based test. `npm test` must pass before pushing.
 - Commit as `jesse@keatingpike.com` (Vercel rejects other authors). Conventional commits.
 - Update `status.md` at the end of every session.
+- Keep the owner's Claude Doc current as work lands: tick the checkboxes in the decision log, open
+  questions, "What exists" and the Build plan backlog, and add new decisions and open questions there.
