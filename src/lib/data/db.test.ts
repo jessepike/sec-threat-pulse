@@ -1,0 +1,112 @@
+import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { createTestDb } from "@/lib/ingest/testdb";
+import * as schema from "@/lib/db/schema";
+
+let current: Awaited<ReturnType<typeof createTestDb>>;
+vi.mock("@/lib/db/client", async () => ({ getDb: () => current, schema: await import("@/lib/db/schema") }));
+
+const { dbBriefEvents, dbCorrections, dbEvent, dbEventsPage, dbHomeEvents } = await import("./db");
+
+const LADDER = { talk: "confirmed", exposure: "none", attempts: "none", exploited: "none", damage: "none" };
+const day = (n: number) => new Date(Date.UTC(2026, 9, n, 12));
+let seq = 0;
+
+async function ev(id: string, verdict: string, over: Partial<typeof schema.events.$inferInsert> = {}) {
+  await current.insert(schema.events).values({ id, title: `Title ${id}`, ladder: LADDER, verdict, rulesVersion: "v2", ...over });
+}
+async function obs(eventId: string, kind: string, at: Date) {
+  seq += 1;
+  await current.insert(schema.observations).values({ sourceId: "s1", dedupeKey: `k${seq}`, kind, strength: "reported", eventId, title: `Obs ${seq}`, url: `https://example.com/${seq}`, publishedAt: at });
+}
+
+beforeAll(async () => {
+  current = await createTestDb();
+});
+beforeEach(async () => {
+  current = await createTestDb();
+  await current.insert(schema.sources).values({ id: "s1", name: "Source", category: "x", homepage: "https://example.com" });
+});
+
+describe("live event lists", () => {
+  it("orders by verdict, then newest evidence, and hides hidden events", async () => {
+    await ev("w-old", "watch");
+    await obs("w-old", "talk", day(1));
+    await ev("w-new", "watch");
+    await obs("w-new", "talk", day(5));
+    await ev("act", "act_now");
+    await obs("act", "talk", day(2));
+    await ev("gone", "act_now", { hidden: true });
+    await ev("over", "low", { overrideVerdict: "act_now", overrideReason: "x" });
+    await obs("over", "talk", day(9));
+    const { counts, items } = await dbHomeEvents();
+    expect(items.map((x) => x.row.id)).toEqual(["over", "act", "w-new", "w-old"]);
+    expect(counts).toEqual({ act_now: 2, watch: 2, low: 0, total: 4 });
+  });
+
+  it("keeps early Watch events with one report off the home page but on /events", async () => {
+    await ev("early-cve-1", "watch");
+    await obs("early-cve-1", "attempts", day(3));
+    await ev("early-cve-2", "watch");
+    await obs("early-cve-2", "attempts", day(3));
+    await obs("early-cve-2", "talk", day(4));
+    await ev("early-cve-3", "act_now");
+    await obs("early-cve-3", "attempts", day(3));
+    const home = await dbHomeEvents();
+    expect(home.items.map((x) => x.row.id).sort()).toEqual(["early-cve-2", "early-cve-3"]);
+    expect(home.counts.total).toBe(3);
+    const page = await dbEventsPage("all", 1);
+    expect(page.rows.map((r) => r.id).sort()).toEqual(["early-cve-1", "early-cve-2", "early-cve-3"]);
+    expect((await dbEventsPage("watch", 1)).total).toBe(2);
+  });
+
+  it("caps Watch at 12 and Low at 6 on home, and pages /events 50 at a time", async () => {
+    for (let i = 0; i < 60; i++) await ev(`w${String(i).padStart(2, "0")}`, "watch");
+    for (let i = 0; i < 10; i++) await ev(`l${i}`, "low");
+    const home = await dbHomeEvents();
+    expect(home.items.filter((x) => x.row.verdict === "watch")).toHaveLength(12);
+    expect(home.items.filter((x) => x.row.verdict === "low")).toHaveLength(6);
+    const p1 = await dbEventsPage("all", 1);
+    const p2 = await dbEventsPage("all", 2);
+    expect(p1.rows).toHaveLength(50);
+    expect(p2.rows).toHaveLength(20);
+    expect(p1.pages).toBe(2);
+  });
+
+  it("gives the brief its lead event and recent updates", async () => {
+    await ev("lead", "act_now");
+    await obs("lead", "talk", day(2));
+    const b = await dbBriefEvents();
+    expect(b.top?.row.id).toBe("lead");
+    expect(b.counts.total).toBe(1);
+  });
+});
+
+describe("event freshness", () => {
+  it("reports the newest evidence date for each rung", async () => {
+    await ev("e1", "watch", { firstSeenAt: day(1), updatedAt: day(8) });
+    await obs("e1", "talk", day(2));
+    await obs("e1", "talk", day(6));
+    const e = await dbEvent("e1");
+    expect(e?.rungs.find((r) => r.rung === "talk")?.newestAt).toBe(day(6).toISOString());
+    expect(e?.rungs.find((r) => r.rung === "damage")?.newestAt).toBeUndefined();
+    expect(e?.updatedAt).toBe(day(8).toISOString());
+    expect(e?.trackingSince).toBe(day(1).toISOString());
+  });
+});
+
+describe("corrections log", () => {
+  it("lists every row newest first, links only public events and never returns the editor", async () => {
+    await ev("shown", "watch");
+    await ev("hid", "watch", { hidden: true });
+    await current.insert(schema.corrections).values([
+      { eventId: "shown", text: "first", actor: "admin:jesse", createdAt: day(1) },
+      { eventId: null, text: "general", actor: "admin:jesse", createdAt: day(3) },
+      { eventId: "hid", text: "hidden one", actor: "admin:jesse", createdAt: day(2) },
+    ]);
+    const rows = await dbCorrections();
+    expect(rows.map((r) => r.text)).toEqual(["general", "hidden one", "first"]);
+    expect(rows[2]).toMatchObject({ eventHref: "/events/shown", eventTitle: "Title shown" });
+    expect(rows[1]).toMatchObject({ eventHref: null, eventTitle: null });
+    expect(JSON.stringify(rows)).not.toContain("admin:");
+  });
+});

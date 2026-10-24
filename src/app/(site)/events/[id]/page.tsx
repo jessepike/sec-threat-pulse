@@ -4,6 +4,7 @@ import { AskYourTeam, ClaimCheck, EventHero, FullLadder, Roles, Sources, Summary
 import { SiteHeader } from "@/components/SiteHeader";
 import { EventStrip } from "@/components/StatusStrip";
 import { getEvent } from "@/lib/data";
+import { pageMeta } from "@/lib/site";
 
 export const revalidate = 300;
 
@@ -13,7 +14,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const res = await getEvent(id);
   if (!res) return { title: "Event not found" };
-  return { title: res.event.title, description: res.event.summary || undefined };
+  const { title, summary, updatedAt } = res.event;
+  return pageMeta({ title, description: summary || undefined, path: `/events/${id}`, type: "article", modifiedTime: updatedAt });
 }
 
 export default async function EventPage({ params }: Props) {

@@ -1,4 +1,4 @@
-import { fmtClock, fmtDay, fmtStamp } from "@/lib/data/format";
+import { fmtClock, fmtDayYear, fmtStamp } from "@/lib/data/format";
 import type { DataMode, StatusView } from "@/lib/data/types";
 
 export function SampleBadge() {
@@ -50,8 +50,12 @@ export function EventStrip({ status, updatedAt, trackingSince, sourceCount }: { 
   return (
     <Strip>
       <Live mode={status.mode} />
-      <div>EVENT UPDATED {fmtStamp(updatedAt)}</div>
-      <div>TRACKING SINCE {fmtDay(trackingSince)}</div>
+      <div>
+        LAST UPDATED <time dateTime={updatedAt}>{fmtStamp(updatedAt)}</time>
+      </div>
+      <div>
+        FIRST SEEN <time dateTime={trackingSince}>{fmtDayYear(trackingSince)}</time>
+      </div>
       <div>
         {sourceCount} {sourceCount === 1 ? "SOURCE" : "SOURCES"} ON THIS EVENT
       </div>

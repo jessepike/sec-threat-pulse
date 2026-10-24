@@ -151,8 +151,50 @@ function EventTitleCell({ e }: { e: EventRow }) {
   );
 }
 
-export function EventsTable({ events }: { events: EventRow[] }) {
+/** The events table alone, with no heading. Used on the home page and the /events index. */
+export function EventsGrid({ events, label, empty = "No events are tracked yet." }: { events: EventRow[]; label: string; empty?: string }) {
   const head = "px-6 py-3.5 text-left font-mono text-xs font-normal tracking-[0.08em] text-muted";
+  return (
+    <div className="overflow-x-auto rounded border border-line bg-surface" tabIndex={0} role="region" aria-label={`${label}, scrolls sideways on small screens`}>
+      <table className="w-full min-w-[1040px] border-collapse">
+        <caption className="sr-only">{label}</caption>
+        <thead>
+          <tr className="border-b border-line">
+            <th scope="col" className={`${head} w-[19%]`}>EVENT</th>
+            <th scope="col" className={`${head} w-[21%]`}>BUSINESS EXPOSURE</th>
+            <th scope="col" className={`${head} w-[19%]`}>TALK · EXPOSED · TRIED · EXPLOITED · DAMAGE</th>
+            <th scope="col" className={`${head} w-[10%]`}>VERDICT</th>
+            <th scope="col" className={`${head} w-[21%]`}>ASK YOUR TEAM</th>
+          </tr>
+        </thead>
+        <tbody>
+          {events.length === 0 && (
+            <tr>
+              <td colSpan={5} className="px-6 py-8 text-[15px] text-muted">{empty}</td>
+            </tr>
+          )}
+          {events.map((e) => (
+            <tr key={e.id} className="border-b border-line-soft last:border-b-0">
+              <EventTitleCell e={e} />
+              <td className="px-6 py-5 align-top text-[15px] leading-normal text-fg-2">{e.exposure}</td>
+              <td className="px-6 py-5 align-top">
+                <MiniLadder ladder={e.ladder} topLabel={topLabel(e.topConfirmed ? RUNG_SHORT[e.topConfirmed] : null)} />
+              </td>
+              <td className="px-6 py-5 align-top">
+                <VerdictBadge verdict={e.verdict} />
+              </td>
+              <td className="px-6 py-5 align-top text-[15px] leading-normal text-fg-2">
+                {e.question ?? <span className="text-muted">Not written yet.</span>}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function EventsTable({ events, total }: { events: EventRow[]; total: number }) {
   return (
     <section id="events" aria-labelledby="ev" className="flex scroll-mt-4 flex-col gap-5">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -163,41 +205,16 @@ export function EventsTable({ events }: { events: EventRow[] }) {
         </div>
         <LadderKey />
       </div>
-      <div className="overflow-x-auto rounded border border-line bg-surface" tabIndex={0} role="region" aria-label="Active events table, scrolls sideways on small screens">
-        <table className="w-full min-w-[1040px] border-collapse">
-          <caption className="sr-only">Active events with evidence ladder and verdict</caption>
-          <thead>
-            <tr className="border-b border-line">
-              <th scope="col" className={`${head} w-[19%]`}>EVENT</th>
-              <th scope="col" className={`${head} w-[21%]`}>BUSINESS EXPOSURE</th>
-              <th scope="col" className={`${head} w-[19%]`}>TALK · EXPOSED · TRIED · EXPLOITED · DAMAGE</th>
-              <th scope="col" className={`${head} w-[10%]`}>VERDICT</th>
-              <th scope="col" className={`${head} w-[21%]`}>ASK YOUR TEAM</th>
-            </tr>
-          </thead>
-          <tbody>
-            {events.length === 0 && (
-              <tr>
-                <td colSpan={5} className="px-6 py-8 text-[15px] text-muted">No events are tracked yet.</td>
-              </tr>
-            )}
-            {events.map((e) => (
-              <tr key={e.id} className="border-b border-line-soft last:border-b-0">
-                <EventTitleCell e={e} />
-                <td className="px-6 py-5 align-top text-[15px] leading-normal text-fg-2">{e.exposure}</td>
-                <td className="px-6 py-5 align-top">
-                  <MiniLadder ladder={e.ladder} topLabel={topLabel(e.topConfirmed ? RUNG_SHORT[e.topConfirmed] : null)} />
-                </td>
-                <td className="px-6 py-5 align-top">
-                  <VerdictBadge verdict={e.verdict} />
-                </td>
-                <td className="px-6 py-5 align-top text-[15px] leading-normal text-fg-2">
-                  {e.question ?? <span className="text-muted">Not written yet.</span>}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <EventsGrid events={events} label="Active events with evidence ladder and verdict" />
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-[15px] text-muted">
+        <p className="m-0">
+          {total > events.length
+            ? `Showing ${events.length} of ${total} tracked events. Every Act now event is listed, and the most recent Watch and Low events fill the rest.`
+            : `Showing all ${total} tracked events.`}
+        </p>
+        <Link href="/events" className="py-2 font-mono text-sm font-bold tracking-[0.06em]">
+          SEE ALL EVENTS →
+        </Link>
       </div>
     </section>
   );

@@ -1,15 +1,18 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ProsePage } from "@/components/prose";
 import { headingId, parseMarkdown, renderBlocks, splitTitle, type Block } from "@/lib/content/markdown";
 import { CURRENT_RULES_VERSION } from "@/lib/ladder/rules";
 import { RULES_CHANGELOG } from "@/lib/ladder/rules/changelog";
+import { pageMeta } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Methodology",
   description: "How Security Threat Pulse places reports on the evidence ladder, sets a verdict, and how often the verdict rules were right on past events.",
-};
+  path: "/methodology",
+});
 
 // The page renders docs/methodology-rules.md at build time. next.config.ts bundles the file.
 const RULES_DOC = path.join(process.cwd(), "docs", "methodology-rules.md");
@@ -109,7 +112,10 @@ export default function Methodology() {
       </section>
       <section id="corrections">
         <h2>Corrections</h2>
-        <p>If something is wrong, tell us at <a href="mailto:jesse@keatingpike.com">jesse@keatingpike.com</a>. We aim to correct errors within 24 hours. Each correction is logged with its date and reason, and we note the change in public.</p>
+        <p>
+          Every correction is logged in public with its date and reason. Read the <Link href="/corrections">corrections log</Link>, or follow it as an <a href="/corrections/feed.xml">RSS feed</a>.
+        </p>
+        <p>If something is wrong, tell us at <a href="mailto:jesse@keatingpike.com">jesse@keatingpike.com</a>. We aim to correct errors within 24 hours.</p>
       </section>
     </ProsePage>
   );
