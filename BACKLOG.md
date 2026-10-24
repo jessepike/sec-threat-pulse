@@ -27,8 +27,8 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [x] Backtest harness and 18 months of history (`npm run backtest`, `docs/methodology-rules.md`)
 - [x] Independent review of the backtest, corrected measurement, rules v2 (active; v0 and v1 kept for replay)
 - [ ] Collect vendor confirmed exploitation and VulnCheck KEV for ground truth; rerun
-- [ ] Admin: Rules, Scorecard; public methodology and changelog (draft text in `docs/methodology-rules.md`)
-- [ ] Pre listing calls need events before a KEV listing (today events start at the listing)
+- [x] Admin: Rules, Scorecard; public methodology and changelog (the page renders `docs/methodology-rules.md`)
+- [x] Pre listing calls need events before a KEV listing (early events `early-<cve>`; a later KEV listing adopts them)
 - [ ] Second exploitation report source so "two independent reports" can confirm without KEV
 
 ## Permissions and partnerships (owner sends; agents draft)

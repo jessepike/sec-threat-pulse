@@ -1,6 +1,6 @@
 # Status
 
-Updated Oct 24, 2026.
+Updated Oct 24, 2026 (phase 2 surface on branch `feat/phase2-surface`, not merged).
 
 **Phase:** 0 and 1 code complete, waiting on owner setup to go live. Phase 2 measured twice (first
 backtest, then the independent review and the corrected backtest); v2 active.
@@ -25,6 +25,11 @@ backtest, then the independent review and the corrected backtest); v2 active.
   honeypot attempts before an early Act now. The live CIRCL adapter now drops KEV catalog mirror
   sightings, matching the replay. Details in `docs/methodology-rules.md`,
   `docs/backtest-review-2026-10-24.md` and `reports/backtest/`.
+
+**Phase 2 surface (branch `feat/phase2-surface`):** /methodology renders `docs/methodology-rules.md` with a
+rules changelog; /admin/rules and /admin/scorecard (read only); early events for CVEs with reported
+exploitation or confirmed honeypot attempts and no KEV listing (id `early-<cve>`, at most 25 new per
+run, needs a known CVE publish date; a KEV listing adopts the early event so its id and history carry on).
 
 **Vercel:** project `security-threat-pulse` (pikeholdings), domain added, CRON_SECRET, AUTH_SECRET,
 ADMIN_GITHUB_LOGINS set.
