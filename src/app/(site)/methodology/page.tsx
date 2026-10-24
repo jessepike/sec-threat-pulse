@@ -12,7 +12,7 @@ export default function Methodology() {
         <ul>
           <li><strong>1 Talk.</strong> Advisories, news and researcher posts discuss the issue.</li>
           <li><strong>2 Exposed.</strong> Real systems are affected, with a figure from an advisory or a news report.</li>
-          <li><strong>3 Tried.</strong> Someone reports attack attempts.</li>
+          <li><strong>3 Tried.</strong> Someone reports attack attempts. Confirmed exploitation counts as a successful attempt, so when rung 4 is confirmed, rung 3 is confirmed too.</li>
           <li><strong>4 Exploited.</strong> A trusted list such as CISA KEV, or the vendor, says attacks worked.</li>
           <li><strong>5 Damage.</strong> A filing, a state notice or a breach record links real harm to the event.</li>
         </ul>

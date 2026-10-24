@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: actions/setup-node@v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - name: Build (sample mode, no database)
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+          AUTH_SECRET: ci-dummy-secret-not-used-at-runtime
+          AUTH_GITHUB_ID: ci-dummy
+          AUTH_GITHUB_SECRET: ci-dummy
+          ADMIN_GITHUB_LOGINS: ci-dummy

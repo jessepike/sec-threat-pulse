@@ -166,3 +166,19 @@ export const settings = pgTable("settings", {
   value: jsonb("value").notNull(),
   updatedAt: ts("updated_at").notNull().defaultNow(),
 });
+
+/** Editor-written (or AI-drafted, then reviewed) plain-language sections for an event page. */
+export const eventNarratives = pgTable("event_narratives", {
+  eventId: text("event_id").primaryKey().references(() => events.id),
+  businessExposure: text("business_exposure"),
+  whyAct: text("why_act"),
+  fix: text("fix"),
+  /** One question per line. The first line shows in the home table. */
+  askYourTeam: text("ask_your_team"),
+  roles: jsonb("roles").$type<{ ciso: string[]; cio: string[]; ceo: string[]; board: string[] }>().notNull().default({ ciso: [], cio: [], ceo: [], board: [] }),
+  claimChecks: jsonb("claim_checks").$type<{ claim: string; truth: string; rating: "TRUE" | "OVERSTATED" | "TOO EARLY" | "FALSE" }[]>().notNull().default([]),
+  source: text("source").notNull().default("human"), // human | ai_draft
+  status: text("status").notNull().default("draft"), // draft | published
+  updatedBy: text("updated_by").notNull(),
+  updatedAt: ts("updated_at").notNull().defaultNow(),
+});

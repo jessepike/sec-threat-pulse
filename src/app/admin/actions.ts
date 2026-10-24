@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { eq, inArray } from "drizzle-orm";
@@ -11,6 +11,9 @@ import { applyOverride, clearOverride, validateOverride, validateReason } from "
 import { runSourceNow, SOURCE_ID } from "@/lib/admin/ingest-trigger";
 import { parseFlags, parseRecipients, parseTheme } from "@/lib/admin/settings";
 import { createIssue } from "@/lib/admin/github";
+import { EMPTY_NARRATIVE, parseNarrativeForm } from "@/lib/narrative/model";
+import { getNarrative, saveNarrative, setNarrativeStatus } from "@/lib/narrative/store";
+import { draftEnabled, draftModel, requestDraft } from "@/lib/narrative/draft";
 
 // Server actions get Next's built-in Origin check (CSRF). Each one also re-checks the session.
 
@@ -246,4 +249,89 @@ export async function addIdeaAction(fd: FormData) {
   if (db) await writeAudit(db, { actor: admin.login, action: "roadmap.add_idea", target: res.url, details: { title } });
   revalidatePath(path);
   back(path, "ok", "Idea added as a GitHub issue.");
+}
+
+// ---- Narratives ----
+
+function refreshPublic(id: string) {
+  updateTag("stp");
+  revalidatePath("/");
+  revalidatePath(`/events/${id}`);
+}
+
+/** Save draft or publish, chosen by the submit button's value. A human edit marks the source as human. */
+export async function saveNarrativeAction(fd: FormData) {
+  const id = str(fd, "id");
+  const path = `/admin/events/${encodeURIComponent(id)}`;
+  const { admin, db } = await ctx(path);
+  const parsed = parseNarrativeForm(fd);
+  if (!parsed.ok) back(path, "error", parsed.error);
+  await loadEvent(db, id, path);
+  const publish = str(fd, "intent") === "publish";
+  const existing = await getNarrative(db, id);
+  // Keep the ai_draft label when the text is unchanged from the AI draft; any edit makes it human.
+  const unchanged =
+    existing?.source === "ai_draft" &&
+    JSON.stringify({ ...EMPTY_NARRATIVE, ...parsed.value }) ===
+      JSON.stringify({
+        businessExposure: existing.businessExposure ?? "",
+        whyAct: existing.whyAct ?? "",
+        fix: existing.fix ?? "",
+        askYourTeam: existing.askYourTeam ?? "",
+        roles: existing.roles,
+        claimChecks: existing.claimChecks,
+      });
+  await saveNarrative(db, {
+    actor: admin.login,
+    eventId: id,
+    input: parsed.value,
+    source: unchanged ? "ai_draft" : "human",
+    status: publish ? "published" : "draft",
+    action: publish ? "narrative.publish" : "narrative.save_draft",
+  });
+  refreshPublic(id);
+  back(path, "ok", publish ? "Narrative published." : "Draft saved.");
+}
+
+export async function unpublishNarrativeAction(fd: FormData) {
+  const id = str(fd, "id");
+  const path = `/admin/events/${encodeURIComponent(id)}`;
+  const { admin, db } = await ctx(path);
+  await loadEvent(db, id, path);
+  if (!(await getNarrative(db, id))) back(path, "error", "There is no narrative to unpublish.");
+  await setNarrativeStatus(db, { actor: admin.login, eventId: id, status: "draft" });
+  refreshPublic(id);
+  back(path, "ok", "Narrative unpublished.");
+}
+
+/** Asks the model for a draft and saves it as an unpublished ai_draft. Never publishes. */
+export async function draftNarrativeAction(fd: FormData) {
+  const id = str(fd, "id");
+  const path = `/admin/events/${encodeURIComponent(id)}`;
+  const { admin, db } = await ctx(path);
+  const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
+  if (!apiKey || !draftEnabled()) back(path, "error", "ANTHROPIC_API_KEY is not set.");
+  const event = await loadEvent(db, id, path);
+  const existing = await getNarrative(db, id);
+  if (existing?.status === "published") back(path, "error", "Unpublish the narrative before drafting a new one.");
+  const [cves, obs] = await Promise.all([
+    db.select().from(schema.eventCves).where(eq(schema.eventCves.eventId, id)),
+    db.select({ title: schema.observations.title, url: schema.observations.url, kind: schema.observations.kind }).from(schema.observations).where(eq(schema.observations.eventId, id)).limit(25),
+  ]);
+  const res = await requestDraft(
+    {
+      title: event.title,
+      vendor: event.vendor,
+      product: event.product,
+      ladder: event.ladder,
+      verdict: event.overrideVerdict ?? event.verdict,
+      verdictReason: event.overrideReason ?? event.verdictReason,
+      cves: cves.map((c) => c.cveId).sort(),
+      observations: obs,
+    },
+    { apiKey: apiKey!, model: draftModel() },
+  );
+  if (!res.ok) back(path, "error", res.error);
+  await saveNarrative(db, { actor: admin.login, eventId: id, input: res.value, source: "ai_draft", status: "draft", action: "narrative.ai_draft" });
+  back(path, "ok", "AI draft saved. Review it, then publish.");
 }

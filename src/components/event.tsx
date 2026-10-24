@@ -219,6 +219,27 @@ export function TimelineAndBlast({ e }: { e: EventView }) {
   );
 }
 
+export function AskYourTeam({ e }: { e: EventView }) {
+  const qs = e.askYourTeam ?? [];
+  if (qs.length === 0 && !e.aiDrafted) return null;
+  return (
+    <section aria-labelledby="ask" className="flex flex-col gap-4">
+      {qs.length > 0 && (
+        <>
+          <Eyebrow>{"// ASK YOUR TEAM"}</Eyebrow>
+          <H2 id="ask" size="md">Questions to ask this week</H2>
+          <ul className="m-0 flex list-disc flex-col gap-2 pl-5 text-base leading-[1.6] text-fg-2">
+            {qs.map((q) => (
+              <li key={q}>{q}</li>
+            ))}
+          </ul>
+        </>
+      )}
+      {e.aiDrafted && <p className="m-0 font-mono text-xs tracking-[0.06em] text-muted">AI-drafted, reviewed by STP</p>}
+    </section>
+  );
+}
+
 export function Roles({ e }: { e: EventView }) {
   if (e.roles.length === 0) return null;
   return (

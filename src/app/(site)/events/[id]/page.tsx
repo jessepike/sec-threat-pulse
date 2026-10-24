@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ClaimCheck, EventHero, FullLadder, Roles, Sources, Summary, TimelineAndBlast } from "@/components/event";
+import { AskYourTeam, ClaimCheck, EventHero, FullLadder, Roles, Sources, Summary, TimelineAndBlast } from "@/components/event";
 import { SiteHeader } from "@/components/SiteHeader";
 import { EventStrip } from "@/components/StatusStrip";
 import { getEvent } from "@/lib/data";
@@ -28,6 +28,7 @@ export default async function EventPage({ params }: Props) {
         <EventHero e={e} />
         <FullLadder e={e} />
         <Summary e={e} />
+        <AskYourTeam e={e} />
         <ClaimCheck e={e} />
         <TimelineAndBlast e={e} />
         <Roles e={e} />
