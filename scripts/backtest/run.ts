@@ -58,6 +58,7 @@ console.table([
   row("Watch or higher before KEV / median lead", (c) => `${c.leadTime.watchCalledBeforeKev} / ${num(c.leadTime.medianWatchLead)}`),
   row("Transitions per CVE / downgrades", (c) => `${num(c.churn.transitionsPerCve, 2)} / ${c.churn.downgrades}`),
   row("Unscoreable Act now calls (under 30 days of follow-up)", (c) => String(c.actNow.unscoreable)),
+  row("Left censored first day calls on pre-window CVEs (not scored)", (c) => String(c.actNow.leftCensored)),
 ]);
 const last = cards[cards.length - 1];
 console.log(`Confusion (peak verdict before confirmation x outcome), period ${last.period.name}:`);

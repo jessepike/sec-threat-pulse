@@ -55,6 +55,8 @@ export interface Scorecard {
     /** Calls made on or after the confirmation day. True by construction. */
     postConfirmation: number;
     unscoreable: number;
+    /** First day calls on pre-window CVEs whose signals predate the window. Not scored. */
+    leftCensored: number;
     byStratum: Record<Stratum, RateCell>;
     preByStratum: Record<Stratum, RateCell>;
   };
@@ -188,7 +190,7 @@ export function score(replays: CveReplay[], opts: ScoreOptions): Scorecard {
   const lastScoreableDay = addDays(opts.dataEnd, -HORIZON_DAYS);
   const lastScoreable90 = addDays(opts.dataEnd, -WATCH_HORIZON_DAYS);
 
-  const act = { all: acc(), pre: acc(), pre90: acc(), post: 0, unscoreable: 0, byStratum: byStratum(acc), preByStratum: byStratum(acc) };
+  const act = { all: acc(), pre: acc(), pre90: acc(), post: 0, unscoreable: 0, leftCensored: 0, byStratum: byStratum(acc), preByStratum: byStratum(acc) };
   const low = { hold: acc(), byStratum: byStratum(acc), always: acc(), alwaysByStratum: byStratum(acc), missed: [] as string[] };
   const watch = { hit90: acc() };
   const leads: number[] = [];
@@ -218,8 +220,10 @@ export function score(replays: CveReplay[], opts: ScoreOptions): Scorecard {
 
     // Act now precision, placed by the call day.
     const d0 = firstDayAtLeast(r, "act_now");
+    const censoredCall = (d?: string) => !!r.leftCensored && d === r.start;
     if (d0 && inPeriod(d0, p)) {
-      if (d0 > lastScoreableDay) act.unscoreable++;
+      if (censoredCall(d0)) act.leftCensored++;
+      else if (d0 > lastScoreableDay) act.unscoreable++;
       else {
         const hit = !!confirmedAt && confirmedAt <= addDays(d0, HORIZON_DAYS);
         add(act.all, hit, weight);
@@ -265,7 +269,7 @@ export function score(replays: CveReplay[], opts: ScoreOptions): Scorecard {
 
     // Watch: did the first Watch or higher call (before confirmation) see confirmation within 90 days?
     const w0 = firstDayAtLeast(r, "watch");
-    if (w0 && inPeriod(w0, p) && (!confirmedAt || confirmedAt > w0) && w0 <= lastScoreable90) {
+    if (w0 && inPeriod(w0, p) && !censoredCall(w0) && (!confirmedAt || confirmedAt > w0) && w0 <= lastScoreable90) {
       add(watch.hit90, !!confirmedAt && confirmedAt <= addDays(w0, WATCH_HORIZON_DAYS), weight);
     }
 
@@ -319,6 +323,7 @@ export function score(replays: CveReplay[], opts: ScoreOptions): Scorecard {
       preConfirmation90: finish(act.pre90, weighted),
       postConfirmation: act.post,
       unscoreable: act.unscoreable,
+      leftCensored: act.leftCensored,
       byStratum: finishAll(act.byStratum),
       preByStratum: finishAll(act.preByStratum),
     },

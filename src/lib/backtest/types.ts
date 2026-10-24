@@ -93,6 +93,11 @@ export interface CveReplay {
   start: string;
   end: string;
   transitions: VerdictTransition[];
+  /**
+   * True when the CVE was published before the window and already stood above Low on the first
+   * replayed day: the real call day is unknown (left censored), so a first day call is not scored.
+   */
+  leftCensored?: boolean;
   /** Earliest day exploitation counts as confirmed, or undefined. */
   confirmedAt?: string;
   /** Which evidence confirmed it first. "circl-reports" only appears in the secondary truth view. */

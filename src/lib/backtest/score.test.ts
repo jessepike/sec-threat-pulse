@@ -96,6 +96,14 @@ describe("score", () => {
     expect(weighted.low.hold.weightedCi![1]).toBeLessThanOrEqual(1);
   });
 
+  it("does not score a first day call on a left censored CVE", () => {
+    const r = R("K", [T("2026-01-01", "act_now")], { leftCensored: true });
+    const c = score([r], opts);
+    expect(c.actNow.all.n).toBe(0);
+    expect(c.actNow.leftCensored).toBe(1);
+    expect(c.watch.hit90.n).toBe(0);
+  });
+
   it("counts churn and downgrades inside the period", () => {
     const r = R("J", [T("2026-01-01", "watch"), T("2026-01-10", "low"), T("2026-01-20", "watch")]);
     const c = score([r], opts);

@@ -158,7 +158,8 @@ export function replayCve(cve: BacktestCve, opts: ReplayOptions): CveReplay {
     }
   }
   const c = confirmation(cve, opts);
-  return { cveId: cve.cveId, stratum: cve.stratum, start, end, transitions, confirmedAt: c.at, confirmedBy: c.by, kevDate: cve.kev?.dateAdded };
+  const leftCensored = !!cve.published && cve.published < opts.from && transitions[0]?.day === opts.from && transitions[0].verdict !== "low";
+  return { cveId: cve.cveId, stratum: cve.stratum, start, end, transitions, ...(leftCensored ? { leftCensored } : {}), confirmedAt: c.at, confirmedBy: c.by, kevDate: cve.kev?.dateAdded };
 }
 
 export function replayDataset(ds: BacktestDataset, opts: ReplayOptions): CveReplay[] {

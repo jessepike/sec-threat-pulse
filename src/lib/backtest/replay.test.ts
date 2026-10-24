@@ -166,6 +166,10 @@ describe("replayCve", () => {
   it("starts at the window start for CVEs published earlier and handles empty windows", () => {
     const cve = base({ published: "2020-01-01" });
     expect(replayCve(cve, { rulesVersion: "v0", from: "2026-01-01", to: "2026-01-03" }).start).toBe("2026-01-01");
+    expect(replayCve(cve, { rulesVersion: "v0", from: "2026-01-01", to: "2026-01-03" }).leftCensored).toBeUndefined();
+    // Published before the window with a pre-window tool: above Low on day one, so left censored.
+    const censored = replayCve(base({ published: "2025-12-01", metasploit: ["2025-12-15"] }), { rulesVersion: "v1", from: "2026-01-01", to: "2026-01-03" });
+    expect(censored.leftCensored).toBe(true);
     expect(replayCve(base({ published: "2026-05-01" }), { rulesVersion: "v0", from: "2026-01-01", to: "2026-01-03" }).transitions).toEqual([]);
   });
 });
