@@ -4,6 +4,8 @@ Newest first. Owner decisions carry her words where given.
 
 | Date | Decision |
 |---|---|
+| 2026-10-24 | Backtest ground truth is CISA KEV, VulnCheck KEV and vendor confirmed exploitation only. Honeypot hits are attack attempts, never confirmation. Headline figures are population weighted with intervals; "all calls" precision and KEV coverage are secondary. Held-out results stay hidden during tuning and every reveal is logged. |
+| 2026-10-24 | Rules v2 active: an early Act now needs two separate exploitation reports or one report plus honeypot attempts. Chosen on the tuning period, revealed once on held-out (35.5% against v1's 21.5%, same listing day coverage). |
 | 2026-10-24 | Stack: Vercel Pro, Cloudflare, GitHub, Neon Postgres ("Vercel yes, Cloudflare yes, GitHub"). Neon over Supabase: already in use, preview branching, Supabase extras unneeded. |
 | 2026-10-24 | Goal is gate-based, not dated: pass Phases 0 to 2. Agents work continuously; Claude leads. |
 | 2026-10-24 | Admin console behind login, including the roadmap. |

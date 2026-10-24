@@ -2,7 +2,8 @@
 
 Updated Oct 24, 2026.
 
-**Phase:** 0 and 1 code complete, waiting on owner setup to go live. Phase 2 measured; v1 active.
+**Phase:** 0 and 1 code complete, waiting on owner setup to go live. Phase 2 measured twice (first
+backtest, then the independent review and the corrected backtest); v2 active.
 
 **On main:**
 - Public site: home, event pages, board brief, methodology, about, terms, privacy. Dark default,
@@ -14,11 +15,16 @@ Updated Oct 24, 2026.
   optional R2 archive, event grouping, ladder, cron routes (every 15 min), migrations 0000 and 0001.
 - Ladder rule: exploitation lifts the attempts rung to the same state.
 - CI, dependency audit, gitleaks, CodeQL, Dependabot.
-- Rules v1 and backtest: dataset of 5,444 CVEs (Apr 2025 to Oct 2026), replay and scoring harness.
-  Act now precision over all calls 90%, Low hold 99.6% weighted. Calls made before a KEV listing
-  are right 60 to 64% at 30 days (75% at 90 days), median lead 4.5 days, a fifth of KEV additions
-  get such a call. The 80% pre-listing target is not met with public signals alone. Details in
-  `docs/methodology-rules.md` and `reports/backtest/`.
+- Rules v2 and the corrected backtest (branch `feat/rules-fix`): dataset of 5,807 CVEs in four
+  strata (Apr 2025 to Oct 2026), replay and scoring with Wilson intervals, held-out gate with a
+  reveal log. Headline, population weighted: an Act now given before any confirmation is right
+  within 30 days 43% of the time over the window (35 to 53), 35% on the held-out six months
+  (21 to 53); 15% of KEV additions get a pre-listing Act now, median lead 4 days. The first
+  draft's 60 to 64% was wrong (unweighted, biased population, circular truth, no ingest lag). The
+  80% pre-listing target is far from met with public signals alone. v2 asks for two reports or
+  honeypot attempts before an early Act now. The live CIRCL adapter now drops KEV catalog mirror
+  sightings, matching the replay. Details in `docs/methodology-rules.md`,
+  `docs/backtest-review-2026-10-24.md` and `reports/backtest/`.
 
 **Vercel:** project `security-threat-pulse` (pikeholdings), domain added, CRON_SECRET, AUTH_SECRET,
 ADMIN_GITHUB_LOGINS set.

@@ -23,8 +23,10 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 
 ## Phase 2: Verdict rules · Gate: accuracy measured and near target
 
-- [x] Verdict rules v1, versioned (active; v0 kept for replay)
+- [x] Verdict rules v1, versioned (v0 kept for replay)
 - [x] Backtest harness and 18 months of history (`npm run backtest`, `docs/methodology-rules.md`)
+- [x] Independent review of the backtest, corrected measurement, rules v2 (active; v0 and v1 kept for replay)
+- [ ] Collect vendor confirmed exploitation and VulnCheck KEV for ground truth; rerun
 - [ ] Admin: Rules, Scorecard; public methodology and changelog (draft text in `docs/methodology-rules.md`)
 - [ ] Pre listing calls need events before a KEV listing (today events start at the listing)
 - [ ] Second exploitation report source so "two independent reports" can confirm without KEV

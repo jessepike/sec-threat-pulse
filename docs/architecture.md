@@ -51,16 +51,22 @@ Versioned in `src/lib/ladder/rules/`. Each version is a pure function
 `(ladder, context) -> { verdict, reason }`. The context carries exploit maturity, EPSS, the KEV
 ransomware flag, vendor and product, CVSS, days since the CVE was published and the PoC repository
 count. Changing rules means adding a new version, never editing an old one, so the backtest can
-replay any version. v1 is current; v0 stays for replay. [docs/methodology-rules.md](methodology-rules.md)
-describes v1 and its backtest.
+replay any version. v2 is current; v0 and v1 stay for replay. Reader-facing wording fixes for frozen
+versions live in `rules/reasons.ts`. [docs/methodology-rules.md](methodology-rules.md) describes v2
+and the corrected backtest.
 
 ## Backtest
 
 `scripts/backtest/build-dataset.ts` assembles point in time signal timelines from public history
 (KEV dates, Vulnrichment git history for SSVC, daily EPSS files, Metasploit and nuclei git history,
 PoC-in-GitHub, Exploit-DB, CIRCL sightings) into `data/backtest/dataset.json.gz`.
-`src/lib/backtest/` replays any rules version day by day and scores it (pure, tested).
-`npm run backtest -- --rules v1` prints the scorecard and writes `reports/backtest/`.
+`src/lib/backtest/` replays any rules version day by day and scores it (pure, tested). CIRCL
+sightings go through the live adapter's own mapping (`circlRung`), with a one day ingest lag.
+Ground truth is CISA KEV, VulnCheck KEV and vendor confirmation. Calls are placed in the tuning or
+held-out period by the day they were made. `npm run backtest -- --rules v2` prints the tuning
+period scorecard; held-out results need `--reveal-heldout`, and every reveal is appended to
+`reports/backtest/heldout-reveals.log`. `scripts/backtest/sensitivity.ts` and `signal-study.ts`
+reproduce the alternative views and single signal figures in `docs/methodology-rules.md`.
 
 ## Failure handling
 
