@@ -74,6 +74,9 @@ export interface EventView extends EventRow {
   businessTerms?: string;
   whyAct?: string;
   fix?: string;
+  askYourTeam?: string[];
+  /** True when a published narrative started as an AI draft and was reviewed by STP. */
+  aiDrafted?: boolean;
   claims: ClaimView[];
   timeline: TimelineItem[];
   blast?: BlastView;

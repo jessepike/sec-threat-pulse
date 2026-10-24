@@ -2,6 +2,7 @@ import { and, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db/client";
 import { RUNGS, type ExploitMaturity, type Ladder, type RungState, type Verdict } from "@/lib/ladder/types";
 import { RUNG_SHORT, topConfirmed } from "./sample";
+import { firstQuestion, questionLines } from "@/lib/narrative/model";
 import type { ClaimView, CountsView, EventRow, EventView, RungView, SourceRef, StatusView, TimelineItem } from "./types";
 
 type Db = NonNullable<ReturnType<typeof getDb>>;
@@ -46,8 +47,21 @@ async function cvesByEvent(db: Db, ids: string[]): Promise<Map<string, string[]>
 }
 
 type EventRecord = typeof schema.events.$inferSelect;
+type NarrativeRecord = typeof schema.eventNarratives.$inferSelect;
 
-function toRow(e: EventRecord, cves: string[]): EventRow {
+/** Only published narratives reach public pages. */
+async function publishedNarratives(db: Db, ids: string[]): Promise<Map<string, NarrativeRecord>> {
+  const map = new Map<string, NarrativeRecord>();
+  if (ids.length === 0) return map;
+  const rows = await db
+    .select()
+    .from(schema.eventNarratives)
+    .where(and(inArray(schema.eventNarratives.eventId, ids), eq(schema.eventNarratives.status, "published")));
+  for (const r of rows) map.set(r.eventId, r);
+  return map;
+}
+
+function toRow(e: EventRecord, cves: string[], n?: Pick<NarrativeRecord, "askYourTeam">): EventRow {
   const ladder = asLadder(e.ladder);
   const verdict = asVerdict(e.overrideVerdict ?? e.verdict);
   return {
@@ -56,7 +70,7 @@ function toRow(e: EventRecord, cves: string[]): EventRow {
     title: e.title,
     idsLabel: idsLabel(cves),
     exposure: e.summary ?? "No summary written yet.",
-    question: null,
+    question: firstQuestion(n?.askYourTeam),
     verdict,
     ladder,
     topConfirmed: topConfirmed(ladder),
@@ -68,8 +82,9 @@ export async function dbListEvents(): Promise<EventRow[]> {
   if (!db) return [];
   const rows = await db.select().from(schema.events).where(eq(schema.events.hidden, false)).orderBy(desc(schema.events.updatedAt)).limit(60);
   const cves = await cvesByEvent(db, rows.map((r) => r.id));
+  const narratives = await publishedNarratives(db, rows.map((r) => r.id));
   return rows
-    .map((e) => ({ e, row: toRow(e, cves.get(e.id) ?? []) }))
+    .map((e) => ({ e, row: toRow(e, cves.get(e.id) ?? [], narratives.get(e.id)) }))
     .sort((a, b) => VERDICT_RANK[a.row.verdict] - VERDICT_RANK[b.row.verdict] || ladderScore(b.row.ladder) - ladderScore(a.row.ladder) || b.e.updatedAt.getTime() - a.e.updatedAt.getTime())
     .map((x) => x.row);
 }
@@ -79,6 +94,7 @@ export async function dbEventSummaries(): Promise<{ row: EventRow; summary: stri
   if (!db) return [];
   const rows = await db.select().from(schema.events).where(eq(schema.events.hidden, false)).orderBy(desc(schema.events.updatedAt)).limit(60);
   const cves = await cvesByEvent(db, rows.map((r) => r.id));
+  const narratives = await publishedNarratives(db, rows.map((r) => r.id));
   const all = [...cves.values()].flat();
   const vulns = all.length ? await db.select({ cveId: schema.vulnerabilities.cveId, cvss: schema.vulnerabilities.cvssScore }).from(schema.vulnerabilities).where(inArray(schema.vulnerabilities.cveId, all)) : [];
   const cvssOf = new Map(vulns.map((v) => [v.cveId, v.cvss]));
@@ -86,7 +102,7 @@ export async function dbEventSummaries(): Promise<{ row: EventRow; summary: stri
     .map((e) => {
       const list = cves.get(e.id) ?? [];
       const scores = list.map((c) => cvssOf.get(c)).filter((x): x is number => typeof x === "number");
-      return { e, row: toRow(e, list), summary: e.summary ?? "", updatedAt: e.updatedAt.toISOString(), cvss: scores.length ? Math.max(...scores) : undefined };
+      return { e, row: toRow(e, list, narratives.get(e.id)), summary: e.summary ?? "", updatedAt: e.updatedAt.toISOString(), cvss: scores.length ? Math.max(...scores) : undefined };
     })
     .sort((a, b) => VERDICT_RANK[a.row.verdict] - VERDICT_RANK[b.row.verdict] || ladderScore(b.row.ladder) - ladderScore(a.row.ladder) || b.e.updatedAt.getTime() - a.e.updatedAt.getTime())
     .map(({ row, summary, updatedAt, cvss }) => ({ row, summary, updatedAt, cvss }));
@@ -168,10 +184,14 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: text, sources: mine.slice(0, 4).map(ref) };
   });
 
-  const claims: ClaimView[] = obs
+  const [narrative] = (await publishedNarratives(db, [id])).values();
+  const leakClaims: ClaimView[] = obs
     .filter((x) => x.o.kind === "claim")
     .slice(0, 8)
     .map((x) => ({ claim: x.o.orgName ? `${x.o.orgName} (listed by a leak site)` : x.o.title, truth: x.o.summary || "A criminal group made this claim. It has not been verified.", rating: "UNVERIFIED" as const }));
+  const claims: ClaimView[] = [...(narrative?.claimChecks ?? []), ...leakClaims];
+  const roleLabels = [["CISO", "ciso"], ["CIO", "cio"], ["CEO", "ceo"], ["BOARD", "board"]] as const;
+  const roles = narrative ? roleLabels.map(([role, k]) => ({ role, items: narrative.roles[k] ?? [] })).filter((r) => r.items.length > 0) : [];
 
   const timeline: TimelineItem[] = obs
     .filter((x) => x.o.publishedAt)
@@ -182,7 +202,7 @@ export async function dbEvent(id: string): Promise<EventView | null> {
   const scores = vulns.map((v) => v.cvssScore).filter((n): n is number => typeof n === "number");
   const kev = vulns.some((v) => v.kevCisaDateAdded);
   const top = topConfirmed(ladder);
-  const row = toRow(e, cves);
+  const row = toRow(e, cves, narrative);
   const sourceMap = new Map<string, SourceRef>();
   for (const x of obs) if (!sourceMap.has(x.o.url)) sourceMap.set(x.o.url, ref(x));
 
@@ -201,7 +221,12 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     rungs: rungViews,
     claims,
     timeline,
-    roles: [],
+    roles,
+    businessTerms: narrative?.businessExposure?.trim() || undefined,
+    whyAct: narrative?.whyAct?.trim() || undefined,
+    fix: narrative?.fix?.trim() || undefined,
+    askYourTeam: narrative ? questionLines(narrative.askYourTeam) : undefined,
+    aiDrafted: narrative?.source === "ai_draft",
     sources: [...sourceMap.values()],
     updatedAt: e.updatedAt.toISOString(),
     trackingSince: e.firstSeenAt.toISOString(),
