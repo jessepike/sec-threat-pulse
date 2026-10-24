@@ -9,6 +9,8 @@ const NAV = [
   ["/admin/sources", "Sources"],
   ["/admin/runs", "Runs"],
   ["/admin/events", "Events"],
+  ["/admin/rules", "Rules"],
+  ["/admin/scorecard", "Scorecard"],
   ["/admin/corrections", "Corrections"],
   ["/admin/settings", "Settings"],
   ["/admin/audit", "Audit"],

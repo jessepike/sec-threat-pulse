@@ -31,7 +31,12 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  outputFileTracingIncludes: { "/admin/roadmap": ["./BACKLOG.md"] },
+  outputFileTracingIncludes: {
+    "/admin/roadmap": ["./BACKLOG.md"],
+    "/methodology": ["./docs/methodology-rules.md"],
+    "/admin/rules": ["./reports/backtest/*.json", "./reports/backtest/heldout-reveals.log"],
+    "/admin/scorecard": ["./reports/backtest/*.json", "./intent.md"],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
