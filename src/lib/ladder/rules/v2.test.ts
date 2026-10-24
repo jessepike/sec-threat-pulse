@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { evaluateV1 } from "./v1";
 import { evaluateV2 } from "./v2";
 import { EMPTY_LADDER, type Ladder } from "../types";
+import type { VerdictContext } from "./types";
 
 const L = (p: Partial<Ladder>): Ladder => ({ ...EMPTY_LADDER, ...p });
 const none = { exploitMaturity: "none" as const };
@@ -32,7 +33,7 @@ describe("rules v2: a single report needs backing", () => {
 describe("rules v2: otherwise identical to v1", () => {
   it("agrees with v1 everywhere except on single reports of new CVEs", () => {
     const ladders = [EMPTY_LADDER, L({ attempts: "reported" }), L({ attempts: "confirmed" }), L({ damage: "reported" }), reported, L({ exploited: "confirmed", attempts: "confirmed" })];
-    const ctxs = [
+    const ctxs: VerdictContext[] = [
       none,
       { ...none, daysSincePublished: 0 },
       { ...none, daysSincePublished: 90 },
