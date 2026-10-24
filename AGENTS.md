@@ -63,3 +63,7 @@ docs/                  architecture, source registry, design prototypes
 - Update `status.md` at the end of every session.
 - Keep the owner's Claude Doc current as work lands: tick the checkboxes in the decision log, open
   questions, "What exists" and the Build plan backlog, and add new decisions and open questions there.
+- Owner feedback arrives as comments on that Claude Doc. At the start of every session, list open
+  threads whose newest comment is Jesse's and has no Claude reply. Answer questions in the thread;
+  make small, clear changes and reply with what changed; for anything large or ambiguous, reply
+  with a recommendation and what you need. Never resolve a thread Jesse wrote in.
