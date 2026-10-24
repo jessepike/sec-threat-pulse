@@ -1,0 +1,1751 @@
+{
+ "exploit_aix/local/ibstat_path": {
+  "name": "ibstat $PATH Privilege Escalation",
+  "fullname": "exploit/aix/local/ibstat_path",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2013-09-24",
+  "type": "exploit",
+  "author": [
+   "Kristian Erik Hermansen",
+   "Sagi Shahar <sagi.shahar@mwrinfosecurity.com>",
+   "Kostas Lintovois <kostas.lintovois@mwrinfosecurity.com>"
+  ],
+  "description": "This module exploits the trusted $PATH environment variable of the SUID binary \"ibstat\".",
+  "references": [
+   "CVE-2013-4011",
+   "OSVDB-95420",
+   "BID-61287",
+   "URL-http://www-01.ibm.com/support/docview.wss?uid=isg1IV43827",
+   "URL-http://www-01.ibm.com/support/docview.wss?uid=isg1IV43756"
+  ],
+  "platform": "AIX,Unix",
+  "arch": "cmd",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "IBM AIX Version 6.1",
+   "IBM AIX Version 7.1"
+  ],
+  "mod_time": "2023-05-13 01:27:53 +0000",
+  "path": "/modules/exploits/aix/local/ibstat_path.rb",
+  "is_install_path": true,
+  "ref_name": "aix/local/ibstat_path",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-safe"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ],
+   "SideEffects": [
+    "artifacts-on-disk"
+   ]
+  },
+  "session_types": [
+   "shell"
+  ],
+  "needs_cleanup": true,
+  "actions": []
+ },
+ "exploit_aix/local/invscout_rpm_priv_esc": {
+  "name": "invscout RPM Privilege Escalation",
+  "fullname": "exploit/aix/local/invscout_rpm_priv_esc",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2023-04-24",
+  "type": "exploit",
+  "author": [
+   "Tim Brown",
+   "bcoles <bcoles@gmail.com>"
+  ],
+  "description": "This module exploits a command injection vulnerability in IBM AIX\n          invscout set-uid root utility present in AIX 7.2 and earlier.\n\n          The undocumented -rpm argument can be used to insta",
+  "references": [
+   "CVE-2023-28528",
+   "URL-http://web.archive.org/web/20250117163943/https://talosintelligence.com/vulnerability_reports/TALOS-2023-1691"
+  ],
+  "platform": "AIX,Unix",
+  "arch": "cmd",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Automatic"
+  ],
+  "mod_time": "2025-02-28 09:35:28 +0000",
+  "path": "/modules/exploits/aix/local/invscout_rpm_priv_esc.rb",
+  "is_install_path": true,
+  "ref_name": "aix/local/invscout_rpm_priv_esc",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-safe"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ]
+  },
+  "session_types": [
+   "shell",
+   "meterpreter"
+  ],
+  "needs_cleanup": null,
+  "actions": []
+ },
+ "exploit_aix/local/xorg_x11_server": {
+  "name": "Xorg X11 Server Local Privilege Escalation",
+  "fullname": "exploit/aix/local/xorg_x11_server",
+  "aliases": [],
+  "rank": 500,
+  "disclosure_date": "2018-10-25",
+  "type": "exploit",
+  "author": [
+   "Narendra Shinde",
+   "Zack Flack <dzflack@gmail.com>"
+  ],
+  "description": "WARNING: Successful execution of this module results in /etc/passwd being overwritten.\n\n          This module is a port of the OpenBSD X11 Xorg exploit to run on AIX.\n\n          A permission check fla",
+  "references": [
+   "CVE-2018-14665",
+   "URL-https://www.securepatterns.com/2018/10/cve-2018-14665-xorg-x-server.html",
+   "URL-https://aix.software.ibm.com/aix/efixes/security/xorg_advisory3.asc",
+   "URL-https://github.com/dzflack/exploits/blob/master/aix/aixxorg.pl",
+   "EDB-45938"
+  ],
+  "platform": "Unix",
+  "arch": "cmd",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "IBM AIX Version 6.1",
+   "IBM AIX Version 7.1",
+   "IBM AIX Version 7.2"
+  ],
+  "mod_time": "2026-04-22 11:59:31 +0000",
+  "path": "/modules/exploits/aix/local/xorg_x11_server.rb",
+  "is_install_path": true,
+  "ref_name": "aix/local/xorg_x11_server",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "SideEffects": [
+    "config-changes",
+    "artifacts-on-disk"
+   ],
+   "Reliability": [
+    "unreliable-session"
+   ],
+   "Stability": [
+    "crash-service-down"
+   ]
+  },
+  "session_types": [
+   "shell"
+  ],
+  "needs_cleanup": true,
+  "actions": []
+ },
+ "exploit_aix/rpc_cmsd_opcode21": {
+  "name": "AIX Calendar Manager Service Daemon (rpc.cmsd) Opcode 21 Buffer Overflow",
+  "fullname": "exploit/aix/rpc_cmsd_opcode21",
+  "aliases": [],
+  "rank": 500,
+  "disclosure_date": "2009-10-07",
+  "type": "exploit",
+  "author": [
+   "Rodrigo Rubira Branco (BSDaemon)",
+   "jduck <jduck@metasploit.com>"
+  ],
+  "description": "This module exploits a buffer overflow vulnerability in opcode 21 handled by\n          rpc.cmsd on AIX. By making a request with a long string passed to the first\n          argument of the \"rtable_cre",
+  "references": [
+   "CVE-2009-3699",
+   "OSVDB-58726",
+   "BID-36615",
+   "URL-https://web.archive.org/web/20091013155835/http://labs.idefense.com/intelligence/vulnerabilities/display.php?id=825",
+   "URL-https://web.archive.org/web/20221204155746/http://aix.software.ibm.com/aix/efixes/security/cmsd_advisory.asc"
+  ],
+  "platform": "AIX",
+  "arch": "ppc",
+  "rport": 111,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "IBM AIX Version 5.1"
+  ],
+  "mod_time": "2025-12-17 16:12:31 +0000",
+  "path": "/modules/exploits/aix/rpc_cmsd_opcode21.rb",
+  "is_install_path": true,
+  "ref_name": "aix/rpc_cmsd_opcode21",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Reliability": [
+    "unreliable-session"
+   ],
+   "Stability": [
+    "crash-service-restarts"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_aix/rpc_ttdbserverd_realpath": {
+  "name": "ToolTalk rpc.ttdbserverd _tt_internal_realpath Buffer Overflow (AIX)",
+  "fullname": "exploit/aix/rpc_ttdbserverd_realpath",
+  "aliases": [],
+  "rank": 500,
+  "disclosure_date": "2009-06-17",
+  "type": "exploit",
+  "author": [
+   "Ramon de C Valle <rcvalle@metasploit.com>",
+   "Adriano Lima <adriano@risesecurity.org>"
+  ],
+  "description": "This module exploits a buffer overflow vulnerability in _tt_internal_realpath\n          function of the ToolTalk database server (rpc.ttdbserverd).",
+  "references": [
+   "CVE-2009-2727",
+   "OSVDB-55151"
+  ],
+  "platform": "AIX",
+  "arch": "ppc",
+  "rport": 111,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "IBM AIX Version 6.1.4",
+   "IBM AIX Version 6.1.3",
+   "IBM AIX Version 6.1.2",
+   "IBM AIX Version 6.1.1",
+   "IBM AIX Version 6.1.0",
+   "IBM AIX Version 5.3.10 5.3.9 5.3.8 5.3.7",
+   "IBM AIX Version 5.3.10",
+   "IBM AIX Version 5.3.9",
+   "IBM AIX Version 5.3.8",
+   "IBM AIX Version 5.3.7",
+   "Debug IBM AIX Version 6.1",
+   "Debug IBM AIX Version 5.3"
+  ],
+  "mod_time": "2025-12-17 16:12:31 +0000",
+  "path": "/modules/exploits/aix/rpc_ttdbserverd_realpath.rb",
+  "is_install_path": true,
+  "ref_name": "aix/rpc_ttdbserverd_realpath",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Reliability": [
+    "repeatable-session"
+   ],
+   "Stability": [
+    "crash-service-restarts"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_android/browser/stagefright_mp4_tx3g_64bit": {
+  "name": "Android Stagefright MP4 tx3g Integer Overflow",
+  "fullname": "exploit/android/browser/stagefright_mp4_tx3g_64bit",
+  "aliases": [],
+  "rank": 300,
+  "disclosure_date": "2015-08-13",
+  "type": "exploit",
+  "author": [
+   "jduck <jduck@metasploit.com>",
+   "NorthBit"
+  ],
+  "description": "This module exploits an integer overflow vulnerability in the Stagefright\n          Library (libstagefright.so). The vulnerability occurs when parsing specially\n          crafted MP4 files. While a wi",
+  "references": [
+   "CVE-2015-3864",
+   "URL-https://blog.exodusintel.com/2015/08/13/stagefright-mission-accomplished/",
+   "URL-https://googleprojectzero.blogspot.com/2015/09/stagefrightened.html",
+   "URL-https://raw.githubusercontent.com/NorthBit/Public/master/NorthBit-Metaphor.pdf",
+   "URL-https://github.com/NorthBit/Metaphor",
+   "URL-https://web.archive.org/web/20160115042350/http://drops.wooyun.org/papers/7558",
+   "URL-https://web.archive.org/web/20160331185650/http://translate.wooyun.io/2015/08/08/Stagefright-Vulnerability-Disclosure.html",
+   "URL-https://web.archive.org/web/20160304015534/https://www.nccgroup.trust/globalassets/our-research/uk/whitepapers/2016/01/libstagefright-exploit-notespdf/"
+  ],
+  "platform": "Linux",
+  "arch": "armle",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Automatic",
+   "Nexus 7 (Wi-Fi) (razor) with Android 5.0 (LRX21P)",
+   "Nexus 7 (Wi-Fi) (razor) with Android 5.0.1 (LRX22C)",
+   "Nexus 7 (Wi-Fi) (razor) with Android 5.0.2 (LRX22G)",
+   "Nexus 7 (Wi-Fi) (razor) with Android 5.1 (LMY47O)",
+   "Nexus 7 (Wi-Fi) (razor) with Android 5.1.1 (LMY47V)",
+   "Nexus 7 (Wi-Fi) (razor) with Android 5.1.1 (LMY48G)",
+   "Nexus 7 (Wi-Fi) (razor) with Android 5.1.1 (LMY48I)",
+   "Nexus 7 (Mobile) (razorg) with Android 5.0.2 (LRX22G)",
+   "Nexus 7 (Mobile) (razorg) with Android 5.1 (LMY47O)",
+   "Nexus 7 (Mobile) (razorg) with Android 5.1.1 (LMY47V)",
+   "Nexus 5 (hammerhead) with Android 5.0 (LRX21O)",
+   "Nexus 5 (hammerhead) with Android 5.0.1 (LRX22C)",
+   "Nexus 5 (hammerhead) with Android 5.1 (LMY47D)",
+   "Nexus 5 (hammerhead) with Android 5.1 (LMY47I)",
+   "Nexus 5 (hammerhead) with Android 5.1.1 (LMY48B)",
+   "Nexus 5 (hammerhead) with Android 5.1.1 (LMY48I)",
+   "Nexus 6 (shamu) with Android 5.0 (LRX21O)",
+   "Nexus 6 (shamu) with Android 5.0.1 (LRX22C)",
+   "Nexus 6 (shamu) with Android 5.1 (LMY47D)",
+   "Nexus 6 (shamu) with Android 5.1 (LMY47E)",
+   "Nexus 6 (shamu) with Android 5.1 (LMY47I)",
+   "Nexus 6 (shamu) with Android 5.1.1 (LYZ28E)",
+   "Nexus 6 (shamu) with Android 5.1 (LMY47M)",
+   "Nexus 6 (shamu) with Android 5.1.1 (LMY47Z)",
+   "Nexus 6 (shamu) with Android 5.1.1 (LVY48C)",
+   "Nexus 6 (shamu) with Android 5.1.1 (LMY48I)",
+   "Nexus 6 (shamu) with Android 5.1.1 (LYZ28J)",
+   "Nexus 6 (shamu) with Android 5.1.1 (LVY48E)",
+   "Samsung Galaxy S5 (VZW SM-G900V) with Android 5.0 (LRX21T)"
+  ],
+  "mod_time": "2025-04-26 01:28:35 +0000",
+  "path": "/modules/exploits/android/browser/stagefright_mp4_tx3g_64bit.rb",
+  "is_install_path": true,
+  "ref_name": "android/browser/stagefright_mp4_tx3g_64bit",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "AKA": [
+    "stagefright"
+   ],
+   "SideEffects": [
+    "artifacts-on-disk"
+   ],
+   "Reliability": [
+    "unreliable-session"
+   ],
+   "Stability": [
+    "crash-service-down"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_android/browser/webview_addjavascriptinterface": {
+  "name": "Android Browser and WebView addJavascriptInterface Code Execution",
+  "fullname": "exploit/android/browser/webview_addjavascriptinterface",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2012-12-21",
+  "type": "exploit",
+  "author": [
+   "jduck <jduck@metasploit.com>",
+   "joev <joev@metasploit.com>"
+  ],
+  "description": "This module exploits a privilege escalation issue in Android < 4.2's WebView component\n          that arises when untrusted JavaScript code is executed by a WebView that has one or more\n          Inte",
+  "references": [
+   "URL-http://blog.trustlook.com/2013/09/04/alert-android-webview-addjavascriptinterface-code-execution-vulnerability/",
+   "URL-https://labs.mwrinfosecurity.com/blog/2012/04/23/adventures-with-android-webviews/",
+   "URL-http://50.56.33.56/blog/?p=314",
+   "URL-https://labs.mwrinfosecurity.com/advisories/2013/09/24/webview-addjavascriptinterface-remote-code-execution/",
+   "URL-https://github.com/mwrlabs/drozer/blob/bcadf5c3fd08c4becf84ed34302a41d7b5e9db63/src/drozer/modules/exploit/mitm/addJavaScriptInterface.py",
+   "CVE-2012-6636",
+   "CVE-2013-4710",
+   "EDB-31519",
+   "OSVDB-97520"
+  ],
+  "platform": "Android,Linux",
+  "arch": "dalvik, x86, armle, mipsle",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Automatic"
+  ],
+  "mod_time": "2025-04-26 01:28:35 +0000",
+  "path": "/modules/exploits/android/browser/webview_addjavascriptinterface.rb",
+  "is_install_path": true,
+  "ref_name": "android/browser/webview_addjavascriptinterface",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "SideEffects": [
+    "artifacts-on-disk"
+   ],
+   "Reliability": [
+    "unreliable-session"
+   ],
+   "Stability": [
+    "crash-safe"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_android/fileformat/adobe_reader_pdf_js_interface": {
+  "name": "Adobe Reader for Android addJavascriptInterface Exploit",
+  "fullname": "exploit/android/fileformat/adobe_reader_pdf_js_interface",
+  "aliases": [],
+  "rank": 400,
+  "disclosure_date": "2014-04-13",
+  "type": "exploit",
+  "author": [
+   "Yorick Koster",
+   "joev <joev@metasploit.com>"
+  ],
+  "description": "Adobe Reader versions less than 11.2.0 exposes insecure native\n          interfaces to untrusted javascript in a PDF. This module embeds the browser\n          exploit from android/webview_addjavascrip",
+  "references": [
+   "CVE-2014-0514",
+   "EDB-32884",
+   "OSVDB-105781"
+  ],
+  "platform": "Android",
+  "arch": "armle, mipsle, x86",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Android ARM",
+   "Android MIPSLE",
+   "Android X86"
+  ],
+  "mod_time": "2025-04-26 01:28:35 +0000",
+  "path": "/modules/exploits/android/fileformat/adobe_reader_pdf_js_interface.rb",
+  "is_install_path": true,
+  "ref_name": "android/fileformat/adobe_reader_pdf_js_interface",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "SideEffects": [
+    "artifacts-on-disk"
+   ],
+   "Reliability": [
+    "unreliable-session"
+   ],
+   "Stability": [
+    "crash-safe"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_android/local/binder_uaf": {
+  "name": "Android Binder Use-After-Free Exploit",
+  "fullname": "exploit/android/local/binder_uaf",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2019-09-26",
+  "type": "exploit",
+  "author": [
+   "Jann Horn",
+   "Maddie Stone",
+   "grant-h",
+   "timwr"
+  ],
+  "description": "This module exploits CVE-2019-2215, which is a use-after-free in Binder in the\n          Android kernel. The bug is a local privilege escalation vulnerability that\n          allows for a full compromi",
+  "references": [
+   "CVE-2019-2215",
+   "URL-https://bugs.chromium.org/p/project-zero/issues/detail?id=1942",
+   "URL-https://googleprojectzero.blogspot.com/2019/11/bad-binder-android-in-wild-exploit.html",
+   "URL-https://hernan.de/blog/2019/10/15/tailoring-cve-2019-2215-to-achieve-root/",
+   "URL-https://github.com/grant-h/qu1ckr00t/blob/master/native/poc.c"
+  ],
+  "platform": "Android,Linux",
+  "arch": "aarch64",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Auto"
+  ],
+  "mod_time": "2025-04-26 01:28:35 +0000",
+  "path": "/modules/exploits/android/local/binder_uaf.rb",
+  "is_install_path": true,
+  "ref_name": "android/local/binder_uaf",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "SideEffects": [
+    "artifacts-on-disk"
+   ],
+   "Reliability": [
+    "unreliable-session"
+   ],
+   "Stability": [
+    "crash-safe"
+   ]
+  },
+  "session_types": [
+   "meterpreter"
+  ],
+  "needs_cleanup": true,
+  "actions": []
+ },
+ "exploit_android/local/futex_requeue": {
+  "name": "Android 'Towelroot' Futex Requeue Kernel Exploit",
+  "fullname": "exploit/android/local/futex_requeue",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2014-05-03",
+  "type": "exploit",
+  "author": [
+   "Pinkie Pie",
+   "geohot",
+   "timwr"
+  ],
+  "description": "This module exploits a bug in futex_requeue in the Linux kernel, using\n            similar techniques employed by the towelroot exploit. Any Android device\n            with a kernel built before June ",
+  "references": [
+   "CVE-2014-3153",
+   "URL-http://tinyhack.com/2014/07/07/exploiting-the-futex-bug-and-uncovering-towelroot/",
+   "URL-http://web.archive.org/web/20160912014145/http://blog.nativeflow.com:80/the-futex-vulnerability"
+  ],
+  "platform": "Android,Linux",
+  "arch": "",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Automatic Targeting",
+   "Default",
+   "New Samsung",
+   "Old Samsung",
+   "Samsung Grand"
+  ],
+  "mod_time": "2026-04-22 11:59:31 +0000",
+  "path": "/modules/exploits/android/local/futex_requeue.rb",
+  "is_install_path": true,
+  "ref_name": "android/local/futex_requeue",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-safe"
+   ],
+   "SideEffects": [],
+   "Reliability": [],
+   "AKA": [
+    "towelroot"
+   ]
+  },
+  "session_types": [
+   "meterpreter"
+  ],
+  "needs_cleanup": null,
+  "actions": []
+ },
+ "exploit_android/local/janus": {
+  "name": "Android Janus APK Signature bypass",
+  "fullname": "exploit/android/local/janus",
+  "aliases": [],
+  "rank": 0,
+  "disclosure_date": "2017-07-31",
+  "type": "exploit",
+  "author": [
+   "GuardSquare",
+   "V-E-O",
+   "timwr",
+   "h00die"
+  ],
+  "description": "This module exploits CVE-2017-13156 in Android to install a payload into another\n            application. The payload APK will have the same signature and can be installed\n            as an update, pr",
+  "references": [
+   "CVE-2017-13156",
+   "URL-https://www.guardsquare.com/en/blog/new-android-vulnerability-allows-attackers-modify-apps-without-affecting-their-signatures",
+   "URL-https://github.com/V-E-O/PoC/tree/master/CVE-2017-13156"
+  ],
+  "platform": "Android",
+  "arch": "dalvik",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Automatic"
+  ],
+  "mod_time": "2025-04-26 01:28:35 +0000",
+  "path": "/modules/exploits/android/local/janus.rb",
+  "is_install_path": true,
+  "ref_name": "android/local/janus",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "SideEffects": [
+    "artifacts-on-disk",
+    "screen-effects"
+   ],
+   "Reliability": [],
+   "Stability": [
+    "service-resource-loss"
+   ]
+  },
+  "session_types": [
+   "meterpreter"
+  ],
+  "needs_cleanup": true,
+  "actions": []
+ },
+ "exploit_android/local/put_user_vroot": {
+  "name": "Android get_user/put_user Exploit",
+  "fullname": "exploit/android/local/put_user_vroot",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2013-09-06",
+  "type": "exploit",
+  "author": [
+   "fi01",
+   "cubeundcube",
+   "timwr"
+  ],
+  "description": "This module exploits a missing check in the get_user and put_user API functions\n          in the linux kernel before 3.5.5. The missing checks on these functions\n          allow an unprivileged user t",
+  "references": [
+   "CVE-2013-6282",
+   "URL-https://forum.xda-developers.com/t/root-share-vroot-1-6-0-3690-1-click-root-method-lenovo-a706-walkman-f800-etc.2434453/",
+   "URL-https://github.com/fi01/libget_user_exploit",
+   "URL-https://forum.xda-developers.com/t/root-saferoot-root-for-vruemj7-mk2-and-android-4-3.2565758/"
+  ],
+  "platform": "Android,Linux",
+  "arch": "",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Automatic"
+  ],
+  "mod_time": "2025-04-26 01:28:35 +0000",
+  "path": "/modules/exploits/android/local/put_user_vroot.rb",
+  "is_install_path": true,
+  "ref_name": "android/local/put_user_vroot",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "SideEffects": [
+    "artifacts-on-disk"
+   ],
+   "Reliability": [
+    "unreliable-session"
+   ],
+   "Stability": [
+    "crash-safe"
+   ]
+  },
+  "session_types": [
+   "meterpreter"
+  ],
+  "needs_cleanup": null,
+  "actions": []
+ },
+ "exploit_apple_ios/browser/safari_jit": {
+  "name": "Safari Webkit JIT Exploit for iOS 7.1.2",
+  "fullname": "exploit/apple_ios/browser/safari_jit",
+  "aliases": [],
+  "rank": 400,
+  "disclosure_date": "2016-08-25",
+  "type": "exploit",
+  "author": [
+   "kudima",
+   "Ian Beer",
+   "WanderingGlitch",
+   "timwr"
+  ],
+  "description": "This module exploits a JIT optimization bug in Safari Webkit. This allows us to\n          write shellcode to an RWX memory section in JavaScriptCore and execute it. The\n          shellcode contains a ",
+  "references": [
+   "CVE-2016-4669",
+   "CVE-2018-4162",
+   "URL-https://github.com/kudima/exploit_playground/tree/master/iPhone3_1_shell",
+   "URL-https://www.thezdi.com/blog/2018/4/12/inverting-your-assumptions-a-guide-to-jit-comparisons",
+   "URL-https://bugs.chromium.org/p/project-zero/issues/detail?id=882"
+  ],
+  "platform": "Apple_iOS",
+  "arch": "armle",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Automatic"
+  ],
+  "mod_time": "2023-02-10 18:04:31 +0000",
+  "path": "/modules/exploits/apple_ios/browser/safari_jit.rb",
+  "is_install_path": true,
+  "ref_name": "apple_ios/browser/safari_jit",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-service-down"
+   ],
+   "SideEffects": [],
+   "Reliability": [
+    "unreliable-session"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_apple_ios/browser/safari_libtiff": {
+  "name": "Apple iOS MobileSafari LibTIFF Buffer Overflow",
+  "fullname": "exploit/apple_ios/browser/safari_libtiff",
+  "aliases": [],
+  "rank": 400,
+  "disclosure_date": "2006-08-01",
+  "type": "exploit",
+  "author": [
+   "hdm <x@hdm.io>",
+   "kf <kf_list@digitalmunition.com>"
+  ],
+  "description": "This module exploits a buffer overflow in the version of\n          libtiff shipped with firmware versions 1.00, 1.01, 1.02, and\n          1.1.1 of the Apple iPhone. iPhones which have not had the BSD\n",
+  "references": [
+   "CVE-2006-3459",
+   "OSVDB-27723",
+   "BID-19283"
+  ],
+  "platform": "OSX",
+  "arch": "armle",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "MobileSafari iPhone Mac OS X (1.00, 1.01, 1.02, 1.1.1)"
+  ],
+  "mod_time": "2025-12-17 16:12:31 +0000",
+  "path": "/modules/exploits/apple_ios/browser/safari_libtiff.rb",
+  "is_install_path": true,
+  "ref_name": "apple_ios/browser/safari_libtiff",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-service-down"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ],
+   "Reliability": [
+    "unreliable-session"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_apple_ios/browser/webkit_createthis": {
+  "name": "Safari Webkit Proxy Object Type Confusion",
+  "fullname": "exploit/apple_ios/browser/webkit_createthis",
+  "aliases": [],
+  "rank": 0,
+  "disclosure_date": "2018-03-15",
+  "type": "exploit",
+  "author": [
+   "saelo",
+   "niklasb",
+   "Ian Beer",
+   "siguza"
+  ],
+  "description": "This module exploits a type confusion bug in the Javascript Proxy object in\n          WebKit. The DFG JIT does not take into account that, through the use of a Proxy,\n          it is possible to run a",
+  "references": [
+   "CVE-2018-4233",
+   "CVE-2017-13861",
+   "URL-https://github.com/saelo/cve-2018-4233",
+   "URL-https://github.com/phoenhex/files/tree/master/exploits/ios-11.3.1",
+   "URL-https://bugs.chromium.org/p/project-zero/issues/detail?id=1417",
+   "URL-https://github.com/JakeBlair420/totally-not-spyware/blob/master/root/js/spyware.js"
+  ],
+  "platform": "Apple_iOS",
+  "arch": "aarch64",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Automatic"
+  ],
+  "mod_time": "2025-04-19 01:43:58 +0000",
+  "path": "/modules/exploits/apple_ios/browser/webkit_createthis.rb",
+  "is_install_path": true,
+  "ref_name": "apple_ios/browser/webkit_createthis",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-service-down"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ],
+   "Reliability": [
+    "unreliable-session"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_apple_ios/browser/webkit_trident": {
+  "name": "WebKit not_number defineProperties UAF",
+  "fullname": "exploit/apple_ios/browser/webkit_trident",
+  "aliases": [],
+  "rank": 0,
+  "disclosure_date": "2016-08-25",
+  "type": "exploit",
+  "author": [
+   "qwertyoruiop",
+   "siguza",
+   "tihmstar",
+   "benjamin-42",
+   "timwr"
+  ],
+  "description": "This module exploits a UAF vulnerability in WebKit's JavaScriptCore library.",
+  "references": [
+   "CVE-2016-4655",
+   "CVE-2016-4656",
+   "CVE-2016-4657",
+   "BID-92651",
+   "BID-92652",
+   "BID-92653",
+   "URL-https://blog.lookout.com/trident-pegasus",
+   "URL-https://citizenlab.ca/2016/08/million-dollar-dissident-iphone-zero-day-nso-group-uae/",
+   "URL-https://www.blackhat.com/docs/eu-16/materials/eu-16-Bazaliy-Mobile-Espionage-in-the-Wild-Pegasus-and-Nation-State-Level-Attacks.pdf",
+   "URL-https://github.com/Siguza/PhoenixNonce",
+   "URL-https://jndok.github.io/2016/10/04/pegasus-writeup/",
+   "URL-https://sektioneins.de/en/blog/16-09-02-pegasus-ios-kernel-vulnerability-explained.html",
+   "URL-https://github.com/benjamin-42/Trident",
+   "URL-http://blog.tihmstar.net/2018/01/modern-post-exploitation-techniques.html"
+  ],
+  "platform": "Apple_iOS",
+  "arch": "aarch64",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Automatic"
+  ],
+  "mod_time": "2025-04-19 01:43:58 +0000",
+  "path": "/modules/exploits/apple_ios/browser/webkit_trident.rb",
+  "is_install_path": true,
+  "ref_name": "apple_ios/browser/webkit_trident",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-service-down"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ],
+   "Reliability": [
+    "unreliable-session"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_apple_ios/email/mobilemail_libtiff": {
+  "name": "Apple iOS MobileMail LibTIFF Buffer Overflow",
+  "fullname": "exploit/apple_ios/email/mobilemail_libtiff",
+  "aliases": [],
+  "rank": 400,
+  "disclosure_date": "2006-08-01",
+  "type": "exploit",
+  "author": [
+   "hdm <x@hdm.io>",
+   "kf <kf_list@digitalmunition.com>"
+  ],
+  "description": "This module exploits a buffer overflow in the version of\n          libtiff shipped with firmware versions 1.00, 1.01, 1.02, and\n          1.1.1 of the Apple iPhone. iPhones which have not had the BSD\n",
+  "references": [
+   "CVE-2006-3459",
+   "OSVDB-27723",
+   "BID-19283"
+  ],
+  "platform": "OSX",
+  "arch": "armle",
+  "rport": 25,
+  "autofilter_ports": [
+   25,
+   465,
+   587,
+   2525,
+   25025,
+   25000
+  ],
+  "autofilter_services": [
+   "smtp",
+   "smtps"
+  ],
+  "targets": [
+   "MobileSafari iPhone Mac OS X (1.00, 1.01, 1.02, 1.1.1)"
+  ],
+  "mod_time": "2025-12-17 16:12:31 +0000",
+  "path": "/modules/exploits/apple_ios/email/mobilemail_libtiff.rb",
+  "is_install_path": true,
+  "ref_name": "apple_ios/email/mobilemail_libtiff",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-service-down"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ],
+   "Reliability": [
+    "unreliable-session"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_bsdi/softcart/mercantec_softcart": {
+  "name": "Mercantec SoftCart CGI Overflow",
+  "fullname": "exploit/bsdi/softcart/mercantec_softcart",
+  "aliases": [],
+  "rank": 500,
+  "disclosure_date": "2004-08-19",
+  "type": "exploit",
+  "author": [
+   "skape <mmiller@hick.org>",
+   "trew"
+  ],
+  "description": "This is an exploit for an undisclosed buffer overflow\n          in the SoftCart.exe CGI as shipped with Mercantec's shopping\n          cart software.  It is possible to execute arbitrary code\n        ",
+  "references": [
+   "CVE-2004-2221",
+   "OSVDB-9011",
+   "BID-10926"
+  ],
+  "platform": "BSDi",
+  "arch": "",
+  "rport": 80,
+  "autofilter_ports": [
+   80,
+   8080,
+   443,
+   8000,
+   8888,
+   8880,
+   8008,
+   3000,
+   8443
+  ],
+  "autofilter_services": [
+   "http",
+   "https"
+  ],
+  "targets": [
+   "BSDi/4.3 Bruteforce"
+  ],
+  "mod_time": "2025-04-18 01:31:15 +0000",
+  "path": "/modules/exploits/bsdi/softcart/mercantec_softcart.rb",
+  "is_install_path": true,
+  "ref_name": "bsdi/softcart/mercantec_softcart",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-service-restarts"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_freebsd/ftp/proftp_telnet_iac": {
+  "name": "ProFTPD 1.3.2rc3 - 1.3.3b Telnet IAC Buffer Overflow (FreeBSD)",
+  "fullname": "exploit/freebsd/ftp/proftp_telnet_iac",
+  "aliases": [],
+  "rank": 500,
+  "disclosure_date": "2010-11-01",
+  "type": "exploit",
+  "author": [
+   "jduck <jduck@metasploit.com>"
+  ],
+  "description": "This module exploits a stack-based buffer overflow in versions of ProFTPD\n          server between versions 1.3.2rc3 and 1.3.3b. By sending data containing a\n          large number of Telnet IAC comma",
+  "references": [
+   "CVE-2010-4221",
+   "OSVDB-68985",
+   "BID-44562"
+  ],
+  "platform": "BSD",
+  "arch": "x86",
+  "rport": 21,
+  "autofilter_ports": [
+   21,
+   2121
+  ],
+  "autofilter_services": [
+   "ftp"
+  ],
+  "targets": [
+   "Automatic Targeting",
+   "Debug",
+   "ProFTPD 1.3.2a Server (FreeBSD 8.0)"
+  ],
+  "mod_time": "2026-04-22 11:59:31 +0000",
+  "path": "/modules/exploits/freebsd/ftp/proftp_telnet_iac.rb",
+  "is_install_path": true,
+  "ref_name": "freebsd/ftp/proftp_telnet_iac",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-service-down"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_freebsd/http/citrix_dir_traversal_rce": {
+  "name": "Citrix ADC (NetScaler) Directory Traversal RCE",
+  "fullname": "exploit/freebsd/http/citrix_dir_traversal_rce",
+  "aliases": [
+   "exploit/linux/http/citrix_dir_traversal_rce"
+  ],
+  "rank": 600,
+  "disclosure_date": "2019-12-17",
+  "type": "exploit",
+  "author": [
+   "Mikhail Klyuchnikov",
+   "Project Zero India",
+   "TrustedSec",
+   "James Brytan",
+   "James Smith",
+   "Marisa Mack",
+   "Rob Vinson",
+   "Sergey Pashevkin",
+   "Steven Laura",
+   "mekhalleh (RAMELLA Sébastien)"
+  ],
+  "description": "This module exploits a directory traversal in Citrix Application Delivery Controller (ADC), aka\n          NetScaler, and Gateway 10.5, 11.1, 12.0, 12.1, and 13.0, to execute an arbitrary command paylo",
+  "references": [
+   "CVE-2019-19781",
+   "EDB-47901",
+   "EDB-47902",
+   "URL-http://web.archive.org/web/20220608001448/https://support.citrix.com/article/CTX267027",
+   "URL-http://web.archive.org/web/20200707202522/https://www.mdsec.co.uk/2020/01/deep-dive-to-citrix-adc-remote-code-execution-cve-2019-19781/",
+   "URL-https://swarm.ptsecurity.com/remote-code-execution-in-citrix-adc/"
+  ],
+  "platform": "Python,Unix",
+  "arch": "python, cmd",
+  "rport": 80,
+  "autofilter_ports": [
+   80,
+   8080,
+   443,
+   8000,
+   8888,
+   8880,
+   8008,
+   3000,
+   8443
+  ],
+  "autofilter_services": [
+   "http",
+   "https"
+  ],
+  "targets": [
+   "Python",
+   "Unix Command"
+  ],
+  "mod_time": "2025-12-17 16:12:31 +0000",
+  "path": "/modules/exploits/freebsd/http/citrix_dir_traversal_rce.rb",
+  "is_install_path": true,
+  "ref_name": "freebsd/http/citrix_dir_traversal_rce",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "AKA": [
+    "Shitrix"
+   ],
+   "Stability": [
+    "crash-safe"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ],
+   "SideEffects": [
+    "ioc-in-logs",
+    "artifacts-on-disk"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": true
+ },
+ "exploit_freebsd/http/citrix_formssso_target_rce": {
+  "name": "Citrix ADC (NetScaler) Forms SSO Target RCE",
+  "fullname": "exploit/freebsd/http/citrix_formssso_target_rce",
+  "aliases": [],
+  "rank": 300,
+  "disclosure_date": "2023-07-18",
+  "type": "exploit",
+  "author": [
+   "Ron Bowes",
+   "Douglass McKee",
+   "Spencer McIntyre",
+   "rwincey"
+  ],
+  "description": "A vulnerability exists within Citrix ADC that allows an unauthenticated attacker to trigger a stack buffer\n          overflow of the nsppe process by making a specially crafted HTTP GET request. Succe",
+  "references": [
+   "CVE-2023-3519",
+   "URL-https://attackerkb.com/topics/si09VNJhHh/cve-2023-3519",
+   "URL-https://support.citrix.com/article/CTX561482/citrix-adc-and-citrix-gateway-security-bulletin-for-cve20233519-cve20233466-cve20233467"
+  ],
+  "platform": "Unix",
+  "arch": "cmd",
+  "rport": 443,
+  "autofilter_ports": [
+   80,
+   8080,
+   443,
+   8000,
+   8888,
+   8880,
+   8008,
+   3000,
+   8443
+  ],
+  "autofilter_services": [
+   "http",
+   "https"
+  ],
+  "targets": [
+   "Automatic Targeting",
+   "Citrix ADC 13.1-48.47",
+   "Citrix ADC 13.1-37.38",
+   "Citrix ADC 13.0-91.12",
+   "Citrix ADC 12.1-65.25",
+   "Citrix ADC 12.1-64.17"
+  ],
+  "mod_time": "2026-04-22 11:59:31 +0000",
+  "path": "/modules/exploits/freebsd/http/citrix_formssso_target_rce.rb",
+  "is_install_path": true,
+  "ref_name": "freebsd/http/citrix_formssso_target_rce",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [],
+   "Reliability": [
+    "repeatable-session"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_freebsd/http/citrix_netscaler_cve_2026_88771": {
+  "name": "Citrix NetScaler Unauthenticated Login Log Command Injection (CVE-2026-88771)",
+  "fullname": "exploit/freebsd/http/citrix_netscaler_cve_2026_88771",
+  "aliases": [],
+  "rank": 300,
+  "disclosure_date": "2026-09-27",
+  "type": "exploit",
+  "author": [
+   "watchTowr",
+   "CERT-EU",
+   "Scyrix LLC",
+   "sfewer-r7"
+  ],
+  "description": "NetScaler ADC and Gateway 13.1 before build 64.23 and 14.1 before\n          build 73.37 copy an unauthenticated failed-login username into system\n          logs. During a later diagnostic run, ns_monu",
+  "references": [
+   "CVE-2026-88771",
+   "CVE-2026-88772",
+   "CVE-2026-88773",
+   "URL-https://support.citrix.com/external/article/CTX697096",
+   "URL-https://www.cert.europa.eu/blog/taking-execute-logging-a-bit-too-literally-cve-2026-88771",
+   "URL-https://labs.watchtowr.com/oh-look-the-foot-gun-went-off-again-citrix-netscaler-preauth-command-injection-cve-2026-88771/",
+   "URL-https://labs.watchtowr.com/here-we-go-again-citrix-netscaler-dtls-preauth-memory-overflow-cve-2026-88772/",
+   "URL-https://github.com/Scyrix-LLC/CVE-2026-88773"
+  ],
+  "platform": "Unix",
+  "arch": "cmd",
+  "rport": 443,
+  "autofilter_ports": [
+   80,
+   8080,
+   443,
+   8000,
+   8888,
+   8880,
+   8008,
+   3000,
+   8443
+  ],
+  "autofilter_services": [
+   "http",
+   "https"
+  ],
+  "targets": [
+   "Default"
+  ],
+  "mod_time": "2026-10-22 15:37:05 +0000",
+  "path": "/modules/exploits/freebsd/http/citrix_netscaler_cve_2026_88771.rb",
+  "is_install_path": true,
+  "ref_name": "freebsd/http/citrix_netscaler_cve_2026_88771",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-service-restarts"
+   ],
+   "SideEffects": [
+    "ioc-in-logs",
+    "artifacts-on-disk"
+   ],
+   "Reliability": [
+    "event-dependent"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_freebsd/http/junos_phprc_auto_prepend_file": {
+  "name": "Junos OS PHPRC Environment Variable Manipulation RCE",
+  "fullname": "exploit/freebsd/http/junos_phprc_auto_prepend_file",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2023-08-17",
+  "type": "exploit",
+  "author": [
+   "Jacob Baines",
+   "Ron Bowes",
+   "jheysel-r7",
+   "Fabian Hafner"
+  ],
+  "description": "This module exploits a PHP environment variable manipulation vulnerability affecting Juniper SRX firewalls\n          and EX switches. The affected Juniper devices run FreeBSD and every FreeBSD process",
+  "references": [
+   "URL-https://labs.watchtowr.com/cve-2023-36844-and-friends-rce-in-juniper-firewalls/",
+   "URL-https://vulncheck.com/blog/juniper-cve-2023-36845",
+   "URL-https://supportportal.juniper.net/s/article/2023-08-Out-of-Cycle-Security-Bulletin-Junos-OS-SRX-Series-and-EX-Series-Multiple-vulnerabilities-in-J-Web-can-be-combined-to-allow-a-preAuth-Remote-Code-Execution?language=en_US",
+   "CVE-2023-36845"
+  ],
+  "platform": "PHP,Unix",
+  "arch": "php, cmd",
+  "rport": 80,
+  "autofilter_ports": [
+   80,
+   8080,
+   443,
+   8000,
+   8888,
+   8880,
+   8008,
+   3000,
+   8443
+  ],
+  "autofilter_services": [
+   "http",
+   "https"
+  ],
+  "targets": [
+   "PHP In-Memory",
+   "Interactive SSH with jail break"
+  ],
+  "mod_time": "2025-12-17 16:12:31 +0000",
+  "path": "/modules/exploits/freebsd/http/junos_phprc_auto_prepend_file.rb",
+  "is_install_path": true,
+  "ref_name": "freebsd/http/junos_phprc_auto_prepend_file",
+  "check": true,
+  "post_auth": true,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-safe"
+   ],
+   "SideEffects": [
+    "config-changes"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_freebsd/http/watchguard_cmd_exec": {
+  "name": "Watchguard XCS Remote Command Execution",
+  "fullname": "exploit/freebsd/http/watchguard_cmd_exec",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2015-06-29",
+  "type": "exploit",
+  "author": [
+   "Daniel Jensen <daniel.jensen@security-assessment.com>"
+  ],
+  "description": "This module exploits two separate vulnerabilities found in the Watchguard XCS virtual\n          appliance to gain command execution. By exploiting an unauthenticated SQL injection, a\n          remote ",
+  "references": [
+   "CVE-2015-5453",
+   "URL-http://security-assessment.com/files/documents/advisory/Watchguard-XCS-final.pdf"
+  ],
+  "platform": "BSD",
+  "arch": "x64",
+  "rport": 443,
+  "autofilter_ports": [
+   80,
+   8080,
+   443,
+   8000,
+   8888,
+   8880,
+   8008,
+   3000,
+   8443
+  ],
+  "autofilter_services": [
+   "http",
+   "https"
+  ],
+  "targets": [
+   "Watchguard XCS 9.2/10.0"
+  ],
+  "mod_time": "2026-04-22 11:59:31 +0000",
+  "path": "/modules/exploits/freebsd/http/watchguard_cmd_exec.rb",
+  "is_install_path": true,
+  "ref_name": "freebsd/http/watchguard_cmd_exec",
+  "check": true,
+  "post_auth": true,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-safe"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ],
+   "SideEffects": [
+    "ioc-in-logs",
+    "artifacts-on-disk",
+    "config-changes"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": true
+ },
+ "exploit_freebsd/local/intel_sysret_priv_esc": {
+  "name": "FreeBSD Intel SYSRET Privilege Escalation",
+  "fullname": "exploit/freebsd/local/intel_sysret_priv_esc",
+  "aliases": [],
+  "rank": 500,
+  "disclosure_date": "2012-06-12",
+  "type": "exploit",
+  "author": [
+   "Rafal Wojtczuk",
+   "John Baldwin",
+   "iZsh",
+   "bcoles <bcoles@gmail.com>"
+  ],
+  "description": "This module exploits a vulnerability in the FreeBSD kernel,\n          when running on 64-bit Intel processors.\n\n          By design, 64-bit processors following the X86-64 specification will\n         ",
+  "references": [
+   "BID-53856",
+   "CVE-2012-0217",
+   "EDB-28718",
+   "PACKETSTORM-113584",
+   "URL-https://www.freebsd.org/security/patches/SA-12:04/sysret.patch",
+   "URL-https://blog.xenproject.org/2012/06/13/the-intel-sysret-privilege-escalation/",
+   "URL-https://github.com/iZsh/exploits/blob/master/stash/CVE-2012-0217-sysret/CVE-2012-0217-sysret_FreeBSD.c",
+   "URL-https://fail0verflow.com/blog/2012/cve-2012-0217-intel-sysret-freebsd/",
+   "URL-http://security.freebsd.org/advisories/FreeBSD-SA-12:04.sysret.asc",
+   "URL-https://www.slideshare.net/nkslides/exploiting-the-linux-kernel-via-intels-sysret-implementation"
+  ],
+  "platform": "BSD",
+  "arch": "x64",
+  "rport": null,
+  "autofilter_ports": [],
+  "autofilter_services": [],
+  "targets": [
+   "Automatic"
+  ],
+  "mod_time": "2026-04-22 11:59:31 +0000",
+  "path": "/modules/exploits/freebsd/local/intel_sysret_priv_esc.rb",
+  "is_install_path": true,
+  "ref_name": "freebsd/local/intel_sysret_priv_esc",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-os-restarts"
+   ],
+   "SideEffects": [
+    "ioc-in-logs",
+    "artifacts-on-disk"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ]
+  },
+  "session_types": [
+   "shell"
+  ],
+  "needs_cleanup": true,
+  "actions": []
+ },
+ "auxiliary_scanner/http/log4shell_scanner": {
+  "name": "Log4Shell HTTP Scanner",
+  "fullname": "auxiliary/scanner/http/log4shell_scanner",
+  "aliases": [],
+  "rank": 300,
+  "disclosure_date": "2021-12-09",
+  "type": "auxiliary",
+  "author": [
+   "Spencer McIntyre",
+   "RageLtMan <rageltman@sempervictus>"
+  ],
+  "description": "Versions of Apache Log4j2 impacted by CVE-2021-44228 which allow JNDI features used in configuration,\n        log messages, and parameters, do not protect against attacker controlled LDAP and other JN",
+  "references": [
+   "CVE-2021-44228",
+   "CVE-2021-45046",
+   "URL-https://attackerkb.com/topics/in9sPR2Bzt/cve-2021-44228-log4shell/rapid7-analysis",
+   "URL-https://logging.apache.org/log4j/2.x/security.html"
+  ],
+  "platform": "",
+  "arch": "",
+  "rport": 80,
+  "autofilter_ports": [
+   80,
+   8080,
+   443,
+   8000,
+   8888,
+   8880,
+   8008,
+   3000,
+   8443
+  ],
+  "autofilter_services": [
+   "http",
+   "https"
+  ],
+  "targets": null,
+  "mod_time": "2022-04-06 09:04:26 +0000",
+  "path": "/modules/auxiliary/scanner/http/log4shell_scanner.rb",
+  "is_install_path": true,
+  "ref_name": "scanner/http/log4shell_scanner",
+  "check": false,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-safe"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ],
+   "AKA": [
+    "Log4Shell",
+    "LogJam"
+   ],
+   "Reliability": []
+  },
+  "session_types": false,
+  "needs_cleanup": false,
+  "actions": []
+ },
+ "exploit_linux/http/mobileiron_core_log4shell": {
+  "name": "MobileIron Core Unauthenticated JNDI Injection RCE (via Log4Shell)",
+  "fullname": "exploit/linux/http/mobileiron_core_log4shell",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2021-12-12",
+  "type": "exploit",
+  "author": [
+   "Spencer McIntyre",
+   "RageLtMan <rageltman@sempervictus>",
+   "rwincey",
+   "jbaines-r7"
+  ],
+  "description": "MobileIron Core is affected by the Log4Shell vulnerability whereby a JNDI string sent to the server\n        will cause it to connect to the attacker and deserialize a malicious Java object. This resul",
+  "references": [
+   "CVE-2021-44228",
+   "URL-https://attackerkb.com/topics/in9sPR2Bzt/cve-2021-44228-log4shell/rapid7-analysis",
+   "URL-https://forums.ivanti.com/s/article/Security-Bulletin-CVE-2021-44228-Remote-code-injection-in-Log4j?language=en_US",
+   "URL-https://www.mandiant.com/resources/mobileiron-log4shell-exploitation"
+  ],
+  "platform": "Unix",
+  "arch": "cmd",
+  "rport": 443,
+  "autofilter_ports": [
+   80,
+   8080,
+   443,
+   8000,
+   8888,
+   8880,
+   8008,
+   3000,
+   8443
+  ],
+  "autofilter_services": [
+   "http",
+   "https"
+  ],
+  "targets": [
+   "Linux"
+  ],
+  "mod_time": "2026-04-22 11:55:15 +0000",
+  "path": "/modules/exploits/linux/http/mobileiron_core_log4shell.rb",
+  "is_install_path": true,
+  "ref_name": "linux/http/mobileiron_core_log4shell",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-safe"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ],
+   "AKA": [
+    "Log4Shell",
+    "LogJam"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ],
+   "RelatedModules": [
+    "auxiliary/scanner/http/log4shell_scanner",
+    "exploit/multi/http/log4shell_header_injection"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_multi/http/log4shell_header_injection": {
+  "name": "Log4Shell HTTP Header Injection",
+  "fullname": "exploit/multi/http/log4shell_header_injection",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2021-12-09",
+  "type": "exploit",
+  "author": [
+   "Michael Schierl",
+   "juan vazquez <juan.vazquez@metasploit.com>",
+   "sinn3r <sinn3r@metasploit.com>",
+   "Spencer McIntyre",
+   "RageLtMan <rageltman@sempervictus>"
+  ],
+  "description": "Versions of Apache Log4j2 impacted by CVE-2021-44228 which allow JNDI features used in configuration,\n        log messages, and parameters, do not protect against attacker controlled LDAP and other JN",
+  "references": [
+   "CVE-2021-44228"
+  ],
+  "platform": "Java,Unix,Windows",
+  "arch": "java, cmd",
+  "rport": 80,
+  "autofilter_ports": [
+   80,
+   8080,
+   443,
+   8000,
+   8888,
+   8880,
+   8008,
+   3000,
+   8443
+  ],
+  "autofilter_services": [
+   "http",
+   "https"
+  ],
+  "targets": [
+   "Automatic",
+   "Windows",
+   "Linux"
+  ],
+  "mod_time": "2026-03-11 21:31:08 +0000",
+  "path": "/modules/exploits/multi/http/log4shell_header_injection.rb",
+  "is_install_path": true,
+  "ref_name": "multi/http/log4shell_header_injection",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-safe"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ],
+   "AKA": [
+    "Log4Shell",
+    "LogJam"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ],
+   "RelatedModules": [
+    "auxiliary/scanner/http/log4shell_scanner"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_multi/http/ubiquiti_unifi_log4shell": {
+  "name": "UniFi Network Application Unauthenticated JNDI Injection RCE (via Log4Shell)",
+  "fullname": "exploit/multi/http/ubiquiti_unifi_log4shell",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2021-12-09",
+  "type": "exploit",
+  "author": [
+   "Spencer McIntyre",
+   "RageLtMan <rageltman@sempervictus>",
+   "Nicholas Anastasi"
+  ],
+  "description": "The Ubiquiti UniFi Network Application versions 5.13.29 through 6.5.53 are affected by the Log4Shell\n        vulnerability whereby a JNDI string can be sent to the server via the 'remember' field of a",
+  "references": [
+   "CVE-2021-44228",
+   "URL-https://www.sprocketsecurity.com/blog/another-log4j-on-the-fire-unifi",
+   "URL-https://github.com/puzzlepeaches/Log4jUnifi",
+   "URL-https://community.ui.com/releases/UniFi-Network-Application-6-5-54/d717f241-48bb-4979-8b10-99db36ddabe1"
+  ],
+  "platform": "Unix,Windows",
+  "arch": "cmd",
+  "rport": 8443,
+  "autofilter_ports": [
+   80,
+   8080,
+   443,
+   8000,
+   8888,
+   8880,
+   8008,
+   3000,
+   8443
+  ],
+  "autofilter_services": [
+   "http",
+   "https"
+  ],
+  "targets": [
+   "Windows",
+   "Unix"
+  ],
+  "mod_time": "2026-04-22 11:58:04 +0000",
+  "path": "/modules/exploits/multi/http/ubiquiti_unifi_log4shell.rb",
+  "is_install_path": true,
+  "ref_name": "multi/http/ubiquiti_unifi_log4shell",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-safe"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ],
+   "AKA": [
+    "Log4Shell",
+    "LogJam"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ },
+ "exploit_multi/http/vmware_vcenter_log4shell": {
+  "name": "VMware vCenter Server Unauthenticated JNDI Injection RCE (via Log4Shell)",
+  "fullname": "exploit/multi/http/vmware_vcenter_log4shell",
+  "aliases": [],
+  "rank": 600,
+  "disclosure_date": "2021-12-09",
+  "type": "exploit",
+  "author": [
+   "Spencer McIntyre",
+   "RageLtMan <rageltman@sempervictus>",
+   "jbaines-r7",
+   "w3bd3vil"
+  ],
+  "description": "VMware vCenter Server is affected by the Log4Shell vulnerability whereby a JNDI string can sent to the server\n        that will cause it to connect to the attacker and deserialize a malicious Java obj",
+  "references": [
+   "CVE-2021-44228",
+   "URL-https://attackerkb.com/topics/in9sPR2Bzt/cve-2021-44228-log4shell/rapid7-analysis",
+   "URL-https://www.vmware.com/security/advisories/VMSA-2021-0028.html",
+   "URL-https://twitter.com/w3bd3vil/status/1469814463414951937"
+  ],
+  "platform": "Unix,Windows",
+  "arch": "cmd",
+  "rport": 443,
+  "autofilter_ports": [
+   80,
+   8080,
+   443,
+   8000,
+   8888,
+   8880,
+   8008,
+   3000,
+   8443
+  ],
+  "autofilter_services": [
+   "http",
+   "https"
+  ],
+  "targets": [
+   "Automatic",
+   "Windows",
+   "Linux"
+  ],
+  "mod_time": "2026-04-22 11:58:04 +0000",
+  "path": "/modules/exploits/multi/http/vmware_vcenter_log4shell.rb",
+  "is_install_path": true,
+  "ref_name": "multi/http/vmware_vcenter_log4shell",
+  "check": true,
+  "post_auth": false,
+  "default_credential": false,
+  "notes": {
+   "Stability": [
+    "crash-safe"
+   ],
+   "SideEffects": [
+    "ioc-in-logs"
+   ],
+   "AKA": [
+    "Log4Shell",
+    "LogJam"
+   ],
+   "Reliability": [
+    "repeatable-session"
+   ],
+   "RelatedModules": [
+    "auxiliary/scanner/http/log4shell_scanner",
+    "exploit/multi/http/log4shell_header_injection"
+   ]
+  },
+  "session_types": false,
+  "needs_cleanup": null
+ }
+}
