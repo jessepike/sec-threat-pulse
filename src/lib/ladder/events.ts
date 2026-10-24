@@ -199,7 +199,7 @@ export function buildEvents(vulns: EventVuln[], observations: EventObservation[]
     events.push({
       id: adoptId(cveIds) ?? id,
       title: eventTitle(c),
-      summary: first.description?.slice(0, 400) || undefined,
+      summary: clipSummary(first.description),
       vendor: c.vendor,
       product: c.product,
       cveIds,
@@ -275,7 +275,7 @@ export function buildEarlyEvents(
     out.push({
       id: earlyEventId(cve),
       title: v.title?.trim() || [v.vendor, v.product, cve].filter(Boolean).join(" "),
-      summary: v.description?.slice(0, 400) || undefined,
+      summary: clipSummary(v.description),
       vendor: v.vendor ?? undefined,
       product: v.product ?? undefined,
       cveIds: [cve],
@@ -287,4 +287,19 @@ export function buildEarlyEvents(
   }
   out.sort((x, y) => y.priority - x.priority || y.firstSeenAt.localeCompare(x.firstSeenAt) || x.id.localeCompare(y.id));
   return { events: out, skippedNoAge };
+}
+
+/**
+ * Shortens a source description to at most `max` characters for a readable summary. Ends at the
+ * last full sentence that fits; failing that, at the last whole word with an ellipsis.
+ */
+export function clipSummary(text: string | null | undefined, max = 400): string | undefined {
+  const t = text?.replace(/\s+/g, " ").trim();
+  if (!t) return undefined;
+  if (t.length <= max) return t;
+  const head = t.slice(0, max);
+  const sentence = Math.max(head.lastIndexOf(". "), head.lastIndexOf(".\u00a0"));
+  if (sentence >= max * 0.4) return head.slice(0, sentence + 1);
+  const space = head.lastIndexOf(" ");
+  return `${(space > 0 ? head.slice(0, space) : head).replace(/[\s,;:.-]+$/, "")}…`;
 }

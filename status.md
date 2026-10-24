@@ -1,8 +1,8 @@
 # Status
 
-Updated Oct 24, 2026 (phase 2 surface on branch `feat/phase2-surface`, not merged).
+Updated Oct 24, 2026, evening. The site is live with real data at https://securitythreatpulse.com.
 
-**Phase:** 0 and 1 code complete, waiting on owner setup to go live. Phase 2 measured twice (first
+**Phase:** 0 and 1 live. The 7-day unattended freshness clock for the Phase 1 gate started Oct 24. Phase 2 measured twice (first
 backtest, then the independent review and the corrected backtest); v2 active.
 
 **On main:**
@@ -31,15 +31,21 @@ rules changelog; /admin/rules and /admin/scorecard (read only); early events for
 exploitation or confirmed honeypot attempts and no KEV listing (id `early-<cve>`, at most 25 new per
 run, needs a known CVE publish date; a KEV listing adopts the early event so its id and history carry on).
 
-**Vercel:** project `security-threat-pulse` (pikeholdings), domain added, CRON_SECRET, AUTH_SECRET,
-ADMIN_GITHUB_LOGINS set.
+**Live setup (Oct 24):** Cloudflare DNS (apex A records and www CNAME, DNS only) points at Vercel.
+Neon `stp-db` is connected through the Vercel Marketplace (DATABASE_URL in Production and Preview).
+Migrations ran through the protected POST /api/cron/migrate route. First ingest: 28 sources, no
+failures (VulnCheck skipped, no token). As of the first evening: 91 events, 67 Act now, 24 Watch.
+The cron routes expire the "stp" cache tag after each events sync and after any ingest that adds
+observations, so the home page shows new data within one run.
 
-**Waiting on the owner:** Cloudflare DNS records, Neon via Vercel Marketplace, GitHub OAuth app
-(AUTH_GITHUB_ID/SECRET), VULNCHECK_API_TOKEN, NVD_API_KEY. Optional: R2 bucket, GITHUB_TOKEN for
-the roadmap page, ANTHROPIC_API_KEY for narrative drafts. Decision: the pre-listing accuracy target.
+**Waiting on the owner:** passkey approval on GitHub so the OAuth app "Security Threat Pulse admin"
+can get a client secret (then AUTH_GITHUB_ID and AUTH_GITHUB_SECRET go into Vercel and /admin sign-in
+works). Optional keys: VULNCHECK_API_TOKEN, NVD_API_KEY, ANTHROPIC_API_KEY, GITHUB_TOKEN; R2 bucket.
+Decisions: the pre-listing accuracy target, and whether the home page should show every Act now
+(67 today) or only Act now events with new evidence in the last 30 days.
 
-**Next once DATABASE_URL exists:** `npm run db:migrate`, `npm run ingest:seed`, trigger ingest and
-events once, check the live pages, start the 7-day freshness clock for the Phase 1 gate.
+**Known gaps:** event titles and summaries come straight from CVE text until narratives are written;
+the four stat tiles under the lead event are fixed editorial figures.
 
 **Polish (branch `feat/polish`):** public /corrections log with RSS, home page noise caps with a paginated /events index,
 event freshness dates, accessibility pass, 404 and error pages, robots.txt and sitemap.xml, Open Graph image. The site stays
