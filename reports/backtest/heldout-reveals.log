@@ -1,0 +1,6 @@
+2026-10-24T21:05:56.152Z rules=v2 purpose=run dataset=data/backtest/dataset.json.gz@2026-10-24T20:56:42.484Z split=2026-04-01 lag=1 truth=catalog kevCatalogSightings=0 args=["--rules","v2","--reveal-heldout"]
+2026-10-24T21:06:29.124Z rules=v1 purpose=run dataset=data/backtest/dataset.json.gz@2026-10-24T20:56:42.484Z split=2026-04-01 lag=1 truth=catalog kevCatalogSightings=0 args=["--rules","v1","--reveal-heldout"]
+2026-10-24T21:06:42.553Z rules=v0 purpose=run dataset=data/backtest/dataset.json.gz@2026-10-24T20:56:42.484Z split=2026-04-01 lag=1 truth=catalog kevCatalogSightings=0 args=["--rules","v0","--reveal-heldout"]
+2026-10-24T21:07:12.123Z rules=v2 purpose=sensitivity dataset=data/backtest/dataset.json.gz@2026-10-24T20:56:42.484Z split=2026-04-01 lag=1 truth=catalog kevCatalogSightings=0 args=["--rules","v2","--reveal-heldout"]
+2026-10-24T21:09:50.687Z rules=v1 purpose=sensitivity dataset=data/backtest/dataset.json.gz@2026-10-24T20:56:42.484Z split=2026-04-01 lag=1 truth=catalog kevCatalogSightings=0 args=["--rules","v1","--reveal-heldout"]
+2026-10-24T21:12:29.443Z rules=v1 purpose=signal-study dataset=data/backtest/dataset.json.gz@2026-10-24T20:56:42.484Z split=2026-04-01 lag=1 truth=catalog kevCatalogSightings=0 args=["--reveal-heldout"]
