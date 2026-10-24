@@ -1,8 +1,7 @@
 # Verdict rules v2 and the backtest behind them
 
 Written Oct 24, 2026, after an independent review of the first backtest (see
-`docs/backtest-review-2026-10-24.md`). This is the draft of the public methodology page. The
-numbers come from `reports/backtest/v2-2025-04-01-2026-10-01.json` and the v1 and v0 reports beside
+`docs/backtest-review-2026-10-24.md`). The numbers come from `reports/backtest/v2-2025-04-01-2026-10-01.json` and the v1 and v0 reports beside
 it, produced by `npm run backtest -- --rules <version> --reveal-heldout`.
 
 ## The short version
@@ -26,7 +25,7 @@ it, produced by `npm run backtest -- --rules <version> --reveal-heldout`.
   Act now on the listing day.
 
 The old draft of this page said early Act now calls were right 60 to 64% of the time. That number
-was wrong for the reasons in "What the review found" below.
+was wrong for the reasons in "Method", "What changed from v1" and "Reading the results honestly" below.
 
 ## What a verdict means
 
