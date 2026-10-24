@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { getDb } from "@/lib/db/client";
 import { runDueSources, seedSources } from "@/lib/ingest/runner";
 import type { Db } from "@/lib/ingest/db";
@@ -23,6 +24,7 @@ async function handle(req: Request): Promise<Response> {
   try {
     await seedSources(db);
     const sources = await runDueSources(db, { only, force: force || !!only, budgetMs: BUDGET_MS });
+    if (sources.some((s) => s.observationsNew > 0)) revalidateTag("stp", { expire: 0 });
     const ran = sources.filter((s) => s.status === "ok" || s.status === "error");
     return Response.json({
       ok: true,

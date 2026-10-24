@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { getDb } from "@/lib/db/client";
 import type { Db } from "@/lib/ingest/db";
 import { syncEvents } from "@/lib/ladder/events-sync";
@@ -17,6 +18,8 @@ async function handle(req: Request): Promise<Response> {
   const started = Date.now();
   try {
     const summary = await syncEvents(db, Number.isFinite(lookback) && lookback > 0 ? { lookbackDays: lookback } : {});
+    // Public pages read through unstable_cache tagged "stp"; expire it so new events show at once.
+    revalidateTag("stp", { expire: 0 });
     return Response.json({ ok: true, durationMs: Date.now() - started, ...summary });
   } catch (e) {
     return Response.json({ ok: false, error: e instanceof Error ? e.message : String(e), durationMs: Date.now() - started }, { status: 500 });
