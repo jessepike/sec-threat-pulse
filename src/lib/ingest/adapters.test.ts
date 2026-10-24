@@ -6,7 +6,7 @@ import { vulncheckKevAdapter } from "./adapters/vulncheck-kev";
 import { epssAdapter } from "./adapters/epss";
 import { cvelistAdapter, cvePath, parseCveRecord } from "./adapters/cvelist";
 import { nvdAdapter } from "./adapters/nvd";
-import { circlSightingsAdapter } from "./adapters/circl-sightings";
+import { circlSightingsAdapter, classifyCirclSource } from "./adapters/circl-sightings";
 import { metasploitAdapter } from "./adapters/metasploit";
 import { nucleiAdapter } from "./adapters/nuclei";
 import { pocGithubAdapter } from "./adapters/poc-github";
@@ -221,7 +221,21 @@ describe("circl-sightings", () => {
 
   it("keeps non-exploited sightings only for tracked CVEs", async () => {
     const r = await circlSightingsAdapter.run(ctx(routes().fetch, { trackedCves: ["CVE-1999-0001"] }));
-    expect(r.observations.every((o) => o.kind === "exploited")).toBe(true);
+    expect(r.observations.every((o) => o.kind === "exploited" || o.kind === "attempts")).toBe(true);
+  });
+
+  it("classifies sighting sources and maps honeypot telemetry to confirmed attempts", async () => {
+    expect(classifyCirclSource("The Shadowserver (honeypot/exploited-vulnerabilities) - (2026-09-05)")).toEqual({ kind: "honeypot", id: "shadowserver" });
+    expect(classifyCirclSource("https://vulnerability.circl.lu/known-exploited-vulnerabilities-catalog/95d6")).toEqual({ kind: "kev-catalog", id: "circl-kev-catalog" });
+    expect(classifyCirclSource("https://t.me/VulnerabilityNews/45084")).toEqual({ kind: "telegram", id: "telegram" });
+    expect(classifyCirclSource("Telegram/KOoZLZaOHuOfGd1o1jBcxdChs5lceJwUBhWSWkdTNzxopqjT")).toEqual({ kind: "telegram", id: "telegram" });
+    expect(classifyCirclSource("https://www.wordfence.com/blog/x")).toEqual({ kind: "other", id: "www.wordfence.com" });
+    expect(classifyCirclSource(undefined)).toEqual({ kind: "other", id: "unknown" });
+    const r = await circlSightingsAdapter.run(ctx(routes().fetch));
+    const attempts = r.observations.filter((o) => o.kind === "attempts");
+    for (const a of attempts) expect(a).toMatchObject({ strength: "confirmed", metadata: expect.objectContaining({ sourceKind: "honeypot", telemetry: true }) });
+    const reported = r.observations.filter((o) => o.kind === "exploited");
+    expect(reported.every((o) => o.metadata?.sourceKind !== "honeypot")).toBe(true);
   });
 
   it("stops at the cursor", async () => {
