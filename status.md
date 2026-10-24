@@ -38,11 +38,12 @@ failures (VulnCheck skipped, no token). As of the first evening: 91 events, 67 A
 The cron routes expire the "stp" cache tag after each events sync and after any ingest that adds
 observations, so the home page shows new data within one run.
 
-**Waiting on the owner:** passkey approval on GitHub so the OAuth app "Security Threat Pulse admin"
-can get a client secret (then AUTH_GITHUB_ID and AUTH_GITHUB_SECRET go into Vercel and /admin sign-in
-works). Optional keys: VULNCHECK_API_TOKEN, NVD_API_KEY, ANTHROPIC_API_KEY, GITHUB_TOKEN; R2 bucket.
-Decisions: the pre-listing accuracy target, and whether the home page should show every Act now
-(67 today) or only Act now events with new evidence in the last 30 days.
+**Home page:** lists Act now events with an attack, exploitation or damage report dated in the last
+30 days (30 of 67 on Oct 24), then up to 12 Watch and 6 Low. All events stay on /events.
+
+**Admin sign-in:** AUTH_GITHUB_ID and AUTH_GITHUB_SECRET are set (secret in Production only). The
+sign-in reaches GitHub's authorize screen; the owner's first authorize click completes it. Optional keys: VULNCHECK_API_TOKEN, NVD_API_KEY, ANTHROPIC_API_KEY, GITHUB_TOKEN; R2 bucket.
+Decisions: the pre-listing accuracy target; attribution for news publishers.
 
 **Known gaps:** event titles and summaries come straight from CVE text until narratives are written;
 the four stat tiles under the lead event are fixed editorial figures.
