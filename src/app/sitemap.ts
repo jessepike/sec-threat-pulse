@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getEventEntries } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 const PAGES = ["/", "/events", "/brief", "/methodology", "/corrections", "/about", "/terms", "/privacy"];
 

@@ -2,7 +2,7 @@ import { getCorrections } from "@/lib/data";
 import { correctionsFeed } from "@/lib/feed";
 import { indexingAllowed } from "@/lib/site";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   const { rows } = await getCorrections();
