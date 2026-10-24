@@ -21,7 +21,7 @@ export async function triggerIngest(
   if (!secret) return { ok: false, error: "CRON_SECRET is not set on the server." };
   const f = opts.fetchImpl ?? fetch;
   try {
-    const res = await f(`${origin}/api/cron/ingest?source=${encodeURIComponent(sourceId)}`, {
+    const res = await f(`${origin}/api/cron/ingest?only=${encodeURIComponent(sourceId)}&force=1`, {
       method: "GET",
       headers: { authorization: `Bearer ${secret}` },
       cache: "no-store",

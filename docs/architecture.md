@@ -30,7 +30,7 @@ Each rung is `confirmed`, `reported` or `none`, computed from observations:
 |---|---|---|
 | Talk | 2+ independent talk or advisory observations | 1 talk observation |
 | Exposure | Exposure figure from a government or vendor advisory | Exposure figure quoted in news (strength `quoted`) |
-| Attack attempts | Telemetry partner data (later), or 2+ independent reports | 1 report (news, vendor, CIRCL sighting) |
+| Attack attempts | Telemetry partner data (later), 2+ independent reports, or confirmed exploitation (an exploitation is a successful attempt) | 1 report (news, vendor, CIRCL sighting), or reported exploitation |
 | Exploited | CISA KEV, VulnCheck KEV, vendor "exploited" flag, CISA ADP SSVC `active` | CIRCL `exploited` sighting, news report |
 | Damage | SEC 8-K, state AG notice or HIBP breach linked to the event | Never from leak-site claims alone (those stay `claim`) |
 

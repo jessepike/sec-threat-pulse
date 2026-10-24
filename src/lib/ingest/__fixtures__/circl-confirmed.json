@@ -1,0 +1,105 @@
+{
+ "metadata": {
+  "count": 11386,
+  "page": 1,
+  "per_page": 8
+ },
+ "data": [
+  {
+   "uuid": "6a676832-94c2-4eef-805e-e8f52883baaf",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-24T04:16:20+00:00",
+   "type": "confirmed",
+   "source": "https://github.com/projectdiscovery/nuclei-templates/tree/main/http/cves/2026/CVE-2026-18110.yaml",
+   "content": "",
+   "vulnerability": "CVE-2026-18110",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "16865669-d759-4d54-9121-ca5cd85ce720",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-23T13:44:55.389591+00:00",
+   "type": "confirmed",
+   "source": "https://x.com/thephpf/status/2113580383875019242",
+   "content": "",
+   "vulnerability": "CVE-2026-115560",
+   "author": {
+    "login": "karen"
+   }
+  },
+  {
+   "uuid": "081a9a4b-b8ef-42c2-9fa5-fb008a84b9a3",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-23T09:00:29+00:00",
+   "type": "confirmed",
+   "source": "https://github.com/projectdiscovery/nuclei-templates/tree/main/http/cves/2026/CVE-2026-90817.yaml",
+   "content": "",
+   "vulnerability": "CVE-2026-90817",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "bb9faf36-b5ba-4b8b-9861-087865cb118e",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-23T08:37:00+00:00",
+   "type": "confirmed",
+   "source": "https://github.com/projectdiscovery/nuclei-templates/tree/main/http/cves/2026/CVE-2026-76460.yaml",
+   "content": "",
+   "vulnerability": "CVE-2026-76460",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "888deab0-46f0-49bd-8d00-cd8e0f2e4ca7",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-22T11:40:19+00:00",
+   "type": "confirmed",
+   "source": "https://github.com/projectdiscovery/nuclei-templates/tree/main/http/cves/2026/CVE-2026-85097.yaml",
+   "content": "",
+   "vulnerability": "CVE-2026-85097",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "69377e9a-1ab9-43e6-8518-73c6f45418d9",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-22T10:11:08+00:00",
+   "type": "confirmed",
+   "source": "https://github.com/projectdiscovery/nuclei-templates/tree/main/http/cves/2026/CVE-2026-110372.yaml",
+   "content": "",
+   "vulnerability": "CVE-2026-110372",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "8beff3c0-d4ff-4cd4-b62f-315fad69661d",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-22T07:35:11+00:00",
+   "type": "confirmed",
+   "source": "https://github.com/projectdiscovery/nuclei-templates/tree/main/http/cves/2026/CVE-2026-18937.yaml",
+   "content": "",
+   "vulnerability": "CVE-2026-18937",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "7d1eb2dd-0a76-4d20-a1d2-8ce39bb145fe",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-22T07:22:04+00:00",
+   "type": "confirmed",
+   "source": "https://github.com/projectdiscovery/nuclei-templates/tree/main/http/cves/2026/CVE-2026-4883.yaml",
+   "content": "",
+   "vulnerability": "CVE-2026-4883",
+   "author": {
+    "login": "automation"
+   }
+  }
+ ]
+}

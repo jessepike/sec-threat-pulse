@@ -56,7 +56,7 @@ describe("triggerIngest", () => {
     const f = vi.fn().mockResolvedValue(new Response("ok", { status: 200 }));
     const r = await triggerIngest("https://x.test", "cisa-kev", { secret: "s", fetchImpl: f as unknown as typeof fetch });
     expect(r.ok).toBe(true);
-    expect(f).toHaveBeenCalledWith("https://x.test/api/cron/ingest?source=cisa-kev", expect.objectContaining({ headers: { authorization: "Bearer s" } }));
+    expect(f).toHaveBeenCalledWith("https://x.test/api/cron/ingest?only=cisa-kev&force=1", expect.objectContaining({ headers: { authorization: "Bearer s" } }));
   });
   it("rejects bad ids and missing secret", async () => {
     expect((await triggerIngest("https://x.test", "../x", { secret: "s" })).ok).toBe(false);

@@ -1,0 +1,105 @@
+{
+ "metadata": {
+  "count": 67266,
+  "page": 1,
+  "per_page": 8
+ },
+ "data": [
+  {
+   "uuid": "6d3bb97c-f4b5-4aa7-a51a-a6e235abdb20",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-24T16:07:33+00:00",
+   "type": "published-proof-of-concept",
+   "source": "https://t.me/GithubRedTeam/107033",
+   "content": "\ud83d\udea8 GitHub \u76d1\u63a7\u6d88\u606f\u63d0\u9192\n\n\ud83d\udea8 \u53d1\u73b0\u5173\u952e\u8bcd\uff1a #RCE #CVE\n\n\ud83d\udce6 \u9879\u76ee\u540d\u79f0\uff1a tinypool-options-rce-check\n\ud83d\udc64 \u9879\u76ee\u4f5c\u8005\uff1a ",
+   "vulnerability": "CVE-2026-104849",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "43834547-e3d8-47d3-8128-3dece4ad64a3",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-24T16:07:33+00:00",
+   "type": "published-proof-of-concept",
+   "source": "https://t.me/GithubRedTeam/107034",
+   "content": "\ud83d\udea8 GitHub \u76d1\u63a7\u6d88\u606f\u63d0\u9192\n\n\ud83d\udea8 \u53d1\u73b0\u5173\u952e\u8bcd\uff1a #RCE #CVE\n\n\ud83d\udce6 \u9879\u76ee\u540d\u79f0\uff1a simplegit-rce-check\n\ud83d\udc64 \u9879\u76ee\u4f5c\u8005\uff1a complet",
+   "vulnerability": "CVE-2026-102826",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "a1fa0bdf-88ae-4a96-a800-45eeceaba3cb",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-24T16:06:55+00:00",
+   "type": "published-proof-of-concept",
+   "source": "https://t.me/GithubRedTeam/107030",
+   "content": "\ud83d\udea8 GitHub \u76d1\u63a7\u6d88\u606f\u63d0\u9192\n\n\ud83d\udea8 \u53d1\u73b0\u5173\u952e\u8bcd\uff1a #BlueTeam #Detection\n\n\ud83d\udce6 \u9879\u76ee\u540d\u79f0\uff1a CVE-2026-111497-Toolkit\n",
+   "vulnerability": "CVE-2026-111497",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "59b875cc-59e5-4417-b23a-c163020638d9",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-24T15:00:07+00:00",
+   "type": "published-proof-of-concept",
+   "source": "https://t.me/GithubRedTeam/107009",
+   "content": "\ud83d\udea8 GitHub \u76d1\u63a7\u6d88\u606f\u63d0\u9192\n\n\ud83d\udea8 \u53d1\u73b0\u5173\u952e\u8bcd\uff1a #CVE-2026 #Exploit #RCE\n\n\ud83d\udce6 \u9879\u76ee\u540d\u79f0\uff1a Exploit-CVE-2026-1102",
+   "vulnerability": "CVE-2026-110264",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "c7252e42-03d3-4749-ada9-e44a0cd122e9",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-24T13:00:07+00:00",
+   "type": "published-proof-of-concept",
+   "source": "https://t.me/GithubRedTeam/106990",
+   "content": "\ud83d\udea8 GitHub \u76d1\u63a7\u6d88\u606f\u63d0\u9192\n\n\ud83d\udea8 \u53d1\u73b0\u5173\u952e\u8bcd\uff1a #CVE-2026 #POC\n\n\ud83d\udce6 \u9879\u76ee\u540d\u79f0\uff1a php2shell-repro\n\ud83d\udc64 \u9879\u76ee\u4f5c\u8005\uff1a zhuyih",
+   "vulnerability": "CVE-2026-109618",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "60b9c372-c23b-4dc7-bf13-c929b9498bae",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-24T12:02:04+00:00",
+   "type": "published-proof-of-concept",
+   "source": "https://t.me/GithubRedTeam/106982",
+   "content": "\ud83d\udea8 GitHub \u76d1\u63a7\u6d88\u606f\u63d0\u9192\n\n\ud83d\udea8 \u53d1\u73b0\u5173\u952e\u8bcd\uff1a #CVE-2026 #Exploit\n\n\ud83d\udce6 \u9879\u76ee\u540d\u79f0\uff1a php2shell\n\ud83d\udc64 \u9879\u76ee\u4f5c\u8005\uff1a zr0n\n\ud83d\udee0 \u5f00",
+   "vulnerability": "CVE-2026-109618",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "05e05735-1376-4231-9255-42fe2b5d1e03",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-24T12:02:04+00:00",
+   "type": "published-proof-of-concept",
+   "source": "https://t.me/GithubRedTeam/106982",
+   "content": "\ud83d\udea8 GitHub \u76d1\u63a7\u6d88\u606f\u63d0\u9192\n\n\ud83d\udea8 \u53d1\u73b0\u5173\u952e\u8bcd\uff1a #CVE-2026 #Exploit\n\n\ud83d\udce6 \u9879\u76ee\u540d\u79f0\uff1a php2shell\n\ud83d\udc64 \u9879\u76ee\u4f5c\u8005\uff1a zr0n\n\ud83d\udee0 \u5f00",
+   "vulnerability": "CVE-2026-109619",
+   "author": {
+    "login": "automation"
+   }
+  },
+  {
+   "uuid": "d5d3ad98-635f-4f04-8400-41d66790a670",
+   "vulnerability_lookup_origin": "1a89b78e-f703-45f3-bb86-59eb712668bd",
+   "creation_timestamp": "2026-10-24T11:00:09+00:00",
+   "type": "published-proof-of-concept",
+   "source": "https://t.me/GithubRedTeam/106975",
+   "content": "\ud83d\udea8 GitHub \u76d1\u63a7\u6d88\u606f\u63d0\u9192\n\n\ud83d\udea8 \u53d1\u73b0\u5173\u952e\u8bcd\uff1a #CVE-2026 #POC\n\n\ud83d\udce6 \u9879\u76ee\u540d\u79f0\uff1a cve-2026-114509-laravel-tokeng",
+   "vulnerability": "CVE-2026-114509",
+   "author": {
+    "login": "automation"
+   }
+  }
+ ]
+}

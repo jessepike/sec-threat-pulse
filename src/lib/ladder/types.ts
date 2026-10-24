@@ -101,6 +101,8 @@ export interface AdapterResult {
   raw?: { body: string; contentType: string };
   /** Opaque cursor stored on the source for the next incremental run. */
   cursor?: string;
+  /** Set when the adapter chose not to run (for example a missing API token). Not an error. */
+  skipped?: string;
 }
 
 export interface SourceAdapter {
@@ -108,5 +110,20 @@ export interface SourceAdapter {
   name: string;
   /** Default poll interval in minutes. */
   intervalMinutes: number;
-  run(ctx: { cursor?: string; fetch: typeof fetch; now: Date }): Promise<AdapterResult>;
+  run(ctx: AdapterContext): Promise<AdapterResult>;
+}
+
+/** Everything an adapter receives. Only cursor, fetch and now are required. */
+export interface AdapterContext {
+  cursor?: string;
+  fetch: typeof fetch;
+  now: Date;
+  /** CVE ids we track (KEV members), newest first. Used by epss, cvelist, poc-github and others. */
+  trackedCves?: string[];
+  /** Tracked CVEs still missing CVSS or description. Used by nvd for targeted lookups. */
+  enrichCves?: string[];
+  /** Environment variables adapters may read (tokens). Defaults to process.env. */
+  env?: Record<string, string | undefined>;
+  /** Injectable delay, so tests do not wait on rate limits. */
+  sleep?: (ms: number) => Promise<void>;
 }

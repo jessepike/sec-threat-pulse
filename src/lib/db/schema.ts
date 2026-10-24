@@ -48,24 +48,28 @@ export const sourceRuns = pgTable(
 );
 
 /** Merged facts per CVE from all sources. */
-export const vulnerabilities = pgTable("vulnerabilities", {
-  cveId: text("cve_id").primaryKey(),
-  title: text("title"),
-  description: text("description"),
-  vendor: text("vendor"),
-  product: text("product"),
-  cvssScore: real("cvss_score"),
-  cwe: jsonb("cwe").$type<string[]>(),
-  publishedAt: ts("published_at"),
-  epss: real("epss"),
-  epssPercentile: real("epss_percentile"),
-  epssDate: text("epss_date"),
-  kevCisaDateAdded: text("kev_cisa_date_added"),
-  kevCisaRansomware: boolean("kev_cisa_ransomware"),
-  kevVulncheckDateAdded: text("kev_vulncheck_date_added"),
-  exploitMaturity: text("exploit_maturity").notNull().default("none"),
-  updatedAt: ts("updated_at").notNull().defaultNow(),
-});
+export const vulnerabilities = pgTable(
+  "vulnerabilities",
+  {
+    cveId: text("cve_id").primaryKey(),
+    title: text("title"),
+    description: text("description"),
+    vendor: text("vendor"),
+    product: text("product"),
+    cvssScore: real("cvss_score"),
+    cwe: jsonb("cwe").$type<string[]>(),
+    publishedAt: ts("published_at"),
+    epss: real("epss"),
+    epssPercentile: real("epss_percentile"),
+    epssDate: text("epss_date"),
+    kevCisaDateAdded: text("kev_cisa_date_added"),
+    kevCisaRansomware: boolean("kev_cisa_ransomware"),
+    kevVulncheckDateAdded: text("kev_vulncheck_date_added"),
+    exploitMaturity: text("exploit_maturity").notNull().default("none"),
+    updatedAt: ts("updated_at").notNull().defaultNow(),
+  },
+  (t) => [index("vulnerabilities_kev_cisa_idx").on(t.kevCisaDateAdded), index("vulnerabilities_kev_vulncheck_idx").on(t.kevVulncheckDateAdded)],
+);
 
 /** One piece of evidence. Immutable once written; history powers backtests. */
 export const observations = pgTable(
@@ -89,7 +93,7 @@ export const observations = pgTable(
     observedAt: ts("observed_at").notNull().defaultNow(),
     metadata: jsonb("metadata").$type<Record<string, unknown>>(),
   },
-  (t) => [index("observations_event_idx").on(t.eventId), index("observations_observed_idx").on(t.observedAt)],
+  (t) => [index("observations_event_idx").on(t.eventId), index("observations_observed_idx").on(t.observedAt), index("observations_cve_ids_idx").using("gin", t.cveIds)],
 );
 
 /** A real-world issue: usually a group of related CVEs, later also breaches and campaigns. */
