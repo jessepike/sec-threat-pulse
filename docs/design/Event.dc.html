@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PHP2Shell: event page</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#0A0E13}
+a{color:#5EB8FF}a:hover{color:#9AD2FF}
+@keyframes stpPulse{0%{box-shadow:0 0 0 0 rgba(94,184,255,.6)}70%{box-shadow:0 0 0 8px rgba(94,184,255,0)}100%{box-shadow:0 0 0 0 rgba(94,184,255,0)}}
+.stp-live{animation:stpPulse 2s infinite}
+@media (prefers-reduced-motion: reduce){.stp-live{animation:none}}
+</style>
+</helmet>
+<div style="font-family: Inter, system-ui, sans-serif; color: #E8EEF4; background-color: #0A0E13; background-image: radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px); background-size: 24px 24px; min-height: 100vh">
+
+<header style="border-bottom: 1px solid #263240; background: rgba(10,14,19,0.92)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; color: #E8EEF4; text-decoration: none">
+<svg width="30" height="30" viewBox="0 0 28 28" aria-hidden="true"><rect x="0.5" y="0.5" width="27" height="27" rx="4" fill="none" stroke="#3A4A5C"/><path d="M4 14h5l2.5-6 5 12 2.5-6h5" fill="none" stroke="#5EB8FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 700; letter-spacing: 0.12em">SECURITY_THREAT_PULSE</span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 2px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.06em">
+<a href="Main.dc.html" style="color: #9FB0C0; text-decoration: none; padding: 12px 14px">THIS WEEK</a>
+<a href="#" style="color: #E8EEF4; text-decoration: none; padding: 12px 14px; border-bottom: 2px solid #5EB8FF">EVENTS</a>
+<a href="Main.dc.html" style="color: #9FB0C0; text-decoration: none; padding: 12px 14px">TRENDS</a>
+<a href="Board.dc.html" style="color: #9FB0C0; text-decoration: none; padding: 12px 14px">BOARD BRIEF</a>
+</nav>
+</div>
+<div style="border-top: 1px solid #18212B">
+<div style="max-width: 1280px; margin: 0 auto; padding: 8px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.06em; color: #9FB0C0">
+<div style="display: flex; align-items: center; gap: 8px; color: #5EB8FF"><span class="stp-live" aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #5EB8FF; display: inline-block"></span>LIVE</div>
+<div>EVENT UPDATED OCT 23 10:40 PT</div>
+<div>TRACKING SINCE OCT 20</div>
+<div>14 SOURCES ON THIS EVENT</div>
+</div>
+</div>
+</header>
+
+<main style="max-width: 1280px; margin: 0 auto; padding: 32px 24px 72px; display: flex; flex-direction: column; gap: 48px">
+
+<section aria-labelledby="t" style="display: flex; flex-direction: column; gap: 18px">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: #9FB0C0"><a href="Main.dc.html" style="text-decoration: none">THIS WEEK</a> / EVENTS / PHP2SHELL</div>
+<div style="position: relative; background: linear-gradient(90deg, rgba(255,107,94,0.10), rgba(17,24,32,0.9) 55%); border: 1px solid #263240; border-left: 8px solid #FF6B5E; border-radius: 4px; padding: 36px; display: flex; flex-wrap: wrap; gap: 32px">
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 700; letter-spacing: 0.1em; color: #FFB3AA; background: #2A1514; border: 1px solid #FF6B5E; padding: 8px 12px; border-radius: 3px">▲ ACT NOW</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9FB0C0">CVE-2026-109618 · CVE-2026-109619 · CVSS 9.2</span>
+</div>
+<h1 id="t" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 72px; line-height: 1; font-weight: 700; letter-spacing: -0.035em">PHP2Shell</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.55; color: #C9D4DF; max-width: 720px">Two critical flaws in PHP itself let an attacker take over a web server without logging in. Attackers tried it before the fix existed. No breaches confirmed yet.</p>
+</div>
+<div style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 14px; border-left: 1px solid #263240; padding-left: 28px; font-family: 'JetBrains Mono', monospace">
+<div style="display: flex; flex-direction: column; gap: 4px"><div style="font-size: 12px; letter-spacing: 0.08em; color: #9FB0C0">HIGHEST CONFIRMED RUNG</div><div style="font-size: 22px; font-weight: 700">EXPOSED</div></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><div style="font-size: 12px; letter-spacing: 0.08em; color: #9FB0C0">FIRST ATTEMPT SEEN</div><div style="font-size: 22px; font-weight: 700">OCT 17</div></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><div style="font-size: 12px; letter-spacing: 0.08em; color: #9FB0C0">FIX AVAILABLE</div><div style="font-size: 22px; font-weight: 700; color: #B5E3C8">YES · OCT 21</div></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><div style="font-size: 12px; letter-spacing: 0.08em; color: #9FB0C0">CISA KEV</div><div style="font-size: 22px; font-weight: 700">NOT YET</div></div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="ladder" style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #9FB0C0">// EVIDENCE LADDER</div>
+<h2 id="ladder" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700; letter-spacing: -0.02em">How far has it climbed?</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.06em; color: #9FB0C0" aria-label="Ladder key">
+<div style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 22px; height: 10px; background: #5EB8FF; display: inline-block"></span>CONFIRMED</div>
+<div style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 22px; height: 10px; box-sizing: border-box; border: 1px solid #5EB8FF; background: repeating-linear-gradient(135deg, #5EB8FF 0 2px, transparent 2px 5px); display: inline-block"></span>REPORTED</div>
+<div style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 22px; height: 10px; box-sizing: border-box; border: 1px solid #3A4A5C; display: inline-block"></span>NO EVIDENCE</div>
+</div>
+</div>
+<div style="border: 1px solid #263240; border-radius: 4px; background: #111820; overflow-x: auto">
+<div style="min-width: 980px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr))">
+<sc-for list="{{rungs}}" as="r" hint-placeholder-count="5">
+<div style="padding: 24px 22px; border-right: 1px solid #18212B; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; font-family: 'JetBrains Mono', monospace">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em">{{r.num}} {{r.step}}</span>
+</div>
+<span aria-hidden="true" style="{{r.bar}}"></span>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: {{r.statusColor}}">{{r.status}}</div>
+<div style="font-size: 14px; line-height: 1.55; color: #C9D4DF">{{r.evidence}}</div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.5; color: #7F92A6; margin-top: auto">SRC: {{r.source}}</div>
+</div>
+</sc-for>
+</div>
+<div style="padding: 18px 24px; border-top: 1px solid #263240; background: #0F1A24; font-size: 15px; line-height: 1.55; color: #C9D4DF"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: #5EB8FF">VERDICT CHANGES IF →</span> a CISA KEV listing confirms exploitation; reports of real compromises move it to the top rung; falling scan activity plus wide patching moves it to Watch.</div>
+</div>
+</section>
+
+<section aria-label="Summary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); border: 1px solid #263240; border-radius: 4px; background: #111820">
+<div style="padding: 26px; border-right: 1px solid #18212B; display: flex; flex-direction: column; gap: 10px"><div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: #9FB0C0">IN BUSINESS TERMS</div><div style="font-size: 16px; line-height: 1.6; color: #C9D4DF">PHP builds the pages for most websites, including WordPress sites, customer portals and many vendor products. A takeover means stolen data, a defaced site or a foothold into the network.</div></div>
+<div style="padding: 26px; border-right: 1px solid #18212B; display: flex; flex-direction: column; gap: 10px"><div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: #9FB0C0">WHY ACT BEFORE PROOF OF DAMAGE</div><div style="font-size: 16px; line-height: 1.6; color: #C9D4DF">Exposure is huge, attack code is public, and attempts are under way from multiple sources. Confirmed breaches come too late to prevent one.</div></div>
+<div style="padding: 26px; display: flex; flex-direction: column; gap: 10px; background: #0F1A24"><div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: #5EB8FF">THE FIX</div><div style="font-size: 16px; line-height: 1.6; color: #C9D4DF">Update PHP to <span style="font-family: 'JetBrains Mono', monospace; color: #E8EEF4">8.5.12 · 8.4.27 · 8.3.36 · 8.2.35</span>. PHP 8.1 and older get no fix: replace or isolate. Updating plugins alone does not help.</div></div>
+</section>
+
+<section aria-labelledby="hype" style="display: flex; flex-direction: column; gap: 20px">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #9FB0C0">// CLAIM CHECK</div>
+<h2 id="hype" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700; letter-spacing: -0.02em">What you heard vs what's true</h2>
+<div style="border: 1px solid #263240; border-radius: 4px; background: #111820; overflow-x: auto">
+<div style="min-width: 760px">
+<div style="display: grid; grid-template-columns: 1.3fr 1.7fr 0.8fr; gap: 20px; padding: 14px 24px; border-bottom: 1px solid #263240; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: #9FB0C0"><div>CLAIM</div><div>WHAT THE EVIDENCE SAYS</div><div>RATING</div></div>
+<sc-for list="{{claims}}" as="c" hint-placeholder-count="5">
+<div style="display: grid; grid-template-columns: 1.3fr 1.7fr 0.8fr; gap: 20px; padding: 18px 24px; border-bottom: 1px solid #18212B; align-items: start">
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600">{{c.claim}}</div>
+<div style="font-size: 15px; line-height: 1.55; color: #C9D4DF">{{c.truth}}</div>
+<div><span style="{{c.badge}}">{{c.rating}}</span></div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="tl" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 32px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #9FB0C0">// TIMELINE · PT / UTC</div>
+<h2 id="tl" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.02em">How it unfolded</h2>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-left: 1px solid #3A4A5C; margin-left: 6px">
+<sc-for list="{{timeline}}" as="m" hint-placeholder-count="7">
+<li style="position: relative; padding: 0 0 22px 24px; display: flex; flex-direction: column; gap: 4px">
+<span aria-hidden="true" style="{{m.dot}}"></span>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; color: {{m.color}}">{{m.when}}</div>
+<div style="font-size: 15px; line-height: 1.55; color: #C9D4DF">{{m.what}}</div>
+</li>
+</sc-for>
+</ol>
+</div>
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #9FB0C0">// BLAST RADIUS</div>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.02em">Who is exposed</h2>
+<div style="border: 1px solid #263240; border-radius: 4px; background: #111820; padding: 26px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap"><div style="font-family: 'JetBrains Mono', monospace; font-size: 56px; font-weight: 700; line-height: 1">~70%</div><div style="font-size: 15px; color: #C9D4DF; max-width: 260px">of websites with a known server-side language run PHP</div></div>
+<div style="font-size: 15px; line-height: 1.55; color: #C9D4DF"><strong style="color: #E8EEF4">Every PHP setup serving web requests:</strong> PHP-FPM, Apache mod_php, php-cgi, FrankenPHP, LiteSpeed. mod_php faces the greatest risk.</div>
+<div style="font-size: 15px; line-height: 1.55; color: #C9D4DF"><strong style="color: #E8EEF4">Hidden PHP:</strong> vendor appliances, admin consoles and hosted marketing sites often run it without your team knowing. Ask vendors and hosts directly.</div>
+<div style="padding: 14px 16px; border: 1px dashed #3A4A5C; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; letter-spacing: 0.04em; color: #9FB0C0">LIVE BUILD: EXPOSED AND VULNERABLE SERVER COUNTS OVER TIME FROM INTERNET SCAN DATA, TO SHOW HOW FAST THE WORLD IS PATCHING.</div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="act" style="display: flex; flex-direction: column; gap: 20px">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #9FB0C0">// ACTIONS BY ROLE</div>
+<h2 id="act" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700; letter-spacing: -0.02em">What each leader should do</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); border: 1px solid #263240; border-radius: 4px; background: #111820">
+<sc-for list="{{roles}}" as="ro" hint-placeholder-count="4">
+<div style="padding: 26px; border-right: 1px solid #18212B; border-bottom: 1px solid #18212B; display: flex; flex-direction: column; gap: 16px">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; letter-spacing: 0.1em; color: #5EB8FF">{{ro.role}}</div>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{ro.items}}" as="it" hint-placeholder-count="3"><li style="display: flex; gap: 12px; font-size: 15px; line-height: 1.55; color: #C9D4DF"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #7F92A6; padding-top: 2px">{{it.n}}</span><span>{{it.t}}</span></li></sc-for>
+</ol>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section aria-labelledby="src" style="border-top: 1px solid #263240; padding-top: 24px; display: flex; flex-direction: column; gap: 12px">
+<h2 id="src" style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #9FB0C0">SOURCES</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #9FB0C0">
+<li>[1] PHP SECURITY ADVISORY, OCT 21, 2026</li>
+<li>[2] AMAZON THREAT INTELLIGENCE: PHP2SHELL ATTEMPT IN MADPOT, OCT 17</li>
+<li>[3] WATCHTOWR: PHP2SHELL FAQ AND EXPLOITATION UPDATES</li>
+<li>[4] TENABLE RESEARCH: PHP2SHELL FAQ</li>
+<li>[5] HELP NET SECURITY, THE HACKER NEWS, ITPRO, BLEEPINGCOMPUTER, OCT 20 TO 22</li>
+</ul>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const barBase = 'display: block; height: 14px; box-sizing: border-box;';
+    const look = {
+      c: { bar: barBase + ' background: #5EB8FF;', statusColor: '#5EB8FF', status: '■ CONFIRMED' },
+      p: { bar: barBase + ' border: 1px solid #5EB8FF; background: repeating-linear-gradient(135deg, #5EB8FF 0 2px, transparent 2px 6px);', statusColor: '#9AD2FF', status: '▨ REPORTED, NOT CONFIRMED' },
+      n: { bar: barBase + ' border: 1px solid #3A4A5C;', statusColor: '#9FB0C0', status: '□ NO EVIDENCE YET' }
+    };
+    const rung = (num, step, s, evidence, source) => ({ num, step, evidence, source, ...look[s] });
+    const rungs = [
+      rung('01', 'TALK', 'c', 'Very high. Leaked on Hacker News and social media a day early. National agencies issued warnings.', 'BLEEPINGCOMPUTER OCT 20 · ITPRO OCT 22'),
+      rung('02', 'EXPOSED', 'c', 'All PHP installations serving web requests. Exploit code and a public scanner exist.', 'PHP ADVISORY · HELP NET SECURITY'),
+      rung('03', 'TRIED', 'p', 'Amazon saw an attempt Oct 17 from several anonymized sources. watchTowr reports active attempts since Oct 21. Success on real systems is unclear.', 'AMAZON TI · WATCHTOWR'),
+      rung('04', 'EXPLOITED', 'n', 'CISA had not observed exploitation as of Oct 21. Not on the KEV list.', 'CISA, OCT 21'),
+      rung('05', 'DAMAGE', 'n', 'No public reports of a breach caused by PHP2Shell.', 'STP BREACH + SEC FILING MONITOR')
+    ];
+    const chip = 'display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; padding: 6px 9px; border-radius: 2px; white-space: nowrap;';
+    const badge = {
+      'TRUE': chip + ' color: #FFB3AA; background: #2A1514; border: 1px solid #FF6B5E;',
+      'OVERSTATED': chip + ' color: #FFD98A; background: #2A2110; border: 1px solid #F5B83D;',
+      'TOO EARLY': chip + ' color: #C9D4DF; background: #18212B; border: 1px solid #3A4A5C;',
+      'FALSE': chip + ' color: #B5E3C8; background: #122219; border: 1px solid #7FBF9E;'
+    };
+    const claim = (claim, truth, rating) => ({ claim, truth, rating, badge: badge[rating] });
+    const claims = [
+      claim('"It is a perfect 10 severity"', 'The leak claimed 10.0. PHP rates both flaws 9.2. Still critical.', 'OVERSTATED'),
+      claim('"Every PHP site is at risk"', 'Every PHP setup serving web requests is affected until patched.', 'TRUE'),
+      claim('"Attackers are already using it"', 'Attempts confirmed by two independent sources. Successful break-ins are not.', 'TOO EARLY'),
+      claim('"Patching plugins will fix it"', 'No. The flaw is in PHP itself. The PHP runtime must be updated.', 'FALSE'),
+      claim('"It affects PHP 5 through 8"', 'Fixes cover supported 8.2 to 8.5. Older versions get no patch and stay exposed.', 'TRUE')
+    ];
+    const dot = (hot) => 'position: absolute; left: -6px; top: 3px; width: 11px; height: 11px; border-radius: 50%; box-sizing: border-box; ' + (hot ? 'background: #FF6B5E;' : 'background: #0A0E13; border: 2px solid #5EB8FF;');
+    const t = (when, what, hot) => ({ when, what, dot: dot(hot), color: hot ? '#FFB3AA' : '#5EB8FF' });
+    const timeline = [
+      t('SEP 21', 'PHP security team receives the reports and starts on fixes.', false),
+      t('OCT 17', 'Amazon sees the first known exploitation attempt, four days early.', true),
+      t('OCT 20', 'Details leak online. PHP announces an emergency release for the next day.', false),
+      t('OCT 21 02:00 UTC', 'Proof-of-concept attack code appears. More attempts follow.', true),
+      t('OCT 21 14:00 UTC', 'PHP publishes fixes. watchTowr reports active attempts minutes later.', true),
+      t('OCT 21', 'CISA says it has not yet observed exploitation.', false),
+      t('OCT 22', 'Open-source scanner released so teams can test exposure.', false)
+    ];
+    const items = (arr) => arr.map((x, i) => ({ n: '0' + (i + 1), t: x }));
+    const roles = [
+      { role: 'CISO', items: items(['Get a full list of PHP servers, including vendor and hosted systems.', 'Set a patch deadline in days for anything internet-facing.', 'Have the team review logs from Oct 17 forward.']) },
+      { role: 'CIO', items: items(['Free up change windows for emergency PHP updates.', 'Get written confirmation from hosts and SaaS vendors that they patched.', 'Plan replacement of PHP 8.1 and older.']) },
+      { role: 'CEO', items: items(['Ask one question: are our public websites and portals patched?', 'Support taking a site offline briefly if it cannot be patched.', 'No public statement needed unless a compromise is found.']) },
+      { role: 'BOARD', items: items(['Expect a short status from security this week.', 'Ask how fast the company can patch a critical internet-facing flaw.', 'Treat it as a test of patch speed.']) }
+    ];
+    return { rungs, claims, timeline, roles };
+  }
+}
+</script>
+</body>
+</html>

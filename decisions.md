@@ -1,0 +1,14 @@
+# Decisions
+
+Newest first. Owner decisions carry her words where given.
+
+| Date | Decision |
+|---|---|
+| 2026-10-24 | Stack: Vercel Pro, Cloudflare, GitHub, Neon Postgres ("Vercel yes, Cloudflare yes, GitHub"). Neon over Supabase: already in use, preview branching, Supabase extras unneeded. |
+| 2026-10-24 | Goal is gate-based, not dated: pass Phases 0 to 2. Agents work continuously; Claude leads. |
+| 2026-10-24 | Admin console behind login, including the roadmap. |
+| 2026-10-24 | Build-first exploration; real-user feedback at the launch gate. Trust machinery ships in every phase. |
+| 2026-10-24 | Audience: security leaders at the core, plus CEOs, boards, insurers, investors and their agents. Not a SOC tool. |
+| 2026-10-24 | Dark theme primary, grey an option. |
+| 2026-10-24 | ransomware.live not used until written approval (terms bar commercial use and API re-serving). |
+| 2026-10-23 | Standalone site, separate from Security Market Pulse. Core concept: evidence ladder with plain verdicts. |
