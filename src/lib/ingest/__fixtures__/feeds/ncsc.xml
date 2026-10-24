@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xml:base="https://www.ncsc.gov.uk/">
+  <channel>
+    <title>All Feed</title>
+    <link>https://www.ncsc.gov.uk/</link>
+    <description>This includes feeds from report, guidance and blog-post</description>
+    <language>en</language>
+    
+    <item>
+  <title>Critical security issue affecting PHP</title>
+  <link>https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php</link>
+  <description>NoneUpdated: The NCSC is encouraging UK organisations to take immediate action to mitigate a security issue affecting PHP (CVE-2026-109618 and CVE-2026-109619).None</description>
+  <pubDate>Wed, 21 Oct 2026 12:00:00 +0000</pubDate>
+    <dc:creator/>
+    <guid isPermaLink="true">https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php</guid>
+    </item>
+<item>
+  <title>Introducing a new AI chapter in the NCSC research problem book</title>
+  <link>https://www.ncsc.gov.uk/blogs/introducing-new-ai-chapter-ncsc-research-problem-book</link>
+  <description>NoneA revolution is underway at the intersection of AI and cyber security.None</description>
+  <pubDate>Tue, 20 Oct 2026 12:00:00 +0000</pubDate>
+    <dc:creator/>
+    <guid isPermaLink="true">https://www.ncsc.gov.uk/blogs/introducing-new-ai-chapter-ncsc-research-problem-book</guid>
+    </item>
+
+  </channel>
+</rss>

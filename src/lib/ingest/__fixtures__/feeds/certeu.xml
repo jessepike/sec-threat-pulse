@@ -1,0 +1,33 @@
+<rss version="2.0">
+    <channel>
+        <title>Latest publications of type Security Advisories</title>
+        <link>https://cert.europa.eu/publications/security-advisories/</link>
+        <description>RSS feed for the latest 10 publications of type Security Advisories.</description>
+        <ttl>1440</ttl>
+        <language>en-gb</language>
+        <item>
+            <title>2026-018: Critical Vulnerabilities in PHP</title>
+            <link>
+                https://cert.europa.eu/publications/security-advisories/2026-018/
+            </link>
+            <description>NoneOn 20 October 2026, the PHP project announced an upcoming security release addressing two critical vulnerabilities in PHP. Public reports indicated that these vulnerabilities could lead to remote code execution (RCE).&lt;br&gt;
+The PHP team released the fixes today, 21 October 2026 at 13:30 UTC, in PHP versions 8.5.12, 8.4.27, 8.3.36 and 8.2.35. Both vulnerabilities can allow unauthenticated remote code execution. Technical details are now being discussed publicly, and initial proofs of concept (PoCs) have begun to circulate. This raises the likelihood that attackers are already exploiting the vulnerabilities.&lt;br&gt;
+[New] On 23 October, PHP disclosed a new RCE vulnerability. However, it affects only web applications configured in an unusual way, and PHP considers it an unlikely risk. PHP will not issue an out-of-band release for this vulnerability. Instead, organisations are advised to apply mitigation to fully protect from this RCE vector.&lt;br&gt;
+CERT-EU advises organisations to patch affected assets immediately. Where that is not feasible, organisations should consider isolating internet-facing applications from public networks until a fix is applied and verified.&lt;brNone</description>
+            <pubDate>Fri, 23 Oct 2026 16:36:26 CEST</pubDate>
+            <guid>security-advisories-10955</guid>
+        </item>
+<item>
+            <title>2026-011: Critical Vulnerabilities in SAP Kernel and NetWeaver Message Server</title>
+            <link>
+                https://cert.europa.eu/publications/security-advisories/2026-011/
+            </link>
+            <description>NoneOn 8 September 2026, as part of its September Security Patch Day, SAP released Security Notes addressing two critical vulnerabilities affecting a broad range of SAP products[3]. The most severe, CVE-2026-44756 (CVSS 10.0), is a memory corruption vulnerability in SAP Extended Passport (EPP) processing, nicknamed &#34;OVERPASS&#34; by the Onapsis Research Labs (ORL), which discovered and responsibly disclosed it[3]. The second, CVE-2026-58240 (CVSS 9.8), nicknamed &#34;S4GET&#34;, is a missing authentication check in the SAP NetWeaver Message Server[6].&lt;br&gt;
+Both are remotely exploitable without authentication. According to the reporting researchers, successful exploitation of either can result in arbitrary operating system command execution under the account that owns the SAP installation, leading to full compromise of the affected system and the business data it holds[6].&lt;br&gt;
+CERT-EU strongly recommends applying SAP Security Notes 3747649 and 3759472 as soon as possible.&lt;br&gt;
+None</description>
+            <pubDate>Wed, 09 Sep 2026 15:07:59 CEST</pubDate>
+            <guid>security-advisories-10948</guid>
+        </item>
+    </channel>
+</rss>

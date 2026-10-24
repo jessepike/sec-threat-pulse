@@ -22,6 +22,38 @@ what adapters need. Rungs: 1 Talk, 2 Exposure, 3 Attempts, 4 Exploited, 5 Damage
 | `wa-ag` | Washington AG breaches | `https://data.wa.gov/resource/sb4j-ca4h.json?$order=datesubmitted DESC&$limit=200` | none | 5 confirmed (notice, counts, attack type) | Credit WA AGO | daily |
 | `ca-ag` | California AG breaches | `https://oag.ca.gov/privacy/databreach/list-export` (CSV) | none | 5 confirmed (notice) | Public record | daily |
 
+## P2 news and advisories (active)
+
+One generic RSS 2.0 / Atom / RDF adapter (`src/lib/ingest/adapters/feeds.ts`), one source id per feed
+so Talk can reach `confirmed` with 2+ independent sources. All 15 URLs verified Oct 24, 2026.
+Each item that names a CVE (strict `CVE-\d{4}-\d{4,}`, case-insensitive, deduped) becomes one
+observation: kind `talk` (news) or `advisory` (government), strength `reported`. We store only the
+headline, the canonical link, the publish time and the CVE ids; no article text, no raw archive.
+Items with no CVE are counted and skipped. `metadata.exploitPhrase` records "actively exploited",
+"exploited in the wild" or "under active exploitation"; no rule uses it yet. ETag and
+If-Modified-Since are sent. Terms: headlines and links with credit by linking to the source.
+
+| id | Feed | URL | Interval |
+|---|---|---|---|
+| `news-thehackernews` | The Hacker News | `https://feeds.feedburner.com/TheHackersNews` | 30 min |
+| `news-bleepingcomputer` | BleepingComputer | `https://www.bleepingcomputer.com/feed/` | 30 min |
+| `news-securityweek` | SecurityWeek | `https://www.securityweek.com/feed/` | 30 min |
+| `news-therecord` | The Record | `https://therecord.media/feed` | 30 min |
+| `news-darkreading` | Dark Reading | `https://www.darkreading.com/rss.xml` | 30 min |
+| `news-krebs` | Krebs on Security | `https://krebsonsecurity.com/feed/` | 30 min |
+| `news-helpnetsecurity` | Help Net Security | `https://www.helpnetsecurity.com/feed/` | 30 min |
+| `news-cyberscoop` | CyberScoop | `https://cyberscoop.com/feed/` | 30 min |
+| `news-theregister` | The Register (security) | `https://www.theregister.com/security/headlines.atom` (serves RSS 2.0) | 30 min |
+| `news-securityaffairs` | Security Affairs | `https://securityaffairs.com/feed` | 30 min |
+| `news-cybersecuritydive` | Cybersecurity Dive | `https://www.cybersecuritydive.com/feeds/news/` | 30 min |
+| `news-sansisc` | SANS ISC | `https://isc.sans.edu/rssfeed_full.xml` | 30 min |
+| `advisory-ncsc-uk` | UK NCSC | `https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml` | 60 min |
+| `advisory-cert-eu` | CERT-EU | `https://cert.europa.eu/publications/security-advisories-rss` | 60 min |
+| `advisory-cccs` | Canadian Centre for Cyber Security | `https://www.cyber.gc.ca/api/cccs/rss/v1/get?feed=alerts_advisories&lang=en` (Atom) | 60 min |
+
+Notes: the NCSC feed mixes blogs and guidance with advisories; only CVE-bearing items pass. Feeds
+list only the latest 5 to 50 items, so the interval matters.
+
 ## P1 if capacity
 
 `msrc` (Microsoft CVRF `https://api.msrc.microsoft.com/cvrf/v3.0/updates`, "Exploited: Yes" = 4
@@ -30,7 +62,7 @@ confirmed), `euvd`, `ghsa`, `cisa-csaf`.
 ## Not used yet
 
 ransomware.live (blocked until written approval), Shadowserver, GreyNoise, CrowdSec (partnerships),
-Reddit (terms). News and social sources arrive in Phase 3.
+Reddit (terms). Social sources arrive in Phase 3.
 
 ## Notes
 

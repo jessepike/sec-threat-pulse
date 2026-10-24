@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Krebs on Security</title>
+	<atom:link href="https://krebsonsecurity.com/feed/" rel="self" type="application/rss+xml" />
+	<link>https://krebsonsecurity.com</link>
+	<description>In-depth security news and investigation</description>
+	<lastBuildDate>Fri, 23 Oct 2026 17:01:08 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.9</generator>
+	<item>
+		<title>Widespread PHP Flaw May Cause Many Site Outages Today</title>
+		<link>https://krebsonsecurity.com/2026/10/widespread-php-flaw-may-cause-many-site-outages-today/</link>
+					<comments>https://krebsonsecurity.com/2026/10/widespread-php-flaw-may-cause-many-site-outages-today/#comments</comments>
+		
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+		<pubDate>Wed, 21 Oct 2026 15:26:07 +0000</pubDate>
+				<category><![CDATA[Latest Warnings]]></category>
+		<category><![CDATA[Security Tools]]></category>
+		<category><![CDATA[The Coming Storm]]></category>
+		<category><![CDATA[Time to Patch]]></category>
+		<category><![CDATA[CVE-2026-109618]]></category>
+		<category><![CDATA[CVE-2026-109619]]></category>
+		<category><![CDATA[Drupal]]></category>
+		<category><![CDATA[Joomla]]></category>
+		<category><![CDATA[Magento]]></category>
+		<category><![CDATA[OpenAI]]></category>
+		<category><![CDATA[PHP vulnerability]]></category>
+		<category><![CDATA[Wiz]]></category>
+		<category><![CDATA[wordpress]]></category>
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=74522</guid>
+
+					<description><![CDATA[Expect to see quite a few websites serving "404" or "Page Not Found" errors today: Nearly 70 percent of websites need to update their core software to fix a pair of vulnerabilities that allow an attacker to seize full control over affected servers. Experts say there are working exploits for the flaws, and that these critical bugs are already being exploited in the wild.]]></description>
+										<wfw:commentRss>https://krebsonsecurity.com/2026/10/widespread-php-flaw-may-cause-many-site-outages-today/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+			</item>
+<item>
+		<title>Feds Suspect Ransom Negotiator Ran ShinyHunters Extortion Site</title>
+		<link>https://krebsonsecurity.com/2026/10/feds-suspect-ransom-negotiator-ran-shinyhunters-extortion-site/</link>
+					<comments>https://krebsonsecurity.com/2026/10/feds-suspect-ransom-negotiator-ran-shinyhunters-extortion-site/#comments</comments>
+		
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+		<pubDate>Mon, 19 Oct 2026 13:48:56 +0000</pubDate>
+				<category><![CDATA[A Little Sunshine]]></category>
+		<category><![CDATA[Breadcrumbs]]></category>
+		<category><![CDATA[Data Breaches]]></category>
+		<category><![CDATA[Ne'er-Do-Well News]]></category>
+		<category><![CDATA[Ransomware]]></category>
+		<category><![CDATA[The Coming Storm]]></category>
+		<category><![CDATA[Angelo Martino]]></category>
+		<category><![CDATA[Aon Cyber Solutions Group]]></category>
+		<category><![CDATA[Apros Group]]></category>
+		<category><![CDATA[Bill Siegel]]></category>
+		<category><![CDATA[Coveware]]></category>
+		<category><![CDATA[CyberAcuView]]></category>
+		<category><![CDATA[CyberSteward]]></category>
+		<category><![CDATA[Cypfer]]></category>
+		<category><![CDATA[Cytelligence]]></category>
+		<category><![CDATA[Daniel Tobok]]></category>
+		<category><![CDATA[Dharma ransomware]]></category>
+		<category><![CDATA[Edward Dubrovsky]]></category>
+		<category><![CDATA[fbi]]></category>
+		<category><![CDATA[ghostbyte]]></category>
+		<category><![CDATA[Intuitive Surgical]]></category>
+		<category><![CDATA[Mark Camillo]]></category>
+		<category><![CDATA[Matthew Lane]]></category>
+		<category><![CDATA[MonsterCloud]]></category>
+		<category><![CDATA[Pepijn van der Stap]]></category>
+		<category><![CDATA[PowerSchool]]></category>
+		<category><![CDATA[ShinyHunters]]></category>
+		<category><![CDATA[Shinywire]]></category>
+		<category><![CDATA[The Globe and Mail]]></category>
+		<category><![CDATA[Unit 221B]]></category>
+		<category><![CDATA[Zohar Pinhasi]]></category>
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=74480</guid>
+
+					<description><![CDATA[U.S. federal investigators pursuing the ShinyHunters hacking group that recently stole highly sensitive data from the FBI have identified executives at two different ransomware negotiation firms who maintained unusually close relations with the extortion group, KrebsOnSecurity has learned. Sources close to the investigation say one of the executives in the United States even helped ShinyHunters operate a website that pressured victims into paying a ransom.]]></description>
+										<wfw:commentRss>https://krebsonsecurity.com/2026/10/feds-suspect-ransom-negotiator-ran-shinyhunters-extortion-site/feed/</wfw:commentRss>
+			<slash:comments>9</slash:comments>
+		
+		
+			</item>
+<item>
+		<title>Microsoft Patches More Than 1,400 Security Flaws</title>
+		<link>https://krebsonsecurity.com/2026/10/microsoft-patches-more-than-1400-security-flaws/</link>
+					<comments>https://krebsonsecurity.com/2026/10/microsoft-patches-more-than-1400-security-flaws/#comments</comments>
+		
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+		<pubDate>Tue, 13 Oct 2026 23:24:53 +0000</pubDate>
+				<category><![CDATA[Security Tools]]></category>
+		<category><![CDATA[The Coming Storm]]></category>
+		<category><![CDATA[Time to Patch]]></category>
+		<category><![CDATA[.NET]]></category>
+		<category><![CDATA[Cisco Talos]]></category>
+		<category><![CDATA[CVE-2026-108398]]></category>
+		<category><![CDATA[CVE-2026-96951]]></category>
+		<category><![CDATA[Fortra]]></category>
+		<category><![CDATA[microsoft]]></category>
+		<category><![CDATA[Patch Tuesday October 2026]]></category>
+		<category><![CDATA[sans internet storm center]]></category>
+		<category><![CDATA[Satnam Narang]]></category>
+		<category><![CDATA[Tenable]]></category>
+		<category><![CDATA[Tyler Reguly]]></category>
+		<category><![CDATA[Windows 10 updates]]></category>
+		<category><![CDATA[Windows shell]]></category>
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=74474</guid>
+
+					<description><![CDATA[Microsoft today issued updates to fix more than 1,400 security vulnerabilities in its Windows operating systems and other software. Today's epic patch batch dwarfs September's record of nearly 1,000 fixes, which was already about ten times the normal monthly patch load from Redmond.]]></description>
+										<wfw:commentRss>https://krebsonsecurity.com/2026/10/microsoft-patches-more-than-1400-security-flaws/feed/</wfw:commentRss>
+			<slash:comments>16</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
+
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.boldgrid.com/w3-total-cache/?utm_source=w3tc&utm_medium=footer_comment&utm_campaign=free_plugin
+
+Object Caching 20/41 objects using Memcached
+Page Caching using Memcached (User agent is rejected) 
+Database Caching using Memcached
+
+Served from: krebsonsecurity.com @ 2026-10-24 18:33:22 by W3 Total Cache
+-->

@@ -13,6 +13,7 @@ import { sec8kAdapter } from "./adapters/sec-8k";
 import { hibpAdapter } from "./adapters/hibp";
 import { waAgAdapter } from "./adapters/wa-ag";
 import { caAgAdapter } from "./adapters/ca-ag";
+import { ADVISORY_FEEDS, FEED_HOMEPAGES, NEWS_FEEDS, makeFeedAdapter } from "./adapters/feeds";
 
 export type TermsStatus = "open" | "attribution" | "approval_needed" | "blocked" | "unclear";
 
@@ -45,6 +46,20 @@ export const SOURCE_REGISTRY: SourceDefinition[] = [
   { adapter: hibpAdapter, category: "damage", homepage: "https://haveibeenpwned.com/", termsStatus: "attribution", attribution: "Breach data from Have I Been Pwned (haveibeenpwned.com), CC BY 4.0" },
   { adapter: waAgAdapter, category: "damage", homepage: "https://www.atg.wa.gov/data-breach-notifications", termsStatus: "attribution", attribution: "Data breach notices from the Washington State Attorney General's Office" },
   { adapter: caAgAdapter, category: "damage", homepage: "https://oag.ca.gov/privacy/databreach/list", termsStatus: "open", attribution: "Data breach notices filed with the California Attorney General" },
+  ...NEWS_FEEDS.map((f) => ({
+    adapter: makeFeedAdapter(f),
+    category: "news",
+    homepage: FEED_HOMEPAGES[f.id],
+    termsStatus: "attribution" as const,
+    attribution: `Headlines and links from ${f.name}`,
+  })),
+  ...ADVISORY_FEEDS.map((f) => ({
+    adapter: makeFeedAdapter(f),
+    category: "advisory",
+    homepage: FEED_HOMEPAGES[f.id],
+    termsStatus: "attribution" as const,
+    attribution: `Advisory headlines and links from ${f.name}`,
+  })),
 ];
 
 export const ADAPTERS: SourceAdapter[] = SOURCE_REGISTRY.map((d) => d.adapter);

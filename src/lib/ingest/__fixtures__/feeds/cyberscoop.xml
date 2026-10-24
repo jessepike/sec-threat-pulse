@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>CyberScoop</title>
+	<atom:link href="https://cyberscoop.com/feed/" rel="self" type="application/rss+xml" />
+	<link>https://cyberscoop.com/</link>
+	<description></description>
+	<lastBuildDate>Fri, 23 Oct 2026 16:23:09 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.3</generator>
+
+<image>
+	<url>https://cyberscoop.com/wp-content/uploads/sites/3/2023/01/cropped-cs_favicon-2.png?w=32</url>
+	<title>CyberScoop</title>
+	<link>https://cyberscoop.com/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Senators say targeted ads are a security risk. Ad groups say the critics are off base.</title>
+		<link>https://cyberscoop.com/targeted-ads-spyware-government-threat/</link>
+		
+		<dc:creator><![CDATA[Tim Starks]]></dc:creator>
+		<pubDate>Fri, 23 Oct 2026 16:23:06 +0000</pubDate>
+				<category><![CDATA[Policy]]></category>
+		<category><![CDATA[Privacy]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[adtech]]></category>
+		<category><![CDATA[advertising]]></category>
+		<category><![CDATA[Citizen Lab]]></category>
+		<category><![CDATA[Congress]]></category>
+		<category><![CDATA[Cory Booker]]></category>
+		<category><![CDATA[Google]]></category>
+		<category><![CDATA[Microsoft]]></category>
+		<category><![CDATA[Ron Wyden]]></category>
+		<category><![CDATA[spyware]]></category>
+		<guid isPermaLink="false">https://cyberscoop.com/?p=91253</guid>
+
+					<description><![CDATA[<p>Citizen Lab’s AdFection findings have senators pushing for industry improvements, while IAB Europe and Google defend their vetting practices.</p>
+<p>The post <a href="https://cyberscoop.com/targeted-ads-spyware-government-threat/">Senators say targeted ads are a security risk. Ad groups say the critics are off base.</a> appeared first on <a href="https://cyberscoop.com">CyberScoop</a>.</p>
+]]></description>
+										<post-id xmlns="com-wordpress:feed-additions:1">91253</post-id>	</item>
+<item>
+		<title>PHP releases emergency fixes for 2 critical vulnerabilities</title>
+		<link>https://cyberscoop.com/php-emergency-patches-php2shell-vulnerabilities/</link>
+		
+		<dc:creator><![CDATA[Greg Otto]]></dc:creator>
+		<pubDate>Wed, 21 Oct 2026 13:40:02 +0000</pubDate>
+				<category><![CDATA[Threats]]></category>
+		<category><![CDATA[CERT-EU]]></category>
+		<category><![CDATA[Huntress]]></category>
+		<category><![CDATA[NCSC]]></category>
+		<category><![CDATA[patching]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[security advisory]]></category>
+		<category><![CDATA[Tenable]]></category>
+		<category><![CDATA[watchTowr]]></category>
+		<guid isPermaLink="false">https://cyberscoop.com/?p=91212</guid>
+
+					<description><![CDATA[<p>The project overseeing the programming language is releasing patches Wednesday, with the internet racing to patch the 9.2 rated flaw. </p>
+<p>The post <a href="https://cyberscoop.com/php-emergency-patches-php2shell-vulnerabilities/">PHP releases emergency fixes for 2 critical vulnerabilities</a> appeared first on <a href="https://cyberscoop.com">CyberScoop</a>.</p>
+]]></description>
+										<post-id xmlns="com-wordpress:feed-additions:1">91212</post-id>	</item>
+	</channel>
+</rss>

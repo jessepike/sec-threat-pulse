@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic RDF (RSS 1.0) sample: no live feed in the list uses RDF. -->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel rdf:about="https://example.org/feed"><title>Example RDF</title><link>https://example.org/</link></channel>
+  <item rdf:about="https://example.org/a?utm_source=rss#top">
+    <title>Attackers hit cve-2026-20001 in the wild</title>
+    <link>https://example.org/a?utm_source=rss#top</link>
+    <description>Researchers say CVE-2026-20001 is under active exploitation.</description>
+    <dc:date>2026-10-23T10:00:00Z</dc:date>
+  </item>
+  <item rdf:about="https://example.org/b">
+    <title>Conference recap</title>
+    <link>https://example.org/b</link>
+    <description>Nothing to see.</description>
+    <dc:date>2026-10-22T10:00:00Z</dc:date>
+  </item>
+</rdf:RDF>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+        xmlns:content="http://purl.org/rss/1.0/modules/content/"
+        xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:atom="http://www.w3.org/2005/Atom"
+        >
+
+<channel>
+        <title>BleepingComputer</title>
+
+        <link>https://www.bleepingcomputer.com/</link>
+        <description>BleepingComputer - All Stories</description>
+        <pubDate>Sat, 24 Oct 2026 22:33:57 GMT</pubDate>
+        <generator>https://www.bleepingcomputer.com/</generator>
+        <language>en</language>
+        <atom:link href="https://www.bleepingcomputer.com/feed/" rel="self" type="application/rss+xml" />
+        
+ <item>
+        <title>BlackX UEFI bootkit exploits Baton Drop flaw to bypass Secure Boot</title>
+        <link>https://www.bleepingcomputer.com/news/security/blackx-uefi-bootkit-exploits-baton-drop-flaw-to-bypass-secure-boot/</link>
+        <pubDate>Sat, 24 Oct 2026 10:17:32 -0400</pubDate>
+        <dc:creator>Bill Toulas</dc:creator>
+        
+        <category><![CDATA[Security]]></category>
+
+        <guid>https://www.bleepingcomputer.com/news/security/blackx-uefi-bootkit-exploits-baton-drop-flaw-to-bypass-secure-boot/</guid>
+        <description><![CDATA[A new UEFI bootkit named BlackX, deployed in an espionage campaign in early 2026, exploited the old Baton Drop vulnerability to bypass Secure Boot and load a malicious driver designed to interfere with security solutions from Kaspersky and Avast. [...]]]></description>
+ </item>
+
+</channel>
+</rss>

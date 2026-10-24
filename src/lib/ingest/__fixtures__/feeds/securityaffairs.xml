@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Security Affairs</title>
+	<atom:link href="https://securityaffairs.com/feed" rel="self" type="application/rss+xml" />
+	<link>https://securityaffairs.com/</link>
+	<description>Read, think, share … Security is everyone&#039;s responsibility</description>
+	<lastBuildDate>Sat, 24 Oct 2026 18:59:16 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	
+<site xmlns="com-wordpress:feed-additions:1">29506073</site>	<item>
+		<title>Pierluigi Paganini answers questions about the PHP2Shell flaws</title>
+		<link>https://securityaffairs.com/201662/hacking/pierluigi-paganini-answers-questions-about-the-php2shell-flaws.html</link>
+		
+		<dc:creator><![CDATA[Pierluigi Paganini]]></dc:creator>
+		<pubDate>Sat, 24 Oct 2026 18:58:38 +0000</pubDate>
+				<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[Breaking News]]></category>
+		<category><![CDATA[Hacking]]></category>
+		<category><![CDATA[Security]]></category>
+		<category><![CDATA[AI]]></category>
+		<category><![CDATA[hacking news]]></category>
+		<category><![CDATA[information security news]]></category>
+		<category><![CDATA[IT Information Security]]></category>
+		<category><![CDATA[PHP]]></category>
+		<category><![CDATA[php2shell]]></category>
+		<category><![CDATA[Pierluigi Paganini]]></category>
+		<category><![CDATA[Security Affairs]]></category>
+		<category><![CDATA[Security News]]></category>
+		<guid isPermaLink="false">https://securityaffairs.com/?p=201662</guid>
+
+					<description><![CDATA[Pierluigi Paganini answers questions about the PHP2Shell vulnerability, early exploitation, AI-assisted attacks, and the risks to businesses, servers, and personal data. 1. Your latest report reveals that hackers began exploiting the PHP2Shell vulnerability four days before it was publicly disclosed. First, can you explain what PHP is, how widely it is used across the internet, [&#8230;]]]></description>
+										<post-id xmlns="com-wordpress:feed-additions:1">201662</post-id>	</item>
+<item>
+		<title>U.S. CISA adds Collabora Online flaw to its Known Exploited Vulnerabilities catalog</title>
+		<link>https://securityaffairs.com/201652/security/u-s-cisa-adds-collabora-online-flaw-to-its-known-exploited-vulnerabilities-catalog.html</link>
+		
+		<dc:creator><![CDATA[Pierluigi Paganini]]></dc:creator>
+		<pubDate>Sat, 24 Oct 2026 16:53:59 +0000</pubDate>
+				<category><![CDATA[Breaking News]]></category>
+		<category><![CDATA[Hacking]]></category>
+		<category><![CDATA[Security]]></category>
+		<guid isPermaLink="false">https://securityaffairs.com/?p=201652</guid>
+
+					<description><![CDATA[U.S. Cybersecurity and Infrastructure Security Agency (CISA) adds Collabora Online flaw to its Known Exploited Vulnerabilities catalog. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added a Collabora Collabora Online – Built-in CODE Server flaw, tracked as CVE-2026-110447 (CVSS score of 9.2), to its Known Exploited Vulnerabilities (KEV) catalog. Collabora Online – Built-in CODE Server is [&#8230;]]]></description>
+										<post-id xmlns="com-wordpress:feed-additions:1">201652</post-id>	</item>
+<item>
+		<title>U.S. CISA adds Arista VeloCloud Orchestrator flaw to its Known Exploited Vulnerabilities catalog</title>
+		<link>https://securityaffairs.com/201609/hacking/u-s-cisa-adds-arista-velocloud-orchestrator-flaw-to-its-known-exploited-vulnerabilities-catalog.html</link>
+		
+		<dc:creator><![CDATA[Pierluigi Paganini]]></dc:creator>
+		<pubDate>Sat, 24 Oct 2026 08:30:44 +0000</pubDate>
+				<category><![CDATA[Breaking News]]></category>
+		<category><![CDATA[Hacking]]></category>
+		<category><![CDATA[Security]]></category>
+		<category><![CDATA[Arista VeloCloud Orchestrator]]></category>
+		<category><![CDATA[CISA]]></category>
+		<category><![CDATA[hacking news]]></category>
+		<category><![CDATA[information security news]]></category>
+		<category><![CDATA[Known Exploited Vulnerabilities Catalog]]></category>
+		<category><![CDATA[Pierluigi Paganini]]></category>
+		<category><![CDATA[Security Affairs]]></category>
+		<category><![CDATA[Security News]]></category>
+		<guid isPermaLink="false">https://securityaffairs.com/?p=201609</guid>
+
+					<description><![CDATA[U.S. Cybersecurity and Infrastructure Security Agency (CISA) adds Arista VeloCloud Orchestrator flaw to its Known Exploited Vulnerabilities catalog. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added a critical Arista VeloCloud Orchestrator flaw, tracked as CVE-2026-114625 (CVSS score of 9.4), to its Known Exploited Vulnerabilities (KEV) catalog. VeloCloud Orchestrator (VCO) is the central management system for [&#8230;]]]></description>
+										<post-id xmlns="com-wordpress:feed-additions:1">201609</post-id>	</item>
+	</channel>
+</rss>
+
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.boldgrid.com/w3-total-cache/?utm_source=w3tc&utm_medium=footer_comment&utm_campaign=free_plugin
+
+Object Caching 50/72 objects using Memcached
+Page Caching using Memcached (Page is feed) 
+Database Caching 1/23 queries in 0.019 seconds using Memcached (Request-wide modification query)
+
+Served from: securityaffairs.com @ 2026-10-24 22:00:10 by W3 Total Cache
+-->

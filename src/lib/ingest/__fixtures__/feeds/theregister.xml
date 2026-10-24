@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:lab="https://labradorcms.com/ns/rss">
+<channel>
+    <title>www.theregister.com - Articles</title>
+    <link>https://www.theregister.com</link>
+    <description>Articles from www.theregister.com</description>
+
+    <item>
+        <guid isPermaLink="true">https://www.theregister.com/a/5305215</guid>
+        <link>https://www.theregister.com/security/2026/10/24/autonomous-attack-agent-in-skynet-mode-hijacks-other-models-to-carry-out-its-evil-deeds/5305215</link>
+        <pubDate>Sat, 24 Oct 2026 15:02:00 +0200</pubDate>
+        <title>Autonomous attack agent in 'Skynet mode' hijacks other models to carry out its evil deeds</title>
+        <description><![CDATA[ Designed to carry out 100,000 steps without human approval ]]></description>
+        <category>security</category>
+                <dc:modified>Fri, 23 Oct 2026 21:40:24 +0000</dc:modified>
+                <enclosure url="https://image.theregister.com/?imageId=5305225&amp;width=800" type="image/jpeg" />
+                <media:thumbnail url="https://image.theregister.com/?imageId=5305225&amp;width=800" />
+            </item>
+<item>
+        <guid isPermaLink="true">https://www.theregister.com/a/5305208</guid>
+        <link>https://www.theregister.com/security/2026/10/23/theres-a-third-php2shell-bug-but-it-wont-get-an-emergency-fix/5305208</link>
+        <pubDate>Fri, 23 Oct 2026 22:04:40 +0200</pubDate>
+        <title>There's a third PHP2Shell bug, but it won't get an emergency fix</title>
+        <description><![CDATA[ Bad things (and software bugs?) come in threes ]]></description>
+        <category>security</category>
+                <enclosure url="https://image.theregister.com/?imageId=5305212&amp;width=800" type="image/jpeg" />
+                <media:thumbnail url="https://image.theregister.com/?imageId=5305212&amp;width=800" />
+            </item>
+<item>
+        <guid isPermaLink="true">https://www.theregister.com/a/5304883</guid>
+        <link>https://www.theregister.com/security/2026/10/22/php2shell-exploit-bypasses-protections-designed-to-stop-remote-code-execution/5304883</link>
+        <pubDate>Thu, 22 Oct 2026 22:37:52 +0200</pubDate>
+        <title>PHP2Shell exploit bypasses protections designed to stop remote code execution</title>
+        <description><![CDATA[ “Adversaries are clearly spending time (and tokens) on this bug,” researcher says. ]]></description>
+        <category>security</category>
+                <dc:modified>Fri, 23 Oct 2026 18:20:27 +0000</dc:modified>
+                <enclosure url="https://image.theregister.com/?imageId=5304901&amp;width=800" type="image/jpeg" />
+                <media:thumbnail url="https://image.theregister.com/?imageId=5304901&amp;width=800" />
+            </item>
+</channel>
+</rss>

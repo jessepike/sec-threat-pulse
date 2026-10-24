@@ -101,6 +101,8 @@ export interface AdapterResult {
   raw?: { body: string; contentType: string };
   /** Opaque cursor stored on the source for the next incremental run. */
   cursor?: string;
+  /** Counts for logs and the local runner. Not stored. */
+  stats?: Record<string, number>;
   /** Set when the adapter chose not to run (for example a missing API token). Not an error. */
   skipped?: string;
 }

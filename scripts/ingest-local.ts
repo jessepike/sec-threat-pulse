@@ -48,6 +48,7 @@ async function main() {
         observations: r.observations.length,
         vulnerabilities: r.vulnerabilities.length,
         kinds: Object.entries(kinds).map(([k, v]) => `${k}:${v}`).join(" "),
+        stats: r.stats ? JSON.stringify(r.stats) : "",
         sample: r.observations[0]?.title?.slice(0, 70) ?? r.vulnerabilities[0]?.cveId ?? "",
         ms: Date.now() - t0,
       });

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Synthetic Atom sample with content and a lowercase CVE in the link. -->
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Example Atom</title>
+  <entry>
+    <title type="html">Patch now: &lt;b&gt;two bugs&lt;/b&gt;</title>
+    <link rel="self" href="https://example.org/self/1"/>
+    <link rel="alternate" href="https://example.org/posts/cve-2026-30002-patch"/>
+    <published>2026-10-21T08:00:00Z</published>
+    <updated>2026-10-22T08:00:00Z</updated>
+    <content type="html">&lt;p&gt;Fixes CVE-2026-30001, CVE-2026-30001 and CVE-2026-1 (short). Also see CVE-2026-30003.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>No identifiers here</title>
+    <link href="https://example.org/posts/plain"/>
+    <updated>2026-10-20T08:00:00Z</updated>
+    <summary>General advice.</summary>
+  </entry>
+</feed>

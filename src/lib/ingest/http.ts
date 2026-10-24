@@ -24,6 +24,8 @@ export interface HttpOptions {
   backoffMs?: number;
   /** Send If-None-Match. A 304 returns notModified=true. */
   etag?: string;
+  /** Send If-Modified-Since (an HTTP date from a previous Last-Modified). A 304 returns notModified=true. */
+  lastModified?: string;
   /** Statuses returned as a normal result instead of throwing (for example 404). */
   allowStatus?: number[];
   sleep?: (ms: number) => Promise<void>;
@@ -37,6 +39,7 @@ export interface HttpResult {
   body: string;
   contentType: string;
   etag?: string;
+  lastModified?: string;
   sha256: string;
 }
 
@@ -72,6 +75,7 @@ export async function httpGet(
     ...opts.headers,
   };
   if (opts.etag) headers["If-None-Match"] = opts.etag;
+  if (opts.lastModified) headers["If-Modified-Since"] = opts.lastModified;
 
   let lastError: unknown;
   for (let attempt = 0; attempt <= retries; attempt++) {
@@ -81,7 +85,7 @@ export async function httpGet(
     try {
       const res = await fetchFn(url, { headers, signal: ctl.signal, redirect: "follow" });
       if (res.status === 304) {
-        return { url, status: 304, ok: true, notModified: true, body: "", contentType: "", etag: opts.etag, sha256: "" };
+        return { url, status: 304, ok: true, notModified: true, body: "", contentType: "", etag: opts.etag, lastModified: opts.lastModified, sha256: "" };
       }
       if (res.ok || opts.allowStatus?.includes(res.status)) {
         const body = await res.text();
@@ -93,6 +97,7 @@ export async function httpGet(
           body,
           contentType: res.headers.get("content-type") ?? "",
           etag: res.headers.get("etag") ?? undefined,
+          lastModified: res.headers.get("last-modified") ?? undefined,
           sha256: sha256Hex(body),
         };
       }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Help Net Security</title>
+	<atom:link href="https://www.helpnetsecurity.com/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.helpnetsecurity.com/</link>
+	<description>Daily information security news with a focus on enterprise security.</description>
+	<lastBuildDate>Fri, 23 Oct 2026 12:37:41 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.0.6</generator>
+
+<image>
+	<url>https://img.helpnetsecurity.com/wp-content/uploads/2019/09/09093400/cropped-hns2-32x32.png</url>
+	<title>Help Net Security</title>
+	<link>https://www.helpnetsecurity.com/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>UK proposes 14-year jail terms for subsea cable saboteurs</title>
+		<link>https://www.helpnetsecurity.com/2026/10/23/uk-undersea-cable-sabotage-sentences/</link>
+		
+		<dc:creator><![CDATA[Sinisa Markovic]]></dc:creator>
+		<pubDate>Fri, 23 Oct 2026 12:37:41 +0000</pubDate>
+				<category><![CDATA[News]]></category>
+		<category><![CDATA[critical infrastructure]]></category>
+		<category><![CDATA[EU]]></category>
+		<category><![CDATA[hardware]]></category>
+		<category><![CDATA[supply chain]]></category>
+		<category><![CDATA[UK]]></category>
+		<guid isPermaLink="false">https://www.helpnetsecurity.com/?p=388964</guid>
+
+					<description><![CDATA[<p>Damaging a cable on the seabed off the UK coast could soon cost someone 14 years of their life behind bars, under plans the British government published this week. The proposal comes from a White Paper by the Department for Digital, Culture, Media and Sport that would update laws protecting undersea cables and pipelines, some of which date back 140 years. The plans include unlimited fines for ship owners whose vessels damage the infrastructure, new &#8230; <a href="https://www.helpnetsecurity.com/2026/10/23/uk-undersea-cable-sabotage-sentences/" rel="nofollow">More <span class="meta-nav">&#8594;</span></a></p>
+<p>The post <a href="https://www.helpnetsecurity.com/2026/10/23/uk-undersea-cable-sabotage-sentences/">UK proposes 14-year jail terms for subsea cable saboteurs</a> appeared first on <a href="https://www.helpnetsecurity.com">Help Net Security</a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+	</channel>
+</rss>

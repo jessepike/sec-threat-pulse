@@ -16,6 +16,7 @@ import { hibpAdapter } from "./adapters/hibp";
 import { waAgAdapter } from "./adapters/wa-ag";
 import { caAgAdapter } from "./adapters/ca-ag";
 import { SOURCE_REGISTRY } from "./registry";
+import { ADVISORY_FEEDS, NEWS_FEEDS } from "./adapters/feeds";
 
 const now = new Date("2026-10-24T18:00:00Z");
 const ctx = (f: typeof fetch, extra: Partial<AdapterContext> = {}): AdapterContext => ({ fetch: f, now, sleep: noSleep, ...extra });
@@ -24,7 +25,7 @@ const unique = (xs: string[]) => new Set(xs).size === xs.length;
 describe("registry", () => {
   it("has one definition per P1 source with metadata", () => {
     const ids = SOURCE_REGISTRY.map((d) => d.adapter.id);
-    expect(ids).toEqual(["cisa-kev", "vulncheck-kev", "nvd", "cvelist", "epss", "circl-sightings", "metasploit", "nuclei", "poc-github", "exploitdb", "sec-8k", "hibp", "wa-ag", "ca-ag"]);
+    expect(ids).toEqual(["cisa-kev", "vulncheck-kev", "nvd", "cvelist", "epss", "circl-sightings", "metasploit", "nuclei", "poc-github", "exploitdb", "sec-8k", "hibp", "wa-ag", "ca-ag", ...NEWS_FEEDS.map((f) => f.id), ...ADVISORY_FEEDS.map((f) => f.id)]);
     for (const d of SOURCE_REGISTRY) {
       expect(d.homepage).toMatch(/^https:/);
       expect(d.attribution).toBeTruthy();
