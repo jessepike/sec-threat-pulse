@@ -3,9 +3,15 @@ import { notFound } from "next/navigation";
 import { getDb } from "@/lib/db/client";
 import { requireAdmin } from "@/lib/admin/session";
 import { eventDetail } from "@/lib/admin/queries";
+import { getNarrative } from "@/lib/narrative/store";
+import { draftEnabled } from "@/lib/narrative/draft";
+import { RATINGS, ROLE_KEYS } from "@/lib/narrative/model";
 import { RUNGS, RUNG_LABELS } from "@/lib/ladder/types";
 import {
   clearOverrideAction,
+  draftNarrativeAction,
+  saveNarrativeAction,
+  unpublishNarrativeAction,
   mergeEventsAction,
   overrideVerdictAction,
   renameEventAction,
@@ -35,6 +41,10 @@ export default async function EventPage({ params, searchParams }: { params: Prom
   const d = await eventDetail(db, id);
   if (!d) notFound();
   const e = d.event;
+  const n = await getNarrative(db, id);
+  const canDraft = draftEnabled();
+  const pad = <T,>(a: T[], size: number, fill: T) => [...a, ...Array.from({ length: Math.max(0, size - a.length) }, () => fill)];
+  const claimRows = pad(n?.claimChecks ?? [], (n?.claimChecks.length ?? 0) + 2, { claim: "", truth: "", rating: "TRUE" as const });
   const effective = e.overrideVerdict ?? e.verdict;
   return (
     <>
@@ -94,6 +104,81 @@ export default async function EventPage({ params, searchParams }: { params: Prom
               <input name="reason" required minLength={10} maxLength={1000} />
             </label>
             <button className="adm-btn" type="submit">Clear override</button>
+          </form>
+        ) : null}
+      </section>
+
+      <section className="adm-card">
+        <h2>Narrative</h2>
+        <p className="adm-small adm-muted">
+          {n ? (
+            <>
+              Status: <strong>{n.status}</strong> · source: {n.source === "ai_draft" ? "AI draft" : "human"} · last edit by {n.updatedBy} at {fmt(n.updatedAt)}.
+            </>
+          ) : (
+            "No narrative yet. Public pages show these sections only when published."
+          )}
+        </p>
+        <form action={draftNarrativeAction} className="adm-form">
+          <input type="hidden" name="id" value={e.id} />
+          <button className="adm-btn" type="submit" disabled={!canDraft || n?.status === "published"}>Draft with AI</button>
+          {!canDraft ? <p className="adm-small adm-muted">Set ANTHROPIC_API_KEY to enable AI drafts.</p> : null}
+          {canDraft && n?.status === "published" ? <p className="adm-small adm-muted">Unpublish first to replace the text with an AI draft.</p> : null}
+          <p className="adm-small adm-muted">An AI draft is saved unpublished. Check every line before you publish.</p>
+        </form>
+        <form action={saveNarrativeAction} className="adm-form adm-top">
+          <input type="hidden" name="id" value={e.id} />
+          <label>
+            Business exposure
+            <textarea name="businessExposure" rows={3} maxLength={1200} defaultValue={n?.businessExposure ?? ""} />
+          </label>
+          <label>
+            Why act before proof of damage
+            <textarea name="whyAct" rows={3} maxLength={1200} defaultValue={n?.whyAct ?? ""} />
+          </label>
+          <label>
+            The fix
+            <textarea name="fix" rows={3} maxLength={1200} defaultValue={n?.fix ?? ""} />
+          </label>
+          <label>
+            Ask your team (one question per line; the first shows in the home table)
+            <textarea name="askYourTeam" rows={3} maxLength={1200} defaultValue={n?.askYourTeam ?? ""} />
+          </label>
+          <h3>Actions by role</h3>
+          {ROLE_KEYS.map((r) => {
+            const items = pad(n?.roles[r] ?? [], (n?.roles[r]?.length ?? 0) + 2, "");
+            return (
+              <fieldset key={r}>
+                <legend>{r.toUpperCase()}</legend>
+                {items.map((t, i) => (
+                  <input key={i} name={`role_${r}`} defaultValue={t} maxLength={300} aria-label={`${r.toUpperCase()} action ${i + 1}`} />
+                ))}
+              </fieldset>
+            );
+          })}
+          <h3>Claim checks</h3>
+          {claimRows.map((c, i) => (
+            <fieldset key={i}>
+              <legend>Claim {i + 1}</legend>
+              <input name="claim_text" defaultValue={c.claim} maxLength={300} placeholder="What was claimed" aria-label={`Claim ${i + 1}`} />
+              <textarea name="claim_truth" rows={2} defaultValue={c.truth} maxLength={800} placeholder="What the evidence says" aria-label={`Evidence for claim ${i + 1}`} />
+              <select name="claim_rating" defaultValue={c.rating} aria-label={`Rating for claim ${i + 1}`}>
+                {RATINGS.map((x) => (
+                  <option key={x} value={x}>{x}</option>
+                ))}
+              </select>
+            </fieldset>
+          ))}
+          <p className="adm-small adm-muted">Empty rows are ignored. Save again to get more empty rows.</p>
+          <div>
+            <button className="adm-btn" type="submit" name="intent" value="draft">Save draft</button>{" "}
+            <button className="adm-btn adm-btn-primary" type="submit" name="intent" value="publish">Publish</button>
+          </div>
+        </form>
+        {n?.status === "published" ? (
+          <form action={unpublishNarrativeAction} className="adm-form adm-top">
+            <input type="hidden" name="id" value={e.id} />
+            <button className="adm-btn" type="submit">Unpublish</button>
           </form>
         ) : null}
       </section>
