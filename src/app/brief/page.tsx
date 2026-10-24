@@ -5,9 +5,10 @@ import { Seg } from "@/components/ui";
 import { getBriefData } from "@/lib/data";
 import { RUNG_SHORT } from "@/lib/data/sample";
 import { RUNGS } from "@/lib/ladder/types";
+import { pageMeta } from "@/lib/site";
 
 export const revalidate = 300;
-export const metadata: Metadata = { title: "Board brief", description: "A one-page, printable weekly summary for boards and executives." };
+export const metadata: Metadata = pageMeta({ title: "Board brief", description: "A one-page, printable weekly summary for boards and executives.", path: "/brief" });
 
 const LAB = "font-mono text-[11px] font-bold tracking-[0.1em] text-[var(--b-muted)]";
 
@@ -17,6 +18,9 @@ export default async function BriefPage() {
   const glyph = { confirmed: "■", reported: "▨", none: "□" } as const;
   return (
     <div className="brief-wrap min-h-screen bg-[#e6eaee] px-3 py-6 sm:px-6">
+      <a href="#main" className="skip-link no-print">
+        Skip to content
+      </a>
       <div className="no-print mx-auto mb-4 flex max-w-[816px] flex-wrap items-center justify-between gap-3">
         <Link href="/" className="font-mono text-[13px] tracking-[0.06em] text-[#0b5c94]">← BACK TO THIS WEEK</Link>
         <PrintButton />
@@ -28,7 +32,7 @@ export default async function BriefPage() {
               <rect x="0.5" y="0.5" width="27" height="27" rx="4" fill="none" stroke="#0a0e13" />
               <path d="M4 14h5l2.5-6 5 12 2.5-6h5" fill="none" stroke="#0b5c94" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className="font-mono text-[13px] font-bold tracking-[0.12em]">SECURITY_THREAT_PULSE · BOARD BRIEF</span>
+            <h1 className="m-0 font-mono text-[13px] font-bold tracking-[0.12em]">SECURITY_THREAT_PULSE · BOARD BRIEF</h1>
           </div>
           <div className="flex items-center gap-3 font-mono text-xs tracking-[0.06em] text-[var(--b-muted)]">
             {mode === "sample" && <span className="border border-[#7a5300] px-1.5 py-0.5 text-[11px] font-bold text-[#7a5300]">SAMPLE DATA</span>}

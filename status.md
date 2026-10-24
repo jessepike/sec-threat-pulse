@@ -40,3 +40,7 @@ the roadmap page, ANTHROPIC_API_KEY for narrative drafts. Decision: the pre-list
 
 **Next once DATABASE_URL exists:** `npm run db:migrate`, `npm run ingest:seed`, trigger ingest and
 events once, check the live pages, start the 7-day freshness clock for the Phase 1 gate.
+
+**Polish (branch `feat/polish`):** public /corrections log with RSS, home page noise caps with a paginated /events index,
+event freshness dates, accessibility pass, 404 and error pages, robots.txt and sitemap.xml, Open Graph image. The site stays
+noindex until `STP_ALLOW_INDEXING=true` is set (see `.env.example`).

@@ -49,3 +49,13 @@ export function weekOfLabel(now: Date): string {
   local.setUTCDate(local.getUTCDate() - Math.max(idx, 0));
   return new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric" }).format(local);
 }
+
+/** "OCT 23, 2026". Date-only values are formatted as written. */
+export function fmtDayYear(iso: string | null | undefined): string {
+  if (!iso) return "UNKNOWN";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "UNKNOWN";
+  const tz = iso.length === 10 ? "UTC" : TZ;
+  const p = new Intl.DateTimeFormat("en-US", { timeZone: tz, month: "short", day: "numeric", year: "numeric" }).formatToParts(d);
+  return `${pick(p, "month")} ${pick(p, "day")}, ${pick(p, "year")}`.toUpperCase();
+}

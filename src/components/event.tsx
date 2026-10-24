@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ClaimRating, EventView, RungView, SourceRef } from "@/lib/data/types";
 import { RUNG_SHORT } from "@/lib/data/sample";
-import { fmtDay } from "@/lib/data/format";
+import { fmtDay, fmtDayYear } from "@/lib/data/format";
 import { Eyebrow, H2, LadderKey, MiniLadder, Panel, Seg, VERDICT_STYLE, VerdictBadge, ladderLabel } from "./ui";
 
 export function EventHero({ e }: { e: EventView }) {
@@ -10,7 +10,7 @@ export function EventHero({ e }: { e: EventView }) {
   return (
     <section aria-labelledby="t" className="flex flex-col gap-[18px]">
       <nav aria-label="Breadcrumb" className="font-mono text-xs tracking-[0.08em] text-muted">
-        <Link href="/" className="no-underline">THIS WEEK</Link> / <Link href="/#events" className="no-underline">EVENTS</Link> / <span className="uppercase">{e.title}</span>
+        <Link href="/" className="no-underline">THIS WEEK</Link> / <Link href="/events" className="no-underline">EVENTS</Link> / <span className="uppercase">{e.title}</span>
       </nav>
       <div className={`hero-card flex flex-wrap gap-8 rounded border border-l-8 border-line p-6 sm:p-9 ${borderTone}`}>
         <div className="flex min-w-0 flex-[999_1_min(100%,560px)] flex-col gap-[18px]">
@@ -92,6 +92,9 @@ export function FullLadder({ e }: { e: EventView }) {
                 </h3>
                 <Seg state={r.state} large />
                 <div className={`font-mono text-xs font-bold tracking-[0.08em] ${look.cls}`}>{look.status}</div>
+                <div className="font-mono text-[11px] tracking-[0.06em] text-muted">
+                  NEWEST EVIDENCE {r.newestAt ? <time dateTime={r.newestAt}>{fmtDayYear(r.newestAt)}</time> : "NONE YET"}
+                </div>
                 <p className="m-0 text-sm leading-[1.55] text-fg-2">{r.evidence}</p>
                 <div className="mt-auto">
                   <SourceList sources={r.sources} />

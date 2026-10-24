@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import { ProsePage } from "@/components/prose";
 
-export const metadata: Metadata = { title: "Terms of use", description: "Terms for using Security Threat Pulse. The site gives information only and is not advice." };
+export const metadata: Metadata = pageMeta({ title: "Terms of use", description: "Terms for using Security Threat Pulse. The site gives information only and is not advice.", path: "/terms" });
 
 export default function Terms() {
   return (

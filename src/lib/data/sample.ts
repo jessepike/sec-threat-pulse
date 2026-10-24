@@ -25,6 +25,11 @@ export function topConfirmed(l: Ladder): Rung | null {
 
 type RungInput = [string, SourceRef[]];
 
+function newest(sources: SourceRef[]): string | undefined {
+  const times = sources.map((s) => s.at).filter((x): x is string => !!x).sort();
+  return times.at(-1);
+}
+
 function rungs(l: Ladder, input: RungInput[]): RungView[] {
   return RUNGS.map((r, i) => ({
     rung: r,
@@ -33,6 +38,7 @@ function rungs(l: Ladder, input: RungInput[]): RungView[] {
     state: l[r],
     evidence: input[i][0],
     sources: input[i][1],
+    newestAt: newest(input[i][1]),
   }));
 }
 

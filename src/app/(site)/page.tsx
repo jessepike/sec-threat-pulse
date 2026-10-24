@@ -14,7 +14,7 @@ export default async function HomePage() {
         <Hero data={data} />
         <KpiStrip kpis={data.kpis} />
         <RealNoiseDo data={data} />
-        <EventsTable events={data.events} />
+        <EventsTable events={data.events} total={data.totalEvents} />
         <Drivers d={data.drivers} />
         <Ransomware stats={data.ransomware} />
       </MainShell>

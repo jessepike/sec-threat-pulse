@@ -23,6 +23,8 @@ export interface RungView {
   state: Ladder[Rung];
   evidence: string;
   sources: SourceRef[];
+  /** ISO timestamp or date of the newest evidence on this rung, if any. */
+  newestAt?: string;
 }
 
 export interface EventRow {
@@ -159,6 +161,8 @@ export interface HomeData {
   noise: NoiseItem[];
   actions: DoItem[];
   events: EventRow[];
+  /** Events tracked in total, so the home table can point to the full list. */
+  totalEvents: number;
   drivers: { paragraphs: { lead: string; text: string }[]; bars: DriverBar[]; barsTitle: string; barsCaption: string; barsSource: string };
   ransomware: StatView[];
 }
@@ -173,4 +177,31 @@ export interface BriefData {
   notConcern: string;
   questions: string[];
   sourcesLine: string;
+}
+
+export type VerdictFilter = Verdict | "all";
+
+export interface EventsIndexData {
+  status: StatusView;
+  mode: DataMode;
+  filter: VerdictFilter;
+  /** Counts over every visible event, ignoring the filter. */
+  counts: CountsView;
+  rows: EventRow[];
+  /** Events matching the filter. */
+  total: number;
+  page: number;
+  pages: number;
+  pageSize: number;
+}
+
+export interface CorrectionView {
+  id: number;
+  /** ISO timestamp. */
+  at: string;
+  eventId: string | null;
+  /** Set only when the event is still public. */
+  eventTitle: string | null;
+  eventHref: string | null;
+  text: string;
 }

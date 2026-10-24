@@ -1,13 +1,12 @@
-import { and, desc, eq, gte, inArray, sql } from "drizzle-orm";
+import { and, desc, eq, gte, inArray, isNotNull, sql } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db/client";
 import { RUNGS, type ExploitMaturity, type Ladder, type RungState, type Verdict } from "@/lib/ladder/types";
 import { RUNG_SHORT, topConfirmed } from "./sample";
 import { firstQuestion, questionLines } from "@/lib/narrative/model";
-import type { ClaimView, CountsView, EventRow, EventView, RungView, SourceRef, StatusView, TimelineItem } from "./types";
+import { homeSelection, paginateListed, sortListed, type Listable } from "./listing";
+import type { ClaimView, CorrectionView, CountsView, EventRow, EventView, RungView, SourceRef, StatusView, TimelineItem, VerdictFilter } from "./types";
 
 type Db = NonNullable<ReturnType<typeof getDb>>;
-
-const VERDICT_RANK: Record<Verdict, number> = { act_now: 0, watch: 1, low: 2 };
 
 function asVerdict(v: string | null | undefined): Verdict {
   return v === "act_now" || v === "watch" ? v : "low";
@@ -20,10 +19,6 @@ function asLadder(raw: Record<string, string> | null | undefined): Ladder {
     out[r] = v === "confirmed" || v === "reported" ? (v as RungState) : "none";
   }
   return out;
-}
-
-function ladderScore(l: Ladder): number {
-  return RUNGS.reduce((n, r, i) => n + (l[r] === "confirmed" ? 2 : l[r] === "reported" ? 1 : 0) * (i + 1), 0);
 }
 
 function isoOrNull(d: Date | null | undefined): string | null {
@@ -77,35 +72,135 @@ function toRow(e: EventRecord, cves: string[], n?: Pick<NarrativeRecord, "askYou
   };
 }
 
-export async function dbListEvents(): Promise<EventRow[]> {
-  const db = getDb();
-  if (!db) return [];
-  const rows = await db.select().from(schema.events).where(eq(schema.events.hidden, false)).orderBy(desc(schema.events.updatedAt)).limit(60);
-  const cves = await cvesByEvent(db, rows.map((r) => r.id));
-  const narratives = await publishedNarratives(db, rows.map((r) => r.id));
-  return rows
-    .map((e) => ({ e, row: toRow(e, cves.get(e.id) ?? [], narratives.get(e.id)) }))
-    .sort((a, b) => VERDICT_RANK[a.row.verdict] - VERDICT_RANK[b.row.verdict] || ladderScore(b.row.ladder) - ladderScore(a.row.ladder) || b.e.updatedAt.getTime() - a.e.updatedAt.getTime())
-    .map((x) => x.row);
+export interface EventSummary {
+  row: EventRow;
+  summary: string;
+  updatedAt: string;
+  cvss?: number;
 }
 
-export async function dbEventSummaries(): Promise<{ row: EventRow; summary: string; updatedAt: string; cvss?: number }[]> {
-  const db = getDb();
-  if (!db) return [];
-  const rows = await db.select().from(schema.events).where(eq(schema.events.hidden, false)).orderBy(desc(schema.events.updatedAt)).limit(60);
-  const cves = await cvesByEvent(db, rows.map((r) => r.id));
-  const narratives = await publishedNarratives(db, rows.map((r) => r.id));
+interface Rec {
+  e: EventRecord;
+  verdict: Verdict;
+  evidenceAt: number;
+  reports: number;
+}
+
+/** Every visible event with its report count and newest evidence time, in display order. */
+async function loadRecords(db: Db): Promise<Rec[]> {
+  const agg = db
+    .select({
+      eventId: schema.observations.eventId,
+      n: sql<number>`count(*)`.as("n"),
+      latest: sql<string | Date | null>`max(coalesce(${schema.observations.publishedAt}, ${schema.observations.observedAt}))`.as("latest"),
+    })
+    .from(schema.observations)
+    .where(isNotNull(schema.observations.eventId))
+    .groupBy(schema.observations.eventId)
+    .as("agg");
+  const rows = await db
+    .select({ e: schema.events, n: agg.n, latest: agg.latest })
+    .from(schema.events)
+    .leftJoin(agg, eq(agg.eventId, schema.events.id))
+    .where(eq(schema.events.hidden, false));
+  const recs = rows.map((r): Rec => {
+    const latest = r.latest ? new Date(r.latest).getTime() : NaN;
+    return {
+      e: r.e,
+      verdict: asVerdict(r.e.overrideVerdict ?? r.e.verdict),
+      evidenceAt: Number.isFinite(latest) ? latest : r.e.updatedAt.getTime(),
+      reports: Number(r.n ?? 0),
+    };
+  });
+  return sortListed(recs.map((r) => ({ ...r, id: r.e.id }))).map(({ e, verdict, evidenceAt, reports }) => ({ e, verdict, evidenceAt, reports }));
+}
+
+const listable = (r: Rec): Listable => ({ id: r.e.id, verdict: r.verdict, evidenceAt: r.evidenceAt, reports: r.reports });
+
+async function summarize(db: Db, recs: Rec[]): Promise<EventSummary[]> {
+  const rows = recs.map((r) => r.e);
+  const ids = rows.map((r) => r.id);
+  const cves = await cvesByEvent(db, ids);
+  const narratives = await publishedNarratives(db, ids);
   const all = [...cves.values()].flat();
   const vulns = all.length ? await db.select({ cveId: schema.vulnerabilities.cveId, cvss: schema.vulnerabilities.cvssScore }).from(schema.vulnerabilities).where(inArray(schema.vulnerabilities.cveId, all)) : [];
   const cvssOf = new Map(vulns.map((v) => [v.cveId, v.cvss]));
-  return rows
-    .map((e) => {
-      const list = cves.get(e.id) ?? [];
-      const scores = list.map((c) => cvssOf.get(c)).filter((x): x is number => typeof x === "number");
-      return { e, row: toRow(e, list, narratives.get(e.id)), summary: e.summary ?? "", updatedAt: e.updatedAt.toISOString(), cvss: scores.length ? Math.max(...scores) : undefined };
-    })
-    .sort((a, b) => VERDICT_RANK[a.row.verdict] - VERDICT_RANK[b.row.verdict] || ladderScore(b.row.ladder) - ladderScore(a.row.ladder) || b.e.updatedAt.getTime() - a.e.updatedAt.getTime())
-    .map(({ row, summary, updatedAt, cvss }) => ({ row, summary, updatedAt, cvss }));
+  return rows.map((e) => {
+    const list = cves.get(e.id) ?? [];
+    const scores = list.map((c) => cvssOf.get(c)).filter((x): x is number => typeof x === "number");
+    return { row: toRow(e, list, narratives.get(e.id)), summary: e.summary ?? "", updatedAt: e.updatedAt.toISOString(), cvss: scores.length ? Math.max(...scores) : undefined };
+  });
+}
+
+function countsOf(recs: Rec[]): CountsView {
+  return countVerdicts(recs.map((r) => ({ verdict: r.verdict })));
+}
+
+/** Home page events: every Act now, up to 12 Watch and 6 Low, early Watch events need 2+ reports. */
+export async function dbHomeEvents(): Promise<{ counts: CountsView; items: EventSummary[] }> {
+  const db = getDb();
+  if (!db) return { counts: countVerdicts([]), items: [] };
+  const recs = await loadRecords(db);
+  const keep = new Set(homeSelection(recs.map(listable)).map((x) => x.id));
+  return { counts: countsOf(recs), items: await summarize(db, recs.filter((r) => keep.has(r.e.id))) };
+}
+
+/** One page of the /events index. Hidden events never appear. */
+export async function dbEventsPage(filter: VerdictFilter, page: number) {
+  const db = getDb();
+  if (!db) return { counts: countVerdicts([]), rows: [] as EventRow[], total: 0, page: 1, pages: 1 };
+  const recs = await loadRecords(db);
+  const byId = new Map(recs.map((r) => [r.e.id, r]));
+  const p = paginateListed(recs.map(listable), filter, page);
+  const items = await summarize(db, p.items.map((x) => byId.get(x.id)!));
+  return { counts: countsOf(recs), rows: items.map((x) => x.row), total: p.total, page: p.page, pages: p.pages };
+}
+
+/** Inputs for the board brief: counts, the lead event and events updated in the last 7 days. */
+export async function dbBriefEvents(): Promise<{ counts: CountsView; top: EventSummary | null; recent: EventSummary[] }> {
+  const db = getDb();
+  if (!db) return { counts: countVerdicts([]), top: null, recent: [] };
+  const recs = await loadRecords(db);
+  const week = Date.now() - 7 * 86_400_000;
+  const recentRecs = recs.filter((r) => r.e.updatedAt.getTime() >= week).slice(0, 3);
+  const wanted = recs.length ? [recs[0], ...recentRecs.filter((r) => r.e.id !== recs[0].e.id)] : [];
+  const sums = await summarize(db, wanted);
+  const byId = new Map(sums.map((x) => [x.row.id, x]));
+  return {
+    counts: countsOf(recs),
+    top: recs.length ? (byId.get(recs[0].e.id) ?? null) : null,
+    recent: recentRecs.map((r) => byId.get(r.e.id)).filter((x): x is EventSummary => !!x),
+  };
+}
+
+/** Ids and update times of every visible event, for the sitemap. */
+export async function dbEventEntries(): Promise<{ id: string; updatedAt: string }[]> {
+  const db = getDb();
+  if (!db) return [];
+  const rows = await db.select({ id: schema.events.id, updatedAt: schema.events.updatedAt }).from(schema.events).where(eq(schema.events.hidden, false)).orderBy(desc(schema.events.updatedAt));
+  return rows.map((r) => ({ id: r.id, updatedAt: r.updatedAt.toISOString() }));
+}
+
+/** The public corrections log, newest first. The editor login is never returned. */
+export async function dbCorrections(): Promise<CorrectionView[]> {
+  const db = getDb();
+  if (!db) return [];
+  const rows = await db
+    .select({ c: schema.corrections, title: schema.events.title, hidden: schema.events.hidden })
+    .from(schema.corrections)
+    .leftJoin(schema.events, eq(schema.events.id, schema.corrections.eventId))
+    .orderBy(desc(schema.corrections.createdAt), desc(schema.corrections.id));
+  return rows.map(({ c, title, hidden }) => {
+    const visible = !!c.eventId && title != null && hidden === false;
+    return {
+      id: c.id,
+      at: c.createdAt.toISOString(),
+      eventId: c.eventId,
+      eventTitle: visible ? title : null,
+      eventHref: visible ? `/events/${c.eventId}` : null,
+      text: c.text,
+    };
+  });
 }
 
 export function countVerdicts(rows: { verdict: Verdict }[]): CountsView {
@@ -181,7 +276,9 @@ export async function dbEvent(id: string): Promise<EventView | null> {
       : ladder[r] === "none"
         ? "No evidence yet."
         : "Evidence is recorded but no summary is available.";
-    return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: text, sources: mine.slice(0, 4).map(ref) };
+    const times = mine.map((x) => x.o.publishedAt ?? x.o.observedAt).filter(Boolean).map((d) => d.getTime());
+    const newestAt = times.length ? new Date(Math.max(...times)).toISOString() : undefined;
+    return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: text, sources: mine.slice(0, 4).map(ref), newestAt };
   });
 
   const [narrative] = (await publishedNarratives(db, [id])).values();
