@@ -55,7 +55,7 @@ export const SAMPLE_KEV_KPI: KpiView = {
 export const DRIVERS = {
   paragraphs: [
     {
-      lead: "AI finds more bugs on both sides.",
+      lead: "AI is finding more bugs.",
       text: "Flaws logged in the US vulnerability database in 2026 are on pace to double 2025. The share used in attacks has not risen with them.",
       src: { label: "Bloomberg Law, Jul 27, 2026", url: "https://news.bloomberglaw.com/tech-and-telecom-law/ai-finding-twice-as-many-cyber-flaws-in-2026-as-it-did-in-2025" },
     },
@@ -66,7 +66,7 @@ export const DRIVERS = {
     },
     {
       lead: "Exploited flaws are now the top way in.",
-      text: "They started 36% of breaches in 2026, ahead of stolen passwords for the first time.",
+      text: "They started 36% of breaches in 2026, ahead of stolen passwords.",
       src: { label: "Verizon DBIR 2026 via CXO Digital Pulse, May 20, 2026", url: "https://www.cxodigitalpulse.com/verizon-dbir-2026-vulnerability-exploitation-becomes-the-leading-cause-of-data-breaches/" },
     },
   ] as DriverParagraph[],
