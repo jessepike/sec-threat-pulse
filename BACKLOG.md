@@ -2,22 +2,24 @@
 
 Mirror of the owner's planning doc. Gates decide when a phase is done.
 
-## Phase 0: Foundations · Gate: live site deployed on securitythreatpulse.com
+## Phase 0: Foundations · Gate: live site deployed on securitythreatpulse.com (met Oct 24, 2026)
 
 - [x] Repo, data model, agent docs
-- [ ] Vercel project, Neon database, DNS
-- [ ] Public site: port of the three prototypes (home, event page, board brief); dark default, grey setting
-- [ ] Admin console: login, audit log, Overview, Roadmap, Settings
-- [ ] Security baseline: headers, secret scanning, dependency audit, locked-down admin routes
-- [ ] Methodology v0, disclosure, terms of use, "not advice" disclaimer, privacy policy, attribution block
+- [x] Vercel project, Neon database, DNS
+- [x] Public site: port of the three prototypes (home, event page, board brief); dark default, grey setting
+- [x] Admin console: login, audit log, Overview, Roadmap, Settings
+- [x] Security baseline: headers, secret scanning, dependency audit, locked-down admin routes
+- [x] Methodology v0, disclosure, terms of use, "not advice" disclaimer, privacy policy, attribution block
 
-## Phase 1: Data spine · Gate: 7 days of unattended fresh updates
+## Phase 1: Data spine · Gate: 7 days of unattended fresh updates (clock started Oct 24, 2026)
 
-- [ ] Adapters: CISA KEV, VulnCheck KEV, CVE List V5 + Vulnrichment, EPSS, NVD, CIRCL sightings,
+- [x] Adapters: CISA KEV, VulnCheck KEV, CVE List V5 + Vulnrichment, EPSS, NVD, CIRCL sightings,
       Metasploit, nuclei-templates, PoC-in-GitHub, Exploit-DB, SEC EDGAR 8-K, HIBP, WA AG, CA AG
-- [ ] Ingest runner, cron route, run bookkeeping, raw archive (R2)
-- [ ] Event grouping, ladder computation, verdict rules v0
-- [ ] Admin: Sources, Pipeline runs, Events (merge, split, override with reason)
+- [x] Ingest runner, cron route, run bookkeeping
+- [ ] Raw archive in R2 (code ready; bucket not created)
+- [x] Event grouping, ladder computation, verdict rules v0
+- [x] Admin: Sources, Pipeline runs, Events (merge, override with reason)
+- [ ] Admin: split an event
 - [ ] Feed health checks, alerts, cost alerts
 - [ ] Claim-labeling and takedown policy
 
