@@ -6,6 +6,7 @@ import {
   ACTIONS,
   LIVE_ACTIONS,
   BRIEF_STATIC,
+  LIVE_BRIEF_STATIC,
   DRIVERS,
   LIVE_BOTTOM_LINE,
   NOISE,
@@ -169,10 +170,10 @@ async function liveBrief(): Promise<BriefData> {
     counts,
     changes: recent.map((x) => ({ lead: `${x.row.title}.`, text: x.summary || `Updated ${fmtDay(x.updatedAt)}.` })),
     flagship: top ? { title: top.row.title, ladder: top.row.ladder } : null,
-    position: BRIEF_STATIC.position,
+    position: LIVE_BRIEF_STATIC.position,
     notConcern: BRIEF_STATIC.notConcern,
     questions: BRIEF_STATIC.questions,
-    sourcesLine: BRIEF_STATIC.sourcesLine,
+    sourcesLine: LIVE_BRIEF_STATIC.sourcesLine,
   };
 }
 const cachedLiveBrief = unstable_cache(liveBrief, ["stp-brief"], { revalidate: REVALIDATE, tags: ["stp"] });

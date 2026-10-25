@@ -82,7 +82,7 @@ export function KpiStrip({ kpis }: { kpis: KpiView[] }) {
             <div className={`font-mono text-[13px] ${DELTA_TONE[k.deltaTone]}`}>{k.delta}</div>
           </div>
           <div className="text-sm leading-normal text-fg-2">{k.meaning}</div>
-          <div className="mt-auto font-mono text-xs text-faint">SRC: {k.source}</div>
+          <SourceTag source={k.source} url={k.sourceUrl} asOf={k.asOf} className="mt-auto" />
         </div>
       ))}
     </section>
@@ -232,6 +232,14 @@ export function Drivers({ d }: { d: HomeData["drivers"] }) {
           {d.paragraphs.map((p) => (
             <p key={p.lead} className="m-0">
               <strong className="text-fg">{p.lead}</strong> {p.text}
+              {p.src ? (
+                <>
+                  {" "}
+                  <a href={p.src.url} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap font-mono text-xs text-faint underline decoration-line-strong underline-offset-2 hover:text-fg">
+                    {p.src.label}
+                  </a>
+                </>
+              ) : null}
             </p>
           ))}
         </div>
@@ -254,7 +262,17 @@ export function Drivers({ d }: { d: HomeData["drivers"] }) {
             </li>
           ))}
         </ul>
-        <div className="font-mono text-xs text-faint">{d.barsSource}</div>
+        <div className="font-mono text-xs text-faint">
+          SRC:{" "}
+          {d.barsSources.map((x, i) => (
+            <span key={x.url}>
+              {i > 0 ? " · " : ""}
+              <a href={x.url} target="_blank" rel="noopener noreferrer" className="text-faint underline decoration-line-strong underline-offset-2 hover:text-fg">
+                {x.label}
+              </a>
+            </span>
+          ))}
+        </div>
       </figure>
     </section>
   );
@@ -272,7 +290,7 @@ export function Ransomware({ stats }: { stats: HomeData["ransomware"] }) {
           <div key={s.value} className="flex flex-col gap-1.5 border-r border-line-soft px-6 py-6 last:border-r-0 sm:px-7">
             <div className="break-words font-mono text-4xl font-bold">{s.value}</div>
             <div className="text-sm text-fg-2">{s.text}</div>
-            <div className="font-mono text-xs text-faint">SRC: {s.source}</div>
+            <SourceTag source={s.source} url={s.sourceUrl} asOf={s.asOf} />
           </div>
         ))}
       </div>
@@ -281,6 +299,27 @@ export function Ransomware({ stats }: { stats: HomeData["ransomware"] }) {
 }
 
 /** Why the site exists, in one line and one short paragraph. Sits above the weekly bottom line. */
+const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+/** "SRC: NAME · JUL 28, 2026", with the name linked to the page the figure comes from. */
+export function SourceTag({ source, url, asOf, className = "" }: { source: string; url?: string; asOf?: string; className?: string }) {
+  const d = asOf ? new Date(`${asOf}T00:00:00Z`) : null;
+  const date = d && !Number.isNaN(d.getTime()) ? `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}` : null;
+  return (
+    <div className={`font-mono text-xs text-faint ${className}`}>
+      SRC:{" "}
+      {url ? (
+        <a href={url} target="_blank" rel="noopener noreferrer" className="text-faint underline decoration-line-strong underline-offset-2 hover:text-fg">
+          {source}
+        </a>
+      ) : (
+        source
+      )}
+      {date ? <> · <time dateTime={asOf}>{date}</time></> : null}
+    </div>
+  );
+}
+
 export function Mission() {
   return (
     <section aria-label="Why this site exists" className="flex flex-col gap-3 border-b border-line pb-10">

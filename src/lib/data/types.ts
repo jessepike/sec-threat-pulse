@@ -105,6 +105,10 @@ export interface KpiView {
   deltaTone: "crit" | "ok" | "muted";
   meaning: string;
   source: string;
+  /** Link to the page the figure comes from. Required for report figures. */
+  sourceUrl?: string;
+  /** Publication date of that page, YYYY-MM-DD. */
+  asOf?: string;
 }
 
 export interface CountsView {
@@ -130,6 +134,17 @@ export interface DoItem {
   text: string;
 }
 
+export interface SourceLink {
+  label: string;
+  url: string;
+}
+
+export interface DriverParagraph {
+  lead: string;
+  text: string;
+  src?: SourceLink;
+}
+
 export interface DriverBar {
   label: string;
   value: string;
@@ -141,6 +156,9 @@ export interface StatView {
   value: string;
   text: string;
   source: string;
+  sourceUrl?: string;
+  /** Publication date of the source page, YYYY-MM-DD. */
+  asOf?: string;
 }
 
 export interface HomeData {
@@ -163,7 +181,7 @@ export interface HomeData {
   events: EventRow[];
   /** Events tracked in total, so the home table can point to the full list. */
   totalEvents: number;
-  drivers: { paragraphs: { lead: string; text: string }[]; bars: DriverBar[]; barsTitle: string; barsCaption: string; barsSource: string };
+  drivers: { paragraphs: DriverParagraph[]; bars: DriverBar[]; barsTitle: string; barsCaption: string; barsSources: SourceLink[] };
   ransomware: StatView[];
 }
 

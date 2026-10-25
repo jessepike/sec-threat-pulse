@@ -1,4 +1,4 @@
-import type { BriefData, DoItem, DriverBar, KpiView, NoiseItem, RealItem, StatView } from "./types";
+import type { BriefData, DoItem, DriverBar, DriverParagraph, KpiView, NoiseItem, RealItem, SourceLink, StatView } from "./types";
 
 /**
  * Hand-written copy that the pipeline does not generate yet. It is shown in sample mode and,
@@ -38,9 +38,9 @@ export const SAMPLE_COUNTS_NOTE = "Most \"act now\" items are edge and remote ac
 
 /** Report-based figures. Each cites its published source. Shown in both modes. */
 export const REPORT_KPIS: KpiView[] = [
-  { label: "DISCLOSURE TO EXPLOITATION", value: "80d", delta: "▼ WAS 120", deltaTone: "crit", meaning: "Median for 2026. The urgent ones move in days.", source: "VULNCHECK H1 2026" },
-  { label: "TIME TO WORKING EXPLOIT", value: "24h", delta: "▼ WAS 72", deltaTone: "crit", meaning: "Once a flaw is public, assume attackers can use it the next day.", source: "RECORDED FUTURE" },
-  { label: "AI-FOUND BUGS EXPLOITED", value: "1.3%", delta: "= BASELINE", deltaTone: "ok", meaning: "AI finds more bugs. That does not make them more likely to be used.", source: "VULNCHECK H1 2026" },
+  { label: "DISCLOSURE TO EXPLOITATION", value: "80d", delta: "▼ WAS 120", deltaTone: "crit", meaning: "Median days from a flaw going public to known use in attacks, first half of 2026.", source: "VULNCHECK 1H 2026", sourceUrl: "https://www.vulncheck.com/blog/state-of-exploitation-1h-2026", asOf: "2026-07-28" },
+  { label: "EXPLOITED BY DAY ONE", value: "23%", delta: "▼ WAS 29%", deltaTone: "ok", meaning: "Share of exploited flaws attacked on or before the day they were published.", source: "VULNCHECK 1H 2026", sourceUrl: "https://www.vulncheck.com/blog/state-of-exploitation-1h-2026", asOf: "2026-07-28" },
+  { label: "AI-FOUND BUGS EXPLOITED", value: "1.3%", delta: "= BASELINE", deltaTone: "ok", meaning: "14 of 1,061 AI-found flaws. About the same rate as all flaws.", source: "VULNCHECK 1H 2026", sourceUrl: "https://www.vulncheck.com/blog/state-of-exploitation-1h-2026", asOf: "2026-07-28" },
 ];
 
 export const SAMPLE_KEV_KPI: KpiView = {
@@ -54,26 +54,52 @@ export const SAMPLE_KEV_KPI: KpiView = {
 
 export const DRIVERS = {
   paragraphs: [
-    { lead: "AI finds bugs faster on both sides.", text: "Defenders fix more of their own flaws. Attackers turn published flaws into working attacks faster: about 24 hours, down from about 72." },
-    { lead: "Most new bugs never get used.", text: "Attackers still pick a small set: edge devices, remote access and widely used web software." },
-    { lead: "Patching is the bottleneck.", text: "Exploited flaws are now the top cause of breaches, and the median time to fully fix one rose to 43 days." },
-  ],
+    {
+      lead: "AI finds more bugs on both sides.",
+      text: "Flaws logged in the US vulnerability database in 2026 are on pace to double 2025. The share used in attacks has not risen with them.",
+      src: { label: "Bloomberg Law, Jul 27, 2026", url: "https://news.bloomberglaw.com/tech-and-telecom-law/ai-finding-twice-as-many-cyber-flaws-in-2026-as-it-did-in-2025" },
+    },
+    {
+      lead: "Attackers move sooner.",
+      text: "The median time from a flaw going public to known use in attacks fell to 80 days, from 120. About 1 in 4 exploited flaws is attacked by the day it is published.",
+      src: { label: "VulnCheck, Jul 28, 2026", url: "https://www.vulncheck.com/blog/state-of-exploitation-1h-2026" },
+    },
+    {
+      lead: "Exploited flaws are now the top way in.",
+      text: "They started 36% of breaches in 2026, ahead of stolen passwords for the first time.",
+      src: { label: "Verizon DBIR 2026 via CXO Digital Pulse, May 20, 2026", url: "https://www.cxodigitalpulse.com/verizon-dbir-2026-vulnerability-exploitation-becomes-the-leading-cause-of-data-breaches/" },
+    },
+  ] as DriverParagraph[],
   barsTitle: "Twice the bugs. Barely more exploitation. Less time.",
-  barsCaption: "FOUND VS USED · 2026 VS 2025 · INDEX 2025 = 100",
+  barsCaption: "FOUND VS USED · INDEX: PRIOR PERIOD = 100",
   bars: [
-    { label: "VULNS DISCLOSED", value: "~200", pct: 100, tone: "accent" },
-    { label: "KNOWN EXPLOITED", value: "110", pct: 55, tone: "warn" },
-    { label: "DAYS TO EXPLOITATION", value: "67", pct: 33, tone: "crit" },
+    { label: "FLAWS LOGGED · 2026 PACE VS 2025", value: "~200", pct: 100, tone: "accent" },
+    { label: "NEWLY EXPLOITED · 1H 2026 VS 2H 2025", value: "110", pct: 55, tone: "warn" },
+    { label: "DAYS TO EXPLOITATION · 1H 2026 VS 2025", value: "67", pct: 33, tone: "crit" },
   ] as DriverBar[],
-  barsSource: "SRC: NVD VIA BLOOMBERG · VULNCHECK H1 2026",
+  barsSources: [
+    { label: "Bloomberg Law (NVD), Jul 27, 2026", url: "https://news.bloomberglaw.com/tech-and-telecom-law/ai-finding-twice-as-many-cyber-flaws-in-2026-as-it-did-in-2025" },
+    { label: "VulnCheck 1H 2026, Jul 28, 2026", url: "https://www.vulncheck.com/blog/state-of-exploitation-1h-2026" },
+  ] as SourceLink[],
 };
 
 /** `needsApproval` items are hidden in live mode until the source terms allow use. */
 export const RANSOMWARE: (StatView & { needsApproval?: boolean })[] = [
   { value: "3,600+", text: "Claimed victims in 2026", source: "RANSOMWARE.LIVE", needsApproval: true },
-  { value: "91", text: "Active leak sites in Q1, a record", source: "RELIAQUEST" },
-  { value: "GENTLEMEN", text: "Overtook Qilin as most active group in June", source: "CHECK POINT" },
-  { value: "EDGE", text: "Unpatched internet-facing systems remain the main way in", source: "BREACHSENSE" },
+  {
+    value: "91",
+    text: "Active leak sites in Q1 2026, above the previous peak of 84",
+    source: "RELIAQUEST VIA SECURITYBRIEF",
+    sourceUrl: "https://securitybrief.news/story/ransomware-posts-rise-22-as-leak-sites-proliferate",
+    asOf: "2026-04-29",
+  },
+  {
+    value: "GENTLEMEN",
+    text: "Overtook Qilin as the most active group in June, with 17% of posted attacks",
+    source: "CHECK POINT VIA ITPRO",
+    sourceUrl: "https://www.itpro.com/security/ransomware/this-one-cyber-crime-group-accounted-for-nearly-a-fifth-of-all-ransomware-attacks-in-june",
+    asOf: "2026-07-13",
+  },
 ];
 
 export const BRIEF_STATIC = {
@@ -91,6 +117,17 @@ export const BRIEF_STATIC = {
     { item: "Time to patch a critical edge flaw", status: "[DAYS]", note: "[TARGET]" },
   ],
   sourcesLine: "SRC: CISA KEV · VULNCHECK · RECORDED FUTURE · PHP ADVISORY · AMAZON TI · WATCHTOWR",
+};
+
+/** The live brief's blanks and sources. The sample's PHP rows and named vendors describe sample data only. */
+export const LIVE_BRIEF_STATIC = {
+  position: [
+    { item: "This week's Act now products in use", status: "[STATUS]", note: "[WHICH, IF ANY]" },
+    { item: "Those systems patched or isolated", status: "[STATUS]", note: "[PATCHED / TOTAL]" },
+    { item: "Signs of compromise found", status: "[STATUS]", note: "[REVIEW WINDOW]" },
+    { item: "Time to patch a critical edge flaw", status: "[DAYS]", note: "[TARGET]" },
+  ],
+  sourcesLine: "SRC: CISA KEV · CVE PROGRAM · NVD · FIRST EPSS · CIRCL · SECURITY NEWS AND ADVISORIES · VULNCHECK 1H 2026",
 };
 
 export const SAMPLE_BRIEF: Pick<BriefData, "bottomLine" | "changes"> = {
