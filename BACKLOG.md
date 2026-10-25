@@ -22,7 +22,7 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [ ] Admin: split an event
 - [x] Feed health checks and alerts (GitHub issues labeled `alert`; DELAYED marker on the site)
 - [ ] Cost alerts
-- [ ] Claim-labeling and takedown policy
+- [ ] Claim-labeling and takedown policy (draft in `docs/policy-claims-and-takedown.md`, waiting on owner approval)
 
 ## Phase 2: Verdict rules · Gate: accuracy measured and near target
 
