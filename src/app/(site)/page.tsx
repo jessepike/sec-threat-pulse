@@ -1,4 +1,4 @@
-import { Drivers, EventsTable, Hero, KpiStrip, MainShell, RealNoiseDo, Ransomware } from "@/components/home";
+import { Drivers, EventsTable, Hero, KpiStrip, MainShell, Mission, RealNoiseDo, Ransomware } from "@/components/home";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HomeStrip } from "@/components/StatusStrip";
 import { getHomeData } from "@/lib/data";
@@ -11,6 +11,7 @@ export default async function HomePage() {
     <>
       <SiteHeader active="week" strip={<HomeStrip status={data.status} />} />
       <MainShell>
+        <Mission />
         <Hero data={data} />
         <KpiStrip kpis={data.kpis} />
         <RealNoiseDo data={data} />

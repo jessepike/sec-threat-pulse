@@ -280,6 +280,21 @@ export function Ransomware({ stats }: { stats: HomeData["ransomware"] }) {
   );
 }
 
+/** Why the site exists, in one line and one short paragraph. Sits above the weekly bottom line. */
+export function Mission() {
+  return (
+    <section aria-label="Why this site exists" className="flex flex-col gap-3 border-b border-line pb-10">
+      <p className="m-0 font-display text-[36px] font-bold leading-[1.05] tracking-[-0.03em] text-fg sm:text-[52px]">
+        Cut through the noise<span className="text-accent">.</span>
+      </p>
+      <p className="m-0 max-w-[760px] text-[17px] leading-[1.55] text-fg-2 sm:text-[19px]">
+        Hundreds of new security flaws and breach claims appear every week. Few turn into real attacks. We check each one
+        against public evidence and show you what is real, what is noise, and what needs action now.
+      </p>
+    </section>
+  );
+}
+
 export function MainShell({ children }: { children: ReactNode }) {
   return (
     <main id="main" className="mx-auto flex max-w-[1280px] flex-col gap-14 px-4 pb-[72px] pt-10 sm:px-6">
