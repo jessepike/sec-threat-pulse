@@ -235,7 +235,7 @@ export function Drivers({ d }: { d: HomeData["drivers"] }) {
               {p.src ? (
                 <>
                   {" "}
-                  <a href={p.src.url} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap font-mono text-xs text-faint underline decoration-line-strong underline-offset-2 hover:text-fg">
+                  <a href={p.src.url} target="_blank" rel="noopener noreferrer" className="break-words font-mono text-xs text-faint underline decoration-line-strong underline-offset-2 hover:text-fg">
                     {p.src.label}
                   </a>
                 </>
