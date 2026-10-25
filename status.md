@@ -45,6 +45,9 @@ observations, so the home page shows new data within one run.
 sign-in reaches GitHub's authorize screen; the owner's first authorize click completes it. Optional keys: VULNCHECK_API_TOKEN, NVD_API_KEY, ANTHROPIC_API_KEY, GITHUB_TOKEN; R2 bucket.
 Decisions: the pre-listing accuracy target; attribution for news publishers.
 
+**Owner feedback:** /admin/roadmap has "Feedback for agents". Notes become GitHub issues labeled
+`feedback`; every session starts by handling the open ones (see AGENTS.md). Needs GITHUB_TOKEN.
+
 **Known gaps:** event titles and summaries come straight from CVE text until narratives are written;
 the four stat tiles under the lead event are fixed editorial figures.
 

@@ -63,7 +63,13 @@ docs/                  architecture, source registry, design prototypes
 - Update `status.md` at the end of every session.
 - Keep the owner's Claude Doc current as work lands: tick the checkboxes in the decision log, open
   questions, "What exists" and the Build plan backlog, and add new decisions and open questions there.
-- Owner feedback arrives as comments on that Claude Doc. At the start of every session, list open
-  threads whose newest comment is Jesse's and has no Claude reply. Answer questions in the thread;
-  make small, clear changes and reply with what changed; for anything large or ambiguous, reply
-  with a recommendation and what you need. Never resolve a thread Jesse wrote in.
+- **Owner feedback comes first.** Jesse leaves feedback on the admin Roadmap page
+  (/admin/roadmap, "Feedback for agents"). Each note is a GitHub issue labeled `feedback`. At the
+  start of every session, list the open ones:
+  `gh api "repos/jessepike/sec-threat-pulse/issues?labels=feedback&state=open" --jq '.[] | "#\(.number) \(.title)"'`
+  then read each (`gh api repos/jessepike/sec-threat-pulse/issues/<n>` and its `/comments`).
+  Make small, clear changes, reply on the issue with what changed (commit and page), and close it
+  (`gh api -X PATCH repos/jessepike/sec-threat-pulse/issues/<n> -f state=closed`). For anything
+  large or ambiguous, reply with a recommendation and what you need, and leave it open.
+- Comments on the Claude Doc are also feedback: check open threads whose newest comment is Jesse's
+  and has no Claude reply, and handle them the same way. Never resolve a thread Jesse wrote in.

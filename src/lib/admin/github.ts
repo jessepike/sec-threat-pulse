@@ -52,14 +52,14 @@ export async function listIssues(
 
 export async function createIssue(
   token: string,
-  input: { title: string; body: string },
+  input: { title: string; body: string; labels?: string[] },
   fetchImpl: typeof fetch = fetch,
 ): Promise<{ ok: true; url: string } | { ok: false; error: string }> {
   try {
     const res = await fetchImpl(`https://api.github.com/repos/${REPO}/issues`, {
       method: "POST",
       headers: { ...headers(token), "content-type": "application/json" },
-      body: JSON.stringify({ title: input.title, body: input.body, labels: ["idea"] }),
+      body: JSON.stringify({ title: input.title, body: input.body, labels: input.labels ?? ["idea"] }),
     });
     if (!res.ok) return { ok: false, error: `GitHub answered ${res.status}.` };
     const data = (await res.json()) as { html_url: string };
@@ -67,4 +67,69 @@ export async function createIssue(
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : "Request failed." };
   }
+}
+
+export const FEEDBACK_LABEL = "feedback";
+
+export interface FeedbackItem {
+  number: number;
+  title: string;
+  url: string;
+  open: boolean;
+  /** Replies on the issue. Agents reply there when they act on feedback. */
+  comments: number;
+  createdAt: string;
+  closedAt: string | null;
+}
+
+/** The owner's feedback issues, open and closed, newest first. */
+export async function listFeedback(
+  token: string,
+  fetchImpl: typeof fetch = fetch,
+): Promise<{ ok: true; items: FeedbackItem[] } | { ok: false; error: string }> {
+  try {
+    const res = await fetchImpl(`https://api.github.com/repos/${REPO}/issues?labels=${FEEDBACK_LABEL}&state=all&per_page=30`, {
+      headers: headers(token),
+      cache: "no-store",
+    });
+    if (!res.ok) return { ok: false, error: `GitHub answered ${res.status}.` };
+    const data = (await res.json()) as Array<{
+      number: number;
+      title: string;
+      html_url: string;
+      state: string;
+      comments: number;
+      created_at: string;
+      closed_at: string | null;
+      pull_request?: unknown;
+    }>;
+    return {
+      ok: true,
+      items: data
+        .filter((i) => !i.pull_request)
+        .map((i) => ({
+          number: i.number,
+          title: i.title,
+          url: i.html_url,
+          open: i.state === "open",
+          comments: i.comments,
+          createdAt: i.created_at,
+          closedAt: i.closed_at,
+        })),
+    };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : "Request failed." };
+  }
+}
+
+/** Issue title for a piece of feedback: the topic, then the first line, cut at a word near 80 characters. */
+export function feedbackTitle(topic: string, text: string): string {
+  const first = text.trim().split(/\r?\n/)[0].replace(/\s+/g, " ").trim();
+  let line = first;
+  if (line.length > 80) {
+    const cut = line.slice(0, 80);
+    const space = cut.lastIndexOf(" ");
+    line = `${(space > 40 ? cut.slice(0, space) : cut).replace(/[\s,;:.-]+$/, "")}…`;
+  }
+  return `[${topic}] ${line}`;
 }

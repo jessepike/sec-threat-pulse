@@ -10,7 +10,7 @@ import { writeAudit, auditInsert } from "@/lib/admin/audit";
 import { applyOverride, clearOverride, validateOverride, validateReason } from "@/lib/admin/override";
 import { runSourceNow, SOURCE_ID } from "@/lib/admin/ingest-trigger";
 import { parseFlags, parseRecipients, parseTheme } from "@/lib/admin/settings";
-import { createIssue } from "@/lib/admin/github";
+import { FEEDBACK_LABEL, createIssue, feedbackTitle } from "@/lib/admin/github";
 import { EMPTY_NARRATIVE, parseNarrativeForm } from "@/lib/narrative/model";
 import { getNarrative, saveNarrative, setNarrativeStatus } from "@/lib/narrative/store";
 import { draftEnabled, draftModel, requestDraft } from "@/lib/narrative/draft";
@@ -249,6 +249,24 @@ export async function addIdeaAction(fd: FormData) {
   if (db) await writeAudit(db, { actor: admin.login, action: "roadmap.add_idea", target: res.url, details: { title } });
   revalidatePath(path);
   back(path, "ok", "Idea added as a GitHub issue.");
+}
+
+/** Owner feedback on the roadmap, filed as a GitHub issue labeled "feedback" for the next agent session. */
+export async function addFeedbackAction(fd: FormData) {
+  const path = "/admin/roadmap";
+  const admin = await requireAdmin();
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) back(path, "error", "GITHUB_TOKEN is not set, so feedback cannot be saved.");
+  const topic = str(fd, "topic").trim().slice(0, 60) || "General";
+  const text = str(fd, "text").trim();
+  if (text.length < 3 || text.length > 5000) back(path, "error", "Feedback must be 3 to 5,000 characters.");
+  const body = `${text}\n\n---\nTopic: ${topic}\nFrom the admin roadmap by ${admin.login}. Agents: act on this, reply here with what changed or what you need, and close it when done.`;
+  const res = await createIssue(token, { title: feedbackTitle(topic, text), body, labels: [FEEDBACK_LABEL] });
+  if (!res.ok) back(path, "error", res.error);
+  const db = getDb();
+  if (db) await writeAudit(db, { actor: admin.login, action: "roadmap.add_feedback", target: res.url, details: { topic } });
+  revalidatePath(path);
+  back(path, "ok", "Feedback saved. The next agent session picks it up.");
 }
 
 // ---- Narratives ----
