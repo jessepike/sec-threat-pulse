@@ -46,7 +46,8 @@ sign-in reaches GitHub's authorize screen; the owner's first authorize click com
 Decisions: the pre-listing accuracy target; attribution for news publishers.
 
 **Owner feedback:** /admin/roadmap has "Feedback for agents". Notes become GitHub issues labeled
-`feedback`; every session starts by handling the open ones (see AGENTS.md). Needs GITHUB_TOKEN.
+`feedback`; every session starts by handling the open ones (see AGENTS.md). GITHUB_TOKEN is set
+(fine-grained, this repo only, Issues read and write, expires Oct 2027). Tested end to end with issue #10.
 
 **Known gaps:** event titles and summaries come straight from CVE text until narratives are written;
 the four stat tiles under the lead event are fixed editorial figures.
