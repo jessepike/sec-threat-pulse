@@ -71,5 +71,9 @@ docs/                  architecture, source registry, design prototypes
   Make small, clear changes, reply on the issue with what changed (commit and page), and close it
   (`gh api -X PATCH repos/jessepike/sec-threat-pulse/issues/<n> -f state=closed`). For anything
   large or ambiguous, reply with a recommendation and what you need, and leave it open.
+- Source alerts come next. After every ingest run, a health check keeps one open issue labeled
+  `alert` per source that has failed 3 runs in a row or has not succeeded in 3 intervals (3 hours
+  at least). List them with `labels=alert` the same way, fix the cause, and reply. The issue closes
+  itself when the source recovers. The site strip shows DELAYED when nothing has updated for an hour.
 - Comments on the Claude Doc are also feedback: check open threads whose newest comment is Jesse's
   and has no Claude reply, and handle them the same way. Never resolve a thread Jesse wrote in.

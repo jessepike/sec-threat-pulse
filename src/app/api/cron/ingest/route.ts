@@ -1,6 +1,8 @@
 import { revalidateTag } from "next/cache";
 import { getDb } from "@/lib/db/client";
 import { runDueSources, seedSources } from "@/lib/ingest/runner";
+import { loadSourceHealth } from "@/lib/ingest/health";
+import { syncAlerts } from "@/lib/ingest/alerts";
 import type { Db } from "@/lib/ingest/db";
 import { checkCronAuth } from "../auth";
 
@@ -25,6 +27,16 @@ async function handle(req: Request): Promise<Response> {
     await seedSources(db);
     const sources = await runDueSources(db, { only, force: force || !!only, budgetMs: BUDGET_MS });
     if (sources.some((s) => s.observationsNew > 0)) revalidateTag("stp", { expire: 0 });
+    // Health check: open or close one GitHub alert issue per unhealthy source. Never fails the run.
+    let alerts: unknown = "skipped: GITHUB_TOKEN not set";
+    const token = process.env.GITHUB_TOKEN;
+    if (token) {
+      try {
+        alerts = await syncAlerts(token, await loadSourceHealth(db));
+      } catch (e) {
+        alerts = { error: e instanceof Error ? e.message : String(e) };
+      }
+    }
     const ran = sources.filter((s) => s.status === "ok" || s.status === "error");
     return Response.json({
       ok: true,
@@ -32,6 +44,7 @@ async function handle(req: Request): Promise<Response> {
       ran: ran.length,
       failed: sources.filter((s) => s.status === "error").map((s) => ({ sourceId: s.sourceId, error: s.error })),
       newObservations: sources.reduce((n, s) => n + s.observationsNew, 0),
+      alerts,
       sources,
     });
   } catch (e) {

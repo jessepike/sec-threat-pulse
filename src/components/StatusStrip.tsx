@@ -17,13 +17,28 @@ function Strip({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Live({ mode }: { mode: DataMode }) {
+/** Data counts as delayed when no source has succeeded for this long. Ingest runs every 15 minutes. */
+export const DELAYED_AFTER_MS = 60 * 60_000;
+
+export function isDelayed(status: StatusView, now: number = Date.now()): boolean {
+  if (status.mode !== "live" || !status.lastRunAt) return false;
+  return now - Date.parse(status.lastRunAt) > DELAYED_AFTER_MS;
+}
+
+function Live({ mode, delayed = false }: { mode: DataMode; delayed?: boolean }) {
   return (
     <>
-      <div className="flex items-center gap-2 text-accent">
-        <span className="stp-live inline-block size-2 rounded-full bg-accent" aria-hidden="true" />
-        LIVE
-      </div>
+      {delayed ? (
+        <div className="flex items-center gap-2 text-warn-text" title="No source has updated in the last hour. Pages show the last good data.">
+          <span className="inline-block size-2 rounded-full bg-warn" aria-hidden="true" />
+          DELAYED
+        </div>
+      ) : (
+        <div className="flex items-center gap-2 text-accent">
+          <span className="stp-live inline-block size-2 rounded-full bg-accent" aria-hidden="true" />
+          LIVE
+        </div>
+      )}
       {mode === "sample" && <SampleBadge />}
     </>
   );
@@ -32,7 +47,7 @@ function Live({ mode }: { mode: DataMode }) {
 export function HomeStrip({ status }: { status: StatusView }) {
   return (
     <Strip>
-      <Live mode={status.mode} />
+      <Live mode={status.mode} delayed={isDelayed(status)} />
       <div>LAST RUN {fmtStamp(status.lastRunAt)}</div>
       {status.nextRunAt && <div>NEXT {fmtClock(status.nextRunAt)}</div>}
       <div>{status.runsPerDay}</div>
@@ -49,7 +64,7 @@ export function HomeStrip({ status }: { status: StatusView }) {
 export function EventStrip({ status, updatedAt, trackingSince, sourceCount }: { status: StatusView; updatedAt: string; trackingSince: string; sourceCount: number }) {
   return (
     <Strip>
-      <Live mode={status.mode} />
+      <Live mode={status.mode} delayed={isDelayed(status)} />
       <div>
         LAST UPDATED <time dateTime={updatedAt}>{fmtStamp(updatedAt)}</time>
       </div>

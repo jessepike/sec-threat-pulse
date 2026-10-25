@@ -20,7 +20,8 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [x] Event grouping, ladder computation, verdict rules v0
 - [x] Admin: Sources, Pipeline runs, Events (merge, override with reason)
 - [ ] Admin: split an event
-- [ ] Feed health checks, alerts, cost alerts
+- [x] Feed health checks and alerts (GitHub issues labeled `alert`; DELAYED marker on the site)
+- [ ] Cost alerts
 - [ ] Claim-labeling and takedown policy
 
 ## Phase 2: Verdict rules · Gate: accuracy measured and near target
