@@ -104,6 +104,7 @@ async function liveHome(): Promise<HomeData> {
     deltaTone: "crit",
     meaning: "Flaws CISA confirmed are used in real attacks.",
     source: "CISA KEV",
+    sourceUrl: "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
   };
   return {
     status,

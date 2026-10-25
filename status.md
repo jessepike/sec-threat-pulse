@@ -49,8 +49,15 @@ Decisions: the pre-listing accuracy target; attribution for news publishers.
 `feedback`; every session starts by handling the open ones (see AGENTS.md). GITHUB_TOKEN is set
 (fine-grained, this repo only, Issues read and write, expires Oct 2027). Tested end to end with issue #10.
 
-**Known gaps:** event titles and summaries come straight from CVE text until narratives are written;
-the four stat tiles under the lead event are fixed editorial figures.
+**Source health:** after each ingest run, unhealthy sources get one GitHub issue labeled `alert`
+(closes on recovery). The status strip shows DELAYED after an hour without updates. None open yet.
+
+**Report figures on the home page:** each one was checked against its source page on Oct 24 and
+links to it with a date (VulnCheck 1H 2026, Bloomberg Law, Verizon DBIR via CXO Digital Pulse,
+ReliaQuest, Check Point). Unconfirmed figures were replaced or removed. Tile 1 is computed live.
+
+**Known gaps:** event titles and summaries come straight from CVE text until narratives are written
+(waiting on the owner: ANTHROPIC_API_KEY for AI drafts, or hand-written ones).
 
 **Polish (branch `feat/polish`):** public /corrections log with RSS, home page noise caps with a paginated /events index,
 event freshness dates, accessibility pass, 404 and error pages, robots.txt and sitemap.xml, Open Graph image. The site stays
