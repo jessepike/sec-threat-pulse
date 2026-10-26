@@ -75,7 +75,7 @@ docs/                  architecture, source registry, design prototypes
   large or ambiguous, reply with a recommendation and what you need, and leave it open.
 - Source alerts come next. After every ingest run, a health check keeps one open issue labeled
   `alert` per source that has failed 3 runs in a row or has not succeeded in 3 intervals (3 hours
-  at least), plus the events cron itself (`events-sync`, no success in an hour). List them with `labels=alert` the same way, fix the cause, and reply. The issue closes
+  at least), plus the events cron itself (`events-sync`, no success in an hour) and database storage (`database-size`, 80% of the Neon free plan). List them with `labels=alert` the same way, fix the cause, and reply. The issue closes
   itself when the source recovers. The site strip shows DELAYED when nothing has updated for an hour.
 - Comments on the Claude Doc are also feedback: check open threads whose newest comment is Jesse's
   and has no Claude reply, and handle them the same way. Never resolve a thread Jesse wrote in.

@@ -123,3 +123,22 @@ export async function loadEventsSyncHealth(db: Db, now: Date = new Date()): Prom
   const rows = await db.select().from(schema.settings).where(eq(schema.settings.key, EVENTS_SYNC_KEY));
   return assessEventsSync(rows[0]?.value as Parameters<typeof assessEventsSync>[0], now);
 }
+
+/** Neon's free plan stores 0.5 GB per project. Alert at 80% so there is time to prune or upgrade. */
+export const DB_LIMIT_BYTES = Number(process.env.STP_DB_LIMIT_BYTES ?? 512 * 1024 * 1024);
+export const DB_ALERT_RATIO = 0.8;
+
+export function assessDbSize(bytes: number, limit: number = DB_LIMIT_BYTES): SourceHealth {
+  const base = { id: "database-size", name: "Database storage" };
+  const mb = (n: number) => `${Math.round(n / 1024 / 1024)} MB`;
+  if (bytes >= limit * DB_ALERT_RATIO) {
+    return { ...base, state: "failing", reason: `The database uses ${mb(bytes)} of ${mb(limit)} (${Math.round((bytes / limit) * 100)}%). Prune old observations or raise the plan before it fills.` };
+  }
+  return { ...base, state: "ok", reason: "" };
+}
+
+export async function loadDbSizeHealth(db: Db): Promise<SourceHealth> {
+  const rows = (await db.execute(sql`select pg_database_size(current_database())::bigint as bytes`)) as unknown as { rows?: { bytes: string | number }[] } | { bytes: string | number }[];
+  const list = Array.isArray(rows) ? rows : (rows.rows ?? []);
+  return assessDbSize(Number(list[0]?.bytes ?? 0));
+}

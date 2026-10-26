@@ -2,7 +2,7 @@ import { revalidateTag } from "next/cache";
 import { getDb } from "@/lib/db/client";
 import { ensureMigrated } from "@/lib/db/migrate";
 import { runDueSources, seedSources } from "@/lib/ingest/runner";
-import { loadEventsSyncHealth, loadSourceHealth } from "@/lib/ingest/health";
+import { loadDbSizeHealth, loadEventsSyncHealth, loadSourceHealth } from "@/lib/ingest/health";
 import { syncAlerts } from "@/lib/ingest/alerts";
 import type { Db } from "@/lib/ingest/db";
 import { checkCronAuth } from "../auth";
@@ -38,8 +38,8 @@ async function handle(req: Request): Promise<Response> {
     const token = process.env.GITHUB_TOKEN;
     if (token) {
       try {
-        const [sources, eventsSync] = await Promise.all([loadSourceHealth(db), loadEventsSyncHealth(db)]);
-        alerts = await syncAlerts(token, [...sources, eventsSync]);
+        const [sources, eventsSync, dbSize] = await Promise.all([loadSourceHealth(db), loadEventsSyncHealth(db), loadDbSizeHealth(db).catch(() => null)]);
+        alerts = await syncAlerts(token, [...sources, eventsSync, ...(dbSize ? [dbSize] : [])]);
       } catch (e) {
         alerts = { error: e instanceof Error ? e.message : String(e) };
       }

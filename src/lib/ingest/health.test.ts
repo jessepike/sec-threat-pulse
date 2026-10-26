@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { assessEventsSync, assessHealth, type SourceHealth, type SourceHealthInput } from "./health";
+import { assessDbSize, assessEventsSync, assessHealth, type SourceHealth, type SourceHealthInput } from "./health";
 import { syncAlerts } from "./alerts";
 
 const now = new Date("2026-10-25T12:00:00Z");
@@ -86,5 +86,15 @@ describe("assessEventsSync", () => {
   it("is stale after an hour and failing after three errors", () => {
     expect(assessEventsSync({ lastSuccessAt: hoursAgo(2).toISOString(), failures: 0 }, now).state).toBe("stale");
     expect(assessEventsSync({ lastSuccessAt: hoursAgo(0.5).toISOString(), failures: 3, lastError: "boom" }, now).reason).toContain("boom");
+  });
+});
+
+describe("assessDbSize", () => {
+  it("alerts at 80% of the limit", () => {
+    const limit = 512 * 1024 * 1024;
+    expect(assessDbSize(300 * 1024 * 1024, limit).state).toBe("ok");
+    const h = assessDbSize(420 * 1024 * 1024, limit);
+    expect(h.state).toBe("failing");
+    expect(h.reason).toContain("420 MB of 512 MB");
   });
 });

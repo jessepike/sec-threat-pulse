@@ -21,7 +21,7 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [x] Admin: Sources, Pipeline runs, Events (merge, override with reason)
 - [ ] Admin: split an event
 - [x] Feed health checks and alerts (GitHub issues labeled `alert`; DELAYED marker on the site)
-- [ ] Cost alerts
+- [x] Cost alerts: database storage alert at 80% of the Neon free plan (Vercel usage not yet watched)
 - [x] Claim-labeling and takedown policy (`docs/policy-claims-and-takedown.md`, approved Oct 25, 2026; public on /methodology)
 
 ## Phase 2: Verdict rules · Gate: accuracy measured and near target
