@@ -5,6 +5,7 @@ import { RUNG_SHORT, topConfirmed } from "./sample";
 import { firstQuestion, questionLines } from "@/lib/narrative/model";
 import { homeSelection, paginateListed, sortListed, type Listable } from "./listing";
 import { isoDayPT, joinSentences } from "./format";
+import { productName } from "@/lib/ladder/plain-title";
 import type { ClaimView, CorrectionView, CountsView, EventRow, EventView, RungView, SourceRef, StatusView, TimelineItem, VerdictFilter } from "./types";
 
 type Db = NonNullable<ReturnType<typeof getDb>>;
@@ -57,6 +58,23 @@ async function publishedNarratives(db: Db, ids: string[]): Promise<Map<string, N
   return map;
 }
 
+/** The first sentence, cut at a word near `max` characters, for list views. Event pages show the full text. */
+export function firstSentence(text: string, max = 170): string {
+  const t = text.replace(/\s+/g, " ").trim();
+  const m = /^(.+?[.!?])(\s|$)/.exec(t);
+  const first = m && m[1].length >= 40 ? m[1] : t;
+  if (first.length <= max) return first;
+  const cut = first.slice(0, max);
+  const space = cut.lastIndexOf(" ");
+  return `${(space > 60 ? cut.slice(0, space) : cut).replace(/[\s,;:.-]+$/, "")}…`;
+}
+
+/** A factual starter question when no one has written one: does the team run the product, and is it fixed? */
+export function defaultQuestion(vendor: string | null, product: string | null): string | null {
+  const name = productName(vendor, product);
+  return name ? `Do we run ${name}? If yes, is it patched or cut off from the internet?` : null;
+}
+
 function toRow(e: EventRecord, cves: string[], n?: Pick<NarrativeRecord, "askYourTeam">): EventRow {
   const ladder = asLadder(e.ladder);
   const verdict = asVerdict(e.overrideVerdict ?? e.verdict);
@@ -65,8 +83,8 @@ function toRow(e: EventRecord, cves: string[], n?: Pick<NarrativeRecord, "askYou
     href: `/events/${e.id}`,
     title: e.titleOverride ?? e.title,
     idsLabel: idsLabel(cves),
-    exposure: e.summary ?? "No summary written yet.",
-    question: firstQuestion(n?.askYourTeam),
+    exposure: e.summary ? firstSentence(e.summary) : "No summary written yet.",
+    question: firstQuestion(n?.askYourTeam) ?? defaultQuestion(e.vendor, e.product),
     verdict,
     ladder,
     topConfirmed: topConfirmed(ladder),

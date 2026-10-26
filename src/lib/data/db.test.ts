@@ -132,3 +132,18 @@ describe("kevFix", () => {
     expect(kevFix([{ sourceId: "circl-sightings", metadata: {} }])).toBeUndefined();
   });
 });
+
+describe("firstSentence and defaultQuestion", () => {
+  it("keeps the first full sentence and cuts long ones at a word", async () => {
+    const { firstSentence } = await import("./db");
+    expect(firstSentence("PHP has a flaw in request memory handling. Some contexts may not reset.")).toBe("PHP has a flaw in request memory handling.");
+    const long = firstSentence(`A ${"very ".repeat(60)}long sentence.`);
+    expect(long.endsWith("…")).toBe(true);
+    expect(long.length).toBeLessThanOrEqual(171);
+  });
+  it("asks about the product, or nothing when the product is unknown", async () => {
+    const { defaultQuestion } = await import("./db");
+    expect(defaultQuestion("Ivanti", "Connect Secure")).toBe("Do we run Ivanti Connect Secure? If yes, is it patched or cut off from the internet?");
+    expect(defaultQuestion("n/a", "n/a")).toBeNull();
+  });
+});
