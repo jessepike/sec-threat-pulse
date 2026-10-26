@@ -59,8 +59,15 @@ ReliaQuest, Check Point). Unconfirmed figures were replaced or removed. Tile 1 i
 **Policy:** named-organizations and takedown policy approved Oct 25 and live on /methodology
 (`docs/policy-claims-and-takedown.md`).
 
-**Known gaps:** event titles and summaries come straight from CVE text until narratives are written
-(waiting on the owner: ANTHROPIC_API_KEY for AI drafts, or hand-written ones).
+**Readability (Oct 25):** event titles are plain language built from a fixed keyword and CWE table
+(`src/lib/ladder/plain-title.ts`), with the official name shown under the title on event pages.
+Lists show the first sentence and a starter question. KEV events show CISA's instruction and
+federal deadline as "The fix" when no narrative exists. Phones get a card layout. Admin renames go
+to `events.title_override` and survive syncs. The cron routes apply pending migrations first.
+
+**Known gaps:** full plain-English write-ups still need narratives (waiting on the owner:
+ANTHROPIC_API_KEY for AI drafts, or hand-written ones). Some early events lack a product name until
+NVD fills it in (an NVD_API_KEY speeds that up).
 
 **Polish (branch `feat/polish`):** public /corrections log with RSS, home page noise caps with a paginated /events index,
 event freshness dates, accessibility pass, 404 and error pages, robots.txt and sitemap.xml, Open Graph image. The site stays
