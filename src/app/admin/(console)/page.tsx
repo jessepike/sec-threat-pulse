@@ -56,6 +56,9 @@ export default async function OverviewPage() {
               <span className="adm-mono">{a.sourceId}</span> <span className="adm-muted">{a.reason}</span>
             </p>
           ))}
+          {d.dbBytes !== null && (
+            <p className="adm-small adm-muted">Database: {Math.round(d.dbBytes / 1024 / 1024)} MB of 512 MB (Neon free plan)</p>
+          )}
         </div>
       </section>
 

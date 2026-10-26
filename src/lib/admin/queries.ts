@@ -1,6 +1,8 @@
 import { and, desc, eq, ilike, or, sql } from "drizzle-orm";
 import { schema } from "@/lib/db/client";
 import type { Db } from "./db";
+import type { Db as IngestDb } from "@/lib/ingest/db";
+import { loadDbSizeHealth, loadEventsSyncHealth, loadSourceHealth } from "@/lib/ingest/health";
 
 const { sources, sourceRuns, events, observations, auditLog, corrections, verdictHistory, eventCves } = schema;
 
@@ -10,28 +12,30 @@ export interface AlertRow {
   reason: string;
 }
 
-/** Alerts are derived: 2+ consecutive failed runs, or no success in 3x the interval. */
+/**
+ * Open alerts use the same health check that opens GitHub alert issues after each ingest run:
+ * failing or stale sources, the events cron, and database storage.
+ */
 export async function openAlerts(db: Db, now = new Date()): Promise<AlertRow[]> {
-  const srcs = await db.select().from(sources).where(eq(sources.enabled, true));
-  const runs = await db
-    .select({ sourceId: sourceRuns.sourceId, status: sourceRuns.status })
-    .from(sourceRuns)
-    .orderBy(desc(sourceRuns.startedAt))
-    .limit(500);
-  const out: AlertRow[] = [];
-  for (const s of srcs) {
-    let streak = 0;
-    for (const r of runs) {
-      if (r.sourceId !== s.id || r.status === "running") continue;
-      if (r.status === "error") streak++;
-      else break;
-    }
-    if (streak >= 2) out.push({ sourceId: s.id, name: s.name, reason: `${streak} failed runs in a row` });
-    else if (s.lastRunAt && (!s.lastSuccessAt || now.getTime() - s.lastSuccessAt.getTime() > s.intervalMinutes * 3 * 60_000)) {
-      out.push({ sourceId: s.id, name: s.name, reason: "No success in 3 intervals" });
-    }
+  const [srcs, eventsSync, dbSize] = await Promise.all([
+    loadSourceHealth(db as unknown as IngestDb, now),
+    loadEventsSyncHealth(db as unknown as IngestDb, now),
+    loadDbSizeHealth(db as unknown as IngestDb).catch(() => null),
+  ]);
+  return [...srcs, eventsSync, ...(dbSize ? [dbSize] : [])]
+    .filter((h) => h.state === "failing" || h.state === "stale")
+    .map((h) => ({ sourceId: h.id, name: h.name, reason: h.reason }));
+}
+
+/** Database size in bytes, for the overview. */
+export async function databaseBytes(db: Db): Promise<number | null> {
+  try {
+    const rows = (await db.execute(sql`select pg_database_size(current_database())::bigint as bytes`)) as unknown as { rows?: { bytes: string | number }[] } | { bytes: string | number }[];
+    const list = Array.isArray(rows) ? rows : (rows.rows ?? []);
+    return list.length ? Number(list[0].bytes) : null;
+  } catch {
+    return null;
   }
-  return out;
 }
 
 export async function overviewData(db: Db) {
@@ -57,8 +61,8 @@ export async function overviewData(db: Db) {
     .groupBy(sql`coalesce(${events.overrideVerdict}, ${events.verdict})`);
   const [hidden] = await db.select({ n: sql<number>`count(*)::int` }).from(events).where(eq(events.hidden, true));
   const recent = await db.select().from(auditLog).orderBy(desc(auditLog.at)).limit(10);
-  const alerts = await openAlerts(db);
-  return { lastRun, failing, verdicts, hidden: hidden?.n ?? 0, recent, alerts };
+  const [alerts, dbBytes] = await Promise.all([openAlerts(db), databaseBytes(db)]);
+  return { lastRun, failing, verdicts, hidden: hidden?.n ?? 0, recent, alerts, dbBytes };
 }
 
 export async function listSources(db: Db) {
