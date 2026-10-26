@@ -34,6 +34,8 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/admin/roadmap": ["./BACKLOG.md"],
     "/api/cron/migrate": ["./drizzle/**/*"],
+    "/api/cron/ingest": ["./drizzle/**/*"],
+    "/api/cron/events": ["./drizzle/**/*"],
     "/methodology": ["./docs/methodology-rules.md"],
     "/admin/rules": ["./reports/backtest/*.json", "./reports/backtest/heldout-reveals.log"],
     "/admin/scorecard": ["./reports/backtest/*.json", "./intent.md"],

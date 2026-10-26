@@ -85,7 +85,7 @@ describe("syncEvents", () => {
     expect(await db.select().from(events)).toHaveLength(1);
     expect(await db.select().from(eventCves)).toHaveLength(2);
     const [e] = await db.select().from(events);
-    expect(e.title).toBe("Plex Media Server: 2 vulnerabilities exploited");
+    expect(e.title).toBe("Plex Media Server: 2 flaws used in attacks");
   });
 
   it("merges two clusters when a bridging CVE arrives and hides the superseded event", async () => {

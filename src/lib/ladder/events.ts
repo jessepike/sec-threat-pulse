@@ -1,4 +1,5 @@
 import { computeExploitMaturity, computeLadder, reportedExploitationSources, type LadderObservation } from "./compute";
+import { plainTitle } from "./plain-title";
 import { CURRENT_RULES_VERSION, evaluateVerdict } from "./rules";
 import type { ExploitMaturity, Ladder, Verdict } from "./types";
 
@@ -17,6 +18,7 @@ export interface EventVuln {
   cvssScore?: number | null;
   /** CVE record publish time (Date or ISO string). */
   publishedAt?: Date | string | null;
+  cwe?: string[] | null;
 }
 
 export interface EventObservation extends LadderObservation {
@@ -104,6 +106,14 @@ export function clusterKev(vulns: EventVuln[], windowDays = GROUP_WINDOW_DAYS): 
 }
 
 function eventTitle(c: Cluster): string {
+  const plain = plainTitle({
+    vendor: c.vendor,
+    product: c.product,
+    texts: c.vulns.flatMap((v) => [v.title, v.description]),
+    cwe: c.vulns.flatMap((v) => v.cwe ?? []),
+    count: c.vulns.length,
+  });
+  if (plain) return plain;
   if (c.vulns.length === 1) {
     const v = c.vulns[0];
     return v.title?.trim() || [c.vendor, c.product, v.cveId].filter(Boolean).join(" ");
@@ -274,7 +284,10 @@ export function buildEarlyEvents(
     const honeypot = qualifying.some((o) => o.kind === "attempts") ? 1 : 0;
     out.push({
       id: earlyEventId(cve),
-      title: v.title?.trim() || [v.vendor, v.product, cve].filter(Boolean).join(" "),
+      title:
+        plainTitle({ vendor: v.vendor, product: v.product, texts: [v.title, v.description], cwe: v.cwe ?? [], confirmed: false }) ||
+        v.title?.trim() ||
+        [v.vendor, v.product, cve].filter(Boolean).join(" "),
       summary: clipSummary(v.description),
       vendor: v.vendor ?? undefined,
       product: v.product ?? undefined,

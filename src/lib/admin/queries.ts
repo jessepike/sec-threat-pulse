@@ -76,7 +76,7 @@ export async function listRuns(db: Db, f: { sourceId?: string; status?: string }
 export async function listEvents(db: Db, f: { q?: string; verdict?: string; hidden?: boolean }) {
   const q = f.q?.trim();
   const where = and(
-    q ? or(ilike(events.title, `%${q}%`), ilike(events.id, `%${q}%`)) : undefined,
+    q ? or(ilike(events.title, `%${q}%`), ilike(events.titleOverride, `%${q}%`), ilike(events.id, `%${q}%`)) : undefined,
     f.verdict ? sql`coalesce(${events.overrideVerdict}, ${events.verdict}) = ${f.verdict}` : undefined,
     f.hidden === undefined ? undefined : eq(events.hidden, f.hidden),
   );

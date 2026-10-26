@@ -1,7 +1,4 @@
-import path from "node:path";
-import { neon } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
-import { migrate } from "drizzle-orm/neon-http/migrator";
+import { ensureMigrated } from "@/lib/db/migrate";
 import { checkCronAuth } from "../auth";
 
 export const runtime = "nodejs";
@@ -20,7 +17,7 @@ async function handle(req: Request): Promise<Response> {
   if (!url) return Response.json({ error: "DATABASE_URL is not set" }, { status: 503 });
   const started = Date.now();
   try {
-    await migrate(drizzle(neon(url)), { migrationsFolder: path.join(process.cwd(), "drizzle") });
+    await ensureMigrated(url);
     return Response.json({ ok: true, durationMs: Date.now() - started });
   } catch (e) {
     return Response.json({ ok: false, error: e instanceof Error ? e.message : String(e) }, { status: 500 });

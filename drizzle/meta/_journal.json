@@ -15,6 +15,13 @@
       "when": 1792869959989,
       "tag": "0001_secret_spiral",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792984887484,
+      "tag": "0002_event_title_override",
+      "breakpoints": true
     }
   ]
 }

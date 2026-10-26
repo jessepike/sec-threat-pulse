@@ -1,5 +1,6 @@
 import { revalidateTag } from "next/cache";
 import { getDb } from "@/lib/db/client";
+import { ensureMigrated } from "@/lib/db/migrate";
 import { runDueSources, seedSources } from "@/lib/ingest/runner";
 import { loadSourceHealth } from "@/lib/ingest/health";
 import { syncAlerts } from "@/lib/ingest/alerts";
@@ -18,6 +19,11 @@ async function handle(req: Request): Promise<Response> {
   if (denied) return denied;
   const db = getDb() as Db | null;
   if (!db) return Response.json({ error: "DATABASE_URL is not set" }, { status: 503 });
+  try {
+    await ensureMigrated();
+  } catch (e) {
+    return Response.json({ ok: false, error: `Migration failed: ${e instanceof Error ? e.message : String(e)}` }, { status: 500 });
+  }
 
   const url = new URL(req.url);
   const only = url.searchParams.get("only")?.split(",").filter(Boolean);

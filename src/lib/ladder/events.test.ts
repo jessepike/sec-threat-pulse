@@ -38,7 +38,7 @@ describe("buildEvents", () => {
     expect(again).toHaveLength(1);
     expect(again[0].id).toBe(e[0].id);
     expect(again[0].cveIds).toEqual(["CVE-2026-1001", "CVE-2026-1002"]);
-    expect(again[0].title).toBe("Palo Alto Networks PAN-OS: 2 vulnerabilities exploited");
+    expect(again[0].title).toBe("Palo Alto Networks PAN-OS: 2 flaws used in attacks");
   });
 
   it("disambiguates colliding slugs", () => {
@@ -75,9 +75,9 @@ describe("buildEvents", () => {
     expect(e.map((x) => x.cveIds[0])).toEqual(["CVE-2026-2"]);
   });
 
-  it("uses a single CVE title when there is one CVE", () => {
+  it("writes a plain title from the product and flaw type", () => {
     const [e] = buildEvents([v("CVE-2026-1", "2026-10-20", "Plex", "Media Server", { title: "Plex Media Server RCE" })], [], { now });
-    expect(e.title).toBe("Plex Media Server RCE");
+    expect(e.title).toBe("Plex Media Server: attackers can run their own code");
   });
 
   it("is deterministic regardless of input order", () => {

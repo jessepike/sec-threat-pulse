@@ -48,7 +48,7 @@ export default async function EventPage({ params, searchParams }: { params: Prom
   const effective = e.overrideVerdict ?? e.verdict;
   return (
     <>
-      <PageHead title={e.title} sub={`${e.id} · rules ${e.rulesVersion}`}>
+      <PageHead title={e.titleOverride ?? e.title} sub={`${e.id} · rules ${e.rulesVersion}`}>
         <Link href="/admin/events" className="adm-btn">Back to events</Link>
       </PageHead>
       <Flash sp={sp} />
@@ -196,7 +196,7 @@ export default async function EventPage({ params, searchParams }: { params: Prom
           <h2>Rename</h2>
           <form action={renameEventAction} className="adm-form">
             <input type="hidden" name="id" value={e.id} />
-            <input name="title" defaultValue={e.title} required minLength={3} maxLength={200} aria-label="New title" />
+            <input name="title" defaultValue={e.titleOverride ?? e.title} required minLength={3} maxLength={200} aria-label="New title" />
             <button className="adm-btn" type="submit">Rename</button>
           </form>
         </div>

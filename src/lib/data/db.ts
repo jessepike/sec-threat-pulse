@@ -62,7 +62,7 @@ function toRow(e: EventRecord, cves: string[], n?: Pick<NarrativeRecord, "askYou
   return {
     id: e.id,
     href: `/events/${e.id}`,
-    title: e.title,
+    title: e.titleOverride ?? e.title,
     idsLabel: idsLabel(cves),
     exposure: e.summary ?? "No summary written yet.",
     question: firstQuestion(n?.askYourTeam),
@@ -191,7 +191,7 @@ export async function dbCorrections(): Promise<CorrectionView[]> {
   const db = getDb();
   if (!db) return [];
   const rows = await db
-    .select({ c: schema.corrections, title: schema.events.title, hidden: schema.events.hidden })
+    .select({ c: schema.corrections, title: sql<string>`coalesce(${schema.events.titleOverride}, ${schema.events.title})`, hidden: schema.events.hidden })
     .from(schema.corrections)
     .leftJoin(schema.events, eq(schema.events.id, schema.corrections.eventId))
     .orderBy(desc(schema.corrections.createdAt), desc(schema.corrections.id));

@@ -52,7 +52,7 @@ export default async function EventsPage({ searchParams }: { searchParams: SP })
                 {rows.map((e) => (
                   <tr key={e.id}>
                     <td>
-                      <Link href={`/admin/events/${encodeURIComponent(e.id)}`}>{e.title}</Link>
+                      <Link href={`/admin/events/${encodeURIComponent(e.id)}`}>{e.titleOverride ?? e.title}</Link>
                       <div className="adm-mono adm-muted">{e.id}{e.hidden ? " · hidden" : ""}</div>
                     </td>
                     <td><LadderCells ladder={e.ladder} /></td>

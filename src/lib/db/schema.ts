@@ -102,6 +102,8 @@ export const events = pgTable(
   {
     id: text("id").primaryKey(), // slug, e.g. "php2shell" or "kev-2026-10-20-plex"
     title: text("title").notNull(),
+    /** Set when an admin renames the event. Rule syncs never touch it; display prefers it. */
+    titleOverride: text("title_override"),
     summary: text("summary"),
     kind: text("kind").notNull().default("vulnerability"),
     vendor: text("vendor"),

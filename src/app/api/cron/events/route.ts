@@ -1,5 +1,6 @@
 import { revalidateTag } from "next/cache";
 import { getDb } from "@/lib/db/client";
+import { ensureMigrated } from "@/lib/db/migrate";
 import type { Db } from "@/lib/ingest/db";
 import { syncEvents } from "@/lib/ladder/events-sync";
 import { checkCronAuth } from "../auth";
@@ -13,6 +14,11 @@ async function handle(req: Request): Promise<Response> {
   if (denied) return denied;
   const db = getDb() as Db | null;
   if (!db) return Response.json({ error: "DATABASE_URL is not set" }, { status: 503 });
+  try {
+    await ensureMigrated();
+  } catch (e) {
+    return Response.json({ ok: false, error: `Migration failed: ${e instanceof Error ? e.message : String(e)}` }, { status: 500 });
+  }
 
   const lookback = Number(new URL(req.url).searchParams.get("lookbackDays"));
   const started = Date.now();

@@ -142,8 +142,8 @@ export async function renameEventAction(fd: FormData) {
   const title = str(fd, "title").trim();
   if (title.length < 3 || title.length > 200) back(path, "error", "Title must be 3 to 200 characters.");
   await db.batch([
-    db.update(schema.events).set({ title, updatedAt: new Date() }).where(eq(schema.events.id, id)),
-    auditInsert(db, { actor: admin.login, action: "event.rename", target: id, details: { from: event.title, to: title } }),
+    db.update(schema.events).set({ titleOverride: title, updatedAt: new Date() }).where(eq(schema.events.id, id)),
+    auditInsert(db, { actor: admin.login, action: "event.rename", target: id, details: { from: event.titleOverride ?? event.title, to: title } }),
   ]);
   revalidatePath("/admin", "layout");
   back(path, "ok", "Event renamed.");
@@ -338,7 +338,7 @@ export async function draftNarrativeAction(fd: FormData) {
   ]);
   const res = await requestDraft(
     {
-      title: event.title,
+      title: event.titleOverride ?? event.title,
       vendor: event.vendor,
       product: event.product,
       ladder: event.ladder,
