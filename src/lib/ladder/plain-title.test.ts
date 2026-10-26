@@ -33,6 +33,10 @@ describe("productName", () => {
     expect(productName("n/a", "n/a")).toBe("");
     expect(productName("php", "php")).toBe("PHP");
     expect(productName("PHP Group", "PHP")).toBe("PHP");
+    expect(productName("vercel", "next.js")).toBe("Vercel Next.js");
+    expect(productName("mlflow", "mlflow/mlflow")).toBe("Mlflow");
+    expect(productName("Huawei Technologies Co., Ltd.", "HG532")).toBe("Huawei Technologies HG532");
+    expect(productName("Acme, Inc.", "Widget")).toBe("Acme Widget");
     expect(productName("VMware", "Multiple Products")).toBe("Several VMware products");
   });
 });

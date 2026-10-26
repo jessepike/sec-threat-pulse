@@ -102,14 +102,24 @@ function tidy(x: string | null | undefined): string {
   if (JUNK.has(s.toLowerCase())) return "";
   // All-lowercase short names are usually acronyms in CVE records ("php", "vmware" stays as given).
   if (s === s.toLowerCase() && /^[a-z0-9]{2,4}$/.test(s)) return s.toUpperCase();
-  if (s === s.toLowerCase()) return s.replace(/\b([a-z])([a-z0-9]*)/g, (_, a: string, b: string) => a.toUpperCase() + b);
+  if (s === s.toLowerCase()) return s.split(" ").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
   return s;
+}
+
+/** "Huawei Technologies Co., Ltd." reads as "Huawei Technologies"; "acme/acme" as "acme". */
+function stripCorp(x: string | null | undefined): string | null | undefined {
+  if (!x) return x;
+  let s = x.trim();
+  if (JUNK.has(s.toLowerCase())) return s;
+  const slash = /^([^/\s]+)\/([^/\s]+)$/.exec(s);
+  if (slash) s = slash[1].toLowerCase() === slash[2].toLowerCase() ? slash[2] : `${slash[1]} ${slash[2]}`;
+  return s.replace(/,?\s+(co\.,?\s*ltd\.?|co\.|ltd\.?|inc\.?|incorporated|corp\.?|corporation|llc|l\.l\.c\.|gmbh|s\.a\.|b\.v\.|plc|limited)$/i, "").replace(/,$/, "").trim();
 }
 
 /** "Microsoft Windows", "Ivanti Connect Secure", or the product alone when it already names the vendor. */
 export function productName(vendor: string | null | undefined, product: string | null | undefined): string {
-  const v = tidy(vendor);
-  const p = tidy(product);
+  const v = tidy(stripCorp(vendor));
+  const p = tidy(stripCorp(product));
   if (v && /^multiple( products)?$/i.test(p)) return `Several ${v} products`;
   if (!p) return v;
   // "PHP Group" + "PHP" reads better as just "PHP".
