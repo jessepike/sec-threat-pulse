@@ -110,3 +110,21 @@ describe("corrections log", () => {
     expect(JSON.stringify(rows)).not.toContain("admin:");
   });
 });
+
+describe("kevFix", () => {
+  it("restates CISA's action, the earliest due date and the ransomware flag", async () => {
+    const { kevFix } = await import("./db");
+    const text = kevFix([
+      { sourceId: "cisa-kev", metadata: { dueDate: "2026-11-05", ransomware: "Unknown" } },
+      { sourceId: "cisa-kev", metadata: { dueDate: "2026-11-03", ransomware: "Known" } },
+      { sourceId: "epss", metadata: {} },
+    ]);
+    expect(text).toContain("apply the vendor's fix");
+    expect(text).toContain("by Nov 3, 2026");
+    expect(text).toContain("ransomware groups use this flaw");
+  });
+  it("says nothing without a CISA KEV entry", async () => {
+    const { kevFix } = await import("./db");
+    expect(kevFix([{ sourceId: "circl-sightings", metadata: {} }])).toBeUndefined();
+  });
+});
