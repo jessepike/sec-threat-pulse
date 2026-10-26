@@ -203,7 +203,7 @@ function EventCards({ events, label, empty }: { events: EventRow[]; label: strin
   return (
     <ul aria-label={label} className="m-0 flex list-none flex-col gap-3 p-0 md:hidden">
       {events.map((e) => (
-        <li key={e.id} className="flex flex-col gap-3 rounded border border-line bg-surface p-5">
+        <li key={e.id} className="flex min-w-0 flex-col gap-3 rounded border border-line bg-surface p-5 [overflow-wrap:anywhere]">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <VerdictBadge verdict={e.verdict} />
             <span className="font-mono text-xs text-faint">{e.idsLabel}</span>
