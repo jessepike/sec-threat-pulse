@@ -100,8 +100,8 @@ async function liveHome(): Promise<HomeData> {
   const kevKpi: KpiView = {
     label: "NEW CONFIRMED EXPLOITED · 7D",
     value: String(kev.d7),
-    delta: `▲ ${kev.d30} IN 30D`,
-    deltaTone: "crit",
+    delta: `${kev.d30} IN 30 DAYS`,
+    deltaTone: "muted",
     meaning: "Flaws CISA confirmed are used in real attacks.",
     source: "CISA KEV",
     sourceUrl: "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
