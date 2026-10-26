@@ -7,8 +7,8 @@ export function ProsePage({
   title,
   intro,
   children,
-  badge = "V0 DRAFT",
-  footer = "LAST UPDATED OCT 24, 2026 · V0 DRAFT, SUBJECT TO CHANGE",
+  badge = "PRE-LAUNCH PREVIEW",
+  footer = "LAST UPDATED OCT 25, 2026 · PRE-LAUNCH PREVIEW, SUBJECT TO CHANGE",
 }: {
   title: string;
   intro: string;

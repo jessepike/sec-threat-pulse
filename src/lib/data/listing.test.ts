@@ -93,3 +93,11 @@ describe("eventsHref", () => {
     expect(eventsHref("low", 2)).toBe("/events?verdict=low&page=2");
   });
 });
+
+describe("briefBottomLine", () => {
+  it("states the counts plainly", async () => {
+    const { briefBottomLine } = await import("./index");
+    expect(briefBottomLine({ d7: 8, d30: 33 }, 30)).toBe("CISA confirmed 8 newly exploited flaws in the last 7 days and 33 in the last 30. 30 events are rated Act now.");
+    expect(briefBottomLine({ d7: 1, d30: 1 }, 1)).toBe("CISA confirmed 1 newly exploited flaw in the last 7 days and 1 in the last 30. 1 event is rated Act now.");
+  });
+});

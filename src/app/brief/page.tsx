@@ -127,7 +127,7 @@ export default async function BriefPage() {
 
         <footer className="mt-auto flex flex-wrap justify-between gap-x-4 gap-y-1 border-t border-[var(--b-line)] pt-2.5 font-mono text-[10.5px] tracking-[0.04em] text-[var(--b-muted)]">
           <div>{b.sourcesLine}</div>
-          <div>SECURITYTHREATPULSE.COM · NOT ADVICE · V0 DRAFT</div>
+          <div>SECURITYTHREATPULSE.COM · NOT ADVICE · PRE-LAUNCH PREVIEW</div>
         </footer>
       </main>
     </div>

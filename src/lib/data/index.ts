@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { RUNGS } from "@/lib/ladder/types";
-import { countVerdicts, dbBriefEvents, dbCorrections, dbEvent, dbEventEntries, dbEventsPage, dbHomeEvents, dbKevCounts, dbStatus } from "./db";
+import { countVerdicts, dbBriefEvents, dbCorrections, dbEvent, dbEventEntries, dbEventsPage, dbHomeEvents, dbKevCounts, dbStatus, firstSentence } from "./db";
 import { EVENTS_PAGE_SIZE, homeSelection, paginateListed, type Listable } from "./listing";
 import {
   ACTIONS,
@@ -96,7 +96,7 @@ async function liveHome(): Promise<HomeData> {
   const realItems = list
     .filter((x) => x.row.verdict === "act_now")
     .slice(0, 3)
-    .map((x) => ({ title: x.row.title, text: x.summary || "No summary written yet." }));
+    .map((x) => ({ title: x.row.title, text: x.summary ? firstSentence(x.summary, 220) : "No summary written yet." }));
   const kevKpi: KpiView = {
     label: "NEW CONFIRMED EXPLOITED · 7D",
     value: String(kev.d7),
@@ -163,13 +163,19 @@ function sampleBrief(): BriefData {
   };
 }
 
+/** One factual sentence pair from live counts. No judgment words beyond the published verdict names. */
+export function briefBottomLine(kev: { d7: number; d30: number }, actNow: number): string {
+  const flaws = (n: number) => (n === 1 ? "1 newly exploited flaw" : `${n} newly exploited flaws`);
+  return `CISA confirmed ${flaws(kev.d7)} in the last 7 days and ${kev.d30} in the last 30. ${actNow === 1 ? "1 event is" : `${actNow} events are`} rated Act now.`;
+}
+
 async function liveBrief(): Promise<BriefData> {
-  const { counts, top, recent } = await dbBriefEvents();
+  const [{ counts, top, recent }, kev] = await Promise.all([dbBriefEvents(), dbKevCounts()]);
   return {
     weekOf: weekOfLabel(new Date()),
-    bottomLine: LIVE_BOTTOM_LINE,
+    bottomLine: briefBottomLine(kev, counts.act_now) || LIVE_BOTTOM_LINE,
     counts,
-    changes: recent.map((x) => ({ lead: `${x.row.title}.`, text: x.summary || `Updated ${fmtDay(x.updatedAt)}.` })),
+    changes: recent.map((x) => ({ lead: `${x.row.title}.`, text: x.summary ? firstSentence(x.summary, 220) : `Updated ${fmtDay(x.updatedAt)}.` })),
     flagship: top ? { title: top.row.title, ladder: top.row.ladder } : null,
     position: LIVE_BRIEF_STATIC.position,
     notConcern: BRIEF_STATIC.notConcern,
