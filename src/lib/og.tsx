@@ -22,6 +22,54 @@ function Bar({ state }: { state: State }) {
   return <div style={{ display: "flex", flex: 1, height: 36, ...style }} />;
 }
 
+const VERDICT: Record<string, { label: string; color: string }> = {
+  act_now: { label: "▲ ACT NOW", color: "#ff6b5e" },
+  watch: { label: "◆ WATCH", color: "#f5b942" },
+  low: { label: "● LOW", color: "#7fd18b" },
+};
+
+export interface OgEvent {
+  title: string;
+  verdict: string;
+  ids: string;
+  states: State[];
+}
+
+/** Share image for one event: its plain title, verdict and real evidence ladder. */
+export function renderEventOgImage(e: OgEvent): ImageResponse {
+  const v = VERDICT[e.verdict] ?? VERDICT.low;
+  const title = e.title.length > 110 ? `${e.title.slice(0, 107).replace(/\s+\S*$/, "")}…` : e.title;
+  return new ImageResponse(
+    (
+      <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", height: "100%", background: BG, color: FG, padding: 64, fontFamily: "sans-serif" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", fontSize: 26, letterSpacing: 5, color: MUTED, fontWeight: 700 }}>SECURITY_THREAT_PULSE</div>
+          <div style={{ display: "flex", fontSize: 30, fontWeight: 700, letterSpacing: 3, color: v.color, border: `2px solid ${v.color}`, padding: "8px 18px" }}>{v.label}</div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+          <div style={{ display: "flex", fontSize: 24, letterSpacing: 2, color: MUTED }}>{e.ids}</div>
+          <div style={{ display: "flex", fontSize: title.length > 60 ? 56 : 68, fontWeight: 700, lineHeight: 1.08, letterSpacing: -1.5, maxWidth: 1070 }}>{title}</div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 14, background: SURFACE, border: `1px solid ${LINE}`, padding: "22px 28px" }}>
+          <div style={{ display: "flex", gap: 10 }}>
+            {e.states.map((s, i) => (
+              <Bar key={i} state={s} />
+            ))}
+          </div>
+          <div style={{ display: "flex", gap: 10, fontSize: 22, letterSpacing: 3, color: MUTED }}>
+            {["TALK", "EXPOSED", "TRIED", "EXPLOITED", "DAMAGE"].map((l) => (
+              <div key={l} style={{ display: "flex", flex: 1 }}>
+                {l}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+    { ...OG_SIZE },
+  );
+}
+
 /** The 1200 by 630 share image: dark theme, name, tagline and a sample evidence ladder. */
 export function renderOgImage(): ImageResponse {
   const states: State[] = ["confirmed", "confirmed", "confirmed", "reported", "none"];

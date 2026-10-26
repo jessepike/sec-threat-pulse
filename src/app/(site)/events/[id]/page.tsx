@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const res = await getEvent(id);
   if (!res) return { title: "Event not found" };
   const { title, summary, updatedAt } = res.event;
-  return pageMeta({ title, description: summary || undefined, path: `/events/${id}`, type: "article", modifiedTime: updatedAt });
+  return pageMeta({ title, description: summary || undefined, path: `/events/${id}`, type: "article", modifiedTime: updatedAt, image: "file" });
 }
 
 export default async function EventPage({ params }: Props) {

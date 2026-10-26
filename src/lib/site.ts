@@ -18,13 +18,14 @@ export function indexingAllowed(env: Record<string, string | undefined> = proces
  * Page metadata with its own Open Graph and Twitter fields. A page that sets openGraph replaces the
  * site default as a whole, so the share image is named here instead of being inherited.
  */
-export function pageMeta(args: { title: string; description?: string; path: string; type?: "website" | "article"; modifiedTime?: string; extra?: Metadata }): Metadata {
-  const { title, description, path, type = "website", modifiedTime, extra } = args;
+export function pageMeta(args: { title: string; description?: string; path: string; type?: "website" | "article"; modifiedTime?: string; image?: string | "file"; extra?: Metadata }): Metadata {
+  const { title, description, path, type = "website", modifiedTime, image, extra } = args;
   return {
     title,
     description,
     alternates: { canonical: path, ...extra?.alternates },
-    openGraph: { type, siteName: SITE_NAME, title, description, url: path, locale: "en_US", images: ["/opengraph-image"], ...(modifiedTime ? { modifiedTime } : {}) },
-    twitter: { card: "summary_large_image", title, description, images: ["/twitter-image"] },
+    // image "file": the route has its own opengraph-image file, which Next adds when images is left out.
+    openGraph: { type, siteName: SITE_NAME, title, description, url: path, locale: "en_US", ...(image === "file" ? {} : { images: [image ?? "/opengraph-image"] }), ...(modifiedTime ? { modifiedTime } : {}) },
+    twitter: { card: "summary_large_image", title, description, ...(image === "file" ? {} : { images: [image ?? "/twitter-image"] }) },
   };
 }
