@@ -166,7 +166,7 @@ function sampleBrief(): BriefData {
 /** One factual sentence pair from live counts. No judgment words beyond the published verdict names. */
 export function briefBottomLine(kev: { d7: number; d30: number }, actNow: number): string {
   const flaws = (n: number) => (n === 1 ? "1 newly exploited flaw" : `${n} newly exploited flaws`);
-  return `CISA confirmed ${flaws(kev.d7)} in the last 7 days and ${kev.d30} in the last 30. ${actNow === 1 ? "1 event is" : `${actNow} events are`} rated Act now.`;
+  return `CISA confirmed ${flaws(kev.d7)} in the last 7 days and ${kev.d30} in the last 30 days. ${actNow === 1 ? "1 event is" : `${actNow} events are`} rated Act now.`;
 }
 
 async function liveBrief(): Promise<BriefData> {
