@@ -59,3 +59,17 @@ export function fmtDayYear(iso: string | null | undefined): string {
   const p = new Intl.DateTimeFormat("en-US", { timeZone: tz, month: "short", day: "numeric", year: "numeric" }).formatToParts(d);
   return `${pick(p, "month")} ${pick(p, "day")}, ${pick(p, "year")}`.toUpperCase();
 }
+
+/** YYYY-MM-DD in Pacific time, so timeline dates match the PT dates shown elsewhere on the page. */
+export function isoDayPT(d: Date): string {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
+}
+
+/** Joins short evidence texts as sentences: each ends with a period, separated by a space. */
+export function joinSentences(texts: string[]): string {
+  return texts
+    .map((t) => t.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .map((t) => (/[.!?…]$/.test(t) ? t : `${t}.`))
+    .join(" ");
+}

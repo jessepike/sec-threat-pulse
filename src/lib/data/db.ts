@@ -4,6 +4,7 @@ import { RUNGS, type ExploitMaturity, type Ladder, type RungState, type Verdict 
 import { RUNG_SHORT, topConfirmed } from "./sample";
 import { firstQuestion, questionLines } from "@/lib/narrative/model";
 import { homeSelection, paginateListed, sortListed, type Listable } from "./listing";
+import { isoDayPT, joinSentences } from "./format";
 import type { ClaimView, CorrectionView, CountsView, EventRow, EventView, RungView, SourceRef, StatusView, TimelineItem, VerdictFilter } from "./types";
 
 type Db = NonNullable<ReturnType<typeof getDb>>;
@@ -276,11 +277,14 @@ export async function dbEvent(id: string): Promise<EventView | null> {
   const ladder = asLadder(e.ladder);
   const rungViews: RungView[] = RUNGS.map((r, i) => {
     const mine = obs.filter((x) => x.o.kind === r);
+    const entailed = r === "attempts" && !mine.length && ladder.exploited !== "none" && ladder[r] !== "none";
     const text = mine.length
-      ? mine.slice(0, 2).map((x) => x.o.summary || x.o.title).join(" ")
+      ? joinSentences(mine.slice(0, 2).map((x) => x.o.summary || x.o.title))
       : ladder[r] === "none"
         ? "No evidence yet."
-        : "Evidence is recorded but no summary is available.";
+        : entailed
+          ? `Attacks that worked are ${ladder.exploited} (step 4), so attempts count as ${ladder[r]} too.`
+          : "Evidence is recorded but no summary is available.";
     const times = mine.map((x) => x.o.publishedAt ?? x.o.observedAt).filter(Boolean).map((d) => d.getTime());
     const newestAt = times.length ? new Date(Math.max(...times)).toISOString() : undefined;
     return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: text, sources: mine.slice(0, 4).map(ref), newestAt };
@@ -299,7 +303,7 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     .filter((x) => x.o.publishedAt)
     .sort((a, b) => a.o.publishedAt!.getTime() - b.o.publishedAt!.getTime())
     .slice(0, 12)
-    .map((x) => ({ when: new Date(x.o.publishedAt!).toISOString().slice(0, 10), what: x.o.title, hot: x.o.kind === "attempts" || x.o.kind === "exploited" || x.o.kind === "damage" }));
+    .map((x) => ({ when: isoDayPT(new Date(x.o.publishedAt!)), what: x.o.title, hot: x.o.kind === "attempts" || x.o.kind === "exploited" || x.o.kind === "damage" }));
 
   const scores = vulns.map((v) => v.cvssScore).filter((n): n is number => typeof n === "number");
   const kev = vulns.some((v) => v.kevCisaDateAdded);
