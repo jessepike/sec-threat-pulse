@@ -14,7 +14,8 @@
     "ingest:seed": "tsx scripts/seed-sources.ts",
     "ingest:local": "tsx scripts/ingest-local.ts",
     "backtest": "tsx scripts/backtest/run.ts",
-    "backtest:dataset": "tsx scripts/backtest/build-dataset.ts"
+    "backtest:dataset": "tsx scripts/backtest/build-dataset.ts",
+    "smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.3.1",

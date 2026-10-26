@@ -60,7 +60,8 @@ docs/                  architecture, source registry, design prototypes
   (+https://securitythreatpulse.com; jp@jessepike.dev)` on every request.
 - Adapters must be idempotent: re-running a source never creates duplicates (use `dedupe_key`).
 - A failed source never breaks the site: record the failure, keep the last good data.
-- Tests: every adapter has a fixture-based test. `npm test` must pass before pushing.
+- Tests: every adapter has a fixture-based test. `npm test` must pass before pushing. After a
+  deploy, `npm run smoke` checks the live pages, API, feeds, MCP server and phone layout.
 - Commit as `jesse@keatingpike.com` (Vercel rejects other authors). Conventional commits.
 - Update `status.md` at the end of every session.
 - Keep the owner's Claude Doc current as work lands: tick the checkboxes in the decision log, open
