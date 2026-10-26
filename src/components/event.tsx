@@ -23,6 +23,12 @@ export function EventHero({ e }: { e: EventView }) {
           <h1 id="t" className="m-0 break-words font-display text-[44px] font-bold leading-none tracking-[-0.035em] sm:text-[72px]">
             {e.title}
           </h1>
+          {e.technicalNames && (
+            <p className="m-0 font-mono text-[13px] leading-relaxed tracking-[0.02em] text-muted">
+              <span className="text-faint">OFFICIAL NAME{e.technicalNames.length > 1 ? "S" : ""}: </span>
+              {e.technicalNames.join(" · ")}
+            </p>
+          )}
           {e.summary && <p className="m-0 max-w-[720px] text-lg leading-[1.55] text-fg-2 sm:text-xl">{e.summary}</p>}
           {e.verdictReason && (
             <p className="m-0 max-w-[720px] text-[15px] leading-normal text-muted">

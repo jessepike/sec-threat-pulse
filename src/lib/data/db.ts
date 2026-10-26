@@ -334,9 +334,12 @@ export async function dbEvent(id: string): Promise<EventView | null> {
   const sourceMap = new Map<string, SourceRef>();
   for (const x of obs) if (!sourceMap.has(x.o.url)) sourceMap.set(x.o.url, ref(x));
 
+  const technicalNames = [...new Set(vulns.map((v) => v.title?.trim()).filter((t): t is string => !!t && t !== row.title))].slice(0, 3);
+
   return {
     ...row,
     cves,
+    technicalNames: technicalNames.length ? technicalNames : undefined,
     cvss: scores.length ? Math.max(...scores) : undefined,
     summary: e.summary ?? "",
     verdictReason: e.overrideReason ?? e.verdictReason ?? undefined,

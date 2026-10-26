@@ -66,6 +66,8 @@ export interface BlastView {
 
 export interface EventView extends EventRow {
   cves: string[];
+  /** The official names of the flaws (CISA or CVE record titles), shown under the plain title. */
+  technicalNames?: string[];
   cvss?: number;
   summary: string;
   verdictReason?: string;
