@@ -98,7 +98,7 @@ export function classifyFlaw(texts: string | readonly (string | null | undefined
 const JUNK = new Set(["", "n/a", "na", "unknown", "none", "-", "multiple", "various"]);
 
 function tidy(x: string | null | undefined): string {
-  const s = (x ?? "").replace(/\s+/g, " ").trim();
+  const s = (x ?? "").replace(/\s*[–—]\s*/g, ", ").replace(/\s+/g, " ").trim();
   if (JUNK.has(s.toLowerCase())) return "";
   // All-lowercase short names are usually acronyms in CVE records ("php", "vmware" stays as given).
   if (s === s.toLowerCase() && /^[a-z0-9]{2,4}$/.test(s)) return s.toUpperCase();
@@ -135,7 +135,9 @@ export function plainTitle(input: PlainTitleInput): string {
   const kind = classifyFlaw(input.texts, input.cwe ?? []);
   const used = input.confirmed === false ? "reported in attacks" : "used in attacks";
   if ((input.count ?? 1) > 1) {
-    return kind === "unknown" ? `${name}: ${input.count} flaws ${used}` : `${name}: ${input.count} flaws ${used}; ${EFFECT[kind]}`;
+    if (kind === "unknown") return `${name}: ${input.count} flaws ${used}`;
+    if (kind === "memory") return `${name}: ${input.count} memory flaws ${used}`;
+    return `${name}: ${input.count} flaws ${used}; ${EFFECT[kind]}`;
   }
   return kind === "unknown" ? `${name}: security flaw ${used}` : `${name}: ${EFFECT[kind]}`;
 }

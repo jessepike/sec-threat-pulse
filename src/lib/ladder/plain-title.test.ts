@@ -50,6 +50,10 @@ describe("plainTitle", () => {
       "Cisco IOS XE: 3 flaws used in attacks; attackers can gain admin rights",
     );
   });
+  it("keeps grouped memory flaws short and drops long dashes", () => {
+    expect(plainTitle({ vendor: "Linux", product: "Kernel", texts: ["use-after-free"], count: 3 })).toBe("Linux Kernel: 3 memory flaws used in attacks");
+    expect(productName("Collabora", "Collabora Online – Built-in CODE Server")).toBe("Collabora Online, Built-in CODE Server");
+  });
   it("returns empty without a product, so callers keep the source title", () => {
     expect(plainTitle({ vendor: "", product: null, texts: ["RCE"] })).toBe("");
   });
