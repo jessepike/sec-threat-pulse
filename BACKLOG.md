@@ -41,4 +41,4 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 
 ## Later phases
 
-3 News and claims · 4 Machine layer (API v1, Act now RSS and llms.txt live Oct 25; MCP server and agent test set to do) · 5 Audience views · 6 Launch
+3 News and claims · 4 Machine layer (API v1, Act now RSS, llms.txt and MCP server live Oct 25; agent test set to do) · 5 Audience views · 6 Launch

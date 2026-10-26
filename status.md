@@ -66,7 +66,8 @@ federal deadline as "The fix" when no narrative exists. Phones get a card layout
 to `events.title_override` and survive syncs. The cron routes apply pending migrations first.
 
 **Machine layer (Oct 25):** /api/v1/events and /api/v1/events/{id} (JSON, no key, CORS open),
-/events/feed.xml (Act now RSS) and /llms.txt. Evidence from VulnCheck and from sources with unclear
+/events/feed.xml (Act now RSS), /llms.txt and a read-only MCP server at /api/mcp (list_events,
+get_event, search_events). Evidence from VulnCheck and from sources with unclear
 or unapproved terms (CIRCL today) is withheld from the API and counted as withheld.
 
 **Known gaps:** full plain-English write-ups still need narratives (waiting on the owner:

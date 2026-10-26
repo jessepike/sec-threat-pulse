@@ -16,6 +16,7 @@ Verdicts (act_now, watch, low) come from versioned, published rules. No model pi
 
 - [Events API](${SITE_URL}/api/v1/events): JSON, newest evidence first. Filter with ?verdict=act_now|watch|low and page with ?page=2. No key.
 - [One event](${SITE_URL}/api/v1/events/{id}): JSON with the ladder, verdict reason, CISA's fix and dated, linked evidence.
+- [MCP server](${SITE_URL}/api/mcp): Streamable HTTP, read only, no key. Tools: list_events, get_event, search_events.
 - [Act now feed](${SITE_URL}/events/feed.xml): RSS of events rated Act now.
 - [Corrections feed](${SITE_URL}/corrections/feed.xml): RSS of every correction.
 
