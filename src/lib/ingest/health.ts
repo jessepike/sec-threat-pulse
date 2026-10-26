@@ -1,4 +1,4 @@
-import { and, desc, eq, gte } from "drizzle-orm";
+import { and, desc, eq, gte, sql } from "drizzle-orm";
 import * as schema from "@/lib/db/schema";
 import type { Db } from "./db";
 
@@ -86,4 +86,40 @@ export async function loadSourceHealth(db: Db, now: Date = new Date()): Promise<
     })),
     now,
   );
+}
+
+export const EVENTS_SYNC_KEY = "ops.events_sync";
+/** The events sync runs every 15 minutes; alert after an hour without a success. */
+export const EVENTS_SYNC_STALE_MS = 60 * 60_000;
+
+/** Records the result of an events sync run in settings, for the health check. */
+export async function recordEventsSync(db: Db, ok: boolean, error?: string, now: Date = new Date()): Promise<void> {
+  const prev = await db.select().from(schema.settings).where(eq(schema.settings.key, EVENTS_SYNC_KEY));
+  const before = (prev[0]?.value ?? {}) as { lastSuccessAt?: string; failures?: number };
+  const value = ok
+    ? { lastSuccessAt: now.toISOString(), failures: 0 }
+    : { lastSuccessAt: before.lastSuccessAt ?? null, failures: (before.failures ?? 0) + 1, lastError: (error ?? "").slice(0, 500) };
+  await db
+    .insert(schema.settings)
+    .values({ key: EVENTS_SYNC_KEY, value, updatedAt: now })
+    .onConflictDoUpdate({ target: schema.settings.key, set: { value, updatedAt: sql`now()` } });
+}
+
+/** Health of the events sync job itself, in the same shape as a source. */
+export function assessEventsSync(value: { lastSuccessAt?: string | null; failures?: number; lastError?: string } | undefined, now: Date = new Date()): SourceHealth {
+  const base = { id: "events-sync", name: "Event builder (events cron)" };
+  if (!value) return { ...base, state: "unconfigured", reason: "" };
+  if ((value.failures ?? 0) >= FAILING_AFTER) {
+    return { ...base, state: "failing", reason: `The last ${value.failures} runs failed.${value.lastError ? ` Last error: ${value.lastError.slice(0, 300)}` : ""}` };
+  }
+  const last = value.lastSuccessAt ? Date.parse(value.lastSuccessAt) : NaN;
+  if (!Number.isFinite(last) || now.getTime() - last > EVENTS_SYNC_STALE_MS) {
+    return { ...base, state: "stale", reason: "No successful run in the last hour; it should run every 15 minutes." };
+  }
+  return { ...base, state: "ok", reason: "" };
+}
+
+export async function loadEventsSyncHealth(db: Db, now: Date = new Date()): Promise<SourceHealth> {
+  const rows = await db.select().from(schema.settings).where(eq(schema.settings.key, EVENTS_SYNC_KEY));
+  return assessEventsSync(rows[0]?.value as Parameters<typeof assessEventsSync>[0], now);
 }

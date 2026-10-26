@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { assessHealth, type SourceHealth, type SourceHealthInput } from "./health";
+import { assessEventsSync, assessHealth, type SourceHealth, type SourceHealthInput } from "./health";
 import { syncAlerts } from "./alerts";
 
 const now = new Date("2026-10-25T12:00:00Z");
@@ -75,5 +75,16 @@ describe("syncAlerts", () => {
     const r = await syncAlerts("t", [h("nvd", "ok")], now, gh.fetchImpl);
     expect(r.closed).toEqual(["nvd"]);
     expect(gh.calls.some((c) => c.method === "PATCH" && c.url.endsWith("/issues/7"))).toBe(true);
+  });
+});
+
+describe("assessEventsSync", () => {
+  it("is unconfigured before the first run and ok after a recent success", () => {
+    expect(assessEventsSync(undefined, now).state).toBe("unconfigured");
+    expect(assessEventsSync({ lastSuccessAt: hoursAgo(0.5).toISOString(), failures: 0 }, now).state).toBe("ok");
+  });
+  it("is stale after an hour and failing after three errors", () => {
+    expect(assessEventsSync({ lastSuccessAt: hoursAgo(2).toISOString(), failures: 0 }, now).state).toBe("stale");
+    expect(assessEventsSync({ lastSuccessAt: hoursAgo(0.5).toISOString(), failures: 3, lastError: "boom" }, now).reason).toContain("boom");
   });
 });
