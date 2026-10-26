@@ -155,7 +155,9 @@ function EventTitleCell({ e }: { e: EventRow }) {
 export function EventsGrid({ events, label, empty = "No events are tracked yet." }: { events: EventRow[]; label: string; empty?: string }) {
   const head = "px-6 py-3.5 text-left font-mono text-xs font-normal tracking-[0.08em] text-muted";
   return (
-    <div className="overflow-x-auto rounded border border-line bg-surface" tabIndex={0} role="region" aria-label={`${label}, scrolls sideways on small screens`}>
+    <>
+      <EventCards events={events} label={label} empty={empty} />
+      <div className="hidden overflow-x-auto rounded border border-line bg-surface md:block" tabIndex={0} role="region" aria-label={label}>
       <table className="w-full min-w-[1040px] border-collapse">
         <caption className="sr-only">{label}</caption>
         <thead>
@@ -190,7 +192,36 @@ export function EventsGrid({ events, label, empty = "No events are tracked yet."
           ))}
         </tbody>
       </table>
-    </div>
+      </div>
+    </>
+  );
+}
+
+/** Phone layout: one card per event, same facts as the table, no sideways scrolling. */
+function EventCards({ events, label, empty }: { events: EventRow[]; label: string; empty: string }) {
+  if (events.length === 0) return <p className="m-0 rounded border border-line bg-surface px-5 py-6 text-[15px] text-muted md:hidden">{empty}</p>;
+  return (
+    <ul aria-label={label} className="m-0 flex list-none flex-col gap-3 p-0 md:hidden">
+      {events.map((e) => (
+        <li key={e.id} className="flex flex-col gap-3 rounded border border-line bg-surface p-5">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <VerdictBadge verdict={e.verdict} />
+            <span className="font-mono text-xs text-faint">{e.idsLabel}</span>
+          </div>
+          <Link href={e.href} className="font-display text-lg font-semibold leading-snug text-fg no-underline hover:text-accent">
+            {e.title}
+          </Link>
+          <MiniLadder ladder={e.ladder} topLabel={topLabel(e.topConfirmed ? RUNG_SHORT[e.topConfirmed] : null)} />
+          <p className="m-0 text-[15px] leading-normal text-fg-2">{e.exposure}</p>
+          {e.question && (
+            <p className="m-0 text-[15px] leading-normal text-fg-2">
+              <span className="block font-mono text-xs tracking-[0.08em] text-muted">ASK YOUR TEAM</span>
+              {e.question}
+            </p>
+          )}
+        </li>
+      ))}
+    </ul>
   );
 }
 

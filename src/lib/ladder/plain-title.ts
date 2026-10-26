@@ -112,6 +112,8 @@ export function productName(vendor: string | null | undefined, product: string |
   const p = tidy(product);
   if (v && /^multiple( products)?$/i.test(p)) return `Several ${v} products`;
   if (!p) return v;
+  // "PHP Group" + "PHP" reads better as just "PHP".
+  if (v && v.toLowerCase().includes(p.toLowerCase()) && p.length >= 3) return p;
   if (!v || p.toLowerCase().startsWith(v.toLowerCase()) || p.toLowerCase().includes(v.toLowerCase())) return p;
   return `${v} ${p}`;
 }

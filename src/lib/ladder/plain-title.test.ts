@@ -32,6 +32,7 @@ describe("productName", () => {
     expect(productName("Microsoft", "Windows")).toBe("Microsoft Windows");
     expect(productName("n/a", "n/a")).toBe("");
     expect(productName("php", "php")).toBe("PHP");
+    expect(productName("PHP Group", "PHP")).toBe("PHP");
     expect(productName("VMware", "Multiple Products")).toBe("Several VMware products");
   });
 });
