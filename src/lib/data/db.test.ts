@@ -118,10 +118,14 @@ describe("kevFix", () => {
       { sourceId: "cisa-kev", metadata: { dueDate: "2026-11-05", ransomware: "Unknown" } },
       { sourceId: "cisa-kev", metadata: { dueDate: "2026-11-03", ransomware: "Known" } },
       { sourceId: "epss", metadata: {} },
-    ]);
+    ], new Date("2026-10-25T00:00:00Z"));
     expect(text).toContain("apply the vendor's fix");
     expect(text).toContain("by Nov 3, 2026");
     expect(text).toContain("ransomware groups use this flaw");
+  });
+  it("says when the federal deadline has passed", async () => {
+    const { kevFix } = await import("./db");
+    expect(kevFix([{ sourceId: "cisa-kev", metadata: { dueDate: "2026-10-16" } }], new Date("2026-10-25T00:00:00Z"))).toContain("Oct 16, 2026, has passed");
   });
   it("says nothing without a CISA KEV entry", async () => {
     const { kevFix } = await import("./db");

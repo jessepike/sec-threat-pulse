@@ -257,7 +257,7 @@ export async function dbKevCounts(): Promise<{ d7: number; d30: number }> {
  * When no one has written a fix, restate CISA's own instruction and deadline from the KEV entries.
  * Every part comes from the catalog: the required action, the federal due date and the ransomware flag.
  */
-export function kevFix(obs: { sourceId: string; metadata?: unknown }[]): string | undefined {
+export function kevFix(obs: { sourceId: string; metadata?: unknown }[], now: Date = new Date()): string | undefined {
   const kev = obs.filter((o) => o.sourceId === "cisa-kev");
   if (!kev.length) return undefined;
   const meta = kev.map((o) => (o.metadata ?? {}) as { dueDate?: string; ransomware?: string });
@@ -269,7 +269,8 @@ export function kevFix(obs: { sourceId: string; metadata?: unknown }[]): string 
   if (due) {
     const d = new Date(`${due}T12:00:00Z`);
     const label = d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
-    parts.push(`US federal agencies must do this by ${label}. Use that date as an outer limit for your own systems.`);
+    const today = now.toISOString().slice(0, 10);
+    parts.push(due < today ? `The deadline for US federal agencies, ${label}, has passed.` : `US federal agencies must do this by ${label}.`);
   }
   if (meta.some((m) => m.ransomware === "Known")) parts.push("CISA reports that ransomware groups use this flaw.");
   return parts.join(" ");
