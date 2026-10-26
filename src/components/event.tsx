@@ -186,7 +186,7 @@ export function TimelineAndBlast({ e }: { e: EventView }) {
     <section className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,380px),1fr))] items-start gap-8">
       {e.timeline.length > 0 && (
         <div className="flex flex-col gap-[18px]">
-          <Eyebrow>{"// TIMELINE · PT / UTC"}</Eyebrow>
+          <Eyebrow>{"// TIMELINE · PACIFIC TIME"}</Eyebrow>
           <H2 id="tl" size="md">How it unfolded</H2>
           <ol className="m-0 ml-1.5 flex list-none flex-col border-l border-line-strong p-0" aria-labelledby="tl">
             {e.timeline.map((m) => (
