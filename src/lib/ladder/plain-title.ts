@@ -98,11 +98,11 @@ export function classifyFlaw(texts: string | readonly (string | null | undefined
 const JUNK = new Set(["", "n/a", "na", "unknown", "none", "-", "multiple", "various"]);
 
 function tidy(x: string | null | undefined): string {
-  const s = (x ?? "").replace(/\s*[–—]\s*/g, ", ").replace(/\s+/g, " ").trim();
+  const s = (x ?? "").replace(/_/g, " ").replace(/\s*[–—]\s*/g, ", ").replace(/\s+/g, " ").trim();
   if (JUNK.has(s.toLowerCase())) return "";
   // All-lowercase short names are usually acronyms in CVE records ("php", "vmware" stays as given).
   if (s === s.toLowerCase() && /^[a-z0-9]{2,4}$/.test(s)) return s.toUpperCase();
-  if (s === s.toLowerCase()) return s.charAt(0).toUpperCase() + s.slice(1);
+  if (s === s.toLowerCase()) return s.replace(/\b([a-z])([a-z0-9]*)/g, (_, a: string, b: string) => a.toUpperCase() + b);
   return s;
 }
 
@@ -128,13 +128,16 @@ export interface PlainTitleInput {
   count?: number;
   /** False for early events, where attacks are reported and not yet confirmed. */
   confirmed?: boolean;
+  /** Used in place of the product (for example the CVE id) when the product is unknown but the flaw type is clear. */
+  fallbackName?: string;
 }
 
 /** For example "Ivanti Connect Secure: attackers can get in without a password". Empty when no product is known. */
 export function plainTitle(input: PlainTitleInput): string {
-  const name = productName(input.vendor, input.product);
-  if (!name) return "";
+  const known = productName(input.vendor, input.product);
   const kind = classifyFlaw(input.texts, input.cwe ?? []);
+  const name = known || (kind !== "unknown" ? (input.fallbackName ?? "") : "");
+  if (!name) return "";
   const used = input.confirmed === false ? "reported in attacks" : "used in attacks";
   if ((input.count ?? 1) > 1) {
     if (kind === "unknown") return `${name}: ${input.count} flaws ${used}`;

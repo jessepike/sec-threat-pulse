@@ -55,6 +55,11 @@ describe("plainTitle", () => {
     expect(plainTitle({ vendor: "Linux", product: "Kernel", texts: ["use-after-free"], count: 3 })).toBe("Linux Kernel: 3 memory flaws used in attacks");
     expect(productName("Collabora", "Collabora Online – Built-in CODE Server")).toBe("Collabora Online, Built-in CODE Server");
   });
+  it("uses the fallback name when the product is unknown but the flaw type is clear", () => {
+    expect(plainTitle({ texts: ["allows attackers to execute arbitrary commands"], fallbackName: "CVE-2023-38646" })).toBe("CVE-2023-38646: attackers can run commands on it");
+    expect(plainTitle({ texts: ["Unspecified issue"], fallbackName: "CVE-2023-1" })).toBe("");
+    expect(productName("ivanti", "connect_secure")).toBe("Ivanti Connect Secure");
+  });
   it("returns empty without a product, so callers keep the source title", () => {
     expect(plainTitle({ vendor: "", product: null, texts: ["RCE"] })).toBe("");
   });

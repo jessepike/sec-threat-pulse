@@ -285,7 +285,7 @@ export function buildEarlyEvents(
     out.push({
       id: earlyEventId(cve),
       title:
-        plainTitle({ vendor: v.vendor, product: v.product, texts: [v.title, v.description], cwe: v.cwe ?? [], confirmed: false }) ||
+        plainTitle({ vendor: v.vendor, product: v.product, texts: [v.title, v.description], cwe: v.cwe ?? [], confirmed: false, fallbackName: cve }) ||
         v.title?.trim() ||
         [v.vendor, v.product, cve].filter(Boolean).join(" "),
       summary: clipSummary(v.description),
