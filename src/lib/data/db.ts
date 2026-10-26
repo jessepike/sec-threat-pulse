@@ -98,7 +98,7 @@ export interface EventSummary {
   cvss?: number;
 }
 
-interface Rec {
+export interface Rec {
   e: EventRecord;
   verdict: Verdict;
   evidenceAt: number;
@@ -107,7 +107,7 @@ interface Rec {
 }
 
 /** Every visible event with its report count and newest evidence time, in display order. */
-async function loadRecords(db: Db): Promise<Rec[]> {
+export async function loadRecords(db: Db): Promise<Rec[]> {
   const agg = db
     .select({
       eventId: schema.observations.eventId,

@@ -41,3 +41,44 @@ export function correctionsFeed(rows: CorrectionView[], site: string = SITE_URL)
     "",
   ].join("\n");
 }
+
+export interface FeedEvent {
+  id: string;
+  title: string;
+  summary: string | null;
+  verdictReason: string | null;
+  updatedAt: string;
+}
+
+/** RSS 2.0 feed of Act now events, newest evidence first. */
+export function actNowFeed(events: FeedEvent[], site: string = SITE_URL): string {
+  const items = events.map((e) => {
+    const link = `${site}/events/${e.id}`;
+    const text = [e.summary, e.verdictReason ? `Why Act now: ${e.verdictReason}` : null].filter(Boolean).join(" ");
+    return [
+      "    <item>",
+      `      <title>${xmlEscape(e.title)}</title>`,
+      `      <link>${xmlEscape(link)}</link>`,
+      `      <guid isPermaLink="false">${xmlEscape(`${e.id}@${e.updatedAt}`)}</guid>`,
+      `      <pubDate>${new Date(e.updatedAt).toUTCString()}</pubDate>`,
+      `      <description>${xmlEscape(text)}</description>`,
+      "    </item>",
+    ].join("\n");
+  });
+  const built = events.length ? new Date(events[0].updatedAt).toUTCString() : new Date(0).toUTCString();
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    "  <channel>",
+    `    <title>${xmlEscape(`${SITE_NAME}: Act now`)}</title>`,
+    `    <link>${site}/events?verdict=act_now</link>`,
+    `    <atom:link href="${site}/events/feed.xml" rel="self" type="application/rss+xml" />`,
+    "    <description>Events rated Act now by the published rules, newest evidence first. Not advice.</description>",
+    "    <language>en-us</language>",
+    `    <lastBuildDate>${built}</lastBuildDate>`,
+    ...items,
+    "  </channel>",
+    "</rss>",
+    "",
+  ].join("\n");
+}
