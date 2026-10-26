@@ -56,6 +56,9 @@ Decisions: the pre-listing accuracy target; attribution for news publishers.
 links to it with a date (VulnCheck 1H 2026, Bloomberg Law, Verizon DBIR via CXO Digital Pulse,
 ReliaQuest, Check Point). Unconfirmed figures were replaced or removed. Tile 1 is computed live.
 
+**Policy:** named-organizations and takedown policy approved Oct 25 and live on /methodology
+(`docs/policy-claims-and-takedown.md`).
+
 **Known gaps:** event titles and summaries come straight from CVE text until narratives are written
 (waiting on the owner: ANTHROPIC_API_KEY for AI drafts, or hand-written ones).
 
