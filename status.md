@@ -49,8 +49,11 @@ Decisions: the pre-listing accuracy target; attribution for news publishers.
 `feedback`; every session starts by handling the open ones (see AGENTS.md). GITHUB_TOKEN is set
 (fine-grained, this repo only, Issues read and write, expires Oct 2027). Tested end to end with issue #10.
 
-**Source health:** after each ingest run, unhealthy sources get one GitHub issue labeled `alert`
-(closes on recovery). The status strip shows DELAYED after an hour without updates. None open yet.
+**Health and alerts:** after each ingest run, the health check opens one GitHub issue labeled `alert`
+per unhealthy source, for the events cron (`events-sync`) and for database storage at 80% of the
+Neon free plan; each closes on recovery. The admin overview shows the same alerts and the database
+size (15 MB on Oct 25). The status strip shows DELAYED after an hour without updates. `npm run smoke`
+checks the live site after a deploy. No alerts open on Oct 25.
 
 **Report figures on the home page:** each one was checked against its source page on Oct 24 and
 links to it with a date (VulnCheck 1H 2026, Bloomberg Law, Verizon DBIR via CXO Digital Pulse,
