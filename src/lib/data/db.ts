@@ -75,6 +75,13 @@ export function defaultQuestion(vendor: string | null, product: string | null): 
   return name ? `Do we run ${name}? If yes, is it patched or cut off from the internet?` : null;
 }
 
+/** Factual starter questions for an event page with no written ones. */
+export function starterQuestions(vendor: string | null, product: string | null): string[] | undefined {
+  const first = defaultQuestion(vendor, product);
+  if (!first) return undefined;
+  return [first, "Who owns fixing it, and by what date?", "Have we checked for signs of attack since the first report, not just since the patch?"];
+}
+
 function toRow(e: EventRecord, cves: string[], n?: Pick<NarrativeRecord, "askYourTeam">): EventRow {
   const ladder = asLadder(e.ladder);
   const verdict = asVerdict(e.overrideVerdict ?? e.verdict);
@@ -375,7 +382,7 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     businessTerms: narrative?.businessExposure?.trim() || undefined,
     whyAct: narrative?.whyAct?.trim() || undefined,
     fix: narrative?.fix?.trim() || kevFix(obs.map((x) => x.o)),
-    askYourTeam: narrative ? questionLines(narrative.askYourTeam) : undefined,
+    askYourTeam: narrative && questionLines(narrative.askYourTeam).length ? questionLines(narrative.askYourTeam) : starterQuestions(e.vendor, e.product),
     aiDrafted: narrative?.source === "ai_draft",
     sources: [...sourceMap.values()],
     updatedAt: e.updatedAt.toISOString(),
