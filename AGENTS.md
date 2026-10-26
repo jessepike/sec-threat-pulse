@@ -54,6 +54,8 @@ docs/                  architecture, source registry, design prototypes
 - Plain language in anything a reader sees: short sentences, no em dashes, no marketing phrasing,
   no "X, not Y" constructions. Claims from criminal leak sites are always labeled as claims.
 - Every public claim carries a source link and a timestamp. Missing evidence shows as missing.
+- Named organizations, correction and takedown requests follow `docs/policy-claims-and-takedown.md`.
+  Legal demands go to Jesse; never remove or restore content on one yourself.
 - Respect source terms (see the registry). Send `User-Agent: SecurityThreatPulse/0.1
   (+https://securitythreatpulse.com; jp@jessepike.dev)` on every request.
 - Adapters must be idempotent: re-running a source never creates duplicates (use `dedupe_key`).

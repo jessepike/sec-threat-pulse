@@ -35,7 +35,7 @@ export default function Methodology() {
     ...docSections.map((h): [string, string] => [headingId(h.text), h.text]),
     ["rules-changelog", "Rules changelog"],
     ["where-the-facts-come-from", "Where the facts come from"],
-    ["claims-from-criminal-groups", "Claims from criminal groups"],
+    ["named-organizations-and-claims", "Named organizations and claims"],
     ["what-we-leave-out", "What we leave out"],
     ["corrections", "Corrections"],
   ];
@@ -102,9 +102,10 @@ export default function Methodology() {
         <p>We read public sources several times a day. They include CISA KEV, VulnCheck KEV, the CVE List, NVD, FIRST EPSS, CIRCL sightings, SEC 8-K filings, Have I Been Pwned and state attorney general breach notices. Each source has its own terms. We follow them.</p>
         <p>Every statement on an event page links to its source and shows a date. If we lack evidence, the page says so.</p>
       </section>
-      <section id="claims-from-criminal-groups">
-        <h2>Claims from criminal groups</h2>
-        <p>Ransomware leak sites list victims. Those listings are claims. Some are false or old. We label them as claims and never use them alone to confirm damage.</p>
+      <section id="named-organizations-and-claims">
+        <h2>Named organizations and claims</h2>
+        <p>We name an organization only when an official source names it: a regulatory filing, a breach notice or a government advisory. Each name links to that source and its date.</p>
+        <p>Ransomware leak sites list victims too. Those are claims by criminal groups. Some are false or old. If we show one, we label it as a claim, we never treat it as proof of damage, and we never link to stolen data.</p>
       </section>
       <section id="what-we-leave-out">
         <h2>What we leave out</h2>
@@ -115,7 +116,10 @@ export default function Methodology() {
         <p>
           Every correction is logged in public with its date and reason. Read the <Link href="/corrections">corrections log</Link>, or follow it as an <a href="/corrections/feed.xml">RSS feed</a>.
         </p>
-        <p>If something is wrong, tell us at <a href="mailto:jp@jessepike.dev">jp@jessepike.dev</a>. We aim to correct errors within 24 hours.</p>
+        <p>
+          If something about your organization is wrong, write to <a href="mailto:jp@jessepike.dev">jp@jessepike.dev</a>. We reply within 2 business days, fix errors, and log every
+          correction on the corrections page. We remove unconfirmed claims on request. We keep accurate public filings, and we will link to your own statement if you send one.
+        </p>
       </section>
     </ProsePage>
   );

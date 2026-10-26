@@ -1,7 +1,7 @@
-# Named organizations: labels, corrections and takedown (DRAFT)
+# Named organizations: labels, corrections and takedown
 
-Status: draft for the owner's approval. Not published. Once approved, the "Public text" section goes
-on the methodology page under "Claims from criminal groups", and BACKLOG Phase 1 ticks the item.
+Status: approved by Jesse Pike on Oct 25, 2026. The public text is on /methodology under "Named
+organizations and claims" and "Corrections". Agents follow the rules below.
 
 ## What we show today
 
