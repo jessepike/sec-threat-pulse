@@ -4,7 +4,7 @@ import { eventCves, events, observations, verdictHistory } from "@/lib/db/schema
 import type { Db } from "@/lib/ingest/db";
 import { insertObservations, loadTrackedCves, seedSources, upsertVulnerabilities } from "@/lib/ingest/runner";
 import { createTestDb } from "@/lib/ingest/testdb";
-import { syncEvents } from "./events-sync";
+import { refreshOldTitles, syncEvents } from "./events-sync";
 import { CURRENT_RULES_VERSION } from "./rules";
 import type { ObservationInput } from "./types";
 
@@ -272,5 +272,24 @@ describe("early (pre-listing) events", () => {
     await seedEarly("CVE-2026-5301", ["telegram"], { published: false });
     await seedEarly("CVE-2026-5302", ["telegram"]);
     expect(await loadTrackedCves(db, 2000, now)).toEqual(["CVE-2026-5301", "CVE-2026-1001", "CVE-2026-5302"]);
+  });
+});
+
+describe("refreshOldTitles", () => {
+  it("rewrites technical titles on old events and leaves admin renames alone", async () => {
+    await upsertVulnerabilities(db, [{ cveId: "CVE-2026-9001", vendor: "Microsoft", product: "SQL Server", title: "Microsoft SQL Server Remote Code Execution Vulnerability", kevCisaDateAdded: "2026-08-26" }]);
+    const base = { ladder: {}, rulesVersion: CURRENT_RULES_VERSION, vendor: "Microsoft", product: "SQL Server" };
+    await db.insert(events).values([
+      { id: "kev-old-sql", title: "Microsoft SQL Server Remote Code Execution Vulnerability", ...base },
+      { id: "kev-old-renamed", title: "Microsoft SQL Server Remote Code Execution Vulnerability", titleOverride: "Kept by the editor", ...base },
+    ]);
+    await db.insert(eventCves).values([
+      { eventId: "kev-old-sql", cveId: "CVE-2026-9001" },
+      { eventId: "kev-old-renamed", cveId: "CVE-2026-9001" },
+    ]);
+    expect(await refreshOldTitles(db)).toBe(1);
+    const rows = await db.select().from(events);
+    expect(rows.find((r) => r.id === "kev-old-sql")!.title).toBe("Microsoft SQL Server: attackers can run their own code");
+    expect(rows.find((r) => r.id === "kev-old-renamed")!.title).toBe("Microsoft SQL Server Remote Code Execution Vulnerability");
   });
 });

@@ -2,7 +2,7 @@ import { revalidateTag } from "next/cache";
 import { getDb } from "@/lib/db/client";
 import { ensureMigrated } from "@/lib/db/migrate";
 import type { Db } from "@/lib/ingest/db";
-import { syncEvents } from "@/lib/ladder/events-sync";
+import { refreshOldTitles, syncEvents } from "@/lib/ladder/events-sync";
 import { recordEventsSync } from "@/lib/ingest/health";
 import { checkCronAuth } from "../auth";
 
@@ -25,10 +25,11 @@ async function handle(req: Request): Promise<Response> {
   const started = Date.now();
   try {
     const summary = await syncEvents(db, Number.isFinite(lookback) && lookback > 0 ? { lookbackDays: lookback } : {});
+    const titlesRefreshed = await refreshOldTitles(db).catch(() => 0);
     // Public pages read through unstable_cache tagged "stp"; expire it so new events show at once.
     revalidateTag("stp", { expire: 0 });
     await recordEventsSync(db, true).catch(() => undefined);
-    return Response.json({ ok: true, durationMs: Date.now() - started, ...summary });
+    return Response.json({ ok: true, durationMs: Date.now() - started, titlesRefreshed, ...summary });
   } catch (e) {
     const message = e instanceof Error ? e.message : String(e);
     await recordEventsSync(db, false, message).catch(() => undefined);

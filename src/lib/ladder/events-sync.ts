@@ -14,6 +14,7 @@ import {
   type EventVuln,
 } from "./events";
 import { CURRENT_RULES_VERSION } from "./rules";
+import { plainTitle } from "./plain-title";
 import type { ObservationKind, ObservationStrength } from "./types";
 
 export interface SyncOptions {
@@ -308,4 +309,37 @@ export async function syncEvents(db: Db, opts: SyncOptions = {}): Promise<SyncSu
     }
   }
   return summary;
+}
+
+/**
+ * Rewrites technical titles on visible events the rebuild no longer touches (older than the
+ * lookback), so every listed event reads in plain language. Admin renames are never changed.
+ * Returns how many titles changed. At most `limit` events per run.
+ */
+export async function refreshOldTitles(db: Db, limit = 200): Promise<number> {
+  const rows = await db
+    .select()
+    .from(events)
+    .where(and(eq(events.hidden, false), sql`${events.titleOverride} is null`, sql`(${events.title} ~* 'vulnerability\\s*$' or ${events.title} ~ '^CVE-')`))
+    .limit(limit);
+  let changed = 0;
+  for (const e of rows) {
+    const cves = (await db.select().from(eventCves).where(eq(eventCves.eventId, e.id))).map((r) => r.cveId);
+    if (!cves.length) continue;
+    const vulns = await db.select().from(vulnerabilities).where(inArray(vulnerabilities.cveId, cves));
+    const title = plainTitle({
+      vendor: e.vendor ?? vulns[0]?.vendor,
+      product: e.product ?? vulns[0]?.product,
+      texts: [...vulns.flatMap((v) => [v.title, v.description]), e.title],
+      cwe: vulns.flatMap((v) => v.cwe ?? []),
+      count: cves.length,
+      confirmed: !e.id.startsWith(EARLY_PREFIX),
+      fallbackName: cves.length === 1 ? cves[0] : undefined,
+    });
+    if (title && title !== e.title) {
+      await db.update(events).set({ title }).where(eq(events.id, e.id));
+      changed++;
+    }
+  }
+  return changed;
 }
