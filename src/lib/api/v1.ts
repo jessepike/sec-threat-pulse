@@ -4,6 +4,7 @@ import { SOURCE_REGISTRY } from "@/lib/ingest/registry";
 import type { Verdict } from "@/lib/ladder/types";
 import { kevFix, loadRecords, type Rec } from "@/lib/data/db";
 import { SITE_URL } from "@/lib/site";
+import { categorize, type Category } from "@/lib/ladder/category";
 
 export const API_VERSION = "1";
 export const API_PAGE_SIZE = 50;
@@ -29,6 +30,8 @@ export interface ApiEventSummary {
   cves: string[];
   vendor: string | null;
   product: string | null;
+  /** Plain category, why it matters and the first step, from a fixed table. */
+  category: Category;
   summary: string | null;
   firstSeenAt: string;
   updatedAt: string;
@@ -63,6 +66,7 @@ function toSummary(r: Rec, cves: string[]): ApiEventSummary {
     cves,
     vendor: e.vendor,
     product: e.product,
+    category: categorize(e.vendor, e.product),
     summary: e.summary,
     firstSeenAt: e.firstSeenAt.toISOString(),
     updatedAt: e.updatedAt.toISOString(),

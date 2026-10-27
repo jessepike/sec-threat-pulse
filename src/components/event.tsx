@@ -124,7 +124,8 @@ export function Summary({ e }: { e: EventView }) {
   const items = [
     e.businessTerms && { h: "IN BUSINESS TERMS", t: e.businessTerms, hl: false },
     e.whyAct && { h: "WHY ACT BEFORE PROOF OF DAMAGE", t: e.whyAct, hl: false },
-    e.fix && { h: "THE FIX", t: e.fix, hl: true },
+    e.doThis && { h: "DO THIS FIRST", t: e.doThis, hl: true },
+    e.fix && { h: "THE FIX", t: e.fix, hl: !e.doThis },
   ].filter(Boolean) as { h: string; t: string; hl: boolean }[];
   if (items.length === 0) return null;
   return (

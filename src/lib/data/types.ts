@@ -37,6 +37,10 @@ export interface EventRow {
   verdict: Verdict;
   ladder: Ladder;
   topConfirmed: Rung | null;
+  /** Vendor name as shown, for the "vendors I use" filter. */
+  vendor?: string;
+  /** Plain category of system and its first step, from the fixed table in lib/ladder/category. */
+  category?: { id: string; label: string; doThis: string };
 }
 
 export type ClaimRating = "TRUE" | "OVERSTATED" | "TOO EARLY" | "FALSE" | "UNVERIFIED";
@@ -77,6 +81,8 @@ export interface EventView extends EventRow {
   verdictChangesIf?: string;
   businessTerms?: string;
   whyAct?: string;
+  /** The first step for this kind of system, from the category table. */
+  doThis?: string;
   fix?: string;
   askYourTeam?: string[];
   /** True when a published narrative started as an AI draft and was reviewed by STP. */

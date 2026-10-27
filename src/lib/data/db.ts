@@ -6,6 +6,7 @@ import { firstQuestion, questionLines } from "@/lib/narrative/model";
 import { homeSelection, paginateListed, sortListed, type Listable } from "./listing";
 import { isoDayPT, joinSentences } from "./format";
 import { productName } from "@/lib/ladder/plain-title";
+import { categorize } from "@/lib/ladder/category";
 import type { ClaimView, CorrectionView, CountsView, EventRow, EventView, RungView, SourceRef, StatusView, TimelineItem, VerdictFilter } from "./types";
 
 type Db = NonNullable<ReturnType<typeof getDb>>;
@@ -85,12 +86,16 @@ export function starterQuestions(vendor: string | null, product: string | null):
 function toRow(e: EventRecord, cves: string[], n?: Pick<NarrativeRecord, "askYourTeam">): EventRow {
   const ladder = asLadder(e.ladder);
   const verdict = asVerdict(e.overrideVerdict ?? e.verdict);
+  const cat = categorize(e.vendor, e.product);
+  const vendor = productName(e.vendor, null) || undefined;
   return {
+    vendor,
+    category: { id: cat.id, label: cat.label, doThis: cat.doThis },
     id: e.id,
     href: `/events/${e.id}`,
     title: e.titleOverride ?? e.title,
     idsLabel: idsLabel(cves),
-    exposure: e.summary ? firstSentence(e.summary) : "No summary written yet.",
+    exposure: cat.why || (e.summary ? firstSentence(e.summary) : "No summary written yet."),
     question: firstQuestion(n?.askYourTeam) ?? defaultQuestion(e.vendor, e.product),
     verdict,
     ladder,
@@ -379,7 +384,8 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     claims,
     timeline,
     roles,
-    businessTerms: narrative?.businessExposure?.trim() || undefined,
+    businessTerms: narrative?.businessExposure?.trim() || categorize(e.vendor, e.product).why || undefined,
+    doThis: categorize(e.vendor, e.product).doThis,
     whyAct: narrative?.whyAct?.trim() || undefined,
     fix: narrative?.fix?.trim() || kevFix(obs.map((x) => x.o)),
     askYourTeam: narrative && questionLines(narrative.askYourTeam).length ? questionLines(narrative.askYourTeam) : starterQuestions(e.vendor, e.product),

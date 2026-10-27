@@ -163,10 +163,10 @@ export function EventsGrid({ events, label, empty = "No events are tracked yet."
         <thead>
           <tr className="border-b border-line">
             <th scope="col" className={`${head} w-[19%]`}>EVENT</th>
-            <th scope="col" className={`${head} w-[21%]`}>BUSINESS EXPOSURE</th>
+            <th scope="col" className={`${head} w-[21%]`}>WHAT IT IS</th>
             <th scope="col" className={`${head} w-[19%]`}>TALK · EXPOSED · TRIED · EXPLOITED · DAMAGE</th>
             <th scope="col" className={`${head} w-[10%]`}>VERDICT</th>
-            <th scope="col" className={`${head} w-[21%]`}>ASK YOUR TEAM</th>
+            <th scope="col" className={`${head} w-[21%]`}>DO THIS</th>
           </tr>
         </thead>
         <tbody>
@@ -178,7 +178,10 @@ export function EventsGrid({ events, label, empty = "No events are tracked yet."
           {events.map((e) => (
             <tr key={e.id} className="border-b border-line-soft last:border-b-0">
               <EventTitleCell e={e} />
-              <td className="px-6 py-5 align-top text-[15px] leading-normal text-fg-2">{e.exposure}</td>
+              <td className="px-6 py-5 align-top text-[15px] leading-normal text-fg-2">
+                {e.category && <span className="mb-1.5 block font-mono text-xs tracking-[0.06em] text-muted">{e.category.label.toUpperCase()}</span>}
+                {e.exposure}
+              </td>
               <td className="px-6 py-5 align-top">
                 <MiniLadder ladder={e.ladder} topLabel={topLabel(e.topConfirmed ? RUNG_SHORT[e.topConfirmed] : null)} />
               </td>
@@ -186,7 +189,7 @@ export function EventsGrid({ events, label, empty = "No events are tracked yet."
                 <VerdictBadge verdict={e.verdict} />
               </td>
               <td className="px-6 py-5 align-top text-[15px] leading-normal text-fg-2">
-                {e.question ?? <span className="text-muted">Not written yet.</span>}
+                {e.category?.doThis ?? e.question ?? <span className="text-muted">Not written yet.</span>}
               </td>
             </tr>
           ))}
@@ -212,11 +215,14 @@ function EventCards({ events, label, empty }: { events: EventRow[]; label: strin
             {e.title}
           </Link>
           <MiniLadder ladder={e.ladder} topLabel={topLabel(e.topConfirmed ? RUNG_SHORT[e.topConfirmed] : null)} />
-          <p className="m-0 text-[15px] leading-normal text-fg-2">{e.exposure}</p>
-          {e.question && (
-            <p className="m-0 text-[15px] leading-normal text-fg-2">
-              <span className="block font-mono text-xs tracking-[0.08em] text-muted">ASK YOUR TEAM</span>
-              {e.question}
+          <p className="m-0 text-[15px] leading-normal text-fg-2">
+            {e.category && <span className="block font-mono text-xs tracking-[0.08em] text-muted">{e.category.label.toUpperCase()}</span>}
+            {e.exposure}
+          </p>
+          {(e.category?.doThis ?? e.question) && (
+            <p className="m-0 text-[15px] leading-normal text-fg">
+              <span className="block font-mono text-xs tracking-[0.08em] text-accent">DO THIS</span>
+              {e.category?.doThis ?? e.question}
             </p>
           )}
         </li>
