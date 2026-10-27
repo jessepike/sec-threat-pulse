@@ -4,6 +4,7 @@ Newest first. Owner decisions carry her words where given.
 
 | Date | Decision |
 |---|---|
+| 2026-10-27 | Audience balance: one simple view for small businesses and large enterprises alike, without tailoring to boards and insurers ("they have a ton of other sources of information"). Lead with "straightforward, simple, do this". The value is aggregating public sources and organizing them for utility; avoid flashiness. |
 | 2026-10-25 | Claim-labeling and takedown policy approved ("approve"): name an organization only when an official source does; leak-site listings are always labeled claims; reply to requests within 2 business days; remove unconfirmed claims on request; keep accurate public filings; legal demands go to the owner. See `docs/policy-claims-and-takedown.md`. |
 | 2026-10-24 | Owner feedback goes through /admin/roadmap as GitHub issues labeled `feedback`, picked up at the start of each agent session. No scheduled task ("just a way for me to make comments that can be picked up on the next dev session"). One GitHub token per site, limited to that repo. |
 | 2026-10-24 | Home page opens with "Cut through the noise." (owner asked for a line on why the site exists). Act now events on the home page limited to those with an exploitation report in the last 30 days. |
