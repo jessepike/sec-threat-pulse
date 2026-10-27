@@ -116,7 +116,8 @@ async function liveHome(): Promise<HomeData> {
           title: top.row.title,
           verdict: top.row.verdict,
           idsLabel: top.cvss ? `${top.row.idsLabel} · CVSS ${top.cvss.toFixed(1)}` : top.row.idsLabel,
-          blurb: top.summary || "No summary written yet.",
+          // Plain words first: what it is and the first step. The technical summary stays on the event page.
+          blurb: top.row.category && top.row.category.id !== "other" ? `${top.row.exposure} Do this: ${top.row.category.doThis}` : top.summary || "No summary written yet.",
         }
       : null,
     counts,

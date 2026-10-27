@@ -31,7 +31,7 @@ export const ACTIONS: DoItem[] = [
 export const LIVE_ACTIONS: DoItem[] = [
   { lead: "Pick the vendors you use", text: "in the list below, so you only see what applies to you." },
   { lead: "For each Act now match, patch today.", text: "If you cannot, cut it off from the internet until you can." },
-  { lead: "No IT staff?", text: "Send the event page to your IT provider and ask whether you are affected and when it will be fixed." },
+  { lead: "Not the one who patches?", text: "Send the event page to your IT provider or security lead and ask: are we affected, and when will it be fixed?" },
 ];
 
 export const SAMPLE_COUNTS_NOTE = "Most \"act now\" items are edge and remote access systems.";

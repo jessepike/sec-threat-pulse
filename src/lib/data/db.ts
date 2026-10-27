@@ -342,9 +342,11 @@ export async function dbEvent(id: string): Promise<EventView | null> {
         : entailed
           ? `Attacks that worked are ${ladder.exploited} (step 4), so attempts count as ${ladder[r]} too.`
           : "Evidence is recorded but no summary is available.";
-    const times = mine.map((x) => x.o.publishedAt ?? x.o.observedAt).filter(Boolean).map((d) => d.getTime());
+    // An attempts rung set only by confirmed exploitation shows the exploitation reports as its evidence.
+    const shown = entailed ? obs.filter((x) => x.o.kind === "exploited") : mine;
+    const times = shown.map((x) => x.o.publishedAt ?? x.o.observedAt).filter(Boolean).map((d) => d.getTime());
     const newestAt = times.length ? new Date(Math.max(...times)).toISOString() : undefined;
-    return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: text, sources: mine.slice(0, 4).map(ref), newestAt };
+    return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: text, sources: shown.slice(0, 4).map(ref), newestAt };
   });
 
   const [narrative] = (await publishedNarratives(db, [id])).values();
