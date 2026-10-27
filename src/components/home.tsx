@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import type { DriverBar, EventRow, HomeData, KpiView } from "@/lib/data/types";
 import { RUNG_SHORT } from "@/lib/data/sample";
 import { Eyebrow, H2, LadderKey, MiniLadder, Panel, VERDICT_STYLE, VerdictBadge, topLabel } from "./ui";
+import { YourVendors } from "./YourVendors";
 
 const GRID = "grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))]";
 
@@ -242,6 +243,7 @@ export function EventsTable({ events, total }: { events: EventRow[]; total: numb
         </div>
         <LadderKey />
       </div>
+      <YourVendors />
       <EventsGrid events={events} label="Active events with evidence ladder and verdict" />
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-[15px] text-muted">
         <p className="m-0">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EventsGrid } from "@/components/home";
+import { YourVendors } from "@/components/YourVendors";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HomeStrip } from "@/components/StatusStrip";
 import { Eyebrow, LadderKey } from "@/components/ui";
@@ -58,6 +59,8 @@ export default async function EventsIndexPage({ searchParams }: Props) {
           </nav>
           <LadderKey />
         </div>
+
+        <YourVendors />
 
         <section aria-labelledby="list-h" className="flex flex-col gap-4">
           <h2 id="list-h" className="m-0 font-mono text-[13px] font-bold tracking-[0.1em] text-muted">
