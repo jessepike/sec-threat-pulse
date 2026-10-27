@@ -73,6 +73,12 @@ to `events.title_override` and survive syncs. The cron routes apply pending migr
 get_event, search_events). Evidence from VulnCheck and from sources with unclear
 or unapproved terms (CIRCL today) is withheld from the API and counted as withheld.
 
+**Business readers (Oct 27):** owner direction is one simple "do this" view for small and large
+organizations alike. Every event has a plain category with why it matters and a first step
+(`src/lib/ladder/category.ts`), plus a fallback for readers without IT staff. "Vendors you use"
+filters events in the reader's browser. Clarity panel (5 simulated readers, 3 Act now pages):
+11 of 15 before these changes.
+
 **Known gaps:** full plain-English write-ups still need narratives (waiting on the owner:
 ANTHROPIC_API_KEY for AI drafts, or hand-written ones). Some early events lack a product name until
 NVD fills it in (an NVD_API_KEY speeds that up).
