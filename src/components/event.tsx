@@ -1,3 +1,4 @@
+import { NOT_SURE } from "@/lib/ladder/category";
 import Link from "next/link";
 import type { ClaimRating, EventView, RungView, SourceRef } from "@/lib/data/types";
 import { RUNG_SHORT } from "@/lib/data/sample";
@@ -29,7 +30,24 @@ export function EventHero({ e }: { e: EventView }) {
               {e.technicalNames.join(" · ")}
             </p>
           )}
-          {e.summary && <p className="m-0 max-w-[720px] text-lg leading-[1.55] text-fg-2 sm:text-xl">{e.summary}</p>}
+          {e.category && e.category.id !== "other" && (
+            <p className="m-0 max-w-[720px] text-lg leading-[1.55] text-fg sm:text-xl">
+              <span className="block font-mono text-xs tracking-[0.1em] text-muted">WHAT IT IS · {e.category.label.toUpperCase()}</span>
+              {e.businessTerms}
+            </p>
+          )}
+          {e.doThis && (
+            <p className="m-0 max-w-[720px] text-lg leading-[1.55] text-fg sm:text-xl">
+              <span className="block font-mono text-xs font-bold tracking-[0.1em] text-accent">DO THIS FIRST</span>
+              {e.doThis} <span className="text-fg-2">{NOT_SURE}</span>
+            </p>
+          )}
+          {e.summary && (
+            <p className="m-0 max-w-[720px] text-[15px] leading-[1.55] text-muted">
+              <span className="font-mono text-xs tracking-[0.1em]">TECHNICAL SUMMARY </span>
+              {e.summary}
+            </p>
+          )}
           {e.verdictReason && (
             <p className="m-0 max-w-[720px] text-[15px] leading-normal text-muted">
               <span className={`font-mono text-xs font-bold tracking-[0.1em] ${v.text}`}>WHY THIS VERDICT </span>
@@ -122,10 +140,9 @@ export function FullLadder({ e }: { e: EventView }) {
 
 export function Summary({ e }: { e: EventView }) {
   const items = [
-    e.businessTerms && { h: "IN BUSINESS TERMS", t: e.businessTerms, hl: false },
+    e.businessTerms && !e.category && { h: "IN BUSINESS TERMS", t: e.businessTerms, hl: false },
     e.whyAct && { h: "WHY ACT BEFORE PROOF OF DAMAGE", t: e.whyAct, hl: false },
-    e.doThis && { h: "DO THIS FIRST", t: e.doThis, hl: true },
-    e.fix && { h: "THE FIX", t: e.fix, hl: !e.doThis },
+    e.fix && { h: "THE FIX", t: e.fix, hl: true },
   ].filter(Boolean) as { h: string; t: string; hl: boolean }[];
   if (items.length === 0) return null;
   return (

@@ -120,7 +120,7 @@ describe("kevFix", () => {
       { sourceId: "epss", metadata: {} },
     ], new Date("2026-10-25T00:00:00Z"));
     expect(text).toContain("apply the vendor's fix");
-    expect(text).toContain("by Nov 3, 2026");
+    expect(text).toContain("CISA set Nov 3, 2026 as the deadline for US federal agencies");
     expect(text).toContain("ransomware groups use this flaw");
   });
   it("says when the federal deadline has passed", async () => {

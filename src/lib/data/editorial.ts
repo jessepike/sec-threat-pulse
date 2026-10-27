@@ -29,9 +29,9 @@ export const ACTIONS: DoItem[] = [
 ];
 
 export const LIVE_ACTIONS: DoItem[] = [
-  { lead: "List what you expose to the internet,", text: "including systems run by vendors and hosts for you." },
-  { lead: "Check the Act now events below against that list.", text: "Any match is a same-day patch or a decision to isolate." },
-  { lead: "Look back to the first known attempt.", text: "Review logs from that date, not from the patch date." },
+  { lead: "Pick the vendors you use", text: "in the list below, so you only see what applies to you." },
+  { lead: "For each Act now match, patch today.", text: "If you cannot, cut it off from the internet until you can." },
+  { lead: "No IT staff?", text: "Send the event page to your IT provider and ask whether you are affected and when it will be fixed." },
 ];
 
 export const SAMPLE_COUNTS_NOTE = "Most \"act now\" items are edge and remote access systems.";

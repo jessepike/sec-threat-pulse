@@ -300,7 +300,11 @@ export function kevFix(obs: { sourceId: string; metadata?: unknown }[], now: Dat
     const d = new Date(`${due}T12:00:00Z`);
     const label = d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
     const today = now.toISOString().slice(0, 10);
-    parts.push(due < today ? `The deadline for US federal agencies, ${label}, has passed.` : `US federal agencies must do this by ${label}.`);
+    parts.push(
+      due < today
+        ? `The deadline CISA set for US federal agencies, ${label}, has passed. It is a US government deadline; use it as a guide.`
+        : `CISA set ${label} as the deadline for US federal agencies. It is a US government deadline; use it as a guide.`,
+    );
   }
   if (meta.some((m) => m.ransomware === "Known")) parts.push("CISA reports that ransomware groups use this flaw.");
   return parts.join(" ");
@@ -362,8 +366,25 @@ export async function dbEvent(id: string): Promise<EventView | null> {
   const kev = vulns.some((v) => v.kevCisaDateAdded);
   const top = topConfirmed(ladder);
   const row = toRow(e, cves, narrative);
+  // At most 3 links per source; the rest collapse into one line that links to the source's home page.
   const sourceMap = new Map<string, SourceRef>();
-  for (const x of obs) if (!sourceMap.has(x.o.url)) sourceMap.set(x.o.url, ref(x));
+  const perSource = new Map<string, number>();
+  const extra = new Map<string, { n: number; home: string | null; name: string }>();
+  for (const x of obs) {
+    if (sourceMap.has(x.o.url)) continue;
+    const key = x.o.sourceId;
+    const n = (perSource.get(key) ?? 0) + 1;
+    perSource.set(key, n);
+    if (n <= 3) sourceMap.set(x.o.url, ref(x));
+    else {
+      const cur = extra.get(key) ?? { n: 0, home: x.sourceHome ?? null, name: x.sourceName ?? key };
+      cur.n++;
+      extra.set(key, cur);
+    }
+  }
+  for (const [key, x] of extra) {
+    if (x.home) sourceMap.set(`more:${key}`, { label: `${x.name}: ${x.n} more reports`, url: x.home });
+  }
 
   const technicalNames = [...new Set(vulns.map((v) => v.title?.trim()).filter((t): t is string => !!t && t !== row.title))].slice(0, 3);
 

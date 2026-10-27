@@ -149,3 +149,6 @@ export function categorize(vendor: string | null | undefined, product: string | 
   for (const [id, re] of RULES) if (re.test(hay)) return CATEGORIES[id];
   return CATEGORIES.other;
 }
+
+/** Shown under every first step, for readers without their own IT staff. */
+export const NOT_SURE = "Not sure if you use it? Send this page to your IT provider or security lead and ask.";
