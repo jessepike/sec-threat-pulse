@@ -1,4 +1,4 @@
-import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTestDb } from "@/lib/ingest/testdb";
 import * as schema from "@/lib/db/schema";
 
@@ -8,7 +8,10 @@ vi.mock("@/lib/db/client", async () => ({ getDb: () => current, schema: await im
 const { dbBriefEvents, dbCorrections, dbEvent, dbEventsPage, dbHomeEvents } = await import("./db");
 
 const LADDER = { talk: "confirmed", exposure: "none", attempts: "none", exploited: "none", damage: "none" };
+// Fixtures are dated in October 2026. The home page keeps Act now events with evidence from the
+// last 30 days, so the clock is pinned to Oct 10, 2026 or the test would expire in November.
 const day = (n: number) => new Date(Date.UTC(2026, 9, n, 12));
+const NOW = Date.UTC(2026, 9, 10, 12);
 let seq = 0;
 
 async function ev(id: string, verdict: string, over: Partial<typeof schema.events.$inferInsert> = {}) {
@@ -20,7 +23,12 @@ async function obs(eventId: string, kind: string, at: Date) {
 }
 
 beforeAll(async () => {
+  vi.useFakeTimers({ toFake: ["Date"] });
+  vi.setSystemTime(NOW);
   current = await createTestDb();
+});
+afterAll(() => {
+  vi.useRealTimers();
 });
 beforeEach(async () => {
   current = await createTestDb();

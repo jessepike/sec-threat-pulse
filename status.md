@@ -1,5 +1,18 @@
 # Status
 
+Updated Nov 7, 2026. The site is live with real data at https://securitythreatpulse.com and has run unattended since Oct 24 (no source alerts open on Nov 7; API generated 04:09 UTC with evidence from 01:56 UTC).
+
+**Phase:** 0 and 1 live. The Phase 1 gate (7 days of unattended fresh updates, clock started Oct 24) was met by Oct 31 on the evidence of the live API; no session recorded it until Nov 7. Phase 2 measured; v2 active.
+
+**Nov 7 session (research and plan, no code):** gap analysis and a five-wave plan (`docs/plan/world-class-plan-2026-11-07.md`, canonical in the owner's Claude Doc "STP world-class plan"); four research memos under `docs/research/` (leader needs, comparables and primitives, live site review with 12 screenshots, SMP as the model); a value brief with a revised wave order and five proposed decisions (`docs/plan/value-brief.md`). Owner decisions: no API keys, auto deploys, CC BY 4.0 for STP's own fields, the daily routine may merge its own PRs, build order deferred to review. `lessons.md` added. Next: owner reviews the value brief; then Wave 0 (outside probe, `/status.json`, nightly snapshot, daily routine, hygiene, small fixes).
+
+**Live findings on Nov 7:** 75 of 112 events are Act now and 0 are Low; no top 3 to 5; Exposure and Damage rungs never show on Act now events; share-image font error (19 in 7 days); 4 Act now events with empty "why it matters"; 9 Dependabot PRs open since Oct 24; 9 merged feature branches not deleted.
+
+---
+
+Previous status (Oct 24 to 27) follows.
+
+
 Updated Oct 24, 2026, evening. The site is live with real data at https://securitythreatpulse.com.
 
 **Phase:** 0 and 1 live. The 7-day unattended freshness clock for the Phase 1 gate started Oct 24. Phase 2 measured twice (first

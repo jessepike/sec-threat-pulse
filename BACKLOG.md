@@ -39,6 +39,16 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [ ] ransomware.live written approval · VulnCheck agent re-serving · CIRCL data license
 - [ ] Shadowserver, GreyNoise, CrowdSec partnership talks (rungs 2 and 3)
 
+## Research and plan (Nov 7, 2026)
+
+- [x] Orientation, gap analysis and five-wave plan (`docs/plan/world-class-plan-2026-11-07.md`)
+- [x] SMP as the model (`docs/research/smp-model.md`)
+- [x] Leader needs research (`docs/research/leader-needs.md`)
+- [x] Comparables and primitives research (`docs/research/comparables-and-primitives.md`)
+- [x] Live site review (`docs/research/site-review-2026-11-07.md`)
+- [x] Value brief and development approach (`docs/plan/value-brief.md`)
+- [ ] Owner review: the value brief's five proposed decisions and the revised wave order
+
 ## Later phases
 
 3 News and claims · 4 Machine layer (API v1, Act now RSS, llms.txt and MCP server live Oct 25; agent test set to do) · 5 Audience views · 6 Launch
