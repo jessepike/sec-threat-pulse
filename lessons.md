@@ -9,3 +9,4 @@ into AGENTS.md or docs and drop them from here. Read at session start.
 - A health check that runs inside the cron it watches goes quiet exactly when the cron dies. The probe has to run from another host (GitHub Actions).
 - Nothing was committed for 11 days because sessions only start when someone opens one. Autonomy needs a scheduled routine, not a standing rule in AGENTS.md.
 - Security Market Pulse's own blind score found stale and mislabeled figures that reviewers had passed. Freshness and label checks belong in the build, not in review.
+- [withheld:2026-11-07] gitleaks-action on a pull_request event needs `pull-requests: read` on its job; with only `contents: read` it dies with a 403 before scanning, which looks like a leak finding but is not.
