@@ -27,6 +27,9 @@ exploitation, 5 Confirmed damage. Each rung is `confirmed`, `reported` or `none`
 | [docs/architecture.md](docs/architecture.md) | How the system works |
 | [docs/source-registry.md](docs/source-registry.md) | Every source, its terms and how we automate it |
 | [docs/design/](docs/design/) | Approved prototype screens (dark theme primary, grey option) |
+| [docs/plan/](docs/plan/) | Mirrors of the owner's plans (world-class plan, value brief) |
+| [docs/research/](docs/research/) | Research findings: leader needs, comparables, site reviews, SMP model |
+| [lessons.md](lessons.md) | Hot buffer of session lessons. Read at start, add one line when you learn something |
 
 The owner's canonical planning doc (intent, scorecard, roadmap) lives in a Claude Doc; `intent.md`
 and `BACKLOG.md` mirror it for agents.
