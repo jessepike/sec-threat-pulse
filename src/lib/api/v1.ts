@@ -3,7 +3,10 @@ import { getDb, schema } from "@/lib/db/client";
 import { SOURCE_REGISTRY } from "@/lib/ingest/registry";
 import type { ExploitMaturity, Verdict } from "@/lib/ladder/types";
 import type { ActTier } from "@/lib/ladder/rules";
-import { kevFix, loadRecords, recMatchesProduct, type Rec } from "@/lib/data/db";
+import { homeRecs, kevFix, loadRecords, recMatchesProduct, type Rec } from "@/lib/data/db";
+import { weekOfLabel, weekStartIso } from "@/lib/data/format";
+import { topFive, weekLine } from "@/lib/data/top";
+import { CURRENT_RULES_VERSION } from "@/lib/ladder/rules";
 import { SITE_URL } from "@/lib/site";
 import { categorize, type Category } from "@/lib/ladder/category";
 import { untrackedRungs } from "@/lib/ladder/coverage";
@@ -224,6 +227,92 @@ export async function apiAllEvents(): Promise<ApiEventSummary[] | null> {
   const recs = await loadRecords(db);
   const facts = await loadFacts(db, recs.map((r) => r.e.id));
   return recs.map((r) => toSummary(r, facts.get(r.e.id)!));
+}
+
+export interface ApiBriefItem extends ApiEventSummary {
+  rank: number;
+  /** The first step, from the fixed category table. */
+  doThis: string;
+}
+
+export interface ApiBrief {
+  /** Monday of the week, Pacific time (YYYY-MM-DD). The brief's permanent id. */
+  week: string;
+  weekOf: string;
+  /** One sentence for the week from fixed templates. */
+  weekLine: string;
+  rulesVersion: string;
+  /** Act now events with an attack, exploitation or damage report in the last 30 days. The list ranks these. */
+  actNowRecent: number;
+  /** Up to five, in rank order (verdict, tier, score, newest evidence). Never padded with Watch. */
+  top: ApiBriefItem[];
+}
+
+/** The week's short list: the same top five and sentence the home page shows. */
+export async function apiBrief(now: Date = new Date()): Promise<ApiBrief | null> {
+  const db = getDb();
+  if (!db) return null;
+  const all = await loadRecords(db);
+  const shown = homeRecs(all);
+  const ranked = shown.map((r) => ({ r, verdict: r.verdict, tier: r.verdict === "act_now" && (r.e.tier === "today" || r.e.tier === "now") ? (r.e.tier as ActTier) : null }));
+  const top = topFive(ranked);
+  const facts = await loadFacts(db, top.map((t) => t.row.r.e.id));
+  const items = top.map(({ rank, row }) => {
+    const s = toSummary(row.r, facts.get(row.r.e.id)!);
+    return { rank, ...s, doThis: s.category.doThis };
+  });
+  return {
+    week: weekStartIso(now),
+    weekOf: weekOfLabel(now),
+    weekLine: weekLine(ranked, top, all.filter((r) => r.verdict === "act_now").length),
+    rulesVersion: CURRENT_RULES_VERSION,
+    actNowRecent: ranked.filter((x) => x.verdict === "act_now").length,
+    top: items,
+  };
+}
+
+/** At most this many products per stack check, and matches returned per product. */
+export const STACK_MAX_PRODUCTS = 25;
+export const STACK_MAX_MATCHES = 10;
+
+export interface ApiStackHit {
+  query: string;
+  /** Matching events at Act now or Watch, any age. */
+  matched: number;
+  actNow: number;
+  /** Up to 10, in display order. */
+  events: ApiEventSummary[];
+}
+
+/** Splits "Fortinet, PAN-OS,ivanti" into clean product queries. Null when a query has characters we do not accept. */
+export function parseStack(raw: string | null): string[] | null {
+  const items = (raw ?? "").split(/[,\n]/).map((x) => x.trim()).filter(Boolean);
+  if (!items.length || items.length > STACK_MAX_PRODUCTS) return null;
+  if (items.some((x) => x.length < 2 || x.length > 80 || !/^[\w .&/+-]+$/.test(x))) return null;
+  return [...new Set(items.map((x) => x.toLowerCase()))];
+}
+
+/** For each vendor or product in a stack, the Act now and Watch events that name it. */
+export async function apiCheckStack(products: string[]): Promise<{ results: ApiStackHit[]; actNowTotal: number } | null> {
+  const db = getDb();
+  if (!db) return null;
+  const recs = (await loadRecords(db)).filter((r) => r.verdict === "act_now" || r.verdict === "watch");
+  const results = products.map((q) => {
+    const hits = recs.filter((r) => recMatchesProduct(r.e, q));
+    return { q, hits };
+  });
+  const ids = [...new Set(results.flatMap((x) => x.hits.slice(0, STACK_MAX_MATCHES).map((r) => r.e.id)))];
+  const facts = await loadFacts(db, ids);
+  const actNowIds = new Set(results.flatMap((x) => x.hits.filter((r) => r.verdict === "act_now").map((r) => r.e.id)));
+  return {
+    actNowTotal: actNowIds.size,
+    results: results.map(({ q, hits }) => ({
+      query: q,
+      matched: hits.length,
+      actNow: hits.filter((r) => r.verdict === "act_now").length,
+      events: hits.slice(0, STACK_MAX_MATCHES).map((r) => toSummary(r, facts.get(r.e.id)!)),
+    })),
+  };
 }
 
 /** One event with its evidence, minus sources we may not re-serve. */

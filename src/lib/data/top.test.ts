@@ -18,13 +18,14 @@ describe("topFive", () => {
 describe("weekLine", () => {
   it("leads with the Act today count when there is one", () => {
     const rows = [row("a", "act_now", "today"), row("b", "act_now", "today"), row("c", "act_now", "now")];
-    expect(weekLine(rows, topFive(rows))).toBe("3 flaws need action now. 2 had attacks confirmed in the last two weeks on systems open to the internet. Start at the top.");
+    expect(weekLine(rows, topFive(rows), 3)).toBe("3 flaws under attack in the last 30 days need action now. 2 are marked TODAY: exploitation confirmed in the last two weeks, plus a sign of wide use. Start at the top.");
   });
   it("says so when nothing is in the Act today tier", () => {
     const rows = [row("c", "act_now", "now")];
-    expect(weekLine(rows, topFive(rows))).toBe("1 flaw needs action now. None had new attacks confirmed on internet-facing systems in the last two weeks. Start here.");
+    expect(weekLine(rows, topFive(rows), 1)).toBe("1 flaw under attack in the last 30 days needs action now. None is marked TODAY this week. Start here.");
   });
-  it("says a quiet week is quiet", () => {
-    expect(weekLine([row("w", "watch")], [])).toMatch(/^No flaw meets the Act now bar/);
+  it("says a quiet week is quiet, and points at older Act now events when there are some", () => {
+    expect(weekLine([row("w", "watch")], [], 0)).toMatch(/^No flaw meets the Act now bar/);
+    expect(weekLine([row("w", "watch")], [], 4)).toBe("No Act now flaw has a new attack report in the last 30 days. The 4 older ones are on the events list.");
   });
 });

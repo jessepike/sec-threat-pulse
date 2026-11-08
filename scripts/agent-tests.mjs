@@ -277,10 +277,10 @@ await run(25, "Does the human page for the event exist and agree on the verdict?
 });
 
 // MCP
-await run(26, "Does the MCP server list list_events, get_event, search_events and get_track_record?", async () => {
+await run(26, "Does the MCP server list get_brief, check_stack, list_events, get_event, search_events and get_track_record?", async () => {
   const rpc = await mcp("tools/list", {});
   const names = (rpc.result?.tools ?? []).map((t) => t.name);
-  return { pass: ["list_events", "get_event", "search_events", "get_track_record"].every((t) => names.includes(t)), detail: names.join(", ") || rpc.error?.message || "no tools" };
+  return { pass: ["get_brief", "check_stack", "list_events", "get_event", "search_events", "get_track_record"].every((t) => names.includes(t)), detail: names.join(", ") || rpc.error?.message || "no tools" };
 });
 await run(27, "Does list_events over MCP return the same Act now events as the API?", async () => {
   const rpc = await mcp("tools/call", { name: "list_events", arguments: { verdict: "act_now" } }, 2);
@@ -332,6 +332,31 @@ await run(31, "Does the track record add up, and does get_track_record over MCP 
     pass: r.status === 200 && !!sums && versions && rate && prior && agree && (r.json?.versions ?? []).some((v) => v.active),
     detail: o ? `${o.calls} early calls: ${o.right} right, ${o.wrong} wrong, ${o.pending} pending; mcp ${agree ? "agrees" : "differs"}` : `HTTP ${r.status}`,
   };
+});
+
+// Brief and stack
+await run(32, "Is the brief at most five Act now events in API rank order, and does get_brief over MCP agree?", async () => {
+  const r = await get("/api/v1/brief");
+  const top = r.json?.top ?? [];
+  const order = (actNow.json?.events ?? []).map((e) => e.id);
+  const pos = top.map((t) => order.indexOf(t.id));
+  const ranked = top.every((t, i) => t.rank === i + 1 && t.verdict === "act_now" && typeof t.doThis === "string" && t.doThis.length > 0) && pos.every((p, i) => p >= 0 && (i === 0 || p > pos[i - 1]));
+  const m = mcpResult(await mcp("tools/call", { name: "get_brief", arguments: {} }, 7));
+  const agree = JSON.stringify((m?.top ?? []).map((t) => t.id)) === JSON.stringify(top.map((t) => t.id));
+  return {
+    pass: r.status === 200 && top.length <= 5 && typeof r.json?.weekLine === "string" && DATE_RE.test(r.json?.week ?? "") && ranked && agree,
+    detail: `${top.length} item(s), ${ranked ? "in rank order" : "out of order"}, mcp ${agree ? "agrees" : "differs"}`,
+  };
+});
+await run(33, "Does check_stack find the first Act now event by its vendor, over the API and MCP?", async () => {
+  const vendor = first?.vendor;
+  if (!vendor) return { pass: false, detail: "no vendor on the first event" };
+  const r = await get(`/api/v1/check-stack?products=${encodeURIComponent(vendor)}`);
+  const hit = (r.json?.results?.[0]?.events ?? []).some((e) => e.id === first.id) || (r.json?.results?.[0]?.matched ?? 0) > 10;
+  const m = mcpResult(await mcp("tools/call", { name: "check_stack", arguments: { products: [vendor] } }, 8));
+  const agree = m?.results?.[0]?.matched === r.json?.results?.[0]?.matched;
+  const bad = await get("/api/v1/check-stack?products=");
+  return { pass: r.status === 200 && hit && agree && bad.status === 400, detail: `${vendor}: ${r.json?.results?.[0]?.matched ?? "?"} matched, mcp ${agree ? "agrees" : "differs"}, empty list HTTP ${bad.status}` };
 });
 
 const failed = results.filter((r) => !r.pass);

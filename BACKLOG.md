@@ -82,9 +82,9 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 ## Wave 3: Reader product (started Nov 8, 2026) · Gate: a leader gets the week's top items in one screen on a phone
 
 - [x] Home page leads with the top 5 Act now in rank order and one sentence for the week from fixed templates (`src/lib/data/top.ts`)
-- [ ] Weekly brief page and RSS
+- [x] Weekly short list as RSS at `/brief/feed.xml` (one item per week, id'd by the Monday) and JSON at `/api/v1/brief`
 - [ ] Vendor pages at `/vendors/{slug}`
-- [ ] MCP tools `get_brief` and `check_stack`
+- [x] `get_brief` and `check_stack` as MCP tools and API (`/api/v1/brief`, `/api/v1/check-stack?products=`); agent questions 32 and 33
 - [ ] One live chart
 - [ ] NEW and CHANGED markers
 - [ ] Phone fold and tap targets

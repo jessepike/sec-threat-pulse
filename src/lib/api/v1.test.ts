@@ -53,7 +53,7 @@ describe("OpenAPI document", () => {
     expect([...EVENT_REQUIRED_FIELDS].sort()).toEqual(Object.keys(sample).sort());
     const doc = openApiDocument();
     expect(doc.openapi).toBe("3.1.0");
-    expect(Object.keys(doc.paths)).toEqual(["/api/v1/events", "/api/v1/events/{id}", "/api/v1/changes", "/api/v1/export/events-{date}.{format}", "/api/v1/track-record", "/api/v1/health"]);
+    expect(Object.keys(doc.paths)).toEqual(["/api/v1/events", "/api/v1/events/{id}", "/api/v1/changes", "/api/v1/export/events-{date}.{format}", "/api/v1/brief", "/api/v1/check-stack", "/api/v1/track-record", "/api/v1/health"]);
     expect(doc.components.schemas.Change.required).toContain("previousVerdict");
   });
 });

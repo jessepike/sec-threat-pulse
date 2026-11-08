@@ -222,6 +222,12 @@ function countsOf(recs: Rec[]): CountsView {
 }
 
 /** Home page events: Act now with evidence in the last 30 days, up to 12 Watch and 6 Low, early Watch events need 2+ reports. */
+/** The events the home page shows, in display order. */
+export function homeRecs(recs: Rec[]): Rec[] {
+  const byId = new Map(recs.map((r) => [r.e.id, r]));
+  return homeSelection(recs.map(listable)).map((x) => byId.get(x.id)!);
+}
+
 export async function dbHomeEvents(): Promise<{ counts: CountsView; items: EventSummary[] }> {
   const db = getDb();
   if (!db) return { counts: countVerdicts([]), items: [] };

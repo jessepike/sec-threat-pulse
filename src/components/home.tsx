@@ -15,7 +15,7 @@ export function Hero({ data }: { data: HomeData }) {
     <section aria-labelledby="hero" className="flex flex-wrap items-stretch gap-8">
       <div className="hero-card flex min-w-0 flex-[999_1_min(100%,620px)] flex-col gap-[18px] rounded border border-l-[6px] border-line border-l-crit p-6 sm:p-9">
         <Eyebrow>{`// DO THIS FIRST · WEEK OF ${data.weekOf.toUpperCase()}`}</Eyebrow>
-        <h1 id="hero" className="m-0 max-w-[760px] font-display text-[24px] font-bold leading-[1.15] tracking-[-0.02em] sm:text-[36px]">
+        <h1 id="hero" className="m-0 max-w-[760px] font-display text-[24px] font-bold leading-[1.15] tracking-[-0.02em] sm:text-[32px]">
           {data.weekLine}
         </h1>
         {top.length > 0 && (
@@ -49,6 +49,9 @@ export function Hero({ data }: { data: HomeData }) {
           <Link href="/track-record" className="rounded-[3px] border border-line-strong px-5 py-[13px] font-mono text-sm tracking-[0.06em] text-fg no-underline hover:text-fg">
             HOW OFTEN WE ARE RIGHT
           </Link>
+          <a href="/brief/feed.xml" className="self-center px-1 py-3 font-mono text-[13px] tracking-[0.06em] text-muted hover:text-accent">
+            WEEKLY RSS
+          </a>
         </div>
       </div>
 

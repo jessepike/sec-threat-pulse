@@ -1,7 +1,8 @@
 import { createMcpHandler } from "mcp-handler";
 import { unstable_cache } from "next/cache";
 import { z } from "zod";
-import { API_NOTICE, apiEvent, apiEvents, parseApiVerdict } from "@/lib/api/v1";
+import { API_NOTICE, STACK_MAX_PRODUCTS, apiEvent, apiEvents, parseApiVerdict, parseStack } from "@/lib/api/v1";
+import { cachedBrief, cachedCheckStack } from "@/lib/api/cached";
 import { cachedTrackRecord } from "@/lib/track-record/cached";
 
 export const runtime = "nodejs";
@@ -78,6 +79,39 @@ const handler = createMcpHandler(
           if (page >= data.pages) break;
         }
         return json({ notice: API_NOTICE, query, matches: matches.slice(0, 20) });
+      },
+    );
+
+    server.registerTool(
+      "get_brief",
+      {
+        title: "Get this week's short list",
+        description:
+          "The week's top five: up to five Act now events in rank order (verdict, Act today tier, ranking score, newest evidence), each with why it ranks there and the first step, plus one sentence for the week from fixed templates. The same list the home page leads with. Start here.",
+        inputSchema: z.object({}),
+        annotations: { readOnlyHint: true, openWorldHint: false },
+      },
+      async () => {
+        const data = await cachedBrief();
+        if (!data) return fail("Data is not available right now.");
+        return json({ notice: API_NOTICE, ...data });
+      },
+    );
+
+    server.registerTool(
+      "check_stack",
+      {
+        title: "Check a list of vendors or products",
+        description: `Give the vendors or products an organization uses (up to ${STACK_MAX_PRODUCTS}, for example ['Fortinet', 'PAN-OS', 'Microsoft Exchange']). For each one, the Act now and Watch events that name it, in rank order, up to 10 each.`,
+        inputSchema: z.object({ products: z.array(z.string().min(2).max(80)).min(1).max(STACK_MAX_PRODUCTS) }),
+        annotations: { readOnlyHint: true, openWorldHint: false },
+      },
+      async ({ products }) => {
+        const clean = parseStack(products.join(","));
+        if (!clean) return fail("Each product must be 2 to 80 letters, digits, spaces or . & / + - characters.");
+        const data = await cachedCheckStack(clean);
+        if (!data) return fail("Data is not available right now.");
+        return json({ notice: API_NOTICE, products: clean, ...data });
       },
     );
 

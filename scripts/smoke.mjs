@@ -65,6 +65,18 @@ try {
 } catch {
   ok(false, "api track record returns JSON");
 }
+try {
+  const br = await get("/api/v1/brief");
+  const d = JSON.parse(br.text);
+  ok(br.res.status === 200 && typeof d.weekLine === "string" && Array.isArray(d.top) && d.top.length <= 5 && d.top.every((t, i) => t.rank === i + 1 && t.verdict === "act_now"), `api brief lists ${d.top?.length} item(s) for week ${d.week}`);
+  const cs = await get("/api/v1/check-stack?products=Microsoft,Fortinet");
+  const c = JSON.parse(cs.text);
+  ok(cs.res.status === 200 && c.results?.length === 2, `api check-stack answers for 2 products (${c.actNowTotal} Act now)`);
+  const feed = await get("/brief/feed.xml");
+  ok(feed.res.status === 200 && feed.text.includes("<rss") && feed.text.includes(`week-${d.week}`), "brief RSS carries this week's item");
+} catch {
+  ok(false, "api brief and check-stack return JSON");
+}
 {
   const today = new Date().toISOString().slice(0, 10);
   const csv = await get(`/api/v1/export/events-${today}.csv`);
@@ -89,7 +101,7 @@ const mcp = await get("/api/mcp", {
   headers: { "content-type": "application/json", accept: "application/json, text/event-stream", "mcp-protocol-version": "2025-06-18" },
   body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }),
 });
-ok(["list_events", "get_event", "search_events", "get_track_record"].every((t) => mcp.text.includes(`"${t}"`)), "mcp lists its four tools");
+ok(["get_brief", "check_stack", "list_events", "get_event", "search_events", "get_track_record"].every((t) => mcp.text.includes(`"${t}"`)), "mcp lists its six tools");
 
 try {
   const { chromium } = await import("playwright");
