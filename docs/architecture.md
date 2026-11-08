@@ -5,6 +5,7 @@ Status: Phase 0 to 1 design, Oct 24, 2026.
 ## Data flow
 
 ```
+Vercel build: scripts/db-migrate.mjs applies pending Drizzle migrations (production only), then next build
 Vercel Cron (every 15 min) -> /api/cron/ingest  (CRON_SECRET)
    picks sources whose interval has elapsed
    v
