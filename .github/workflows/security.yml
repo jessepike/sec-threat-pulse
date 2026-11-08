@@ -39,6 +39,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   codeql:
+    # Code scanning upload needs GitHub Advanced Security, which private repos
+    # without it cannot enable. Runs once the repo is public (launch gate).
+    if: github.event.repository.private == false
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
