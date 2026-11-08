@@ -88,10 +88,10 @@ const isSummary = (e) =>
   ISO_RE.test(e.newestEvidenceAt);
 const ladderOk = (l) => l && typeof l === "object" && RUNGS.every((r) => STATES.includes(l[r]));
 const ladderConsistent = (l) => {
-  // Confirmed exploitation entails attempts. Exposure (public exploit code) is independent.
-  if (l.exploited === "confirmed" && l.attempts === "none") return false;
-  if (l.damage === "confirmed" && l.exploited === "none") return false;
-  return true;
+  // The one entailment the ladder implements: exploitation lifts attempts to at least its state.
+  // Exposure (public exploit code) and damage are measured on their own.
+  const rank = { none: 0, reported: 1, confirmed: 2 };
+  return rank[l.attempts] >= rank[l.exploited];
 };
 
 const results = [];
