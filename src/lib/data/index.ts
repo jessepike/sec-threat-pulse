@@ -201,7 +201,8 @@ export function parseProductFilter(raw: string | string[] | undefined): string |
 export async function getEventsIndex(filter: VerdictFilter, page: number, product?: string): Promise<EventsIndexData> {
   const mode = getMode();
   if (mode === "sample") {
-    const listed = product ? SAMPLE_LISTED.filter((x) => (x.view.products ?? []).some((p) => p.slug === product || p.label.toLowerCase() === product.toLowerCase()) || x.view.vendor?.toLowerCase() === product.toLowerCase()) : SAMPLE_LISTED;
+    // Vendor pages link sample products by the fixed sample vendor map, so the filter honours it too.
+    const listed = product ? SAMPLE_LISTED.filter((x) => (x.view.products ?? []).some((p) => p.slug === product || p.label.toLowerCase() === product.toLowerCase()) || x.view.vendor?.toLowerCase() === product.toLowerCase() || sampleVendorRef(x.view.id)?.slug === product) : SAMPLE_LISTED;
     const p = paginateListed(listed, filter, page);
     return {
       status: SAMPLE_STATUS,
@@ -235,10 +236,15 @@ const SAMPLE_VENDOR: Record<string, [string, string, string]> = {
   "plex-media-server": ["plex", "Plex", "Plex Media Server"],
 };
 
+function sampleVendorRef(id: string) {
+  const v = SAMPLE_VENDOR[id];
+  return v ? { vendorKey: v[0], vendor: v[1], slug: `${v[0]}/${normKey(v[2])}`, label: v[2], kind: "direct" as const } : undefined;
+}
+
 function sampleVendorItems(): VendorItem[] {
   return sortListed(SAMPLE_LISTED).map((x) => {
-    const v = SAMPLE_VENDOR[x.view.id];
-    return { id: x.view.id, verdict: x.view.verdict, products: v ? [{ vendorKey: v[0], vendor: v[1], slug: `${v[0]}/${normKey(v[2])}`, label: v[2], kind: "direct" as const }] : [] };
+    const ref = sampleVendorRef(x.view.id);
+    return { id: x.view.id, verdict: x.view.verdict, products: ref ? [ref] : [] };
   });
 }
 
