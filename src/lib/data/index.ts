@@ -1,7 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { RUNGS } from "@/lib/ladder/types";
-import { countVerdicts, dbBriefEvents, dbCorrections, dbEvent, dbEventEntries, dbEventsPage, dbHomeEvents, dbKevCounts, dbStatus, firstSentence } from "./db";
-import { EVENTS_PAGE_SIZE, homeSelection, paginateListed, type Listable } from "./listing";
+import { countVerdicts, dbVendor, dbVendors, dbBriefEvents, dbCorrections, dbEvent, dbEventEntries, dbEventsPage, dbHomeEvents, dbKevCounts, dbStatus, firstSentence } from "./db";
+import { EVENTS_PAGE_SIZE, homeSelection, paginateListed, sortListed, type Listable } from "./listing";
 import {
   ACTIONS,
   LIVE_ACTIONS,
@@ -21,6 +21,8 @@ import {
 import { fmtDay, weekOfLabel } from "./format";
 import { SAMPLE_EVENTS } from "./sample";
 import { topFive, weekLine } from "./top";
+import { groupVendors, VENDOR_KEY_RE, type VendorItem, type VendorSummary } from "./vendors";
+import { normKey } from "@/lib/products";
 import type { BriefData, CorrectionView, DataMode, EventRow, EventsIndexData, EventView, HomeData, KpiView, StatusView, VerdictFilter } from "./types";
 
 export * from "./types";
@@ -216,6 +218,50 @@ export async function getEventsIndex(filter: VerdictFilter, page: number, produc
   }
   const [r, status] = await Promise.all([cachedLiveEventsPage(filter, page, product ?? ""), liveStatus()]);
   return { status, mode, filter, product, counts: r.counts, rows: r.rows, total: r.total, page: r.page, pages: r.pages, pageSize: EVENTS_PAGE_SIZE };
+}
+
+const cachedLiveVendors = unstable_cache(async () => dbVendors(), ["stp-vendors"], { revalidate: REVALIDATE, tags: ["stp"] });
+const cachedLiveVendor = unstable_cache(async (key: string) => dbVendor(key), ["stp-vendor"], { revalidate: REVALIDATE, tags: ["stp"] });
+
+/** Sample events carry few product chips, so vendors come from this fixed list. */
+const SAMPLE_VENDOR: Record<string, [string, string, string]> = {
+  php2shell: ["php", "PHP", "PHP"],
+  "citrix-netscaler": ["citrix", "Citrix", "Citrix NetScaler ADC"],
+  "beyondtrust-remote-support": ["beyondtrust", "BeyondTrust", "BeyondTrust Remote Support"],
+  "ivanti-connect-secure": ["ivanti", "Ivanti", "Ivanti Connect Secure"],
+  "palo-alto-pan-os": ["paloaltonetworks", "Palo Alto Networks", "PAN-OS"],
+  "atlassian-file-exposure": ["atlassian", "Atlassian", "Atlassian Confluence"],
+  "php-unpatched-flaw": ["php", "PHP", "PHP"],
+  "plex-media-server": ["plex", "Plex", "Plex Media Server"],
+};
+
+function sampleVendorItems(): VendorItem[] {
+  return sortListed(SAMPLE_LISTED).map((x) => {
+    const v = SAMPLE_VENDOR[x.view.id];
+    return { id: x.view.id, verdict: x.view.verdict, products: v ? [{ vendorKey: v[0], vendor: v[1], slug: `${v[0]}/${normKey(v[2])}`, label: v[2], kind: "direct" as const }] : [] };
+  });
+}
+
+/** Every vendor named by an event, Act now count first. */
+export async function getVendors(): Promise<{ mode: DataMode; status: StatusView; vendors: VendorSummary[] }> {
+  const mode = getMode();
+  if (mode === "sample") return { mode, status: SAMPLE_STATUS, vendors: groupVendors(sampleVendorItems()) };
+  const [vendors, status] = await Promise.all([cachedLiveVendors(), liveStatus()]);
+  return { mode, status, vendors };
+}
+
+/** One vendor page, or null when no event names the vendor. */
+export async function getVendor(key: string): Promise<{ mode: DataMode; status: StatusView; vendor: VendorSummary; rows: EventRow[] } | null> {
+  if (!VENDOR_KEY_RE.test(key)) return null;
+  const mode = getMode();
+  if (mode === "sample") {
+    const vendor = groupVendors(sampleVendorItems()).find((v) => v.key === key);
+    if (!vendor) return null;
+    const ids = new Set(vendor.eventIds);
+    return { mode, status: SAMPLE_STATUS, vendor, rows: sortListed(SAMPLE_LISTED).filter((x) => ids.has(x.view.id)).map((x) => toRow(x.view)) };
+  }
+  const [r, status] = await Promise.all([cachedLiveVendor(key), liveStatus()]);
+  return r ? { mode, status, ...r } : null;
 }
 
 const cachedLiveCorrections = unstable_cache(async () => dbCorrections(), ["stp-corrections"], { revalidate: REVALIDATE, tags: ["stp"] });

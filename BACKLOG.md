@@ -83,7 +83,7 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 
 - [x] Home page leads with the top 5 Act now in rank order and one sentence for the week from fixed templates (`src/lib/data/top.ts`)
 - [x] Weekly short list as RSS at `/brief/feed.xml` (one item per week, id'd by the Monday) and JSON at `/api/v1/brief`
-- [ ] Vendor pages at `/vendors/{slug}`
+- [x] Vendor pages at `/vendors/{key}` and `/vendors?stack=` (your vendors in the address, bookmarkable)
 - [x] `get_brief` and `check_stack` as MCP tools and API (`/api/v1/brief`, `/api/v1/check-stack?products=`); agent questions 32 and 33
 - [ ] One live chart
 - [ ] NEW and CHANGED markers

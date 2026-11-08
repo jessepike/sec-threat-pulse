@@ -12,6 +12,7 @@ import type { ClaimView, ClockPointView, ClockView, CorrectionView, CountsView, 
 import { computeClock, sourceCounts, type Clock } from "@/lib/ladder/clock";
 import { untrackedNote } from "@/lib/ladder/coverage";
 import { matchesProductQuery, productLabel, resolveAffectedProducts, type AffectedProduct } from "@/lib/products";
+import { groupVendors, type VendorItem, type VendorSummary } from "./vendors";
 
 type Db = NonNullable<ReturnType<typeof getDb>>;
 
@@ -222,6 +223,32 @@ function countsOf(recs: Rec[]): CountsView {
 }
 
 /** Home page events: Act now with evidence in the last 30 days, up to 12 Watch and 6 Low, early Watch events need 2+ reports. */
+function vendorItems(recs: Rec[]): VendorItem[] {
+  return recs.map((r) => {
+    const list: AffectedProduct[] = r.e.affectedProducts?.length ? r.e.affectedProducts : resolveAffectedProducts([{ vendor: r.e.vendor, product: r.e.product, evidence: "kev" }]);
+    return { id: r.e.id, verdict: r.verdict, products: list.map((p) => ({ vendorKey: p.vendorKey, vendor: p.vendor, slug: p.slug, label: productLabel(p), kind: p.kind })) };
+  });
+}
+
+/** Every vendor named by a visible event, Act now count first. */
+export async function dbVendors(): Promise<VendorSummary[]> {
+  const db = getDb();
+  if (!db) return [];
+  return groupVendors(vendorItems(await loadRecords(db)));
+}
+
+/** One vendor with its events in display order (at most 100), or null when no visible event names it. */
+export async function dbVendor(key: string): Promise<{ vendor: VendorSummary; rows: EventRow[] } | null> {
+  const db = getDb();
+  if (!db) return null;
+  const recs = await loadRecords(db);
+  const vendor = groupVendors(vendorItems(recs)).find((v) => v.key === key);
+  if (!vendor) return null;
+  const ids = new Set(vendor.eventIds.slice(0, 100));
+  const items = await summarize(db, recs.filter((r) => ids.has(r.e.id)));
+  return { vendor, rows: items.map((x) => x.row) };
+}
+
 /** The events the home page shows, in display order. */
 export function homeRecs(recs: Rec[]): Rec[] {
   const byId = new Map(recs.map((r) => [r.e.id, r]));
