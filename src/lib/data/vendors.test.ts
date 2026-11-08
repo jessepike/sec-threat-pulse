@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { groupVendors, parseVendorStack, type VendorProductRef } from "./vendors";
+import { groupVendors, parseVendorStack, stackTotals, type VendorProductRef } from "./vendors";
 
 const p = (vendorKey: string, product: string, kind: "direct" | "embedded" = "direct"): VendorProductRef => ({ vendorKey, vendor: vendorKey.toUpperCase(), slug: `${vendorKey}/${product}`, label: `${vendorKey} ${product}`, kind });
 
@@ -18,6 +18,16 @@ describe("groupVendors", () => {
   it("sorts vendors by Act now, Watch, total, then name, and drops bad keys", () => {
     expect(vs.map((v) => v.key)).toEqual(["fortinet", "ivanti", "cisco"]);
     expect(vs.find((v) => v.key === "cisco")!.products[0].embedded).toBe(true);
+  });
+});
+
+describe("stackTotals", () => {
+  it("counts an event that names two chosen vendors once", () => {
+    const vs = groupVendors([
+      { id: "a", verdict: "act_now", products: [p("fortinet", "fortios")] },
+      { id: "b", verdict: "watch", products: [p("fortinet", "fortios"), p("ivanti", "epmm")] },
+    ]);
+    expect(stackTotals(vs)).toEqual({ actNow: 1, watch: 1 });
   });
 });
 

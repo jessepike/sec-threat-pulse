@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { HomeStrip } from "@/components/StatusStrip";
 import { Eyebrow, VERDICT_STYLE } from "@/components/ui";
 import { getVendors } from "@/lib/data";
-import { parseVendorStack, type VendorSummary } from "@/lib/data/vendors";
+import { parseVendorStack, stackTotals, type VendorSummary } from "@/lib/data/vendors";
 import { pageMeta } from "@/lib/site";
 
 export const revalidate = 300;
@@ -40,6 +40,7 @@ export default async function VendorsPage({ searchParams }: Props) {
   const hit = (k: string, v: VendorSummary) => v.key === k || (k.length >= 4 && v.key.startsWith(k));
   const mine = vendors.filter((v) => stack.some((k) => hit(k, v)));
   const missing = stack.filter((k) => !vendors.some((v) => hit(k, v)));
+  const totals = stackTotals(mine);
   const flagged = vendors.filter((v) => v.actNow + v.watch > 0);
   const rest = vendors.filter((v) => v.actNow + v.watch === 0);
   return (
@@ -58,7 +59,7 @@ export default async function VendorsPage({ searchParams }: Props) {
         {stack.length > 0 && (
           <section aria-labelledby="mine-h" className="flex flex-col gap-4">
             <h2 id="mine-h" className="m-0 font-mono text-[13px] font-bold tracking-[0.1em] text-muted">
-              YOUR STACK · {mine.reduce((n, v) => n + v.actNow, 0)} ACT NOW · {mine.reduce((n, v) => n + v.watch, 0)} WATCH
+              YOUR STACK · {totals.actNow} ACT NOW · {totals.watch} WATCH
             </h2>
             {mine.length > 0 && <ul className="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(min(100%,260px),1fr))] gap-3 p-0">{mine.map((v) => <VendorCard key={v.key} v={v} />)}</ul>}
             {missing.length > 0 && <p className="m-0 text-[15px] text-muted">No tracked event names {missing.join(", ")}.</p>}
