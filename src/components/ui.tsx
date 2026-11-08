@@ -21,6 +21,21 @@ export function VerdictBadge({ verdict, large = false }: { verdict: Verdict; lar
   );
 }
 
+/** The Act today tier, shown beside an Act now badge. */
+export function TierBadge({ tier, large = false }: { tier?: "today" | "now" | null; large?: boolean }) {
+  if (tier !== "today") return null;
+  return (
+    <span
+      className={`inline-block whitespace-nowrap rounded-sm border border-crit bg-crit font-mono font-bold text-white ${
+        large ? "px-3 py-2 text-[15px] tracking-[0.1em]" : "px-[9px] py-1.5 text-xs tracking-[0.08em]"
+      }`}
+      title="Exploitation confirmed in the last two weeks on an internet-facing product, with ransomware use or with public attack tools"
+    >
+      TODAY
+    </span>
+  );
+}
+
 export function Eyebrow({ children }: { children: ReactNode }) {
   return <div className="font-mono text-xs tracking-[0.1em] text-muted">{children}</div>;
 }

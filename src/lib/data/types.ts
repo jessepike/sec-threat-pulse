@@ -1,4 +1,5 @@
 import type { ExploitMaturity, Ladder, Rung, Verdict } from "@/lib/ladder/types";
+import type { ActTier } from "@/lib/ladder/rules";
 
 export type DataMode = "sample" | "live";
 
@@ -65,6 +66,8 @@ export interface EventRow {
   exposure: string;
   question: string | null;
   verdict: Verdict;
+  /** Tier inside Act now from the rules version, when it sets one (v3 on). */
+  tier?: ActTier;
   ladder: Ladder;
   topConfirmed: Rung | null;
   /** Vendor name as shown, for the "vendors I use" filter. */
@@ -107,6 +110,8 @@ export interface EventView extends EventRow {
   cvss?: number;
   summary: string;
   verdictReason?: string;
+  /** One line per ranking factor, from the rules version (v3 on). */
+  rankWhy?: string[];
   exploitMaturity: ExploitMaturity;
   facts: Fact[];
   rungs: RungView[];

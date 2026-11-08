@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildEvents, clusterKev, kevDate, slug, type EventObservation, type EventVuln } from "./events";
+import { buildEvents, signalDays, clusterKev, kevDate, slug, type EventObservation, type EventVuln } from "./events";
 import { CURRENT_RULES_VERSION } from "./rules";
 
 const now = new Date("2026-10-24T00:00:00Z");
@@ -39,6 +39,21 @@ describe("buildEvents", () => {
     expect(again[0].id).toBe(e[0].id);
     expect(again[0].cveIds).toEqual(["CVE-2026-1001", "CVE-2026-1002"]);
     expect(again[0].title).toBe("Palo Alto Networks PAN-OS: 2 flaws used in attacks");
+  });
+
+  it("under rules v3 sets the Act today tier and a ranking score, and leaves them unset under v2", () => {
+    const vulns = [v("CVE-2026-1001", "2026-10-20", "Fortinet", "FortiOS", { epss: 0.7 })];
+    const observations = [obs(1, ["CVE-2026-1001"], "exploited", "confirmed")];
+    const [v2] = buildEvents(vulns, observations, { now, rulesVersion: "v2" });
+    expect(v2.tier).toBeUndefined();
+    expect(v2.rankScore).toBeUndefined();
+    const [v3] = buildEvents(vulns, observations, { now, rulesVersion: "v3" });
+    expect(v3.verdict).toBe("act_now");
+    expect(v3.tier).toBe("today");
+    expect(v3.rankScore).toBeGreaterThanOrEqual(6);
+    expect(v3.rankWhy?.[0]).toBe("Exploitation is confirmed by an authoritative source.");
+    // The signal dates come from the KEV listing, Oct 20, four days before `now`.
+    expect(signalDays(vulns, observations, now)).toEqual({ daysSinceConfirmed: 4, daysSinceFirstReport: 4 });
   });
 
   it("disambiguates colliding slugs", () => {

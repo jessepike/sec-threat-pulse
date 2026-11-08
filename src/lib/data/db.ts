@@ -1,6 +1,7 @@
 import { and, desc, eq, gte, inArray, isNotNull, sql } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db/client";
 import { RUNGS, type ExploitMaturity, type Ladder, type RungState, type Verdict } from "@/lib/ladder/types";
+import type { ActTier } from "@/lib/ladder/rules";
 import { RUNG_SHORT, topConfirmed } from "./sample";
 import { firstQuestion, questionLines } from "@/lib/narrative/model";
 import { homeSelection, paginateListed, sortListed, type Listable } from "./listing";
@@ -12,6 +13,10 @@ import { computeClock, sourceCounts, type Clock } from "@/lib/ladder/clock";
 import { matchesProductQuery, productLabel, resolveAffectedProducts, type AffectedProduct } from "@/lib/products";
 
 type Db = NonNullable<ReturnType<typeof getDb>>;
+
+const asTier = (t: string | null | undefined): ActTier | undefined => (t === "today" || t === "now" ? t : undefined);
+/** The stored tier, unless an admin override moved the event out of Act now. */
+const tierOf = (e: { tier: string | null }, verdict: Verdict): ActTier | undefined => (verdict === "act_now" ? asTier(e.tier) : undefined);
 
 function asVerdict(v: string | null | undefined): Verdict {
   return v === "act_now" || v === "watch" ? v : "low";
@@ -135,6 +140,7 @@ function toRow(e: EventRecord, cves: string[], n?: Pick<NarrativeRecord, "askYou
     exposure: cat.why || (e.summary ? firstSentence(e.summary) : "No summary written yet."),
     question: firstQuestion(n?.askYourTeam) ?? defaultQuestion(e.vendor, e.product),
     verdict,
+    tier: tierOf(e, verdict),
     ladder,
     topConfirmed: topConfirmed(ladder),
   };
@@ -190,10 +196,10 @@ export async function loadRecords(db: Db): Promise<Rec[]> {
       reports: Number(r.n ?? 0),
     };
   });
-  return sortListed(recs.map((r) => ({ ...r, id: r.e.id }))).map(({ e, verdict, evidenceAt, seenAt, signalAt, reports }) => ({ e, verdict, evidenceAt, seenAt, signalAt, reports }));
+  return sortListed(recs.map((r) => ({ ...r, id: r.e.id, tier: tierOf(r.e, r.verdict), rankScore: r.e.rankScore }))).map(({ e, verdict, evidenceAt, seenAt, signalAt, reports }) => ({ e, verdict, evidenceAt, seenAt, signalAt, reports }));
 }
 
-const listable = (r: Rec): Listable => ({ id: r.e.id, verdict: r.verdict, evidenceAt: r.evidenceAt, signalAt: r.signalAt, reports: r.reports });
+const listable = (r: Rec): Listable => ({ id: r.e.id, verdict: r.verdict, evidenceAt: r.evidenceAt, signalAt: r.signalAt, reports: r.reports, tier: tierOf(r.e, r.verdict), rankScore: r.e.rankScore });
 
 async function summarize(db: Db, recs: Rec[]): Promise<EventSummary[]> {
   const rows = recs.map((r) => r.e);
@@ -475,6 +481,7 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     cvss: scores.length ? Math.max(...scores) : undefined,
     summary: e.summary ?? "",
     verdictReason: e.overrideReason ?? e.verdictReason ?? undefined,
+    rankWhy: row.tier ? (e.rankWhy ?? undefined) : undefined,
     exploitMaturity: (e.exploitMaturity as ExploitMaturity) ?? "none",
     facts: [
       { label: "HIGHEST CONFIRMED RUNG", value: top ? RUNG_SHORT[top] : "NOTHING YET" },

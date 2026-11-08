@@ -77,6 +77,9 @@ export const SCHEMAS = {
       title: { type: "string" },
       verdict: { $ref: "#/components/schemas/Verdict" },
       verdictReason: nullable({ type: "string" }),
+      tier: nullable({ type: "string", enum: ["today", "now"], description: "Tier inside Act now. \"today\" is the short list: exploitation confirmed in the last 14 days on an internet-facing product, or with ransomware use or public attack tools. Null below Act now and before rules v3." }),
+      rankScore: nullable({ type: "integer", minimum: 0, maximum: 11, description: "Ranking score inside the verdict, higher first. Null before rules v3." }),
+      rankWhy: nullable({ type: "array", items: { type: "string" }, description: "One plain line per ranking factor." }),
       rulesVersion: { type: "string" },
       ladder: { $ref: "#/components/schemas/Ladder" },
       cves: { type: "array", items: { type: "string" } },
@@ -95,7 +98,7 @@ export const SCHEMAS = {
       updatedAt: { type: "string", format: "date-time" },
       newestEvidenceAt: { type: "string", format: "date-time" },
     },
-    required: ["id", "url", "title", "verdict", "verdictReason", "rulesVersion", "ladder", "cves", "vendor", "product", "affectedProducts", "category", "summary", "cvss", "epss", "exploitMaturity", "kevListed", "kevDateAdded", "kevDueDate", "firstSeenAt", "updatedAt", "newestEvidenceAt"],
+    required: ["id", "url", "title", "verdict", "verdictReason", "tier", "rankScore", "rankWhy", "rulesVersion", "ladder", "cves", "vendor", "product", "affectedProducts", "category", "summary", "cvss", "epss", "exploitMaturity", "kevListed", "kevDateAdded", "kevDueDate", "firstSeenAt", "updatedAt", "newestEvidenceAt"],
   },
   EventDetail: {
     allOf: [

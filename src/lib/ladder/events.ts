@@ -1,6 +1,8 @@
 import { computeExploitMaturity, computeLadder, reportedExploitationSources, type LadderObservation } from "./compute";
 import { plainTitle } from "./plain-title";
-import { CURRENT_RULES_VERSION, evaluateVerdict } from "./rules";
+import { CURRENT_RULES_VERSION, evaluateVerdict, type ActTier } from "./rules";
+import { reportDate } from "./clock";
+import { categorize } from "./category";
 import type { ExploitMaturity, Ladder, Verdict } from "./types";
 import { fromCpePairs, resolveAffectedProducts, type AffectedProduct, type ProductEvidence } from "@/lib/products";
 
@@ -27,6 +29,8 @@ export interface EventVuln {
 export interface EventObservation extends LadderObservation {
   id: number;
   cveIds: string[];
+  /** When the source says it happened or was published. Dates the clock and the v3 inputs. */
+  publishedAt?: Date | string | null;
 }
 
 export interface ComputedEvent {
@@ -44,6 +48,10 @@ export interface ComputedEvent {
   exploitMaturity: ExploitMaturity;
   verdict: Verdict;
   verdictReason: string;
+  /** Tier inside Act now and the ranking score, when the rules version sets them (v3 on). */
+  tier?: ActTier;
+  rankScore?: number;
+  rankWhy?: string[];
   rulesVersion: string;
   observationIds: number[];
 }
@@ -144,21 +152,49 @@ export interface Assessment {
   exploitMaturity: ExploitMaturity;
   verdict: Verdict;
   verdictReason: string;
+  tier?: ActTier;
+  rankScore?: number;
+  rankWhy?: string[];
   observationIds: number[];
 }
 
+const daysAgo = (day: string | undefined, now: Date): number | undefined => (day ? Math.max(0, Math.floor((now.getTime() - Date.parse(`${day}T00:00:00Z`)) / DAY)) : undefined);
+
+/**
+ * Dates behind the v3 inputs. Confirmation: the earliest KEV listing, or a dated confirmed
+ * exploitation observation. First report: the earliest dated attack, exploitation or damage
+ * observation that is not a claim, read with the clock's rule for which dates count.
+ */
+export function signalDays(vulns: EventVuln[], obs: EventObservation[], now: Date): { daysSinceConfirmed?: number; daysSinceFirstReport?: number } {
+  const confirmed = [
+    ...vulns.map((v) => kevDate(v)),
+    ...obs.filter((o) => o.kind === "exploited" && o.strength === "confirmed").map((o) => reportDate({ sourceId: o.sourceId, publishedAt: o.publishedAt, metadata: o.metadata })),
+  ].filter((d): d is string => !!d).sort();
+  const reports = obs
+    .filter((o) => (o.kind === "attempts" || o.kind === "exploited" || o.kind === "damage") && o.strength !== "claimed")
+    .map((o) => reportDate({ sourceId: o.sourceId, publishedAt: o.publishedAt, metadata: o.metadata }))
+    .concat(confirmed)
+    .filter((d): d is string => !!d)
+    .sort();
+  return { daysSinceConfirmed: daysAgo(confirmed[0], now), daysSinceFirstReport: daysAgo(reports[0], now) };
+}
+
 /** Ladder, maturity and verdict for one group of CVEs and the observations that mention them. */
-function assessGroup(vulns: EventVuln[], obs: EventObservation[], vendor: string | undefined, product: string | undefined, now: Date, rulesVersion: string): Assessment {
+function assessGroup(vulns: EventVuln[], obs: EventObservation[], vendor: string | undefined, product: string | undefined, now: Date, rulesVersion: string, products: AffectedProduct[] = []): Assessment {
   const ladder = computeLadder(obs);
   const exploitMaturity = computeExploitMaturity(obs, vulns.map((v) => v.exploitMaturity));
   const epss = Math.max(0, ...vulns.map((v) => v.epss ?? 0));
   const cvss = Math.max(0, ...vulns.map((v) => v.cvssScore ?? 0));
   const ages = vulns.map((v) => (v.publishedAt ? Math.floor((now.getTime() - new Date(v.publishedAt).getTime()) / DAY) : undefined)).filter((n): n is number => n !== undefined && Number.isFinite(n));
   const pocRepoCount = Math.max(0, ...obs.map((o) => (o.sourceId === "poc-github" && typeof o.metadata?.repoCount === "number" ? o.metadata.repoCount : 0)));
-  const { verdict, reason } = evaluateVerdict(
+  const { verdict, reason, tier, score, scoreWhy } = evaluateVerdict(
     ladder,
     {
       exploitMaturity,
+      ...signalDays(vulns, obs, now),
+      categoryId: categorize(vendor, product).id,
+      affectedProductCount: products.filter((p) => p.kind === "direct").length || undefined,
+      embedsComponent: products.some((p) => p.kind === "embedded") || undefined,
       epss: epss || undefined,
       kevRansomware: vulns.some((v) => v.kevCisaRansomware === true),
       vendor,
@@ -171,7 +207,7 @@ function assessGroup(vulns: EventVuln[], obs: EventObservation[], vendor: string
     },
     rulesVersion,
   );
-  return { ladder, exploitMaturity, verdict, verdictReason: reason, observationIds: obs.map((o) => o.id).sort((a, b) => a - b) };
+  return { ladder, exploitMaturity, verdict, verdictReason: reason, tier, rankScore: score, rankWhy: scoreWhy, observationIds: obs.map((o) => o.id).sort((a, b) => a - b) };
 }
 
 export interface BuildOptions {
@@ -221,7 +257,8 @@ export function buildEvents(vulns: EventVuln[], observations: EventObservation[]
     const cveIds = c.vulns.map((v) => v.cveId.toUpperCase()).sort();
     const seen = new Map<number, EventObservation>();
     for (const cve of cveIds) for (const o of byCve.get(cve) ?? []) seen.set(o.id, o);
-    const a = assessGroup(c.vulns, [...seen.values()], c.vendor, c.product, now, rulesVersion);
+    const affectedProducts = affectedProductsFor(c.vulns, c, true);
+    const a = assessGroup(c.vulns, [...seen.values()], c.vendor, c.product, now, rulesVersion, affectedProducts);
     const first = c.vulns[0];
     events.push({
       id: adoptId(cveIds) ?? id,
@@ -229,7 +266,7 @@ export function buildEvents(vulns: EventVuln[], observations: EventObservation[]
       summary: clipSummary(first.description),
       vendor: c.vendor,
       product: c.product,
-      affectedProducts: affectedProductsFor(c.vulns, c, true),
+      affectedProducts,
       cveIds,
       firstSeenAt: new Date(`${c.firstDate}T00:00:00Z`).toISOString(),
       ...a,
@@ -296,7 +333,8 @@ export function buildEarlyEvents(
       skippedNoAge.push(cve);
       continue;
     }
-    const a = assessGroup([v], obs, v.vendor ?? undefined, v.product ?? undefined, now, rulesVersion);
+    const affectedProducts = affectedProductsFor([v], undefined, false);
+    const a = assessGroup([v], obs, v.vendor ?? undefined, v.product ?? undefined, now, rulesVersion, affectedProducts);
     const earliest = Math.min(...qualifying.map(when));
     const reports = qualifying.filter((o) => o.kind === "exploited").length;
     const honeypot = qualifying.some((o) => o.kind === "attempts") ? 1 : 0;
@@ -309,7 +347,7 @@ export function buildEarlyEvents(
       summary: clipSummary(v.description),
       vendor: v.vendor ?? undefined,
       product: v.product ?? undefined,
-      affectedProducts: affectedProductsFor([v], undefined, false),
+      affectedProducts,
       cveIds: [cve],
       firstSeenAt: new Date(earliest).toISOString(),
       ...a,

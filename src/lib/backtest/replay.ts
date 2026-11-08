@@ -6,6 +6,7 @@ import { computeExploitMaturity, computeLadder, reportedExploitationSources, typ
 import { getRules, type VerdictContext } from "@/lib/ladder/rules";
 import type { Verdict } from "@/lib/ladder/types";
 import { circlRung } from "@/lib/ingest/adapters/circl-sightings";
+import { categorize } from "@/lib/ladder/category";
 import type { BacktestCve, BacktestDataset, CirclSighting, ConfirmedBy, CveReplay, TruthMode, VerdictTransition } from "./types";
 
 const DAY = 86400000;
@@ -77,8 +78,22 @@ export function stateAsOf(cve: BacktestCve, day: string, opts: Pick<ReplayOption
     if (mapped) obs.push(mapped);
   }
 
+  // v3 inputs. Confirmation: the earliest KEV listing or SSVC active decision on or before the day.
+  // First report: the earliest dated attack, exploitation or damage signal seen by the day, which
+  // includes the confirmation itself. Older rule versions ignore these fields.
+  const confirmedDays = [cve.kev?.dateAdded, cve.vulncheckKev?.dateAdded, cve.ssvc?.active].filter((d): d is string => on(d)).sort();
+  const reportDays = cve.circl
+    .filter((s) => s.type === "exploited" && s.sourceKind !== "kev-catalog")
+    .map((s) => circlSeenOn(s, lag))
+    .filter((d) => on(d))
+    .concat(confirmedDays)
+    .sort();
+
   const ctx: VerdictContext = {
     exploitMaturity: computeExploitMaturity(obs, maturities),
+    daysSinceConfirmed: confirmedDays.length ? daysBetween(confirmedDays[0], day) : undefined,
+    daysSinceFirstReport: reportDays.length ? daysBetween(reportDays[0], day) : undefined,
+    categoryId: categorize(cve.vendor, cve.product).id,
     epss: epssAsOf(cve.epss, day),
     kevRansomware: on(cve.kev?.dateAdded) ? cve.kev!.ransomware : false,
     vendor: cve.vendor,

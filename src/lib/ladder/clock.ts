@@ -59,7 +59,7 @@ const daysBetween = (a?: string, b?: string): number | undefined => (a && b ? Ma
 export const DISCLOSURE_DATED_SOURCES: ReadonlySet<string> = new Set(["metasploit", "cvelist"]);
 
 /** The date an observation reports something, or undefined when the source only knows the disclosure date. */
-export function reportDate(o: ClockObservation): string | undefined {
+export function reportDate(o: Pick<ClockObservation, "sourceId" | "publishedAt" | "metadata">): string | undefined {
   const reportedAt = (o.metadata as { reportedAt?: unknown } | null)?.reportedAt;
   if (typeof reportedAt === "string") return day(reportedAt);
   if (DISCLOSURE_DATED_SOURCES.has(o.sourceId)) return undefined;

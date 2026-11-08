@@ -298,6 +298,49 @@ listed.
 - Sightings of type "confirmed" from CIRCL are counted as proof of concept rather than exploitation, as
   in the live adapter.
 
+## Proposed: rules v3, the Act today tier and a ranking (draft, not live)
+
+Drafted Nov 8, 2026. v3 keeps every v2 verdict and adds two things the home page and the API
+need so that the verdict sorts attention again (on Nov 7, 75 of 112 events were Act now):
+
+- **Act today**, a tier inside Act now. Exploitation confirmed by an authoritative source within
+  the last 14 days, and at least one of: the product faces the internet or gives remote access
+  (category table or the edge patterns), CISA flags ransomware use, ready-made attack tools are
+  public. Every other Act now event is tier "now". Watch and Low have no tier.
+- **A ranking score** from 0 to 11, the same for every event, one line per factor: +3 exploitation
+  confirmed or +1 reported; +2 internet-facing or remote access; +2 ransomware use; +1 attack
+  tools; +2 confirmation (or first report) within 7 days, +1 within 21 days; +1 three or more
+  affected products or a component other products ship. Lists sort by verdict, then tier, then
+  score, then newest evidence. The top 3 to 5 is the top of that order.
+
+Thresholds are named constants in `src/lib/ladder/rules/v3.ts`. The inputs the backtest cannot
+see (affected product counts) are left out there, so replayed scores run up to one point low.
+
+**How big would the list have been?** `scripts/backtest/tier-study.ts` replays v3 over every KEV
+addition in the dataset, day by day, on the tuning period (May 1, 2025 to Mar 31, 2026, 335 days;
+the first 30 days are skipped because listings before the dataset start cannot be seen). Counts
+are CVEs; events group CVEs, so event counts run lower.
+
+| Window | In Act today per day, median (90th percentile, max) | Days with none | Days with more than 5 | KEV additions ever in the tier | Median days in the tier |
+|---|---|---|---|---|---|
+| 14 days | 5 (8, 17) | 1 | 134 | 117 of 228 | 15 |
+| 21 days | 7 (11, 17) | 0 | 243 | 118 of 228 | 22 |
+| 30 days | 10 (16, 20) | 0 | 292 | 123 of 228 | 31 |
+
+Act now CVEs on the same stratum ran at a median of 126 a day (90th percentile 201). The 14 day
+window is the draft: a short list of about five, rarely empty, and the score cuts it to five on
+the busier days (the median score of the fifth entry was 6). About half of KEV additions never
+reach the tier: old flaws listed long after patching, and products that neither face the
+internet nor carry a ransomware or tools flag.
+
+What the backtest cannot say: whether the ranking order is the one readers would choose. The
+hit rate figures above do not change, because verdicts do not change. Held out results were not
+revealed for this study; the tuning period is enough to size a list.
+
+v3 becomes active when the owner approves it (`CURRENT_RULES_VERSION` in
+`src/lib/ladder/rules/index.ts`). Until then events carry no tier or score and lists sort as
+before.
+
 ## Rebuilding
 
 ```
@@ -307,6 +350,7 @@ npm run backtest -- --rules v2 --errors 20                          # tuning per
 npm run backtest -- --rules v2 --reveal-heldout                     # logged; writes reports/backtest/
 npx tsx scripts/backtest/sensitivity.ts --rules v2 --reveal-heldout
 npx tsx scripts/backtest/signal-study.ts --reveal-heldout
+npx tsx scripts/backtest/tier-study.ts --rules v3                   # Act today list size, tuning period
 ```
 
 The builder caches everything under `.cache/backtest/` (gitignored): the KEV catalog, daily EPSS

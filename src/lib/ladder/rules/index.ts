@@ -2,16 +2,19 @@ import type { Ladder } from "../types";
 import { rulesV0 } from "./v0";
 import { rulesV1 } from "./v1";
 import { rulesV2 } from "./v2";
+import { rulesV3 } from "./v3";
 import { presentReason } from "./reasons";
 import type { RulesVersion, VerdictContext, VerdictResult } from "./types";
 
-export type { RulesVersion, VerdictContext, VerdictResult } from "./types";
+export type { ActTier, RulesVersion, VerdictContext, VerdictResult } from "./types";
 
 /** Add new versions here. Never edit an old one: the backtest replays them. */
 export const RULES: Record<string, RulesVersion> = {
   v0: rulesV0,
   v1: rulesV1,
   v2: rulesV2,
+  /** Draft: v2 verdicts plus the Act today tier and a ranking score. Active once the owner approves. */
+  v3: rulesV3,
 };
 
 export const CURRENT_RULES_VERSION = "v2";

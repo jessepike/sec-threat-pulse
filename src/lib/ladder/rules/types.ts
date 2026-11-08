@@ -21,7 +21,20 @@ export interface VerdictContext {
    * not reported.
    */
   reportedExploitationSources?: string[];
+  /** Days since an authoritative source first confirmed exploitation (KEV listing or SSVC active), if known. From v3. */
+  daysSinceConfirmed?: number;
+  /** Days since the first dated report of attacks, exploitation or damage, if known. From v3. */
+  daysSinceFirstReport?: number;
+  /** Category id from the fixed table in lib/ladder/category, if the caller computed it. From v3. */
+  categoryId?: string;
+  /** Number of canonical affected products, if known. From v3. */
+  affectedProductCount?: number;
+  /** True when the flaw is in a component that other products ship. From v3. */
+  embedsComponent?: boolean;
 }
+
+/** Tier inside Act now. "today" is the short list the home page leads with. From v3. */
+export type ActTier = "today" | "now";
 
 export interface VerdictResult {
   verdict: Verdict;
@@ -29,6 +42,12 @@ export interface VerdictResult {
   reason: string;
   /** Stable id of the rule that fired, for wording overrides and audits. v0 and v1 predate this field. */
   ruleId?: string;
+  /** Tier inside Act now. Only set for act_now verdicts, and only by versions from v3 on. */
+  tier?: ActTier;
+  /** Ranking score inside a verdict, higher first. Only by versions from v3 on. */
+  score?: number;
+  /** Plain reasons for the score, one per factor, in score order. */
+  scoreWhy?: string[];
 }
 
 export interface RulesVersion {

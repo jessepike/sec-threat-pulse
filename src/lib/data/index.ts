@@ -41,6 +41,7 @@ const toRow = (e: EventView): EventRow => ({
   exposure: e.exposure,
   question: e.question,
   verdict: e.verdict,
+  tier: e.tier,
   ladder: e.ladder,
   topConfirmed: e.topConfirmed,
   vendor: e.vendor,
@@ -66,7 +67,7 @@ const liveStatus = unstable_cache(() => dbStatus(), ["stp-status"], { revalidate
 /** Sample events in the same shape the live lists use, so both modes share one ordering. */
 const SAMPLE_LISTED: (Listable & { view: EventView })[] = SAMPLE_EVENTS.map((view) => {
   const times = [view.updatedAt, ...view.rungs.map((r) => r.newestAt)].filter((x): x is string => !!x).map((x) => Date.parse(x));
-  return { id: view.id, verdict: view.verdict, evidenceAt: Math.max(...times), reports: view.sources.length, view };
+  return { id: view.id, verdict: view.verdict, tier: view.tier, evidenceAt: Math.max(...times), reports: view.sources.length, view };
 });
 
 function sampleHome(): HomeData {

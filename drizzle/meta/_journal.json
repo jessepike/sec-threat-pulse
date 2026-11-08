@@ -29,6 +29,13 @@
       "when": 1794145083384,
       "tag": "0003_wave1_products",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794146481165,
+      "tag": "0004_rules_v3_tier",
+      "breakpoints": true
     }
   ]
 }

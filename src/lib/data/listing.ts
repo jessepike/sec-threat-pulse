@@ -1,3 +1,4 @@
+import type { ActTier } from "@/lib/ladder/rules";
 import type { Verdict } from "@/lib/ladder/types";
 import type { VerdictFilter } from "./types";
 
@@ -21,15 +22,24 @@ export interface Listable {
   signalAt?: number;
   /** Number of reports (observations) attached to the event. */
   reports: number;
+  /** Tier inside Act now and ranking score from the rules version, when it sets them (v3 on). */
+  tier?: ActTier | null;
+  rankScore?: number | null;
 }
 
 const RANK: Record<Verdict, number> = { act_now: 0, watch: 1, low: 2 };
+const TIER_RANK: Record<ActTier, number> = { today: 0, now: 1 };
+const tierRank = (t: ActTier | null | undefined) => (t ? TIER_RANK[t] : 1);
 
 export const isEarlyEvent = (id: string) => id.startsWith("early-");
 
-/** Verdict first (Act now, Watch, Low), then the most recent evidence, then id for a stable order. */
+/**
+ * Verdict first (Act now, Watch, Low), then the Act today tier, then the ranking score (higher
+ * first), then the most recent evidence, then id for a stable order. Tier and score are null until
+ * a rules version sets them, so until then the order is verdict and recency as before.
+ */
 export function compareListed(a: Listable, b: Listable): number {
-  return RANK[a.verdict] - RANK[b.verdict] || b.evidenceAt - a.evidenceAt || a.id.localeCompare(b.id);
+  return RANK[a.verdict] - RANK[b.verdict] || tierRank(a.tier) - tierRank(b.tier) || (b.rankScore ?? 0) - (a.rankScore ?? 0) || b.evidenceAt - a.evidenceAt || a.id.localeCompare(b.id);
 }
 
 export function sortListed<T extends Listable>(items: T[]): T[] {

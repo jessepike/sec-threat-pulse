@@ -2,6 +2,7 @@ import { and, desc, eq, inArray } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db/client";
 import { SOURCE_REGISTRY } from "@/lib/ingest/registry";
 import type { ExploitMaturity, Verdict } from "@/lib/ladder/types";
+import type { ActTier } from "@/lib/ladder/rules";
 import { kevFix, loadRecords, recMatchesProduct, type Rec } from "@/lib/data/db";
 import { SITE_URL } from "@/lib/site";
 import { categorize, type Category } from "@/lib/ladder/category";
@@ -27,6 +28,12 @@ export interface ApiEventSummary {
   title: string;
   verdict: Verdict;
   verdictReason: string | null;
+  /** Tier inside Act now ("today" or "now") from the rules version, null below Act now or before rules v3. */
+  tier: ActTier | null;
+  /** Ranking score inside the verdict, higher first; null before rules v3. */
+  rankScore: number | null;
+  /** One line per ranking factor; null before rules v3. */
+  rankWhy: string[] | null;
   rulesVersion: string;
   ladder: Record<string, string>;
   cves: string[];
@@ -88,6 +95,9 @@ function toSummary(r: Rec, f: SummaryFacts): ApiEventSummary {
     title: e.titleOverride ?? e.title,
     verdict: r.verdict,
     verdictReason: e.overrideReason ?? e.verdictReason ?? null,
+    tier: r.verdict === "act_now" && (e.tier === "today" || e.tier === "now") ? e.tier : null,
+    rankScore: e.rankScore ?? null,
+    rankWhy: e.rankWhy ?? null,
     rulesVersion: e.rulesVersion,
     ladder: e.ladder,
     cves: f.cves,

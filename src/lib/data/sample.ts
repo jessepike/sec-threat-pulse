@@ -228,6 +228,10 @@ const citrix = build({
   updatedAt: "2026-10-23T17:40:00Z",
   trackingSince: "2026-10-19T15:00:00Z",
   sources: [CISA_KEV, { label: "Citrix security bulletin", url: "https://support.citrix.com/", at: "2026-10-19" }],
+  extra: {
+    tier: "today",
+    rankWhy: ["Exploitation is confirmed by an authoritative source.", "The product faces the internet or gives remote access.", "The confirmation is 3 days old."],
+  },
 });
 
 const beyondtrust = build({
