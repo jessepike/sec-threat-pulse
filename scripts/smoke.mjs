@@ -86,6 +86,13 @@ try {
   ok((await get("/api/v1/export/events-2020-01-01.csv")).res.status === 404, "export for a past day is 404 and points at the data branch");
 }
 
+{
+  const idx = await get("/llms.txt");
+  const full = await get("/llms-full.txt");
+  ok(idx.res.status === 200 && idx.text.includes("/llms-full.txt"), "llms.txt links the full text");
+  ok(full.res.status === 200 && full.text.startsWith(idx.text) && full.text.includes("## Rules changelog") && full.text.includes("## The evidence ladder"), "llms-full.txt has the index, the ladder and the rules changelog");
+}
+
 for (const path of ["/status.json", "/api/v1/health"]) {
   const { res, text } = await get(path);
   try {

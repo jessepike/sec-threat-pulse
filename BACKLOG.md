@@ -89,6 +89,15 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [x] NEW and CHANGED markers from `verdict_history` (first or latest verdict or ladder change in 7 days)
 - [x] Phone fold and tap targets: shorter mission block, one-row nav on phones (TRENDS hidden there), 24px targets on breadcrumbs
 
+## Wave 4: Launch (started Nov 8, 2026) · Jesse decides each outward step · Steps and drafts in `docs/launch/launch-steps.md`
+
+- [x] `/llms-full.txt`: the llms.txt index plus the whole methodology in one plain text file
+- [x] `server.json` for the official MCP registry (not published)
+- [x] Drafted permission asks (CIRCL, ransomware.live) and partnership asks (Shadowserver, GreyNoise, CrowdSec)
+- [ ] Owner: turn indexing on (`STP_ALLOW_INDEXING=true` in Vercel production)
+- [ ] Owner: publish the MCP registry listing
+- [ ] Owner: send the permission and partnership asks
+
 ## Public repo (owner asked Nov 8, 2026) · Gate: owner flips visibility
 
 - [x] Pre-flight: full-history secret scan, fixture review, MIT LICENSE, README

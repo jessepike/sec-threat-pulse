@@ -37,6 +37,7 @@ const nextConfig: NextConfig = {
     "/api/cron/ingest": ["./drizzle/**/*"],
     "/api/cron/events": ["./drizzle/**/*"],
     "/methodology": ["./docs/methodology-rules.md"],
+    "/llms-full.txt": ["./docs/methodology-rules.md"],
     "/admin/rules": ["./reports/backtest/*.json", "./reports/backtest/heldout-reveals.log"],
     "/admin/scorecard": ["./reports/backtest/*.json", "./intent.md"],
     "/track-record": ["./reports/backtest/*.json"],
