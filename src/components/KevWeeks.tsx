@@ -27,16 +27,21 @@ export function KevWeeks({ weeks }: { weeks: Week[] }) {
         </p>
       </div>
       <figure className="m-0 flex flex-col gap-3 rounded border border-line bg-surface p-5 sm:p-7">
-        <div className="relative flex h-[180px] items-end gap-[2px] border-b border-line-strong sm:gap-1" role="img" aria-label={`Weekly CISA KEV additions, ${short(weeks[0].week)} to ${short(last.week)}: ${weeks.map((w) => w.count).join(", ")}.`}>
+        <div className="relative flex h-[200px] items-end gap-[2px] border-b border-line-strong pt-5 sm:gap-1" role="img" aria-label={`Weekly CISA KEV additions, ${short(weeks[0].week)} to ${short(last.week)}: ${weeks.map((w) => w.count).join(", ")}.`}>
           {weeks.map((w, i) => {
             const h = (w.count / max) * 100;
             const label = i === peak || i === weeks.length - 1;
             const tip = `Week of ${short(w.week)}${w.partial ? " (so far)" : ""}: ${w.count} added`;
             return (
               <div key={w.week} tabIndex={0} aria-label={tip} className="group relative flex h-full flex-1 flex-col justify-end outline-none focus-visible:ring-2 focus-visible:ring-accent">
-                {label && <span className="mb-1 text-center font-mono text-xs font-bold text-fg">{w.count}</span>}
+                {/* The label sits outside the flex flow, so every bar's height stays proportional to its count. */}
+                {label && (
+                  <span className="absolute inset-x-0 mb-1 text-center font-mono text-xs font-bold text-fg" style={{ bottom: `${Math.max(h, w.count ? 2 : 0)}%` }}>
+                    {w.count}
+                  </span>
+                )}
                 <div
-                  className={`mx-auto w-full max-w-[44px] rounded-t-[4px] ${w.partial ? "bg-accent/50" : "bg-accent"} group-hover:bg-accent-hover group-focus-visible:bg-accent-hover`}
+                  className={`mx-auto w-full max-w-[44px] shrink-0 rounded-t-[4px] ${w.partial ? "bg-accent/50" : "bg-accent"} group-hover:bg-accent-hover group-focus-visible:bg-accent-hover`}
                   style={{ height: `${Math.max(h, w.count ? 2 : 0)}%` }}
                 />
                 <span
