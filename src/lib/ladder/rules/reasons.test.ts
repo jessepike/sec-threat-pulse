@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { EMPTY_LADDER } from "../types";
-import { evaluateVerdict } from "./index";
+import { evaluateVerdict, wordingVersions } from "./index";
 import { inferRuleIdV1, presentReason } from "./reasons";
 import { evaluateV1 } from "./v1";
 
@@ -37,5 +37,16 @@ describe("v2 wording", () => {
     const older = evaluateVerdict(ladder, { exploitMaturity: "none", daysSincePublished: 207 }, "v2");
     expect(older.reason).toContain("207 days old, so many systems are likely still unpatched.");
     expect(older.reason).not.toContain("current versions are being attacked");
+  });
+
+  it("carries the v2 recency correction into v3, which keeps v2's verdicts and sentences", () => {
+    expect(wordingVersions("v3")).toEqual(["v3", "v2"]);
+    const confirmed = { ...EMPTY_LADDER, exploited: "confirmed" as const, attempts: "confirmed" as const };
+    const v2 = evaluateVerdict(confirmed, { exploitMaturity: "none", daysSincePublished: 10 }, "v2");
+    const v3 = evaluateVerdict(confirmed, { exploitMaturity: "none", daysSincePublished: 10 }, "v3");
+    expect(v2.reason).toContain("many systems are likely still unpatched");
+    expect(v3.reason).toBe(v2.reason);
+    expect(v3.reason).not.toContain("so current versions are being attacked");
+    expect(v3.rulesVersion).toBe("v3");
   });
 });

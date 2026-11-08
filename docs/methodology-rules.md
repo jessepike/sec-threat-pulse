@@ -298,9 +298,9 @@ listed.
 - Sightings of type "confirmed" from CIRCL are counted as proof of concept rather than exploitation, as
   in the live adapter.
 
-## Proposed: rules v3, the Act today tier and a ranking (draft, not live)
+## Rules v3: the Act today tier and a ranking
 
-Drafted Nov 8, 2026. v3 keeps every v2 verdict and adds two things the home page and the API
+Active since Nov 8, 2026, approved by the owner the same day. v3 keeps every v2 verdict and adds two things the home page and the API
 need so that the verdict sorts attention again (on Nov 7, 75 of 112 events were Act now):
 
 - **Act today**, a tier inside Act now. Exploitation confirmed by an authoritative source within
@@ -337,9 +337,9 @@ What the backtest cannot say: whether the ranking order is the one readers would
 hit rate figures above do not change, because verdicts do not change. Held out results were not
 revealed for this study; the tuning period is enough to size a list.
 
-v3 becomes active when the owner approves it (`CURRENT_RULES_VERSION` in
-`src/lib/ladder/rules/index.ts`). Until then events carry no tier or score and lists sort as
-before.
+Events built before Nov 8, 2026 carry v2 in their history. The next rebuild after activation
+stamped every live event with v3, a tier and a score; no verdict moved, so the changes feed
+shows no entry for the switch.
 
 ## Rebuilding
 
