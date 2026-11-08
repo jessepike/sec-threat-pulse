@@ -4,7 +4,7 @@ import { SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-const PAGES = ["/", "/events", "/brief", "/methodology", "/corrections", "/about", "/terms", "/privacy"];
+const PAGES = ["/", "/events", "/brief", "/methodology", "/track-record", "/corrections", "/about", "/terms", "/privacy"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const events = await getEventEntries();

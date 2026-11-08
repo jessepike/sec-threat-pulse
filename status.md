@@ -1,6 +1,8 @@
 # Status
 
-Updated Nov 8, 2026 (daily routine, 12:30 UTC). The site is live with real data at https://securitythreatpulse.com.
+Updated Nov 8, 2026, 21:00 UTC. The site is live with real data at https://securitythreatpulse.com.
+
+**Nov 8 session, Wave 2 started: live track record.** The owner said "approve all, continue" and then "continue all waves, no added hosting expense unless approved". Merged Dependabot PR #3 (gitleaks-action 3, CI green). Shipped `/track-record`, `/api/v1/track-record` and the MCP tool `get_track_record`: every early Act now (made before a CISA or VulnCheck KEV listing) is scored per CVE as right (listed within 30 days), wrong (30 days passed) or pending, split by the rules version that made the call, with Wilson intervals, the share of KEV listings since history began that had an Act now first, median lead, Watch at 90 days, and every call listed. Adopted early events keep their call (the CVE is read from the `early-` id). Admin overrides are not scored. The backtest per version sits beside it (v3 shows v2's report, same verdicts). Live history starts Oct 24, so the first early calls settle around Nov 23 unless KEV lists them sooner. OpenAPI, llms.txt, sitemap, footer, smoke test and agent question 31 cover it. Next in Wave 2: keyless second exploitation sources, "not tracked yet" for Exposure and Damage.
 
 **Nov 8, rules v3 activated.** The owner approved v3 at 16:26 UTC. `CURRENT_RULES_VERSION` is v3, the changelog has the entry, the methodology section reads as live, and the admin scorecard reads v2's backtest report for v3 because the verdicts are v2's (`verdictsFrom`). The first events sync after deploy stamps every event with v3, a tier and a score; no verdict moves, so no history rows and no changes feed entries. Wave 1 is complete.
 

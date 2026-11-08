@@ -135,6 +135,36 @@ export const SCHEMAS = {
     },
     required: ["id", "eventId", "url", "title", "at", "kind", "verdict", "previousVerdict", "ladder", "previousLadder", "rulesVersion", "reason"],
   },
+  RecordCell: {
+    type: "object",
+    description: "Early calls (made before a KEV listing) and how they settled.",
+    properties: {
+      calls: { type: "integer" },
+      right: { type: "integer", description: "Listed in KEV within the horizon." },
+      wrong: { type: "integer", description: "The horizon passed with no listing." },
+      pending: { type: "integer", description: "Not settled yet." },
+      rate: { type: "number", description: "right / (right + wrong). Absent while nothing is settled." },
+      ci: { type: "array", items: { type: "number" }, minItems: 2, maxItems: 2, description: "95% Wilson interval on rate." },
+      medianLeadDays: { type: "number", description: "Median days from call to listing, right calls only." },
+    },
+    required: ["calls", "right", "wrong", "pending"],
+  },
+  ScoredCall: {
+    type: "object",
+    properties: {
+      cveId: { type: "string" },
+      eventId: { type: "string", description: "The event whose verdict made the call. May be hidden after a KEV event adopted it." },
+      title: { type: "string" },
+      url: nullable({ type: "string", format: "uri" }),
+      rulesVersion: { type: "string" },
+      calledOn: dateOnly,
+      kevDate: nullable(dateOnly),
+      outcome: { type: "string", enum: ["right", "wrong", "pending"] },
+      leadDays: nullable({ type: "integer" }),
+      settlesOn: nullable(dateOnly),
+    },
+    required: ["cveId", "eventId", "title", "url", "rulesVersion", "calledOn", "kevDate", "outcome", "leadDays", "settlesOn"],
+  },
 } as const;
 
 /** Fields the Event schema requires. v1.test.ts checks every one is produced by the API. */
@@ -263,6 +293,50 @@ export function openApiDocument() {
             },
             "302": { description: "events-latest.* redirects to today's dated file." },
             "404": { description: "Not today's date, or a name that is not events-YYYY-MM-DD.csv|json. The body points at the data branch." },
+            "503": { description: "Data is not available right now." },
+          },
+        },
+      },
+      "/api/v1/track-record": {
+        get: {
+          operationId: "getTrackRecord",
+          summary: "How early Act now calls held up: the live record (overall and per rules version, every scored call, KEV listings called first) and the backtest for every rules version.",
+          responses: {
+            "200": {
+              description: "The track record.",
+              content: {
+                "application/json": {
+                  schema: envelope(
+                    {
+                      method: { type: "object" },
+                      rulesVersion: { type: "string" },
+                      live: {
+                        type: "object",
+                        properties: {
+                          since: dateOnly,
+                          asOf: { type: "string", format: "date-time" },
+                          actNow: {
+                            type: "object",
+                            properties: {
+                              overall: { $ref: "#/components/schemas/RecordCell" },
+                              byVersion: { type: "object", additionalProperties: { $ref: "#/components/schemas/RecordCell" } },
+                              postConfirmation: { type: "integer", description: "Act now calls on or after the listing day. Not scored." },
+                              calls: { type: "array", items: { $ref: "#/components/schemas/ScoredCall" } },
+                            },
+                            required: ["overall", "byVersion", "postConfirmation", "calls"],
+                          },
+                          watch: { type: "object", description: "Watch or higher calls, 90 day horizon." },
+                          kevCoverage: { type: "object", description: "KEV listings since history began and how many had an Act now first." },
+                        },
+                        required: ["since", "asOf", "actNow", "watch", "kevCoverage"],
+                      },
+                      versions: { type: "array", items: { type: "object", description: "One rules version: release date, active flag, verdictsFrom, and its backtest (whole window, held-out, KEV listings called first, median lead)." } },
+                    },
+                    ["method", "rulesVersion", "live", "versions"],
+                  ),
+                },
+              },
+            },
             "503": { description: "Data is not available right now." },
           },
         },

@@ -41,6 +41,7 @@ export async function SiteFooter() {
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line-soft pt-5 font-mono text-xs tracking-[0.08em] text-faint">
           <nav aria-label="About this site" className="flex flex-wrap gap-x-5 gap-y-1">
             <Link href="/methodology" className="py-2">METHODOLOGY</Link>
+            <Link href="/track-record" className="py-2">TRACK RECORD</Link>
             <Link href="/corrections" className="py-2">CORRECTIONS</Link>
             <Link href="/about" className="py-2">ABOUT</Link>
             <Link href="/terms" className="py-2">TERMS</Link>

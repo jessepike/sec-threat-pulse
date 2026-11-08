@@ -81,7 +81,7 @@ export default function Methodology() {
         <h2>Rules changelog</h2>
         <p>
           Each rules version is published and frozen. A new version never edits an old one, so the backtest can replay all of them. The active version is <strong>{CURRENT_RULES_VERSION}</strong>. If a version is wrong, see{" "}
-          <a href="#corrections">Corrections</a>.
+          <a href="#corrections">Corrections</a>. How each version did, in the backtest and live since Oct 24, 2026, is on the <Link href="/track-record">track record</Link> page.
         </p>
         <ol className="md-changelog">
           {RULES_CHANGELOG.map((c) => (

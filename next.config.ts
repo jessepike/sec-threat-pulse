@@ -39,6 +39,9 @@ const nextConfig: NextConfig = {
     "/methodology": ["./docs/methodology-rules.md"],
     "/admin/rules": ["./reports/backtest/*.json", "./reports/backtest/heldout-reveals.log"],
     "/admin/scorecard": ["./reports/backtest/*.json", "./intent.md"],
+    "/track-record": ["./reports/backtest/*.json"],
+    "/api/v1/track-record": ["./reports/backtest/*.json"],
+    "/api/mcp": ["./reports/backtest/*.json"],
   },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
