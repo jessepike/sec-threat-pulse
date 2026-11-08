@@ -210,6 +210,15 @@ export async function apiEvents(opts: ApiListFilters): Promise<{ total: number; 
   return { total: recs.length, page, pages, events: slice.map((r) => toSummary(r, facts.get(r.e.id)!)) };
 }
 
+/** Every visible event as a summary, in display order, for the bulk export. */
+export async function apiAllEvents(): Promise<ApiEventSummary[] | null> {
+  const db = getDb();
+  if (!db) return null;
+  const recs = await loadRecords(db);
+  const facts = await loadFacts(db, recs.map((r) => r.e.id));
+  return recs.map((r) => toSummary(r, facts.get(r.e.id)!));
+}
+
 /** One event with its evidence, minus sources we may not re-serve. */
 export async function apiEvent(id: string): Promise<ApiEventDetail | null | false> {
   const db = getDb();
