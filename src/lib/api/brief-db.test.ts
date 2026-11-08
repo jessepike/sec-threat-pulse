@@ -71,3 +71,19 @@ describe("check stack", () => {
     expect(r.actNowTotal).toBe(1);
   });
 });
+
+describe("vendor pages", () => {
+  it("groups visible events by vendor and returns one vendor's events in display order", async () => {
+    const { dbVendors, dbVendor } = await import("@/lib/data/db");
+    await ev("f1", "act_now", { vendor: "Fortinet", product: "FortiOS", tier: "today", rankScore: 9 });
+    await ev("f2", "watch", { vendor: "Fortinet", product: "FortiWeb" });
+    await ev("h", "act_now", { vendor: "Fortinet", product: "FortiOS", hidden: true });
+    await ev("i1", "act_now", { vendor: "Ivanti", product: "Connect Secure" });
+    const vs = await dbVendors();
+    expect(vs.map((v) => [v.key, v.actNow, v.watch])).toEqual([["fortinet", 1, 1], ["ivanti", 1, 0]]);
+    const f = (await dbVendor("fortinet"))!;
+    expect(f.rows.map((r) => r.id)).toEqual(["f1", "f2"]);
+    expect(f.vendor.products.map((p) => p.slug)).toEqual(["fortinet/fortios", "fortinet/fortiweb"]);
+    expect(await dbVendor("nobody")).toBeNull();
+  });
+});
