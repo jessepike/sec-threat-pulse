@@ -52,5 +52,7 @@ export interface VerdictResult {
 
 export interface RulesVersion {
   version: string;
+  /** The version whose verdicts this one keeps unchanged, when it only adds a tier or a score. Its backtest report applies. */
+  verdictsFrom?: string;
   evaluate(ladder: Ladder, ctx: VerdictContext): VerdictResult;
 }

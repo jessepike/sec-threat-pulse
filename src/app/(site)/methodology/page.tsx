@@ -45,7 +45,7 @@ export default function Methodology() {
       title="Methodology"
       intro="How we turn public reports into a verdict, and how often the verdict rules were right on past events. The numbers below come from our own backtest, and they include the limits."
       badge={`RULES ${CURRENT_RULES_VERSION.toUpperCase()} ACTIVE`}
-      footer={`LAST UPDATED OCT 24, 2026 · RULES ${CURRENT_RULES_VERSION.toUpperCase()}`}
+      footer={`LAST UPDATED NOV 8, 2026 · RULES ${CURRENT_RULES_VERSION.toUpperCase()}`}
     >
       <nav aria-label="On this page" className="flex flex-col gap-2 rounded-sm border border-line bg-surface px-4 py-3 text-sm">
         <span className="font-mono text-xs tracking-[0.08em] text-faint">ON THIS PAGE</span>

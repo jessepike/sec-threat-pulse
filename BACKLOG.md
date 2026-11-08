@@ -67,7 +67,7 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [x] Richer API fields (`affectedProducts`, `cvss`, `epss`, `exploitMaturity`, `kevListed`, `kevDateAdded`, `kevDueDate`, `clock`, `ladderSources`) and filters (`product`, `cve`, `since`); OpenAPI 3.1 at `/api/v1/openapi.json`; MCP tools take `product` and `since`
 - [x] `/events?product=` filter and product chips on event pages
 - [x] Ranking rule for the top 3 to 5 (versioned, backtested) and a tier inside Act now: drafted as rules v3 (`src/lib/ladder/rules/v3.ts`, tier study in `reports/backtest/studies/`); wired through sync, lists, API and pages, inactive until the owner approves
-- [ ] Owner approves v3: set `CURRENT_RULES_VERSION` to v3, add the changelog entry, publish the methodology section
+- [x] Owner approved v3 (Nov 8, 2026): `CURRENT_RULES_VERSION` is v3, changelog entry added, methodology section live
 - [x] 30-question agent test set run nightly (`scripts/agent-tests.mjs`, `.github/workflows/agent-tests.yml`, 05:17 UTC, opens an `alert` issue on failure)
 - [x] Changes RSS and dated CSV export: `/api/v1/changes` and `/events/changes.xml` (verdict and ladder changes with the state they replaced), `/api/v1/export/events-YYYY-MM-DD.csv|json` with a license link, `events-latest.*` redirecting to today
 

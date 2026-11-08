@@ -13,11 +13,11 @@ export const RULES: Record<string, RulesVersion> = {
   v0: rulesV0,
   v1: rulesV1,
   v2: rulesV2,
-  /** Draft: v2 verdicts plus the Act today tier and a ranking score. Active once the owner approves. */
+  /** v2 verdicts plus the Act today tier and a ranking score. Active since Nov 8, 2026. */
   v3: rulesV3,
 };
 
-export const CURRENT_RULES_VERSION = "v2";
+export const CURRENT_RULES_VERSION = "v3";
 
 export function getRules(version: string = CURRENT_RULES_VERSION): RulesVersion {
   const r = RULES[version];

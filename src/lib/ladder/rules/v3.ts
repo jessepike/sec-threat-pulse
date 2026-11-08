@@ -1,6 +1,6 @@
 // Rules v3. Drafted Nov 8, 2026 for the home page short list ("Act today") and a published
 // ranking inside each verdict. Verdicts are v2's, unchanged: v3 only adds a tier and a score.
-// Not active until the owner approves it (CURRENT_RULES_VERSION in index.ts).
+// Approved by the owner and active since Nov 8, 2026 (CURRENT_RULES_VERSION in index.ts).
 // Never edit after release: add v4 instead.
 //
 // Why: on Nov 7, 2026 75 of 112 events were Act now, so the verdict no longer sorted attention.
@@ -80,4 +80,4 @@ export function evaluateV3(ladder: Ladder, ctx: VerdictContext): VerdictResult {
   return { ...base, score, scoreWhy: why, ...(base.verdict === "act_now" ? { tier: tierFor(ladder, ctx) } : {}) };
 }
 
-export const rulesV3: RulesVersion = { version: "v3", evaluate: evaluateV3 };
+export const rulesV3: RulesVersion = { version: "v3", verdictsFrom: "v2", evaluate: evaluateV3 };

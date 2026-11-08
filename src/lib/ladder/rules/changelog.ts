@@ -1,5 +1,5 @@
 // Plain language history of the verdict rules, for the public methodology page and /admin/rules.
-// The rule code in v0.ts, v1.ts and v2.ts is frozen. Add an entry here when a new version ships.
+// The rule code in v0.ts, v1.ts, v2.ts and v3.ts is frozen. Add an entry here when a new version ships.
 // Numbers come from docs/methodology-rules.md and reports/backtest/.
 
 export interface RulesChange {
@@ -14,6 +14,13 @@ export interface RulesChange {
 
 /** Newest first. */
 export const RULES_CHANGELOG: RulesChange[] = [
+  {
+    version: "v3",
+    date: "2026-11-08",
+    summary: "Verdicts are unchanged from v2. Inside Act now, an Act today tier marks flaws with exploitation confirmed in the last 14 days on an internet-facing product, with ransomware use or with public attack tools, and every event gets a 0 to 11 ranking score with one line per factor.",
+    finding:
+      "On Nov 7, 75 of 112 events were Act now, so the verdict alone no longer sorted attention. Replayed over every KEV addition on the tuning period, the 14 day tier held a median of 5 CVEs a day (90th percentile 8) and was empty on one day in 335. Hit rates are v2's, because the verdicts are.",
+  },
   {
     version: "v2",
     date: "2026-10-24",

@@ -28,7 +28,7 @@ describe("buildHealth", () => {
     expect(r.nextRunDueAt).toBe(ago(8 - 15));
     expect(r.summary).toBe("Fresh. The last complete run was 8 minutes ago and every source is current.");
     expect(r.sources).toMatchObject({ total: 3, ok: 2, failing: 0, stale: 0, unconfigured: 1 });
-    expect(r.rulesVersion).toBe("v2");
+    expect(r.rulesVersion).toBe("v3");
     expect(r.counts.total).toBe(112);
   });
   it("keeps the last complete time apart from the last attempt and reports delay", () => {

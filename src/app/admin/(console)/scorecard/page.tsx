@@ -4,7 +4,7 @@ import { getDb } from "@/lib/db/client";
 import { requireAdmin } from "@/lib/admin/session";
 import { fmtCell, latestReports, period, pct } from "@/lib/admin/backtest";
 import { freshness, kevCoverage, trust } from "@/lib/admin/scorecard";
-import { CURRENT_RULES_VERSION } from "@/lib/ladder/rules";
+import { CURRENT_RULES_VERSION, getRules } from "@/lib/ladder/rules";
 import { Empty, NoDb, PageHead, fmt } from "../../_components/ui";
 
 export const metadata = { title: "Scorecard" };
@@ -42,7 +42,9 @@ export default async function ScorecardPage() {
   const now = new Date();
   const db = getDb();
   const [reports, intentLine] = await Promise.all([latestReports(), intentScorecard()]);
-  const report = reports[CURRENT_RULES_VERSION];
+  // A version that only adds a tier or a score keeps the verdicts, so its predecessor's backtest report applies.
+  const reportVersion = reports[CURRENT_RULES_VERSION] ? CURRENT_RULES_VERSION : (getRules(CURRENT_RULES_VERSION).verdictsFrom ?? CURRENT_RULES_VERSION);
+  const report = reports[reportVersion];
   const all = period(report, "all");
   const held = period(report, "held-out");
   const live = db ? { fresh: await freshness(db, now, 7), cov: await kevCoverage(db, now, 30), trust: await trust(db, now) } : null;
@@ -75,7 +77,7 @@ export default async function ScorecardPage() {
               <td>
                 <span className="adm-mono">{fmtCell(accuracy)}</span>
                 <div className="adm-muted adm-small">
-                  Rules {CURRENT_RULES_VERSION}, whole window, Act now before confirmation, right within 30 days. Held out: <span className="adm-mono">{fmtCell(held?.actNow.preConfirmation)}</span>
+                  Rules {reportVersion}{reportVersion !== CURRENT_RULES_VERSION ? ` (verdicts of ${CURRENT_RULES_VERSION})` : ""}, whole window, Act now before confirmation, right within 30 days. Held out: <span className="adm-mono">{fmtCell(held?.actNow.preConfirmation)}</span>
                 </div>
               </td>
               <td>
