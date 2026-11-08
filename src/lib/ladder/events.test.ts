@@ -64,6 +64,15 @@ describe("buildEvents", () => {
     expect(e.firstSeenAt).toBe("2026-10-20T00:00:00.000Z");
   });
 
+  it("names affected products from the KEV entry and every CPE pair, direct before embedded", () => {
+    const [e] = buildEvents([v("CVE-2026-1", "2026-10-20", "Apache", "Log4j", { cpes: ["apache/log4j", "vmware/horizon", "apache/*"] })], [], { now });
+    expect(e.affectedProducts.slice(0, 2).map((p) => [p.slug, p.kind, p.evidence])).toEqual([
+      ["apache/log4j", "direct", ["kev", "cpe"]],
+      ["vmware/horizon", "direct", ["cpe"]],
+    ]);
+    expect(e.affectedProducts.some((p) => p.kind === "embedded" && p.via === "Apache Log4j")).toBe(true);
+  });
+
   it("shares an observation across the CVEs of an event only once", () => {
     const [e] = buildEvents([v("CVE-2026-1", "2026-10-20"), v("CVE-2026-2", "2026-10-21")], [obs(1, ["CVE-2026-1", "CVE-2026-2"], "exploit_available", "reported", "exploitdb")], { now });
     expect(e.observationIds).toEqual([1]);

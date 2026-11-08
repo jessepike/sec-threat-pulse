@@ -1,0 +1,78 @@
+import { describe, expect, it } from "vitest";
+import { fromCpePairs, matchesProductQuery, productLabel, resolveAffectedProducts, titleToken, vendorName } from "./resolve";
+
+describe("names", () => {
+  it("title-cases CPE tokens and keeps written names", () => {
+    expect(titleToken("ios_xe")).toBe("IOS XE");
+    expect(titleToken("media_server")).toBe("Media Server");
+    expect(titleToken("PAN-OS")).toBe("PAN-OS");
+    expect(titleToken("backup_\\&_replication")).toBe("Backup & Replication");
+  });
+  it("maps vendor tokens and aliases to one display name", () => {
+    expect(vendorName("paloaltonetworks")).toBe("Palo Alto Networks");
+    expect(vendorName("Palo Alto Networks")).toBe("Palo Alto Networks");
+    expect(vendorName("pulsesecure")).toBe("Ivanti");
+    expect(vendorName("acme_widgets")).toBe("Acme Widgets");
+  });
+});
+
+describe("resolveAffectedProducts", () => {
+  it("merges the same product from KEV, the CVE record and CPE into one entry", () => {
+    const out = resolveAffectedProducts([
+      { vendor: "Fortinet", product: "FortiOS", evidence: "kev" },
+      { vendor: "Fortinet", product: "FortiOS", evidence: "cna" },
+      ...fromCpePairs(["fortinet/fortios", "fortinet/fortiproxy"]),
+    ]);
+    expect(out.map((p) => [p.slug, p.product, p.kind])).toEqual([
+      ["fortinet/fortios", "FortiOS", "direct"],
+      ["fortinet/fortiproxy", "FortiProxy", "direct"],
+    ]);
+    expect(out[0].evidence).toEqual(["kev", "cna", "cpe"]);
+    expect(out[0].vendor).toBe("Fortinet");
+  });
+
+  it("puts human-written names before CPE-only entries and caps the list", () => {
+    const out = resolveAffectedProducts([...fromCpePairs(["a/one", "a/two", "a/three"]), { vendor: "a", product: "four", evidence: "kev" }], { max: 2 });
+    expect(out.map((p) => p.productKey)).toEqual(["four", "one"]);
+  });
+
+  it("drops n/a vendors, wildcard products and a bare vendor when its product is known", () => {
+    const out = resolveAffectedProducts([
+      { vendor: "n/a", product: "n/a", evidence: "cna" },
+      { vendor: "Plex", product: undefined, evidence: "kev" },
+      ...fromCpePairs(["plex/media_server", "plex/*"]),
+    ]);
+    expect(out.map((p) => p.slug)).toEqual(["plex/mediaserver"]);
+    expect(out[0].product).toBe("Media Server");
+  });
+
+  it("keeps a vendor-only mention when nothing more specific exists", () => {
+    const out = resolveAffectedProducts([{ vendor: "Zyxel", product: "*", evidence: "kev" }]);
+    expect(out).toEqual([expect.objectContaining({ vendor: "Zyxel", product: "", slug: "zyxel" })]);
+  });
+
+  it("adds embedded products from the component table with a reference", () => {
+    const out = resolveAffectedProducts(fromCpePairs(["apache/log4j"]));
+    expect(out[0]).toMatchObject({ product: "Log4j", kind: "direct" });
+    const emb = out.filter((p) => p.kind === "embedded");
+    expect(emb.length).toBeGreaterThan(2);
+    expect(emb[0]).toMatchObject({ via: "Apache Log4j", product: "VMware Horizon" });
+    expect(emb[0].ref).toMatch(/^https:\/\//);
+  });
+
+  it("collapses a product named after its vendor and strips _firmware", () => {
+    const out = resolveAffectedProducts(fromCpePairs(["crushftp/crushftp", "sonicwall/sma1000_firmware"]));
+    expect(productLabel(out[0])).toBe("CrushFTP");
+    expect(out[1]).toMatchObject({ product: "SMA 1000", slug: "sonicwall/sma1000" });
+    expect(productLabel(out[1])).toBe("SonicWall SMA 1000");
+  });
+});
+
+describe("matchesProductQuery", () => {
+  const products = resolveAffectedProducts([{ vendor: "Palo Alto Networks", product: "PAN-OS", evidence: "kev" }]);
+  it("matches vendor, product, slug and label forms", () => {
+    for (const q of ["palo alto networks", "PAN-OS", "panos", "paloaltonetworks/panos", "Palo Alto Networks PAN-OS"]) expect(matchesProductQuery(products, q)).toBe(true);
+    expect(matchesProductQuery(products, "fortinet")).toBe(false);
+    expect(matchesProductQuery(products, "")).toBe(false);
+  });
+});

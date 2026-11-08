@@ -46,7 +46,8 @@ backfills and backtests · Cloudflare for DNS and R2 (raw payload archive) · Vi
 ```
 src/app/               public site, /admin console, /api (cron, public API)
 src/lib/db/            Drizzle schema and client
-src/lib/ladder/        ladder types, rung computation, verdict rules (versioned)
+src/lib/ladder/        ladder types, rung computation, verdict rules (versioned), the clock
+src/lib/products/      affected products: canonical names, embedded components, resolver
 src/lib/ingest/        one adapter per source + shared fetch, dedupe, run bookkeeping
 src/lib/ingest/__fixtures__/   recorded sample payloads for adapter tests
 docs/                  architecture, source registry, design prototypes

@@ -7,7 +7,9 @@ import { homeSelection, paginateListed, sortListed, type Listable } from "./list
 import { isoDayPT, joinSentences } from "./format";
 import { productName } from "@/lib/ladder/plain-title";
 import { categorize } from "@/lib/ladder/category";
-import type { ClaimView, CorrectionView, CountsView, EventRow, EventView, RungView, SourceRef, StatusView, TimelineItem, VerdictFilter } from "./types";
+import type { ClaimView, ClockPointView, ClockView, CorrectionView, CountsView, EventRow, EventView, ProductChip, RungView, SourceRef, StatusView, TimelineItem, VerdictFilter } from "./types";
+import { computeClock, sourceCounts, type Clock } from "@/lib/ladder/clock";
+import { matchesProductQuery, productLabel, resolveAffectedProducts, type AffectedProduct } from "@/lib/products";
 
 type Db = NonNullable<ReturnType<typeof getDb>>;
 
@@ -83,6 +85,40 @@ export function starterQuestions(vendor: string | null, product: string | null):
   return [first, "Who owns fixing it, and by what date?", "Have we checked for signs of attack since the first report, not just since the patch?"];
 }
 
+/** Products for display. Events synced before the products column existed fall back to their vendor and product names. */
+export function productChips(e: Pick<EventRecord, "vendor" | "product" | "affectedProducts">): ProductChip[] {
+  const list: AffectedProduct[] = e.affectedProducts?.length ? e.affectedProducts : resolveAffectedProducts([{ vendor: e.vendor, product: e.product, evidence: "kev" }]);
+  return list.map((p) => ({ label: productLabel(p), slug: p.slug, kind: p.kind, via: p.via, ref: p.ref }));
+}
+
+const CLOCK_LABELS: Record<ClockPointView["key"], string> = {
+  disclosed: "Disclosed",
+  exploitCode: "Exploit code public",
+  firstReport: "First attack report",
+  kevListed: "CISA KEV listing",
+  kevDue: "US federal deadline",
+};
+
+/** The clock as the page shows it: every point in order, known or not, plus one plain sentence. */
+export function clockView(c: Clock): ClockView | undefined {
+  const keys: ClockPointView["key"][] = ["disclosed", "exploitCode", "firstReport", "kevListed", "kevDue"];
+  const points = keys.map((key) => {
+    const p = c[key];
+    return { key, label: CLOCK_LABELS[key], date: p?.date, source: p?.label, url: p?.url };
+  });
+  if (!points.some((p) => p.date)) return undefined;
+  const parts: string[] = [];
+  if (c.daysToFirstReport !== undefined) {
+    parts.push(
+      c.daysToFirstReport <= 0
+        ? "Attacks were reported on or before the day the flaw was disclosed."
+        : `Attacks were reported ${c.daysToFirstReport} day${c.daysToFirstReport === 1 ? "" : "s"} after disclosure.`,
+    );
+  }
+  if (c.daysToKev !== undefined && c.daysToKev > 0) parts.push(`CISA listed it ${c.daysToKev} day${c.daysToKev === 1 ? "" : "s"} after disclosure.`);
+  return { points, note: parts.length ? parts.join(" ") : undefined };
+}
+
 function toRow(e: EventRecord, cves: string[], n?: Pick<NarrativeRecord, "askYourTeam">): EventRow {
   const ladder = asLadder(e.ladder);
   const verdict = asVerdict(e.overrideVerdict ?? e.verdict);
@@ -90,6 +126,7 @@ function toRow(e: EventRecord, cves: string[], n?: Pick<NarrativeRecord, "askYou
   const vendor = productName(e.vendor, null) || undefined;
   return {
     vendor,
+    products: productChips(e),
     category: { id: cat.id, label: cat.label, doThis: cat.doThis },
     id: e.id,
     href: `/events/${e.id}`,
@@ -181,11 +218,18 @@ export async function dbHomeEvents(): Promise<{ counts: CountsView; items: Event
   return { counts: countsOf(recs), items: await summarize(db, recs.filter((r) => keep.has(r.e.id))) };
 }
 
-/** One page of the /events index. Hidden events never appear. */
-export async function dbEventsPage(filter: VerdictFilter, page: number) {
+/** True when the event names this product (slug, vendor, product or label). Older events without the column match on vendor and product. */
+export function recMatchesProduct(e: Pick<EventRecord, "vendor" | "product" | "affectedProducts">, query: string): boolean {
+  const list: AffectedProduct[] = e.affectedProducts?.length ? e.affectedProducts : resolveAffectedProducts([{ vendor: e.vendor, product: e.product, evidence: "kev" }]);
+  return matchesProductQuery(list, query);
+}
+
+/** One page of the /events index. Hidden events never appear. `product` narrows to events that name that product. */
+export async function dbEventsPage(filter: VerdictFilter, page: number, product?: string) {
   const db = getDb();
   if (!db) return { counts: countVerdicts([]), rows: [] as EventRow[], total: 0, page: 1, pages: 1 };
-  const recs = await loadRecords(db);
+  const all = await loadRecords(db);
+  const recs = product ? all.filter((r) => recMatchesProduct(r.e, product)) : all;
   const byId = new Map(recs.map((r) => [r.e.id, r]));
   const p = paginateListed(recs.map(listable), filter, page);
   const items = await summarize(db, p.items.map((x) => byId.get(x.id)!));
@@ -359,6 +403,8 @@ export async function dbEvent(id: string): Promise<EventView | null> {
   });
 
   const ladder = asLadder(e.ladder);
+  const counts = sourceCounts(allObs.map((x) => x.o));
+  const clock = clockView(computeClock(vulns, allObs.map((x) => ({ ...x.o, sourceName: x.sourceName }))));
   const rungViews: RungView[] = RUNGS.map((r, i) => {
     const mine = obs.filter((x) => x.o.kind === r);
     const entailed = r === "attempts" && !mine.length && ladder.exploited !== "none" && ladder[r] !== "none";
@@ -373,7 +419,7 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     const shown = entailed ? obs.filter((x) => x.o.kind === "exploited") : mine;
     const times = shown.map((x) => x.o.publishedAt ?? x.o.observedAt).filter(Boolean).map((d) => d.getTime());
     const newestAt = times.length ? new Date(Math.max(...times)).toISOString() : undefined;
-    return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: text, sources: shown.slice(0, 4).map(ref), newestAt };
+    return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: text, sources: shown.slice(0, 4).map(ref), newestAt, sourceCount: counts[r] };
   });
 
   const [narrative] = (await publishedNarratives(db, [id])).values();
@@ -431,6 +477,7 @@ export async function dbEvent(id: string): Promise<EventView | null> {
       { label: "EXPLOIT CODE", value: e.exploitMaturity === "weaponized" ? "READY TO USE" : e.exploitMaturity === "poc" ? "PROOF OF CONCEPT" : "NONE KNOWN" },
     ],
     rungs: rungViews,
+    clock,
     claims,
     timeline,
     roles,

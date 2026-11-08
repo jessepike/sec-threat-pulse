@@ -53,7 +53,14 @@ export function parseCveRecord(cve: string, record: Json): { observations: Obser
   const containers = record.containers as Json | undefined;
   const cna = (containers?.cna ?? {}) as Json;
   const meta = (record.cveMetadata ?? {}) as Json;
-  const affected = arr(cna.affected)[0];
+  const affectedAll = arr(cna.affected);
+  const affected = affectedAll[0];
+  const cpes: string[] = [];
+  for (const a of affectedAll) {
+    if (typeof a.vendor !== "string" || typeof a.product !== "string" || a.vendor === "n/a" || a.product === "n/a") continue;
+    const pair = `${a.vendor.trim().toLowerCase()}/${a.product.trim().toLowerCase()}`;
+    if (cpes.length < 60 && !cpes.includes(pair)) cpes.push(pair);
+  }
   const desc = arr(cna.descriptions).find((d) => d.lang === "en" || String(d.lang).startsWith("en")) ?? arr(cna.descriptions)[0];
   const cwes: string[] = [];
   for (const pt of arr(cna.problemTypes)) for (const d of arr(pt.descriptions)) if (typeof d.cweId === "string") cwes.push(d.cweId);
@@ -66,6 +73,7 @@ export function parseCveRecord(cve: string, record: Json): { observations: Obser
     cvssScore: readCvss(record),
     cwe: cwes.length ? [...new Set(cwes)] : undefined,
     publishedAt: isoOrUndefined(meta.datePublished),
+    cpes: cpes.length ? cpes : undefined,
   };
   const observations: ObservationInput[] = [];
   const ssvc = readSsvc(record);

@@ -154,6 +154,21 @@ const php2shell = build({
   ],
   extra: {
     exploitMaturity: "poc",
+    products: [
+      { label: "PHP", slug: "php/php", kind: "direct" },
+      { label: "WordPress", slug: "embedded/wordpress", kind: "embedded", via: "PHP", ref: "https://www.php.net/" },
+      { label: "Drupal", slug: "embedded/drupal", kind: "embedded", via: "PHP", ref: "https://www.php.net/" },
+    ],
+    clock: {
+      points: [
+        { key: "disclosed", label: "Disclosed", date: "2026-10-16", source: "CVE-2026-109618 published", url: "https://www.cve.org/CVERecord?id=CVE-2026-109618" },
+        { key: "exploitCode", label: "Exploit code public", date: "2026-10-19", source: "Exploit-DB", url: "https://www.exploit-db.com/" },
+        { key: "firstReport", label: "First attack report", date: "2026-10-17", source: "Amazon Threat Intelligence", url: "https://aws.amazon.com/security/" },
+        { key: "kevListed", label: "CISA KEV listing" },
+        { key: "kevDue", label: "US federal deadline" },
+      ],
+      note: "Attacks were reported 1 day after disclosure.",
+    },
     verdictChangesIf:
       "a CISA KEV listing confirms exploitation. Reports of real compromises move it to the top rung. Falling scan activity plus wide patching moves it to Watch.",
     businessTerms:

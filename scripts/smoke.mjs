@@ -37,6 +37,13 @@ if (firstId) {
   ok(page.res.status === 200 && page.text.includes("og:image"), "event page renders with a share image");
 }
 ok((await get("/api/v1/events/not-a-real-event")).res.status === 404, "api unknown id is 404");
+try {
+  const spec = JSON.parse((await get("/api/v1/openapi.json")).text);
+  ok(spec.openapi === "3.1.0" && spec.components?.schemas?.Event?.required?.includes("affectedProducts"), "openapi document lists the Event schema");
+} catch {
+  ok(false, "openapi document returns JSON");
+}
+ok((await get("/api/v1/events?since=not-a-date")).res.status === 400, "api bad since is 400");
 ok((await get("/api/v1/events?verdict=bad")).res.status === 400, "api bad verdict is 400");
 
 for (const feed of ["/events/feed.xml", "/corrections/feed.xml"]) {

@@ -1,6 +1,6 @@
 import { NOT_SURE } from "@/lib/ladder/category";
 import Link from "next/link";
-import type { ClaimRating, EventView, RungView, SourceRef } from "@/lib/data/types";
+import type { ClaimRating, EventView, ProductChip, RungView, SourceRef } from "@/lib/data/types";
 import { RUNG_SHORT } from "@/lib/data/sample";
 import { fmtDay, fmtDayYear } from "@/lib/data/format";
 import { Eyebrow, H2, LadderKey, MiniLadder, Panel, Seg, VERDICT_STYLE, VerdictBadge, ladderLabel } from "./ui";
@@ -24,6 +24,7 @@ export function EventHero({ e }: { e: EventView }) {
           <h1 id="t" className="m-0 break-words font-display text-[44px] font-bold leading-none tracking-[-0.035em] sm:text-[72px]">
             {e.title}
           </h1>
+          {e.products && e.products.length > 0 && <AffectedProducts products={e.products} />}
           {e.technicalNames && (
             <p className="m-0 font-mono text-[13px] leading-relaxed tracking-[0.02em] text-muted">
               <span className="text-faint">OFFICIAL NAME{e.technicalNames.length > 1 ? "S" : ""}: </span>
@@ -63,6 +64,75 @@ export function EventHero({ e }: { e: EventView }) {
             </div>
           ))}
         </dl>
+      </div>
+    </section>
+  );
+}
+
+/** Direct products as chips, then one line for products that ship the component, with its reference. */
+export function AffectedProducts({ products }: { products: ProductChip[] }) {
+  const direct = products.filter((p) => p.kind === "direct");
+  const embedded = products.filter((p) => p.kind === "embedded");
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="font-mono text-xs tracking-[0.1em] text-muted">AFFECTS</span>
+        {direct.map((p) => (
+          <Link key={p.slug} href={`/events?product=${encodeURIComponent(p.slug)}`} className="rounded-sm border border-line-strong bg-surface px-2.5 py-1 font-mono text-[13px] text-fg no-underline hover:border-accent hover:text-accent">
+            {p.label}
+          </Link>
+        ))}
+      </div>
+      {embedded.length > 0 && (
+        <p className="m-0 max-w-[720px] text-[15px] leading-normal text-muted">
+          <span className="font-mono text-xs tracking-[0.1em]">ALSO SHIPS INSIDE </span>
+          {embedded.map((p) => p.label).join(", ")}
+          {embedded[0].ref && (
+            <>
+              {" "}
+              (<a href={embedded[0].ref} target="_blank" rel="noopener noreferrer" className="text-muted underline hover:text-accent">source</a>)
+            </>
+          )}
+          . Check with those vendors too.
+        </p>
+      )}
+    </div>
+  );
+}
+
+/** The clock: disclosure, exploit code, first attack report, KEV listing and deadline, each linked to what set it. */
+export function EventClock({ e }: { e: EventView }) {
+  const c = e.clock;
+  if (!c) return null;
+  return (
+    <section aria-labelledby="clock" className="flex flex-col gap-5">
+      <div className="flex flex-col gap-2.5">
+        <Eyebrow>{"// THE CLOCK"}</Eyebrow>
+        <H2 id="clock" size="md">When each thing happened</H2>
+      </div>
+      <div className="rounded border border-line bg-surface">
+        <ol role="list" className="m-0 grid list-none grid-cols-1 p-0 sm:grid-cols-2 lg:grid-cols-5">
+          {c.points.map((p) => (
+            <li key={p.key} className="flex flex-col gap-1.5 border-b border-line-soft p-5 lg:border-b-0 lg:border-r lg:last:border-r-0">
+              <div className="font-mono text-[11px] tracking-[0.1em] text-muted">{p.label.toUpperCase()}</div>
+              <div className={`font-mono text-[22px] font-bold leading-none ${p.date ? "" : "text-faint"}`}>
+                {p.date ? <time dateTime={p.date}>{fmtDayYear(p.date)}</time> : "NOT YET"}
+              </div>
+              {p.source && (
+                <div className="font-mono text-[11px] leading-normal text-faint">
+                  {p.url ? (
+                    <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-faint underline hover:text-accent">
+                      {p.source}
+                    </a>
+                  ) : (
+                    p.source
+                  )}
+                </div>
+              )}
+            </li>
+          ))}
+        </ol>
+        {c.note && <div className="border-t border-line bg-surface-2 px-5 py-3.5 text-[15px] leading-[1.55] text-fg-2">{c.note}</div>}
       </div>
     </section>
   );
@@ -118,6 +188,7 @@ export function FullLadder({ e }: { e: EventView }) {
                 <div className={`font-mono text-xs font-bold tracking-[0.08em] ${look.cls}`}>{look.status}</div>
                 <div className="font-mono text-[11px] tracking-[0.06em] text-muted">
                   NEWEST EVIDENCE {r.newestAt ? <time dateTime={r.newestAt}>{fmtDayYear(r.newestAt)}</time> : "NONE YET"}
+                  {r.sourceCount ? ` · ${r.sourceCount} ${r.sourceCount === 1 ? "SOURCE" : "INDEPENDENT SOURCES"}` : ""}
                 </div>
                 <p className="m-0 text-sm leading-[1.55] text-fg-2">{r.evidence}</p>
                 <div className="mt-auto">

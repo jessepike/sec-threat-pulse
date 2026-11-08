@@ -3,6 +3,8 @@ import { defaultSleep, getJson } from "../http";
 import { isoOrUndefined } from "../util";
 
 const BASE = "https://services.nvd.nist.gov/rest/json/cves/2.0";
+/** Vulnerable vendor/product pairs kept per CVE. Library flaws (Log4j) list hundreds; the first ones are the component itself. */
+export const MAX_CPES = 60;
 
 type Json = Record<string, unknown>;
 const arr = (v: unknown): Json[] => (Array.isArray(v) ? (v as Json[]) : []);
@@ -26,15 +28,19 @@ export function parseNvdCve(cve: Json): VulnerabilityInput | undefined {
   for (const w of arr(cve.weaknesses)) for (const d of arr(w.description)) if (typeof d.value === "string" && d.value.startsWith("CWE-")) cwes.push(d.value);
   let vendor: string | undefined;
   let product: string | undefined;
-  outer: for (const conf of arr(cve.configurations)) {
+  const cpes: string[] = [];
+  for (const conf of arr(cve.configurations)) {
     for (const node of arr(conf.nodes)) {
       for (const m of arr(node.cpeMatch)) {
         if (m.vulnerable !== true || typeof m.criteria !== "string") continue;
         const parts = m.criteria.split(":");
         if (parts.length > 4 && parts[3] !== "*" && parts[4] !== "*") {
-          vendor = parts[3];
-          product = parts[4];
-          break outer;
+          if (!vendor) {
+            vendor = parts[3];
+            product = parts[4];
+          }
+          const pair = `${parts[3]}/${parts[4]}`;
+          if (cpes.length < MAX_CPES && !cpes.includes(pair)) cpes.push(pair);
         }
       }
     }
@@ -47,6 +53,7 @@ export function parseNvdCve(cve: Json): VulnerabilityInput | undefined {
     publishedAt: isoOrUndefined(typeof cve.published === "string" ? `${cve.published}Z` : undefined),
     vendor,
     product,
+    cpes: cpes.length ? cpes : undefined,
   };
 }
 

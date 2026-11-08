@@ -43,6 +43,9 @@ const toRow = (e: EventView): EventRow => ({
   verdict: e.verdict,
   ladder: e.ladder,
   topConfirmed: e.topConfirmed,
+  vendor: e.vendor,
+  category: e.category,
+  products: e.products,
 });
 
 const SAMPLE_STATUS: StatusView = {
@@ -191,17 +194,26 @@ export async function getBriefData(): Promise<{ brief: BriefData; mode: DataMode
   return { brief: mode === "sample" ? sampleBrief() : await cachedLiveBrief(), mode };
 }
 
-const cachedLiveEventsPage = unstable_cache(async (filter: VerdictFilter, page: number) => dbEventsPage(filter, page), ["stp-events-page"], { revalidate: REVALIDATE, tags: ["stp"] });
+const cachedLiveEventsPage = unstable_cache(async (filter: VerdictFilter, page: number, product: string) => dbEventsPage(filter, page, product || undefined), ["stp-events-page"], { revalidate: REVALIDATE, tags: ["stp"] });
 
-/** The /events index: filterable by verdict, 50 events a page. */
-export async function getEventsIndex(filter: VerdictFilter, page: number): Promise<EventsIndexData> {
+/** A product filter from the query string: short, printable, or nothing. */
+export function parseProductFilter(raw: string | string[] | undefined): string | undefined {
+  const v = Array.isArray(raw) ? raw[0] : raw;
+  const t = v?.trim().slice(0, 80);
+  return t && /^[\w .&/+-]+$/.test(t) ? t : undefined;
+}
+
+/** The /events index: filterable by verdict and product, 50 events a page. */
+export async function getEventsIndex(filter: VerdictFilter, page: number, product?: string): Promise<EventsIndexData> {
   const mode = getMode();
   if (mode === "sample") {
-    const p = paginateListed(SAMPLE_LISTED, filter, page);
+    const listed = product ? SAMPLE_LISTED.filter((x) => (x.view.products ?? []).some((p) => p.slug === product || p.label.toLowerCase() === product.toLowerCase()) || x.view.vendor?.toLowerCase() === product.toLowerCase()) : SAMPLE_LISTED;
+    const p = paginateListed(listed, filter, page);
     return {
       status: SAMPLE_STATUS,
       mode,
       filter,
+      product,
       counts: countVerdicts(SAMPLE_EVENTS),
       rows: p.items.map((x) => toRow(x.view)),
       total: p.total,
@@ -210,8 +222,8 @@ export async function getEventsIndex(filter: VerdictFilter, page: number): Promi
       pageSize: EVENTS_PAGE_SIZE,
     };
   }
-  const [r, status] = await Promise.all([cachedLiveEventsPage(filter, page), liveStatus()]);
-  return { status, mode, filter, counts: r.counts, rows: r.rows, total: r.total, page: r.page, pages: r.pages, pageSize: EVENTS_PAGE_SIZE };
+  const [r, status] = await Promise.all([cachedLiveEventsPage(filter, page, product ?? ""), liveStatus()]);
+  return { status, mode, filter, product, counts: r.counts, rows: r.rows, total: r.total, page: r.page, pages: r.pages, pageSize: EVENTS_PAGE_SIZE };
 }
 
 const cachedLiveCorrections = unstable_cache(async () => dbCorrections(), ["stp-corrections"], { revalidate: REVALIDATE, tags: ["stp"] });

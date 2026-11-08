@@ -42,6 +42,11 @@ export interface SyncSummary {
 }
 
 const CHUNK = 300;
+
+/** JSON with sorted keys and no undefined fields, so a value read back from jsonb compares equal to the one computed. */
+function stableJson(v: unknown): string {
+  return JSON.stringify(v, (_k, x) => (x && typeof x === "object" && !Array.isArray(x) ? Object.fromEntries(Object.entries(x as Record<string, unknown>).filter(([, y]) => y !== undefined).sort(([a], [b]) => a.localeCompare(b))) : x));
+}
 const chunks = <T>(xs: T[], n: number): T[][] => {
   const out: T[][] = [];
   for (let i = 0; i < xs.length; i += n) out.push(xs.slice(i, i + n));
@@ -193,6 +198,7 @@ export async function syncEvents(db: Db, opts: SyncOptions = {}): Promise<SyncSu
       (cur.summary ?? undefined) !== e.summary ||
       (cur.vendor ?? undefined) !== e.vendor ||
       (cur.product ?? undefined) !== e.product ||
+      stableJson(cur.affectedProducts ?? []) !== stableJson(e.affectedProducts) ||
       cur.exploitMaturity !== e.exploitMaturity ||
       cur.verdictReason !== e.verdictReason ||
       cur.rulesVersion !== e.rulesVersion;
@@ -205,6 +211,7 @@ export async function syncEvents(db: Db, opts: SyncOptions = {}): Promise<SyncSu
     summary: e.summary,
     vendor: e.vendor,
     product: e.product,
+    affectedProducts: e.affectedProducts,
     ladder: e.ladder as Record<string, string>,
     exploitMaturity: e.exploitMaturity,
     verdict: e.verdict,

@@ -10,6 +10,7 @@ import {
   primaryKey,
   index,
 } from "drizzle-orm/pg-core";
+import type { AffectedProduct } from "@/lib/products/types";
 
 const ts = (name: string) => timestamp(name, { withTimezone: true });
 
@@ -66,6 +67,8 @@ export const vulnerabilities = pgTable(
     kevCisaRansomware: boolean("kev_cisa_ransomware"),
     kevVulncheckDateAdded: text("kev_vulncheck_date_added"),
     exploitMaturity: text("exploit_maturity").notNull().default("none"),
+    /** Every vulnerable "vendor/product" pair named by NVD CPE or the CVE record, lower case tokens. */
+    cpes: jsonb("cpes").$type<string[]>(),
     updatedAt: ts("updated_at").notNull().defaultNow(),
   },
   (t) => [index("vulnerabilities_kev_cisa_idx").on(t.kevCisaDateAdded), index("vulnerabilities_kev_vulncheck_idx").on(t.kevVulncheckDateAdded)],
@@ -108,6 +111,8 @@ export const events = pgTable(
     kind: text("kind").notNull().default("vulnerability"),
     vendor: text("vendor"),
     product: text("product"),
+    /** Canonical affected products (see lib/products). Rebuilt by every sync. */
+    affectedProducts: jsonb("affected_products").$type<AffectedProduct[]>(),
     ladder: jsonb("ladder").$type<Record<string, string>>().notNull(),
     exploitMaturity: text("exploit_maturity").notNull().default("none"),
     verdict: text("verdict").notNull().default("low"),
