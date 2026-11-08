@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { DriverBar, EventRow, HomeData, KpiView } from "@/lib/data/types";
 import { RUNG_SHORT } from "@/lib/data/sample";
-import { Eyebrow, H2, LadderKey, MiniLadder, Panel, TierBadge, VERDICT_STYLE, VerdictBadge, topLabel } from "./ui";
+import { Eyebrow, H2, LadderKey, MarkBadge, MiniLadder, Panel, TierBadge, VERDICT_STYLE, VerdictBadge, topLabel } from "./ui";
 import { YourVendors } from "./YourVendors";
 
 const GRID = "grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))]";
@@ -15,7 +15,7 @@ export function Hero({ data }: { data: HomeData }) {
     <section aria-labelledby="hero" className="flex flex-wrap items-stretch gap-8">
       <div className="hero-card flex min-w-0 flex-[999_1_min(100%,620px)] flex-col gap-[18px] rounded border border-l-[6px] border-line border-l-crit p-6 sm:p-9">
         <Eyebrow>{`// DO THIS FIRST · WEEK OF ${data.weekOf.toUpperCase()}`}</Eyebrow>
-        <h1 id="hero" className="m-0 max-w-[760px] font-display text-[24px] font-bold leading-[1.15] tracking-[-0.02em] sm:text-[32px]">
+        <h1 id="hero" className="m-0 max-w-[760px] font-display text-[22px] font-bold leading-[1.2] tracking-[-0.02em] sm:text-[32px]">
           {data.weekLine}
         </h1>
         {top.length > 0 && (
@@ -31,6 +31,7 @@ export function Hero({ data }: { data: HomeData }) {
                       {row.title}
                     </Link>
                     <TierBadge tier={row.tier} />
+                    <MarkBadge mark={row.mark} />
                   </div>
                   <p className="m-0 text-[15px] leading-normal text-fg-2 sm:text-base">
                     <span className="font-mono text-xs font-bold tracking-[0.08em] text-accent">DO THIS </span>
@@ -156,7 +157,10 @@ function EventTitleCell({ e }: { e: EventRow }) {
         <Link href={e.href} className="font-display text-lg font-semibold text-fg no-underline hover:text-accent">
           {e.title}
         </Link>
-        <span className="font-mono text-xs text-faint">{e.idsLabel}</span>
+        <span className="flex flex-wrap items-center gap-2 font-mono text-xs text-faint">
+          <MarkBadge mark={e.mark} />
+          {e.idsLabel}
+        </span>
       </div>
     </th>
   );
@@ -224,6 +228,7 @@ function EventCards({ events, label, empty }: { events: EventRow[]; label: strin
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <VerdictBadge verdict={e.verdict} />
             <TierBadge tier={e.tier} />
+            <MarkBadge mark={e.mark} />
             <span className="font-mono text-xs text-faint">{e.idsLabel}</span>
           </div>
           <Link href={e.href} className="font-display text-lg font-semibold leading-snug text-fg no-underline hover:text-accent">
@@ -375,11 +380,11 @@ export function SourceTag({ source, url, asOf, className = "" }: { source: strin
 
 export function Mission() {
   return (
-    <section aria-label="Why this site exists" className="flex flex-col gap-3 border-b border-line pb-10">
-      <p className="m-0 font-display text-[36px] font-bold leading-[1.05] tracking-[-0.03em] text-fg sm:text-[52px]">
+    <section aria-label="Why this site exists" className="flex flex-col gap-2 border-b border-line pb-6 sm:gap-3 sm:pb-10">
+      <p className="m-0 font-display text-[28px] font-bold leading-[1.05] tracking-[-0.03em] text-fg sm:text-[52px]">
         Cut through the noise<span className="text-accent">.</span>
       </p>
-      <p className="m-0 max-w-[760px] text-[17px] leading-[1.55] text-fg-2 sm:text-[19px]">
+      <p className="m-0 max-w-[760px] text-[15px] leading-[1.5] text-fg-2 sm:text-[19px] sm:leading-[1.55]">
         Hundreds of new security flaws and breach claims appear every week. Few turn into real attacks. We check each one
         against public evidence and show you what is real, what is noise, and what needs action now.
       </p>
@@ -389,7 +394,7 @@ export function Mission() {
 
 export function MainShell({ children }: { children: ReactNode }) {
   return (
-    <main id="main" className="mx-auto flex max-w-[1280px] flex-col gap-14 px-4 pb-[72px] pt-10 sm:px-6">
+    <main id="main" className="mx-auto flex max-w-[1280px] flex-col gap-10 px-4 pb-[72px] pt-6 sm:gap-14 sm:px-6 sm:pt-10">
       {children}
     </main>
   );

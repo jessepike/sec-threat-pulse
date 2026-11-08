@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { RUNGS } from "@/lib/ladder/types";
-import { countVerdicts, dbVendor, dbVendors, dbBriefEvents, dbCorrections, dbEvent, dbEventEntries, dbEventsPage, dbHomeEvents, dbKevCounts, dbStatus, firstSentence } from "./db";
+import { countVerdicts, dbKevWeeks, dbVendor, dbVendors, dbBriefEvents, dbCorrections, dbEvent, dbEventEntries, dbEventsPage, dbHomeEvents, dbKevCounts, dbStatus, firstSentence } from "./db";
 import { EVENTS_PAGE_SIZE, homeSelection, paginateListed, sortListed, type Listable } from "./listing";
 import {
   ACTIONS,
@@ -35,7 +35,11 @@ export function getMode(): DataMode {
   return process.env.DATABASE_URL ? "live" : "sample";
 }
 
+/** Sample NEW and CHANGED marks, so the preview shows both. */
+const SAMPLE_MARKS: Record<string, "new" | "changed"> = { php2shell: "new", "palo-alto-pan-os": "changed" };
+
 const toRow = (e: EventView): EventRow => ({
+  ...(SAMPLE_MARKS[e.id] ? { mark: SAMPLE_MARKS[e.id] } : {}),
   id: e.id,
   href: e.href,
   title: e.title,
@@ -72,6 +76,12 @@ const SAMPLE_LISTED: (Listable & { view: EventView })[] = SAMPLE_EVENTS.map((vie
   return { id: view.id, verdict: view.verdict, tier: view.tier, evidenceAt: Math.max(...times), reports: view.sources.length, view };
 });
 
+/** Sample weekly KEV additions ending the sample week (Oct 19, 2026). Illustrative, not real counts. */
+const SAMPLE_KEV_WEEKS = [4, 7, 3, 5, 9, 6, 4, 8, 5, 11, 7, 3].map((count, i) => {
+  const d = new Date(Date.UTC(2026, 9, 19 - 7 * (11 - i)));
+  return { week: d.toISOString().slice(0, 10), count, partial: i === 11 };
+});
+
 function sampleHome(): HomeData {
   // Sample dates are fixed, so measure the 30-day Act now window from the newest sample evidence.
   const shown = homeSelection(SAMPLE_LISTED, Math.max(...SAMPLE_LISTED.map((x) => x.evidenceAt))).map((x) => x.view);
@@ -82,6 +92,7 @@ function sampleHome(): HomeData {
     weekOf: SAMPLE_WEEK_OF,
     top,
     weekLine: weekLine(events, top, countVerdicts(SAMPLE_EVENTS).act_now),
+    kevWeeks: SAMPLE_KEV_WEEKS,
     counts: countVerdicts(SAMPLE_EVENTS),
     countsNote: SAMPLE_COUNTS_NOTE,
     kpis: [SAMPLE_KEV_KPI, ...REPORT_KPIS],
@@ -96,7 +107,7 @@ function sampleHome(): HomeData {
 }
 
 async function liveHome(): Promise<HomeData> {
-  const [{ counts, items: list }, status, kev] = await Promise.all([dbHomeEvents(), dbStatus(), dbKevCounts()]);
+  const [{ counts, items: list }, status, kev, kevWeeks] = await Promise.all([dbHomeEvents(), dbStatus(), dbKevCounts(), dbKevWeeks()]);
   const events = list.map((x) => x.row);
   const top = topFive(events);
   const realItems = list
@@ -117,6 +128,7 @@ async function liveHome(): Promise<HomeData> {
     weekOf: weekOfLabel(new Date()),
     top,
     weekLine: weekLine(events, top, counts.act_now),
+    kevWeeks,
     counts,
     countsNote: counts.total === 0 ? "No events are tracked yet." : "Counts follow the published verdict rules.",
     kpis: [kevKpi, ...REPORT_KPIS],

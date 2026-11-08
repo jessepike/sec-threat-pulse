@@ -34,7 +34,7 @@ export default async function VendorPage({ params }: Props) {
       <SiteHeader active="vendors" strip={<HomeStrip status={status} />} />
       <main id="main" className="mx-auto flex max-w-[1280px] flex-col gap-8 px-4 pb-[72px] pt-10 sm:px-6">
         <div className="flex flex-col gap-3">
-          <Link href="/vendors" className="font-mono text-[13px] tracking-[0.06em] text-muted no-underline hover:text-fg">← ALL VENDORS</Link>
+          <Link href="/vendors" className="self-start py-1 font-mono text-[13px] tracking-[0.06em] text-muted no-underline hover:text-fg">← ALL VENDORS</Link>
           <Eyebrow>{"// VENDOR"}</Eyebrow>
           <h1 className="m-0 font-display text-[40px] font-bold leading-[1.05] tracking-[-0.03em] sm:text-5xl">{v.name}</h1>
           <div className="flex flex-wrap gap-x-5 gap-y-1 font-mono text-sm tracking-[0.06em]">

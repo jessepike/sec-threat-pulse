@@ -11,7 +11,7 @@ export function EventHero({ e }: { e: EventView }) {
   return (
     <section aria-labelledby="t" className="flex flex-col gap-[18px]">
       <nav aria-label="Breadcrumb" className="font-mono text-xs tracking-[0.08em] text-muted">
-        <Link href="/" className="no-underline">THIS WEEK</Link> / <Link href="/events" className="no-underline">EVENTS</Link> / <span className="uppercase">{e.title}</span>
+        <Link href="/" className="inline-block py-1 no-underline">THIS WEEK</Link> / <Link href="/events" className="inline-block py-1 no-underline">EVENTS</Link> / <span className="uppercase">{e.title}</span>
       </nav>
       <div className={`hero-card flex flex-wrap gap-8 rounded border border-l-8 border-line p-6 sm:p-9 ${borderTone}`}>
         <div className="flex min-w-0 flex-[999_1_min(100%,560px)] flex-col gap-[18px]">

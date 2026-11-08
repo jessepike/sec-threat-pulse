@@ -179,3 +179,20 @@ describe("evidence helpers", () => {
     expect(asDisplayDate(new Date("2026-11-06T13:05:00Z"))).toBe("2026-11-06T13:05:00.000Z");
   });
 });
+
+describe("NEW and CHANGED marks", () => {
+  it("marks by the event's first and latest history rows within 7 days", async () => {
+    const { changeMarks } = await import("./db");
+    const hist = (eventId: string, at: Date) => current.insert(schema.verdictHistory).values({ eventId, verdict: "watch", ladder: LADDER, rulesVersion: "v2", reason: "r", actor: "rules", changedAt: at });
+    for (const id of ["fresh", "moved", "quiet"]) await ev(id, "watch");
+    await hist("fresh", day(8));
+    await hist("moved", day(1));
+    await hist("moved", day(9));
+    await hist("quiet", day(1));
+    const m = await changeMarks(current as never, ["fresh", "moved", "quiet", "none"], NOW);
+    expect(Object.fromEntries(m)).toEqual({ fresh: "new", moved: "changed" });
+    const home = await dbHomeEvents();
+    expect(home.items.find((x) => x.row.id === "fresh")?.row.mark).toBe("new");
+    expect(home.items.find((x) => x.row.id === "quiet")?.row.mark).toBeUndefined();
+  });
+});

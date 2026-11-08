@@ -22,6 +22,19 @@ export function VerdictBadge({ verdict, large = false }: { verdict: Verdict; lar
 }
 
 /** The Act today tier, shown beside an Act now badge. */
+/** NEW or CHANGED in the last 7 days. Words, never colour alone. */
+export function MarkBadge({ mark }: { mark?: "new" | "changed" }) {
+  if (!mark) return null;
+  return (
+    <span
+      className="inline-block whitespace-nowrap rounded-sm border border-accent px-[7px] py-[3px] font-mono text-[11px] font-bold tracking-[0.08em] text-accent"
+      title={mark === "new" ? "First appeared in the last 7 days" : "Verdict or evidence ladder changed in the last 7 days"}
+    >
+      {mark === "new" ? "NEW" : "CHANGED"}
+    </span>
+  );
+}
+
 export function TierBadge({ tier, large = false }: { tier?: "today" | "now" | null; large?: boolean }) {
   if (tier !== "today") return null;
   return (

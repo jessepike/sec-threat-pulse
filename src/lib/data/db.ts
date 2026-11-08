@@ -13,6 +13,7 @@ import { computeClock, sourceCounts, type Clock } from "@/lib/ladder/clock";
 import { untrackedNote } from "@/lib/ladder/coverage";
 import { matchesProductQuery, productLabel, resolveAffectedProducts, type AffectedProduct } from "@/lib/products";
 import { groupVendors, type VendorItem, type VendorSummary } from "./vendors";
+import { bucketWeeks, chartStart, type WeekCount } from "./weeks";
 
 type Db = NonNullable<ReturnType<typeof getDb>>;
 
@@ -203,18 +204,46 @@ export async function loadRecords(db: Db): Promise<Rec[]> {
 
 const listable = (r: Rec): Listable => ({ id: r.e.id, verdict: r.verdict, evidenceAt: r.evidenceAt, signalAt: r.signalAt, reports: r.reports, tier: tierOf(r.e, r.verdict), rankScore: r.e.rankScore });
 
+/** How long an event reads NEW or CHANGED after its first or latest verdict or ladder change. */
+export const MARK_DAYS = 7;
+
+/**
+ * NEW when the event's first history row is within the last 7 days; CHANGED when a later row is.
+ * History rows are written only when an event is created or its verdict or ladder moves, so a
+ * routine sync never marks anything.
+ */
+export async function changeMarks(db: Db, ids: string[], now: number = Date.now()): Promise<Map<string, "new" | "changed">> {
+  const out = new Map<string, "new" | "changed">();
+  if (!ids.length) return out;
+  const since = new Date(now - MARK_DAYS * 86_400_000);
+  const rows = await db
+    .select({ eventId: schema.verdictHistory.eventId, first: sql<string>`min(${schema.verdictHistory.changedAt})`, last: sql<string>`max(${schema.verdictHistory.changedAt})` })
+    .from(schema.verdictHistory)
+    .where(inArray(schema.verdictHistory.eventId, ids))
+    .groupBy(schema.verdictHistory.eventId);
+  for (const r of rows) {
+    if (new Date(r.first) >= since) out.set(r.eventId, "new");
+    else if (new Date(r.last) >= since) out.set(r.eventId, "changed");
+  }
+  return out;
+}
+
 async function summarize(db: Db, recs: Rec[]): Promise<EventSummary[]> {
   const rows = recs.map((r) => r.e);
   const ids = rows.map((r) => r.id);
   const cves = await cvesByEvent(db, ids);
   const narratives = await publishedNarratives(db, ids);
+  const marks = await changeMarks(db, ids);
   const all = [...cves.values()].flat();
   const vulns = all.length ? await db.select({ cveId: schema.vulnerabilities.cveId, cvss: schema.vulnerabilities.cvssScore }).from(schema.vulnerabilities).where(inArray(schema.vulnerabilities.cveId, all)) : [];
   const cvssOf = new Map(vulns.map((v) => [v.cveId, v.cvss]));
   return rows.map((e) => {
     const list = cves.get(e.id) ?? [];
     const scores = list.map((c) => cvssOf.get(c)).filter((x): x is number => typeof x === "number");
-    return { row: toRow(e, list, narratives.get(e.id)), summary: e.summary ?? "", updatedAt: e.updatedAt.toISOString(), cvss: scores.length ? Math.max(...scores) : undefined };
+    const row = toRow(e, list, narratives.get(e.id));
+    const mark = marks.get(e.id);
+    if (mark) row.mark = mark;
+    return { row, summary: e.summary ?? "", updatedAt: e.updatedAt.toISOString(), cvss: scores.length ? Math.max(...scores) : undefined };
   });
 }
 
@@ -358,6 +387,17 @@ export async function dbStatus(): Promise<StatusView> {
 }
 
 /** Count of CISA KEV additions in the last 7 and 30 days, from vulnerability facts. */
+/** CISA KEV additions per week, the last 12 weeks, oldest first. */
+export async function dbKevWeeks(now: Date = new Date()): Promise<WeekCount[]> {
+  const db = getDb();
+  if (!db) return bucketWeeks([], now);
+  const rows = await db
+    .select({ d: schema.vulnerabilities.kevCisaDateAdded })
+    .from(schema.vulnerabilities)
+    .where(gte(schema.vulnerabilities.kevCisaDateAdded, chartStart(now)));
+  return bucketWeeks(rows.map((r) => r.d).filter((d): d is string => !!d), now);
+}
+
 export async function dbKevCounts(): Promise<{ d7: number; d30: number }> {
   const db = getDb();
   if (!db) return { d7: 0, d30: 0 };
