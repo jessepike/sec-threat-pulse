@@ -20,7 +20,10 @@ export async function GET(_req: Request, ctx: { params: Promise<{ file: string }
   const name = parseExportName(file);
   if (!name) return Response.json({ error: "Expected events-YYYY-MM-DD.csv, events-YYYY-MM-DD.json or events-latest.csv|json" }, { status: 404, headers: API_HEADERS });
   const today = utcDate();
-  if (name.date === "latest") return Response.redirect(`${SITE_URL}/api/v1/export/events-${today}.${name.format}`, 302);
+  if (name.date === "latest") {
+    // Response.redirect() carries no CORS header, which would fail a browser client on another origin.
+    return new Response(null, { status: 302, headers: { ...API_HEADERS, "Cache-Control": "public, max-age=300", Location: `${SITE_URL}/api/v1/export/events-${today}.${name.format}` } });
+  }
   if (name.date !== today) {
     return Response.json(
       { error: `Only today's export (${today}) is generated here. Earlier days: the nightly snapshot on the data branch, ${SNAPSHOT_URL} (git history has every day).`, today, snapshot: SNAPSHOT_URL },

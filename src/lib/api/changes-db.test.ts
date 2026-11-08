@@ -50,4 +50,20 @@ describe("apiChanges", () => {
     expect(out.total).toBe(1);
     expect(out.changes[0]).toMatchObject({ kind: "verdict", previousVerdict: "low", verdict: "watch" });
   });
+
+  it("keeps the override as the public verdict until an admin clears it", async () => {
+    await ev("c", "act_now");
+    await hist("c", "act_now", L({ exploited: "confirmed" }), at(1));
+    await hist("c", "watch", L({ exploited: "confirmed" }), at(2), "admin:jess", "Admin override: vendor says the report is wrong.");
+    // The sync keeps writing the rules verdict while the override stands. Publicly nothing moved.
+    await hist("c", "act_now", L({ exploited: "confirmed", talk: "reported" }), at(3));
+    await hist("c", "act_now", L({ exploited: "confirmed", talk: "reported" }), at(4), "admin:jess", "Admin override cleared: confirmed by a second source.");
+    const out = await apiChanges(db, at(1, 0));
+    expect(out.changes.map((c) => [c.kind, c.previousVerdict, c.verdict])).toEqual([
+      ["admin", "watch", "act_now"],
+      ["ladder", "watch", "watch"],
+      ["admin", "act_now", "watch"],
+      ["new", null, "act_now"],
+    ]);
+  });
 });
