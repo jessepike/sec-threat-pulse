@@ -186,7 +186,8 @@ export async function apiEvents(opts: ApiListFilters): Promise<{ total: number; 
   if (opts.product) recs = recs.filter((r) => recMatchesProduct(r.e, opts.product!));
   if (opts.since) {
     const t = Date.parse(opts.since);
-    recs = recs.filter((r) => r.e.updatedAt.getTime() >= t || r.evidenceAt >= t);
+    // Changed since: the event row changed, newer evidence was published, or older evidence was attached.
+    recs = recs.filter((r) => r.e.updatedAt.getTime() >= t || r.evidenceAt >= t || (r.seenAt ?? 0) >= t);
   }
   if (opts.cve) {
     const hits = new Set((await db.select({ eventId: schema.eventCves.eventId }).from(schema.eventCves).where(eq(schema.eventCves.cveId, opts.cve))).map((x) => x.eventId));

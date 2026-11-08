@@ -16,7 +16,7 @@ type Json = Record<string, unknown>;
 const arr = (v: unknown): Json[] => (Array.isArray(v) ? (v as Json[]) : []);
 
 /** Read SSVC options from a CISA ADP container. */
-export function readSsvc(record: Json): { exploitation?: string; automatable?: string; technicalImpact?: string } {
+export function readSsvc(record: Json): { exploitation?: string; automatable?: string; technicalImpact?: string; timestamp?: string } {
   const adp = arr((record.containers as Json | undefined)?.adp);
   for (const c of adp) {
     for (const m of arr(c.metrics)) {
@@ -25,7 +25,9 @@ export function readSsvc(record: Json): { exploitation?: string; automatable?: s
       const options = arr((other.content as Json | undefined)?.options);
       const out: Record<string, string> = {};
       for (const o of options) for (const [k, v] of Object.entries(o)) out[k] = String(v);
+      const timestamp = isoOrUndefined((other.content as Json | undefined)?.timestamp as string | undefined);
       return {
+        timestamp,
         exploitation: out["Exploitation"]?.toLowerCase(),
         automatable: out["Automatable"]?.toLowerCase(),
         technicalImpact: out["Technical Impact"]?.toLowerCase(),
@@ -77,6 +79,9 @@ export function parseCveRecord(cve: string, record: Json): { observations: Obser
   };
   const observations: ObservationInput[] = [];
   const ssvc = readSsvc(record);
+  // The SSVC decision carries its own timestamp. That is when CISA made the call, so it dates the
+  // observation; the CVE publish date is only a fallback for display and never sets the clock.
+  const reportedAt = ssvc.timestamp;
   const url = `https://www.cve.org/CVERecord?id=${cve}`;
   if (ssvc.exploitation === "active") {
     observations.push({
@@ -89,8 +94,8 @@ export function parseCveRecord(cve: string, record: Json): { observations: Obser
       product: vulnerability.product,
       title: `CISA Vulnrichment marks ${cve} as actively exploited`,
       url,
-      publishedAt: vulnerability.publishedAt,
-      metadata: { ssvc },
+      publishedAt: reportedAt ?? vulnerability.publishedAt,
+      metadata: { ssvc, reportedAt },
     });
   } else if (ssvc.exploitation === "poc") {
     observations.push({
@@ -103,8 +108,8 @@ export function parseCveRecord(cve: string, record: Json): { observations: Obser
       product: vulnerability.product,
       title: `CISA Vulnrichment notes a public proof of concept for ${cve}`,
       url,
-      publishedAt: vulnerability.publishedAt,
-      metadata: { ssvc, maturity: "poc" },
+      publishedAt: reportedAt ?? vulnerability.publishedAt,
+      metadata: { ssvc, maturity: "poc", reportedAt },
     });
     vulnerability.exploitMaturity = "poc";
   }

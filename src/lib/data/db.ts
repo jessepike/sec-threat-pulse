@@ -151,6 +151,8 @@ export interface Rec {
   e: EventRecord;
   verdict: Verdict;
   evidenceAt: number;
+  /** Newest time an observation was attached to the event (ingest time), for change feeds. */
+  seenAt?: number;
   signalAt?: number;
   reports: number;
 }
@@ -162,6 +164,7 @@ export async function loadRecords(db: Db): Promise<Rec[]> {
       eventId: schema.observations.eventId,
       n: sql<number>`count(*)`.as("n"),
       latest: sql<string | Date | null>`max(coalesce(${schema.observations.publishedAt}, ${schema.observations.observedAt}))`.as("latest"),
+      seen: sql<string | Date | null>`max(${schema.observations.observedAt})`.as("seen"),
       // Newest dated report of attacks, exploitation or damage. Ingest time does not count.
       signal: sql<string | Date | null>`max(${schema.observations.publishedAt}) filter (where ${schema.observations.kind} in ('attempts', 'exploited', 'damage'))`.as("signal"),
     })
@@ -170,22 +173,24 @@ export async function loadRecords(db: Db): Promise<Rec[]> {
     .groupBy(schema.observations.eventId)
     .as("agg");
   const rows = await db
-    .select({ e: schema.events, n: agg.n, latest: agg.latest, signal: agg.signal })
+    .select({ e: schema.events, n: agg.n, latest: agg.latest, seen: agg.seen, signal: agg.signal })
     .from(schema.events)
     .leftJoin(agg, eq(agg.eventId, schema.events.id))
     .where(eq(schema.events.hidden, false));
   const recs = rows.map((r): Rec => {
     const latest = r.latest ? new Date(r.latest).getTime() : NaN;
     const signal = r.signal ? new Date(r.signal).getTime() : NaN;
+    const seen = r.seen ? new Date(r.seen).getTime() : NaN;
     return {
       signalAt: Number.isFinite(signal) ? signal : undefined,
+      seenAt: Number.isFinite(seen) ? seen : undefined,
       e: r.e,
       verdict: asVerdict(r.e.overrideVerdict ?? r.e.verdict),
       evidenceAt: Number.isFinite(latest) ? latest : r.e.updatedAt.getTime(),
       reports: Number(r.n ?? 0),
     };
   });
-  return sortListed(recs.map((r) => ({ ...r, id: r.e.id }))).map(({ e, verdict, evidenceAt, signalAt, reports }) => ({ e, verdict, evidenceAt, signalAt, reports }));
+  return sortListed(recs.map((r) => ({ ...r, id: r.e.id }))).map(({ e, verdict, evidenceAt, seenAt, signalAt, reports }) => ({ e, verdict, evidenceAt, seenAt, signalAt, reports }));
 }
 
 const listable = (r: Rec): Listable => ({ id: r.e.id, verdict: r.verdict, evidenceAt: r.evidenceAt, signalAt: r.signalAt, reports: r.reports });

@@ -50,8 +50,24 @@ const day = (d: Date | string | null | undefined): string | undefined => {
 };
 const daysBetween = (a?: string, b?: string): number | undefined => (a && b ? Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / DAY) : undefined);
 
+/**
+ * Sources whose `publishedAt` is the flaw's disclosure date, not the date of the report itself:
+ * Metasploit modules carry `disclosure_date`, and older CISA Vulnrichment rows carried the CVE
+ * publish date. Their observations only set a clock point when `metadata.reportedAt` says when
+ * the report was made. Otherwise the point stays missing rather than being backdated to disclosure.
+ */
+export const DISCLOSURE_DATED_SOURCES: ReadonlySet<string> = new Set(["metasploit", "cvelist"]);
+
+/** The date an observation reports something, or undefined when the source only knows the disclosure date. */
+export function reportDate(o: ClockObservation): string | undefined {
+  const reportedAt = (o.metadata as { reportedAt?: unknown } | null)?.reportedAt;
+  if (typeof reportedAt === "string") return day(reportedAt);
+  if (DISCLOSURE_DATED_SOURCES.has(o.sourceId)) return undefined;
+  return day(o.publishedAt);
+}
+
 function earliest(obs: ClockObservation[], label: (o: ClockObservation) => string): ClockPoint | undefined {
-  const dated = obs.map((o) => ({ o, d: day(o.publishedAt) })).filter((x): x is { o: ClockObservation; d: string } => !!x.d).sort((a, b) => a.d.localeCompare(b.d));
+  const dated = obs.map((o) => ({ o, d: reportDate(o) })).filter((x): x is { o: ClockObservation; d: string } => !!x.d).sort((a, b) => a.d.localeCompare(b.d));
   const first = dated[0];
   return first ? { date: first.d, label: label(first.o), url: first.o.url } : undefined;
 }
@@ -92,10 +108,10 @@ export function computeClock(vulns: ClockVuln[], obs: ClockObservation[]): Clock
 export function sourceCounts(obs: { kind: string; strength: string; sourceId: string }[]): Record<string, number> {
   const out: Record<string, number> = {};
   for (const rung of ["talk", "exposure", "attempts", "exploited", "damage"]) {
-    const kinds = rung === "talk" ? ["talk", "advisory"] : [rung];
+    // Confirmed exploitation entails attempts, so exploitation sources count for that rung too.
+    const kinds = rung === "talk" ? ["talk", "advisory"] : rung === "attempts" ? ["attempts", "exploited"] : [rung];
     const mine = obs.filter((o) => kinds.includes(o.kind) && o.strength !== "claimed");
     out[rung] = new Set(mine.map((o) => o.sourceId)).size;
   }
-  if (out.attempts < out.exploited) out.attempts = out.exploited;
   return out;
 }
