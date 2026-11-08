@@ -2,6 +2,7 @@ import { createMcpHandler } from "mcp-handler";
 import { unstable_cache } from "next/cache";
 import { z } from "zod";
 import { API_NOTICE, apiEvent, apiEvents, parseApiVerdict } from "@/lib/api/v1";
+import { cachedTrackRecord } from "@/lib/track-record/cached";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -77,6 +78,22 @@ const handler = createMcpHandler(
           if (page >= data.pages) break;
         }
         return json({ notice: API_NOTICE, query, matches: matches.slice(0, 20) });
+      },
+    );
+
+    server.registerTool(
+      "get_track_record",
+      {
+        title: "Get the verdict track record",
+        description:
+          "How often early Act now calls (made before a KEV listing) were right within 30 days: the live record since history began and the backtest for every rules version, with right, wrong and pending counts, 95% intervals, lead time before KEV and every scored call. Read it before relying on a verdict.",
+        inputSchema: z.object({}),
+        annotations: { readOnlyHint: true, openWorldHint: false },
+      },
+      async () => {
+        const data = await cachedTrackRecord();
+        if (!data) return fail("Data is not available right now.");
+        return json({ notice: API_NOTICE, page: "https://securitythreatpulse.com/track-record", ...data });
       },
     );
   },

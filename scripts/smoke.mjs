@@ -14,7 +14,7 @@ async function get(path, init) {
   return { res, text: await res.text() };
 }
 
-for (const path of ["/", "/events", "/events?verdict=act_now", "/brief", "/methodology", "/corrections", "/about"]) {
+for (const path of ["/", "/events", "/events?verdict=act_now", "/brief", "/methodology", "/track-record", "/corrections", "/about"]) {
   const { res, text } = await get(path);
   ok(res.status === 200 && text.includes("SECURITY_THREAT_PULSE"), `page ${path} renders`);
 }
@@ -58,6 +58,13 @@ try {
 } catch {
   ok(false, "api changes returns JSON");
 }
+try {
+  const tr = await get("/api/v1/track-record");
+  const d = JSON.parse(tr.text);
+  ok(tr.res.status === 200 && typeof d.live?.actNow?.overall?.calls === "number" && Array.isArray(d.versions) && d.versions.length > 0, `api track record has ${d.live?.actNow?.overall?.calls} early call(s) and ${d.versions?.length} version(s)`);
+} catch {
+  ok(false, "api track record returns JSON");
+}
 {
   const today = new Date().toISOString().slice(0, 10);
   const csv = await get(`/api/v1/export/events-${today}.csv`);
@@ -82,7 +89,7 @@ const mcp = await get("/api/mcp", {
   headers: { "content-type": "application/json", accept: "application/json, text/event-stream", "mcp-protocol-version": "2025-06-18" },
   body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }),
 });
-ok(["list_events", "get_event", "search_events"].every((t) => mcp.text.includes(`"${t}"`)), "mcp lists its three tools");
+ok(["list_events", "get_event", "search_events", "get_track_record"].every((t) => mcp.text.includes(`"${t}"`)), "mcp lists its four tools");
 
 try {
   const { chromium } = await import("playwright");

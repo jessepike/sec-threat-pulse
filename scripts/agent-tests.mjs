@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// The agent test set: 30 questions an AI agent asks the live site through its public machine
+// The agent test set: 31 questions an AI agent asks the live site through its public machine
 // interfaces (JSON API, OpenAPI, MCP server, feeds, llms.txt, health), each with a mechanical pass
 // or fail. Runs nightly from GitHub Actions and keeps one open issue labeled `alert` while any
 // question fails. Read only: it changes nothing on the site.
@@ -277,10 +277,10 @@ await run(25, "Does the human page for the event exist and agree on the verdict?
 });
 
 // MCP
-await run(26, "Does the MCP server list list_events, get_event and search_events?", async () => {
+await run(26, "Does the MCP server list list_events, get_event, search_events and get_track_record?", async () => {
   const rpc = await mcp("tools/list", {});
   const names = (rpc.result?.tools ?? []).map((t) => t.name);
-  return { pass: ["list_events", "get_event", "search_events"].every((t) => names.includes(t)), detail: names.join(", ") || rpc.error?.message || "no tools" };
+  return { pass: ["list_events", "get_event", "search_events", "get_track_record"].every((t) => names.includes(t)), detail: names.join(", ") || rpc.error?.message || "no tools" };
 });
 await run(27, "Does list_events over MCP return the same Act now events as the API?", async () => {
   const rpc = await mcp("tools/call", { name: "list_events", arguments: { verdict: "act_now" } }, 2);
@@ -315,6 +315,25 @@ await run(30, "Is the Act now RSS feed valid and does it name the same events?",
   return { pass: r.status === 200 && r.text.startsWith("<?xml") && r.text.includes("<rss") && ids.length > 0 && named.length === ids.length, detail: `HTTP ${r.status}, ${named.length}/${ids.length} of the top Act now events in the feed` };
 });
 
+// Track record
+await run(31, "Does the track record add up, and does get_track_record over MCP agree with the API?", async () => {
+  const r = await get("/api/v1/track-record");
+  const a = r.json?.live?.actNow;
+  const o = a?.overall;
+  const calls = a?.calls ?? [];
+  const count = (k) => calls.filter((c) => c.outcome === k).length;
+  const sums = o && o.calls === calls.length && o.right === count("right") && o.wrong === count("wrong") && o.pending === count("pending");
+  const versions = Object.values(a?.byVersion ?? {}).reduce((n, c) => n + c.calls, 0) === o?.calls;
+  const rate = !o || o.right + o.wrong === 0 ? o?.rate === undefined : Math.abs(o.rate - o.right / (o.right + o.wrong)) < 1e-9;
+  const prior = calls.every((c) => DATE_RE.test(c.calledOn) && (c.kevDate === null || c.kevDate > c.calledOn));
+  const m = mcpResult(await mcp("tools/call", { name: "get_track_record", arguments: {} }, 6));
+  const agree = m?.live?.actNow?.overall?.calls === o?.calls;
+  return {
+    pass: r.status === 200 && !!sums && versions && rate && prior && agree && (r.json?.versions ?? []).some((v) => v.active),
+    detail: o ? `${o.calls} early calls: ${o.right} right, ${o.wrong} wrong, ${o.pending} pending; mcp ${agree ? "agrees" : "differs"}` : `HTTP ${r.status}`,
+  };
+});
+
 const failed = results.filter((r) => !r.pass);
 const summary = { base, at: new Date().toISOString(), total: results.length, passed: results.length - failed.length, failed: failed.map((f) => ({ n: f.n, question: f.question, detail: f.detail })), results };
 if (asJson) console.log(JSON.stringify(summary, null, 2));
@@ -333,7 +352,7 @@ if (token) {
   const table = failed.map((f) => `| ${f.n} | ${f.question} | ${f.detail.replace(/\|/g, "/")} |`).join("\n");
   if (failed.length) {
     const body = [
-      `The nightly agent test set asked the live site 30 questions at ${summary.at} and ${failed.length} failed.`,
+      `The nightly agent test set asked the live site ${results.length} questions at ${summary.at} and ${failed.length} failed.`,
       "",
       "| # | Question | Result |",
       "|---|---|---|",

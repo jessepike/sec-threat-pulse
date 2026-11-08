@@ -71,6 +71,13 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [x] 30-question agent test set run nightly (`scripts/agent-tests.mjs`, `.github/workflows/agent-tests.yml`, 05:17 UTC, opens an `alert` issue on failure)
 - [x] Changes RSS and dated CSV export: `/api/v1/changes` and `/events/changes.xml` (verdict and ladder changes with the state they replaced), `/api/v1/export/events-YYYY-MM-DD.csv|json` with a license link, `events-latest.*` redirecting to today
 
+## Wave 2: Verdicts worth trusting (started Nov 8, 2026) · Gate: a public live track record exists; a later rules version beats v2 on held-out data
+
+- [x] Live track record at `/track-record` and `/api/v1/track-record` (MCP `get_track_record`): every early Act now scored against KEV at 30 days, per rules version, with 95% intervals, pending calls, KEV listings called first and lead time; backtest per version beside it
+- [ ] Keyless second exploitation sources: MSRC CVRF, ENISA EUVD, vendor PSIRT feeds, CISA ICS advisories
+- [ ] Exposure and Damage shown as "not tracked yet" where no source covers them
+- [ ] Next rules version: backtest, one held-out reveal, owner approves
+
 ## Public repo (owner asked Nov 8, 2026) · Gate: owner flips visibility
 
 - [x] Pre-flight: full-history secret scan, fixture review, MIT LICENSE, README
