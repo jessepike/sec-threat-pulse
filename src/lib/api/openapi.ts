@@ -258,7 +258,7 @@ export function openApiDocument() {
               description: "The export. CSV columns are listed in the header row; arrays are joined with '; '. JSON carries license, rulesVersion and events.",
               content: {
                 "text/csv": { schema: { type: "string" } },
-                "application/json": { schema: envelope({ exportedAt: { type: "string", format: "date-time" }, date: { type: "string", format: "date" }, rulesVersion: { type: "string" }, license: { type: "object" }, total: { type: "integer" }, events: { type: "array", items: { $ref: "#/components/schemas/Event" } } }, ["date", "rulesVersion", "license", "total", "events"]) },
+                "application/json": { schema: envelope({ date: { type: "string", format: "date" }, rulesVersion: { type: "string" }, license: { type: "object" }, total: { type: "integer" }, events: { type: "array", items: { $ref: "#/components/schemas/Event" } } }, ["date", "rulesVersion", "license", "total", "events"]) },
               },
             },
             "302": { description: "events-latest.* redirects to today's dated file." },

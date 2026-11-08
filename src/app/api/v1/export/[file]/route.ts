@@ -37,7 +37,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ file: string }
     return new Response(toCsv(events), { headers: { ...common, "Content-Type": "text/csv; charset=utf-8" } });
   }
   return Response.json(
-    { apiVersion: API_VERSION, notice: API_NOTICE, exportedAt: new Date().toISOString(), date: today, rulesVersion: CURRENT_RULES_VERSION, license: EXPORT_LICENSE, total: events.length, events },
+    { apiVersion: API_VERSION, notice: API_NOTICE, generatedAt: new Date().toISOString(), date: today, rulesVersion: CURRENT_RULES_VERSION, license: EXPORT_LICENSE, total: events.length, events },
     { headers: { ...common, "Content-Type": "application/json; charset=utf-8" } },
   );
 }
