@@ -18,6 +18,8 @@ Verdicts (act_now, watch, low) come from versioned, published rules. No model pi
 - [One event](${SITE_URL}/api/v1/events/{id}): JSON with the ladder, the clock (disclosure, exploit code, first attack report, KEV listing, deadline), distinct sources per rung, verdict reason, CISA's fix and dated, linked evidence.
 - [OpenAPI](${SITE_URL}/api/v1/openapi.json): OpenAPI 3.1 with one Event schema shared by every response.
 - [MCP server](${SITE_URL}/api/mcp): Streamable HTTP, read only, no key. Tools: list_events, get_event, search_events.
+- [Changes](${SITE_URL}/api/v1/changes): JSON of every verdict or ladder change, newest first, each with the state it replaced (?since=<ISO time>, default 7 days, at most 90). Same items as RSS at ${SITE_URL}/events/changes.xml. Cheapest way to keep a copy in sync.
+- [Bulk export](${SITE_URL}/api/v1/export/events-latest.csv): today's events as CSV or JSON at a dated URL (events-YYYY-MM-DD.csv or .json), with a license line. Earlier days are on the data branch.
 - [Act now feed](${SITE_URL}/events/feed.xml): RSS of events rated Act now.
 - [Corrections feed](${SITE_URL}/corrections/feed.xml): RSS of every correction.
 - [Health](${SITE_URL}/status.json): JSON with the last complete run, the last attempt, per-source health, the rules version and event counts. Same at /api/v1/health. Check it before trusting a reading.

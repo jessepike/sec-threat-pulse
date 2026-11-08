@@ -46,11 +46,26 @@ try {
 ok((await get("/api/v1/events?since=not-a-date")).res.status === 400, "api bad since is 400");
 ok((await get("/api/v1/events?verdict=bad")).res.status === 400, "api bad verdict is 400");
 
-for (const feed of ["/events/feed.xml", "/corrections/feed.xml"]) {
+for (const feed of ["/events/feed.xml", "/events/changes.xml", "/corrections/feed.xml"]) {
   const { res, text } = await get(feed);
   ok(res.status === 200 && text.startsWith("<?xml") && text.includes("<rss"), `feed ${feed} is RSS`);
 }
 ok((await get("/llms.txt")).text.includes("/api/mcp"), "llms.txt lists the MCP server");
+try {
+  const ch = await get("/api/v1/changes");
+  const d = JSON.parse(ch.text);
+  ok(ch.res.status === 200 && Array.isArray(d.changes) && typeof d.total === "number", `api changes lists ${d.total} change(s)`);
+} catch {
+  ok(false, "api changes returns JSON");
+}
+{
+  const today = new Date().toISOString().slice(0, 10);
+  const csv = await get(`/api/v1/export/events-${today}.csv`);
+  ok(csv.res.status === 200 && csv.text.startsWith("id,url,title,verdict") && (csv.res.headers.get("link") ?? "").includes("license"), "csv export for today has a header row and a license link");
+  const latest = await get("/api/v1/export/events-latest.json", { redirect: "manual" });
+  ok(latest.res.status === 302 && (latest.res.headers.get("location") ?? "").endsWith(`events-${today}.json`), "events-latest.json redirects to today's dated file");
+  ok((await get("/api/v1/export/events-2020-01-01.csv")).res.status === 404, "export for a past day is 404 and points at the data branch");
+}
 
 for (const path of ["/status.json", "/api/v1/health"]) {
   const { res, text } = await get(path);

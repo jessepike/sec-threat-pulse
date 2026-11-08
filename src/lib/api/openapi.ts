@@ -116,6 +116,25 @@ export const SCHEMAS = {
       },
     ],
   },
+  Change: {
+    type: "object",
+    description: "One verdict or ladder change on a tracked event, with the state it replaced.",
+    properties: {
+      id: { type: "integer", description: "Stable, increasing." },
+      eventId: { type: "string" },
+      url: { type: "string", format: "uri" },
+      title: { type: "string" },
+      at: { type: "string", format: "date-time" },
+      kind: { type: "string", enum: ["new", "verdict", "ladder", "admin"], description: "new: first seen. verdict: the verdict moved. ladder: a rung moved, verdict unchanged. admin: an STP override." },
+      verdict: { $ref: "#/components/schemas/Verdict" },
+      previousVerdict: nullable({ $ref: "#/components/schemas/Verdict" }),
+      ladder: { $ref: "#/components/schemas/Ladder" },
+      previousLadder: nullable({ $ref: "#/components/schemas/Ladder" }),
+      rulesVersion: { type: "string" },
+      reason: nullable({ type: "string" }),
+    },
+    required: ["id", "eventId", "url", "title", "at", "kind", "verdict", "previousVerdict", "ladder", "previousLadder", "rulesVersion", "reason"],
+  },
 } as const;
 
 /** Fields the Event schema requires. v1.test.ts checks every one is produced by the API. */
@@ -191,6 +210,59 @@ export function openApiDocument() {
           responses: {
             "200": { description: "The event.", content: { "application/json": { schema: envelope({ event: { $ref: "#/components/schemas/EventDetail" } }, ["event"]) } } },
             "404": { description: "Unknown event id." },
+            "503": { description: "Data is not available right now." },
+          },
+        },
+      },
+      "/api/v1/changes": {
+        get: {
+          operationId: "listChanges",
+          summary: "Verdict and ladder changes, newest first, each with the state it replaced. Default the last 7 days, at most 90. Same items as RSS at /events/changes.xml.",
+          parameters: [
+            { name: "since", in: "query", schema: { type: "string", format: "date-time" }, description: "Changes at or after this time. Default 7 days ago; values older than 90 days are raised to 90 days." },
+            { name: "page", in: "query", schema: { type: "integer", minimum: 1, default: 1 }, description: "100 changes a page." },
+          ],
+          responses: {
+            "200": {
+              description: "One page of changes.",
+              content: {
+                "application/json": {
+                  schema: envelope(
+                    {
+                      since: { type: "string", format: "date-time" },
+                      total: { type: "integer" },
+                      page: { type: "integer" },
+                      pages: { type: "integer" },
+                      changes: { type: "array", items: { $ref: "#/components/schemas/Change" } },
+                    },
+                    ["since", "total", "page", "pages", "changes"],
+                  ),
+                },
+              },
+            },
+            "400": { description: "since is malformed." },
+            "503": { description: "Data is not available right now." },
+          },
+        },
+      },
+      "/api/v1/export/events-{date}.{format}": {
+        get: {
+          operationId: "exportEvents",
+          summary: "Dated bulk export of every event, CSV or JSON, with a license line. Only today (UTC) is generated here; earlier days are on the data branch. events-latest.csv redirects to today's file.",
+          parameters: [
+            { name: "date", in: "path", required: true, schema: { type: "string", pattern: "^(\\d{4}-\\d{2}-\\d{2}|latest)$" } },
+            { name: "format", in: "path", required: true, schema: { type: "string", enum: ["csv", "json"] } },
+          ],
+          responses: {
+            "200": {
+              description: "The export. CSV columns are listed in the header row; arrays are joined with '; '. JSON carries license, rulesVersion and events.",
+              content: {
+                "text/csv": { schema: { type: "string" } },
+                "application/json": { schema: envelope({ date: { type: "string", format: "date" }, rulesVersion: { type: "string" }, license: { type: "object" }, total: { type: "integer" }, events: { type: "array", items: { $ref: "#/components/schemas/Event" } } }, ["date", "rulesVersion", "license", "total", "events"]) },
+              },
+            },
+            "302": { description: "events-latest.* redirects to today's dated file." },
+            "404": { description: "Not today's date, or a name that is not events-YYYY-MM-DD.csv|json. The body points at the data branch." },
             "503": { description: "Data is not available right now." },
           },
         },
