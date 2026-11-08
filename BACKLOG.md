@@ -79,6 +79,16 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [x] Exposure and Damage shown as "not tracked yet" where no source covers them (`src/lib/ladder/coverage.ts`; event page, `untrackedRungs` in the API and CSV)
 - [ ] Next rules version: backtest, one held-out reveal, owner approves
 
+## Wave 3: Reader product (started Nov 8, 2026) · Gate: a leader gets the week's top items in one screen on a phone
+
+- [x] Home page leads with the top 5 Act now in rank order and one sentence for the week from fixed templates (`src/lib/data/top.ts`)
+- [ ] Weekly brief page and RSS
+- [ ] Vendor pages at `/vendors/{slug}`
+- [ ] MCP tools `get_brief` and `check_stack`
+- [ ] One live chart
+- [ ] NEW and CHANGED markers
+- [ ] Phone fold and tap targets
+
 ## Public repo (owner asked Nov 8, 2026) · Gate: owner flips visibility
 
 - [x] Pre-flight: full-history secret scan, fixture review, MIT LICENSE, README

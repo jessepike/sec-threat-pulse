@@ -14,13 +14,13 @@ import {
   REPORT_KPIS,
   SAMPLE_BRIEF,
   SAMPLE_COUNTS_NOTE,
-  SAMPLE_HERO_BLURB,
   SAMPLE_KEV_KPI,
   SAMPLE_REAL,
   SAMPLE_WEEK_OF,
 } from "./editorial";
 import { fmtDay, weekOfLabel } from "./format";
 import { SAMPLE_EVENTS } from "./sample";
+import { topFive, weekLine } from "./top";
 import type { BriefData, CorrectionView, DataMode, EventRow, EventsIndexData, EventView, HomeData, KpiView, StatusView, VerdictFilter } from "./types";
 
 export * from "./types";
@@ -74,12 +74,12 @@ function sampleHome(): HomeData {
   // Sample dates are fixed, so measure the 30-day Act now window from the newest sample evidence.
   const shown = homeSelection(SAMPLE_LISTED, Math.max(...SAMPLE_LISTED.map((x) => x.evidenceAt))).map((x) => x.view);
   const events = shown.map(toRow);
-  // The sample hero blurb is written for the flagship sample event, so it stays the hero.
-  const hero = SAMPLE_EVENTS[0];
+  const top = topFive(events);
   return {
     status: SAMPLE_STATUS,
     weekOf: SAMPLE_WEEK_OF,
-    hero: { id: hero.id, href: hero.href, title: hero.title, verdict: hero.verdict, idsLabel: `${hero.idsLabel} · CVSS ${hero.cvss?.toFixed(1)}`, blurb: SAMPLE_HERO_BLURB },
+    top,
+    weekLine: weekLine(events, top),
     counts: countVerdicts(SAMPLE_EVENTS),
     countsNote: SAMPLE_COUNTS_NOTE,
     kpis: [SAMPLE_KEV_KPI, ...REPORT_KPIS],
@@ -96,7 +96,7 @@ function sampleHome(): HomeData {
 async function liveHome(): Promise<HomeData> {
   const [{ counts, items: list }, status, kev] = await Promise.all([dbHomeEvents(), dbStatus(), dbKevCounts()]);
   const events = list.map((x) => x.row);
-  const top = list[0];
+  const top = topFive(events);
   const realItems = list
     .filter((x) => x.row.verdict === "act_now")
     .slice(0, 3)
@@ -113,17 +113,8 @@ async function liveHome(): Promise<HomeData> {
   return {
     status,
     weekOf: weekOfLabel(new Date()),
-    hero: top
-      ? {
-          id: top.row.id,
-          href: top.row.href,
-          title: top.row.title,
-          verdict: top.row.verdict,
-          idsLabel: top.cvss ? `${top.row.idsLabel} · CVSS ${top.cvss.toFixed(1)}` : top.row.idsLabel,
-          // Plain words first: what it is and the first step. The technical summary stays on the event page.
-          blurb: top.row.category && top.row.category.id !== "other" ? `${top.row.exposure} Do this: ${top.row.category.doThis}` : top.summary || "No summary written yet.",
-        }
-      : null,
+    top,
+    weekLine: weekLine(events, top),
     counts,
     countsNote: counts.total === 0 ? "No events are tracked yet." : "Counts follow the published verdict rules.",
     kpis: [kevKpi, ...REPORT_KPIS],

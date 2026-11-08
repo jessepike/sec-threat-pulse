@@ -212,14 +212,10 @@ export interface StatView {
 export interface HomeData {
   status: StatusView;
   weekOf: string;
-  hero: {
-    id: string;
-    href: string;
-    title: string;
-    verdict: Verdict;
-    idsLabel: string;
-    blurb: string;
-  } | null;
+  /** Up to five Act now events in rank order: the home page's first list. */
+  top: { rank: number; row: EventRow }[];
+  /** One sentence for the week, from fixed templates. */
+  weekLine: string;
   counts: CountsView;
   countsNote: string;
   kpis: KpiView[];

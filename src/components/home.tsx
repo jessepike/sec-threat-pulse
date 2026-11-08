@@ -8,42 +8,48 @@ import { YourVendors } from "./YourVendors";
 const GRID = "grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))]";
 
 export function Hero({ data }: { data: HomeData }) {
-  const { hero, counts } = data;
+  const { top, counts } = data;
   // Low is hidden while the rules produce none; a "0" row only raises the question of why.
   const rows: { v: "act_now" | "watch" | "low" }[] = [{ v: "act_now" }, { v: "watch" }, ...(counts.low > 0 ? [{ v: "low" as const }] : [])];
   return (
     <section aria-labelledby="hero" className="flex flex-wrap items-stretch gap-8">
       <div className="hero-card flex min-w-0 flex-[999_1_min(100%,620px)] flex-col gap-[18px] rounded border border-l-[6px] border-line border-l-crit p-6 sm:p-9">
-        <Eyebrow>{`// BOTTOM LINE · WEEK OF ${data.weekOf.toUpperCase()}`}</Eyebrow>
-        {hero ? (
-          <>
-            <div className="flex flex-wrap items-center gap-3.5">
-              <VerdictBadge verdict={hero.verdict} large />
-              <span className="font-mono text-[13px] text-muted">{hero.idsLabel}</span>
-            </div>
-            <h1 id="hero" className="m-0 font-display text-[44px] font-bold leading-[1.02] tracking-[-0.03em] sm:text-[60px]">
-              {hero.title}
-            </h1>
-            <p className="m-0 max-w-[640px] text-[17px] leading-[1.55] text-fg-2 sm:text-[19px]">{hero.blurb}</p>
-            <div className="flex flex-wrap gap-3 pt-1.5">
-              <Link href={hero.href} className="rounded-[3px] bg-accent px-5 py-3.5 font-mono text-sm font-bold tracking-[0.06em] text-accent-ink no-underline hover:bg-accent-hover hover:text-accent-ink">
-                WHAT TO DO →
-              </Link>
-              <Link href="#events" className="rounded-[3px] border border-line-strong px-5 py-[13px] font-mono text-sm tracking-[0.06em] text-fg no-underline hover:text-fg">
-                ALL EVENTS
-              </Link>
-            </div>
-          </>
-        ) : (
-          <>
-            <h1 id="hero" className="m-0 font-display text-[40px] font-bold leading-[1.05] tracking-[-0.03em]">
-              No events yet
-            </h1>
-            <p className="m-0 max-w-[640px] text-[17px] leading-[1.55] text-fg-2">
-              The pipeline has not grouped any reports into events. Check back after the next run.
-            </p>
-          </>
+        <Eyebrow>{`// DO THIS FIRST · WEEK OF ${data.weekOf.toUpperCase()}`}</Eyebrow>
+        <h1 id="hero" className="m-0 max-w-[760px] font-display text-[24px] font-bold leading-[1.15] tracking-[-0.02em] sm:text-[36px]">
+          {data.weekLine}
+        </h1>
+        {top.length > 0 && (
+          <ol aria-label="Top flaws to act on" className="m-0 flex list-none flex-col p-0">
+            {top.map(({ rank, row }) => (
+              <li key={row.id} className="flex gap-4 border-t border-line-soft py-4 first:border-t-0 first:pt-1 sm:gap-5">
+                <span aria-hidden className="w-7 shrink-0 font-mono text-[28px] font-bold leading-none text-crit-text sm:w-9 sm:text-[34px]">
+                  {rank}
+                </span>
+                <div className="flex min-w-0 flex-col gap-1.5 [overflow-wrap:anywhere]">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                    <Link href={row.href} className="py-1 font-display text-lg font-semibold leading-snug text-fg no-underline hover:text-accent sm:text-xl">
+                      {row.title}
+                    </Link>
+                    <TierBadge tier={row.tier} />
+                  </div>
+                  <p className="m-0 text-[15px] leading-normal text-fg-2 sm:text-base">
+                    <span className="font-mono text-xs font-bold tracking-[0.08em] text-accent">DO THIS </span>
+                    {row.category?.doThis ?? row.question ?? row.exposure}
+                  </p>
+                  {row.idsLabel && <span className="font-mono text-xs text-faint">{row.idsLabel}</span>}
+                </div>
+              </li>
+            ))}
+          </ol>
         )}
+        <div className="flex flex-wrap gap-3 pt-1.5">
+          <Link href="#events" className="rounded-[3px] bg-accent px-5 py-3.5 font-mono text-sm font-bold tracking-[0.06em] text-accent-ink no-underline hover:bg-accent-hover hover:text-accent-ink">
+            ALL EVENTS →
+          </Link>
+          <Link href="/track-record" className="rounded-[3px] border border-line-strong px-5 py-[13px] font-mono text-sm tracking-[0.06em] text-fg no-underline hover:text-fg">
+            HOW OFTEN WE ARE RIGHT
+          </Link>
+        </div>
       </div>
 
       <Panel className="flex flex-[1_1_280px] flex-col gap-[18px] p-7">
