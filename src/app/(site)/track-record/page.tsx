@@ -222,7 +222,7 @@ export default async function TrackRecordPage() {
           An early Act now is <strong>right</strong> when CISA or VulnCheck lists the flaw as exploited within {ACT_NOW_HORIZON_DAYS} days of our call. It is <strong>wrong</strong> when{" "}
           {ACT_NOW_HORIZON_DAYS} days pass with no listing. Until then it is <strong>pending</strong>. Calls made after a listing are not scored, because they cannot be wrong.
         </p>
-        <p>KEV is a strict test. Some flaws are exploited and never listed, so the real rate is likely higher than what we show. We count each flaw once, from the first time any event naming it was rated Act now.</p>
+        <p>KEV is a strict test. Some flaws are exploited and never listed, so the real rate is likely higher than what we show. We count each flaw once, from the first time the site rated it Act now. A flaw that joins a group of listed flaws never borrows the group&apos;s earlier call.</p>
       </section>
 
       {data ? (

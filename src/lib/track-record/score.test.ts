@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { firstCall, median, scoreCall, scoreLive, type CveHistory, type HistoryRow } from "./score";
+import { attributable, firstCall, median, scoreCall, scoreLive, type CveHistory, type HistoryRow } from "./score";
 
 const at = (day: string, h = 12) => new Date(`${day}T${String(h).padStart(2, "0")}:00:00Z`);
 const row = (verdict: string, day: string, eventId = "e", rulesVersion = "v2"): HistoryRow => ({ eventId, verdict, rulesVersion, at: at(day) });
@@ -19,6 +19,15 @@ describe("scoreCall", () => {
   });
   it("is pending until the horizon passes", () => {
     expect(scoreCall("C", row("act_now", "2026-10-01"), null, "2026-10-31", 30)).toMatchObject({ outcome: "pending", settlesOn: "2026-10-31" });
+  });
+});
+
+describe("attributable", () => {
+  it("credits a CVE's own early event, and other events only from the listing day", () => {
+    expect(attributable(row("act_now", "2026-10-01", "early-cve-2026-0001"), "CVE-2026-0001", null)).toBe(true);
+    expect(attributable(row("act_now", "2026-10-01", "early-cve-2026-0002"), "CVE-2026-0001", "2026-10-05")).toBe(false);
+    expect(attributable(row("act_now", "2026-10-05", "kev-x"), "CVE-2026-0001", "2026-10-05")).toBe(true);
+    expect(attributable(row("act_now", "2026-10-05", "kev-x"), "CVE-2026-0001", null)).toBe(false);
   });
 });
 
@@ -45,6 +54,8 @@ describe("scoreLive", () => {
     [
       // Early call, listed 4 days later: right.
       cve("CVE-1", "2026-10-28", row("watch", "2026-10-24", "early-cve-1"), row("act_now", "2026-10-24", "early-cve-1", "v2")),
+      // A cluster's early call is not credited to a CVE that joined it at listing.
+      cve("CVE-7", "2026-10-28", row("act_now", "2026-10-24", "early-cve-1", "v2")),
       // Early call, never listed, horizon passed: wrong.
       cve("CVE-2", null, row("act_now", "2026-10-26", "early-cve-2", "v2")),
       // Call after listing: counted apart.
@@ -52,7 +63,7 @@ describe("scoreLive", () => {
       // Recent call under v3: pending.
       cve("CVE-4", null, row("act_now", "2026-12-01", "early-cve-4", "v3")),
       // Watch then listed 60 days later: a right Watch call, never Act now.
-      cve("CVE-5", "2026-12-10", row("watch", "2026-10-11", "w")),
+      cve("CVE-5", "2026-12-10", row("watch", "2026-10-11", "early-cve-5")),
       // Listed after history began with no call before it.
       cve("CVE-6", "2026-11-20", row("act_now", "2026-11-20", "kev-y")),
     ],
@@ -81,8 +92,8 @@ describe("scoreLive", () => {
   });
 
   it("counts KEV listings after history began and the share called before", () => {
-    expect(rec.kevCoverage).toMatchObject({ listings: 3, calledBefore: 1, medianLeadDays: 4 });
-    expect(rec.kevCoverage.share).toBeCloseTo(1 / 3);
+    expect(rec.kevCoverage).toMatchObject({ listings: 4, calledBefore: 1, medianLeadDays: 4 });
+    expect(rec.kevCoverage.share).toBeCloseTo(1 / 4);
   });
 
   it("is empty without history", () => {

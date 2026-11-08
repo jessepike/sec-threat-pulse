@@ -16,7 +16,7 @@ export async function GET() {
       generatedAt: new Date().toISOString(),
       page: `${SITE_URL}/track-record`,
       method: {
-        unit: "CVE. A call is the first time the rules put any event naming the CVE at Act now (or Watch or higher). Admin overrides are not scored.",
+        unit: "CVE. A call is the first time the rules put the CVE at Act now (or Watch or higher). Before its listing a CVE is named only by its own early event (early-<cve>), so a cluster formed at listing never lends its earlier call to a CVE that joined later. Admin overrides are not scored.",
         truth: "Listing in CISA KEV or VulnCheck KEV, the earliest of the two.",
         actNowHorizonDays: ACT_NOW_HORIZON_DAYS,
         watchHorizonDays: WATCH_HORIZON_DAYS,

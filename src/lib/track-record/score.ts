@@ -4,6 +4,11 @@
 // - The unit is a CVE, as in the backtest. A CVE's call is the first time the rules put any event
 //   naming it at Act now (or at Watch or higher, for the Watch measure). Admin overrides are not
 //   scored: the record is of the rules.
+// - Before its listing, a CVE can only be named by its own early event (`early-<cve>`): KEV
+//   clusters form at listing time and gain CVEs as they are listed, and event_cves does not say
+//   when a CVE joined. So a row from any other event counts for a CVE only on or after the CVE's
+//   listing day, where it is never scored. This keeps a cluster's early call from being credited
+//   to CVEs that joined it later.
 // - Ground truth is a KEV listing (CISA or VulnCheck), the earliest of the two. A call made on or
 //   after the listing day is true by construction and is counted apart, never scored.
 // - A call before the listing is right when the listing came within the horizon (30 days for Act
@@ -69,6 +74,12 @@ export interface LiveRecord {
   kevCoverage: { listings: number; calledBefore: number; share?: number; ci?: [number, number]; medianLeadDays?: number };
 }
 
+/** Whether a history row can stand for a call on this CVE (see the note at the top). */
+export function attributable(row: Pick<HistoryRow, "eventId" | "at">, cveId: string, kevDate: string | null): boolean {
+  if (row.eventId.toLowerCase() === `early-${cveId.toLowerCase()}`) return true;
+  return kevDate !== null && row.at.toISOString().slice(0, 10) >= kevDate;
+}
+
 const RANK: Record<string, number> = { low: 0, watch: 1, act_now: 2 };
 const utcDay = (d: Date) => d.toISOString().slice(0, 10);
 const addDays = (day: string, n: number) => new Date(Date.parse(`${day}T00:00:00Z`) + n * 86_400_000).toISOString().slice(0, 10);
@@ -131,7 +142,8 @@ export function scoreLive(cves: CveHistory[], now: Date = new Date()): LiveRecor
   let postConfirmation = 0;
   let listings = 0;
   const coverageLeads: number[] = [];
-  for (const c of cves) {
+  for (const raw of cves) {
+    const c = { ...raw, rows: raw.rows.filter((r) => attributable(r, raw.cveId, raw.kevDate)) };
     const a = firstCall(c.rows, "act_now");
     if (a) {
       const s = scoreCall(c.cveId, a, c.kevDate, today, ACT_NOW_HORIZON_DAYS);

@@ -159,7 +159,8 @@ export function buildTrackRecord(
 ): TrackRecord {
   const calls: PublishedCall[] = live.actNow.calls.map((c) => {
     const target = events.get(c.eventId)?.hidden === false ? c.eventId : (visibleOwner.get(c.cveId) ?? null);
-    return { ...c, title: events.get(target ?? c.eventId)?.title ?? c.cveId, url: target ? `${SITE_URL}/events/${target}` : null };
+    // With no visible event, show only the CVE id: a hidden event's title stays hidden.
+    return { ...c, title: target ? (events.get(target)?.title ?? c.cveId) : c.cveId, url: target ? `${SITE_URL}/events/${target}` : null };
   });
   return { rulesVersion: CURRENT_RULES_VERSION, live: { ...live, actNow: { ...live.actNow, calls } }, versions: versionRows(reports) };
 }
