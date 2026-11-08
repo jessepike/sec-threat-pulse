@@ -51,12 +51,13 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 
 ## Wave 0: Durable floor and autonomy (started Nov 8, 2026) · Gate: 7 days fresh with no session; a staged outage caught within 24 hours
 
-- [ ] Public `/status.json` and `/api/v1/health`: last complete sync, last attempt, per-source health, rules version
-- [ ] Outside-host freshness probe (GitHub Action) that opens and closes `alert` issues
-- [ ] Nightly snapshot of the public API to a `data` branch, CC BY 4.0 for STP's own fields
-- [ ] Daily Claude Code routine: feedback issues, alerts, Dependabot, status.md; merges its own PRs on green
-- [ ] Hygiene: delete merged branches, merge safe Dependabot bumps, hold TypeScript 7 and ESLint 10
-- [ ] Small fixes from the site review: share-image font error, empty "why it matters" texts, duplicate CIRCL evidence rows, verdict reason template, first-seen date shift, Low count card, feed guids, sample data
+- [x] Public `/status.json` and `/api/v1/health`: last complete sync, last attempt, per-source health, rules version
+- [x] Outside-host freshness probe (GitHub Action) that opens and closes `alert` issues
+- [x] Nightly snapshot of the public API to a `data` branch, CC BY 4.0 for STP's own fields
+- [x] Daily Claude Code routine: feedback issues, alerts, Dependabot, status.md; merges its own PRs on green
+- [ ] Hygiene: delete merged branches, merge safe Dependabot bumps, hold TypeScript 7 and ESLint 10 (bumps done Nov 8; 9 old `feat/*` branches left, squash merges mean git cannot prove they are in main, owner to confirm; gitleaks 3 waits for the owner)
+- [ ] Probe drill: a staged outage caught within 24 hours (the routine cannot start a workflow run; owner runs Freshness probe with `simulate: down` from the Actions tab)
+- [x] Small fixes from the site review: share-image font error, empty "why it matters" texts, duplicate CIRCL evidence rows, verdict reason template, first-seen date shift, Low count card, feed guids, sample data
 
 ## Later phases
 
