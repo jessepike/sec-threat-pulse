@@ -9,6 +9,7 @@ what adapters need. Rungs: 1 Talk, 2 Exposure, 3 Attempts, 4 Exploited, 5 Damage
 |---|---|---|---|---|---|---|
 | `cisa-kev` | CISA KEV | `https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json` (mirror `https://raw.githubusercontent.com/cisagov/kev-data/main/known_exploited_vulnerabilities.json`) | none | 4 confirmed; ransomware flag (`knownRansomwareCampaignUse`), `forensicTriage`, `cwes` | CC0 | 60 min; diff on `catalogVersion` |
 | `vulncheck-kev` | VulnCheck KEV | `GET https://api.vulncheck.com/v3/index/vulncheck-kev` (Bearer token) | `VULNCHECK_API_TOKEN` | 4 confirmed; exploit links | Free, prominent attribution "VulnCheck KEV" | 180 min; skip cleanly if no token |
+| `msrc` | Microsoft Security Response Center | `https://api.msrc.microsoft.com/cvrf/v3.0/updates`, then each recent CVRF document (`Accept: application/json`) | none | 4 confirmed when the Exploit Status threat says `Exploited:Yes` (vendor confirmed); Chromium CVEs republished for Edge are credited to Google | Public; link to the update guide | 180 min; documents released or revised in the last 70 days, cursor per document revision. Fixture hand-built from the documented CVRF shape (the build container cannot reach the host); first live run checked in production |
 | `epss` | FIRST EPSS | `https://api.first.org/data/v1/epss?cve=CVE-a,CVE-b` (batch up to ~100), bulk `https://epss.cyentia.com/epss_scores-YYYY-MM-DD.csv.gz` | none | forecast (not evidence) | Attribution requested | daily; score only CVEs we track |
 | `cvelist` | CVE List V5 + CISA Vulnrichment | `https://github.com/CVEProject/cvelistV5` hourly delta release zips; per-CVE raw `https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/{year}/{nnnn}xxx/CVE-....json` | none | identity, CNA data; ADP SSVC `Exploitation: active` = 4 confirmed, `poc` = exploit_available | Royalty-free; Vulnrichment CC0 | 60 min; for tracked CVEs fetch per-CVE JSON |
 | `nvd` | NVD API 2.0 | `https://services.nvd.nist.gov/rest/json/cves/2.0?lastModStartDate=&lastModEndDate=` | optional `NVD_API_KEY` | vendor/product (CPE) for KEV CVEs | Notice: "This product uses the NVD API but is not endorsed or certified by the NVD." | 120 min |
@@ -56,8 +57,7 @@ list only the latest 5 to 50 items, so the interval matters.
 
 ## P1 if capacity
 
-`msrc` (Microsoft CVRF `https://api.msrc.microsoft.com/cvrf/v3.0/updates`, "Exploited: Yes" = 4
-confirmed), `euvd`, `ghsa`, `cisa-csaf`.
+`euvd`, `ghsa`, `cisa-csaf`. (`msrc` is live, see P1.)
 
 ## Not used yet
 

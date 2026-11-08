@@ -1,6 +1,7 @@
 import type { SourceAdapter } from "@/lib/ladder/types";
 import { cisaKevAdapter } from "./adapters/cisa-kev";
 import { vulncheckKevAdapter } from "./adapters/vulncheck-kev";
+import { msrcAdapter } from "./adapters/msrc";
 import { epssAdapter } from "./adapters/epss";
 import { cvelistAdapter } from "./adapters/cvelist";
 import { nvdAdapter } from "./adapters/nvd";
@@ -34,6 +35,7 @@ export interface SourceDefinition {
 export const SOURCE_REGISTRY: SourceDefinition[] = [
   { adapter: cisaKevAdapter, category: "kev", homepage: "https://www.cisa.gov/known-exploited-vulnerabilities-catalog", termsStatus: "open", attribution: "CISA Known Exploited Vulnerabilities Catalog (CC0)" },
   { adapter: vulncheckKevAdapter, category: "kev", homepage: "https://vulncheck.com/kev", termsStatus: "attribution", attribution: "VulnCheck KEV", requiresEnv: ["VULNCHECK_API_TOKEN"] },
+  { adapter: msrcAdapter, category: "vendor", homepage: "https://msrc.microsoft.com/update-guide", termsStatus: "attribution", attribution: "Microsoft Security Response Center security update guide" },
   { adapter: nvdAdapter, category: "cve-record", homepage: "https://nvd.nist.gov/", termsStatus: "attribution", attribution: "This product uses the NVD API but is not endorsed or certified by the NVD." },
   { adapter: cvelistAdapter, category: "cve-record", homepage: "https://github.com/CVEProject/cvelistV5", termsStatus: "open", attribution: "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)" },
   { adapter: epssAdapter, category: "forecast", homepage: "https://www.first.org/epss/", termsStatus: "attribution", attribution: "EPSS scores by FIRST (first.org/epss)" },
