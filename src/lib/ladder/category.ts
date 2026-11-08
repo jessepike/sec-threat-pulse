@@ -112,7 +112,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
   other: {
     id: "other",
     label: "Other software",
-    why: "",
+    why: "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
     doThis: "Find out if you use it. If you do, apply the vendor's fix.",
   },
 };
@@ -124,7 +124,7 @@ const RULES: [CategoryId, RegExp][] = [
   ["email", /\b(exchange|zimbra|roundcube|email gateway|mail|smtp|postfix|exim)\b/],
   [
     "edge",
-    /\b(vpn|firewall|pan-os|globalprotect|fortios|fortigate|fortiproxy|fortiweb|fortinac|fortimanager|connect secure|policy secure|netscaler|citrix adc|citrix gateway|asa|firepower|secure firewall|sma1000|sma ?\d+|sonicwall|check point|big-ip|sd-wan|velocloud|gateway|edge)\b/,
+    /\b(vpn|firewall|pan-os|globalprotect|fortinet|fortios|fortigate|fortiproxy|fortiweb|fortinac|fortimanager|connect secure|policy secure|netscaler|citrix adc|citrix gateway|asa|firepower|secure firewall|sma1000|sma ?\d+|sonicwall|check point|big-ip|sd-wan|velocloud|gateway|edge)\b/,
   ],
   ["identity", /\b(identity|active directory|okta|entra|azure ad|sso|ldap|radius|ise|keycloak|duo)\b/],
   ["collaboration", /\b(sharepoint|confluence|jira|atlassian|onlyoffice|collabora|owncloud|nextcloud|office online|zammad|helpdesk)\b/],
@@ -139,7 +139,7 @@ const RULES: [CategoryId, RegExp][] = [
     "website",
     /\b(wordpress|drupal|joomla|magento|commerce|php|struts|next\.?js|nextjs|strapi|starlette|django|laravel|apache http|nginx|tomcat|iis|ajax\.net|wso2|siteguard|cms)\b/,
   ],
-  ["endpoint", /\b(windows|macos|ios|ipados|android|pixel|chrome|chromium|firefox|safari|edge browser|linux kernel|kernel|apple|libuser|bug reporting)\b/],
+  ["endpoint", /\b(windows|macos|ios|ipados|android|pixel|chrome|chromium|firefox|safari|edge browser|linux kernel|kernel|apple|libuser|brotli|bug reporting)\b/],
   ["business-app", /\b(papercut|sap|oracle e-business|netsuite|switchvox|sangoma|tracksys|siemens|erp|crm)\b/],
 ];
 

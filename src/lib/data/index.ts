@@ -85,7 +85,7 @@ function sampleHome(): HomeData {
     events,
     totalEvents: SAMPLE_EVENTS.length,
     drivers: DRIVERS,
-    ransomware: RANSOMWARE,
+    ransomware: RANSOMWARE.filter((r) => !r.needsApproval),
   };
 }
 

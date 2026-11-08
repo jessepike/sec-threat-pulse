@@ -46,7 +46,7 @@ export default async function EventsIndexPage({ searchParams }: Props) {
 
         <div className="flex flex-wrap items-center justify-between gap-4">
           <nav aria-label="Filter by verdict" className="flex flex-wrap gap-2 font-mono text-[13px] tracking-[0.06em]">
-            {FILTERS.map((f) => (
+            {FILTERS.filter((f) => f.key !== "low" || counts.low > 0 || filter === "low").map((f) => (
               <Link
                 key={f.key}
                 href={eventsHref(f.key, 1)}

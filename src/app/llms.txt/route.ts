@@ -19,6 +19,8 @@ Verdicts (act_now, watch, low) come from versioned, published rules. No model pi
 - [MCP server](${SITE_URL}/api/mcp): Streamable HTTP, read only, no key. Tools: list_events, get_event, search_events.
 - [Act now feed](${SITE_URL}/events/feed.xml): RSS of events rated Act now.
 - [Corrections feed](${SITE_URL}/corrections/feed.xml): RSS of every correction.
+- [Health](${SITE_URL}/status.json): JSON with the last complete run, the last attempt, per-source health, the rules version and event counts. Same at /api/v1/health. Check it before trusting a reading.
+- [Bulk download](https://github.com/jessepike/sec-threat-pulse/tree/data): nightly snapshot of every event as JSON on the data branch. STP's own fields are CC BY 4.0; evidence keeps its source's terms.
 
 Data from some sources is shown on the site but withheld from the API until their terms allow
 re-serving. Responses say how many evidence items were withheld.

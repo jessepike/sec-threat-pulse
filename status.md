@@ -1,5 +1,13 @@
 # Status
 
+Updated Nov 8, 2026. The site is live with real data at https://securitythreatpulse.com.
+
+**Nov 8 session (Wave 0: durable floor and autonomy).** The owner accepted the value brief's five decisions ("Continue") and Wave 0 started. Shipped on one pull request: public `/status.json` and `/api/v1/health` (last complete run kept apart from last attempt, per-source health, rules version, counts); an outside freshness probe in GitHub Actions every 30 minutes that opens and closes `alert` issues, with a drill mode; a nightly snapshot of the public API to the `data` branch (CC BY 4.0 for STP's fields, manifest with hashes); the daily routine written down in `docs/routine.md` and scheduled as a Claude Code session; dependency bumps (React 19.3.1, checkout 7, setup-node 7, CodeQL action 4; TypeScript 7, ESLint 10, `@types/node` 26 and gitleaks 3 held); CodeQL gated on repo visibility because the private repo cannot enable Code scanning. Small fixes from the site review: share-image font error (symbol glyphs removed), a real "what it is" line for unclassified software plus Fortinet and Brotli patterns, duplicate evidence rows collapsed by source, title and day, the v2 recency sentence reworded, midnight UTC first-seen dates shown as dates, the Low count hidden while the rules produce none, permanent feed guids, sample previews without the ransomware.live tile. Next: watch the gate (7 days fresh with no session; run the probe drill once the workflow is on main), then Wave 1 (evidence and product spine).
+
+---
+
+Previous status (Nov 7) follows.
+
 Updated Nov 7, 2026. The site is live with real data at https://securitythreatpulse.com and has run unattended since Oct 24 (no source alerts open on Nov 7; API generated 04:09 UTC with evidence from 01:56 UTC).
 
 **Phase:** 0 and 1 live. The Phase 1 gate (7 days of unattended fresh updates, clock started Oct 24) was met by Oct 31 on the evidence of the live API; no session recorded it until Nov 7. Phase 2 measured; v2 active.

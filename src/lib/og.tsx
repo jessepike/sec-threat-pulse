@@ -22,10 +22,12 @@ function Bar({ state }: { state: State }) {
   return <div style={{ display: "flex", flex: 1, height: 36, ...style }} />;
 }
 
+// Plain letters only: a symbol glyph such as the ◆ used on the site makes the image renderer fetch a
+// font for it at request time, which fails (400) and logs an error on every share.
 const VERDICT: Record<string, { label: string; color: string }> = {
-  act_now: { label: "▲ ACT NOW", color: "#ff6b5e" },
-  watch: { label: "◆ WATCH", color: "#f5b942" },
-  low: { label: "● LOW", color: "#7fd18b" },
+  act_now: { label: "ACT NOW", color: "#ff6b5e" },
+  watch: { label: "WATCH", color: "#f5b942" },
+  low: { label: "LOW", color: "#7fd18b" },
 };
 
 export interface OgEvent {
@@ -44,7 +46,10 @@ export function renderEventOgImage(e: OgEvent): ImageResponse {
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", height: "100%", background: BG, color: FG, padding: 64, fontFamily: "sans-serif" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", fontSize: 26, letterSpacing: 5, color: MUTED, fontWeight: 700 }}>SECURITY_THREAT_PULSE</div>
-          <div style={{ display: "flex", fontSize: 30, fontWeight: 700, letterSpacing: 3, color: v.color, border: `2px solid ${v.color}`, padding: "8px 18px" }}>{v.label}</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 30, fontWeight: 700, letterSpacing: 3, color: v.color, border: `2px solid ${v.color}`, padding: "8px 18px" }}>
+            <div style={{ display: "flex", width: 16, height: 16, background: v.color }} />
+            {v.label}
+          </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ display: "flex", fontSize: 24, letterSpacing: 2, color: MUTED }}>{e.ids}</div>

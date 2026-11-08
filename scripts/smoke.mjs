@@ -45,6 +45,16 @@ for (const feed of ["/events/feed.xml", "/corrections/feed.xml"]) {
 }
 ok((await get("/llms.txt")).text.includes("/api/mcp"), "llms.txt lists the MCP server");
 
+for (const path of ["/status.json", "/api/v1/health"]) {
+  const { res, text } = await get(path);
+  try {
+    const d = JSON.parse(text);
+    ok(res.status === 200 && ["ok", "delayed"].includes(d.state) && typeof d.lastCompleteAt === "string" && typeof d.rulesVersion === "string", `${path} reports state ${d.state}, last complete ${d.lastCompleteAt}`);
+  } catch {
+    ok(false, `${path} returns JSON`);
+  }
+}
+
 const mcp = await get("/api/mcp", {
   method: "POST",
   headers: { "content-type": "application/json", accept: "application/json, text/event-stream", "mcp-protocol-version": "2025-06-18" },

@@ -68,6 +68,20 @@ period scorecard; held-out results need `--reveal-heldout`, and every reveal is 
 `reports/backtest/heldout-reveals.log`. `scripts/backtest/sensitivity.ts` and `signal-study.ts`
 reproduce the alternative views and single signal figures in `docs/methodology-rules.md`.
 
+## Operations: the durable floor (Wave 0, Nov 8, 2026)
+
+Two clocks are published and kept apart, as Security Market Pulse does: the **last complete** run
+(the events cron finished and pages were rebuilt) and the **last attempt** (anything ran, success or
+not). A site that keeps attempting and never completes is `delayed`, and says so.
+
+| Piece | Where | What it does |
+|---|---|---|
+| Health report | `/status.json`, `/api/v1/health` (`src/lib/api/health.ts`) | State `ok`, `delayed` or `down`; last complete and last attempt; per-source health; rules version; counts. 503 only when there is no data at all |
+| Outside probe | `.github/workflows/freshness.yml`, `scripts/ops/freshness-probe.mjs` | Every 30 minutes from GitHub Actions, never from Vercel. Opens one issue labeled `alert` ("[alert] Site freshness: ...") when the last complete run is older than an hour or the report fails; closes it on recovery. `workflow_dispatch` with `simulate` drills the alert path |
+| Inside health check | `/api/cron/ingest` after each run (`src/lib/ingest/health.ts`, `alerts.ts`) | Per-source alerts, events cron, database size. Goes quiet when the cron dies; the probe covers that |
+| Nightly snapshot | `.github/workflows/snapshot.yml`, `scripts/ops/snapshot.mjs` | Copies the public API to the `data` branch every night: `events.json`, one file per event, `status.json`, `manifest.json` with SHA-256 per file. STP fields CC BY 4.0; source data keeps its terms; withheld sources stay out |
+| Daily routine | `docs/routine.md`, a scheduled Claude Code session | Feedback issues, alerts, Dependabot, status.md; opens and merges its own pull requests on green |
+
 ## Failure handling
 
 A failing source records `status=error` and `last_error`, keeps its last good data, and raises an

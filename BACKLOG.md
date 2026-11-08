@@ -47,7 +47,16 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [x] Comparables and primitives research (`docs/research/comparables-and-primitives.md`)
 - [x] Live site review (`docs/research/site-review-2026-11-07.md`)
 - [x] Value brief and development approach (`docs/plan/value-brief.md`)
-- [ ] Owner review: the value brief's five proposed decisions and the revised wave order
+- [x] Owner review: the value brief's five proposed decisions and the revised wave order (accepted Nov 8, 2026)
+
+## Wave 0: Durable floor and autonomy (started Nov 8, 2026) · Gate: 7 days fresh with no session; a staged outage caught within 24 hours
+
+- [ ] Public `/status.json` and `/api/v1/health`: last complete sync, last attempt, per-source health, rules version
+- [ ] Outside-host freshness probe (GitHub Action) that opens and closes `alert` issues
+- [ ] Nightly snapshot of the public API to a `data` branch, CC BY 4.0 for STP's own fields
+- [ ] Daily Claude Code routine: feedback issues, alerts, Dependabot, status.md; merges its own PRs on green
+- [ ] Hygiene: delete merged branches, merge safe Dependabot bumps, hold TypeScript 7 and ESLint 10
+- [ ] Small fixes from the site review: share-image font error, empty "why it matters" texts, duplicate CIRCL evidence rows, verdict reason template, first-seen date shift, Low count card, feed guids, sample data
 
 ## Later phases
 
