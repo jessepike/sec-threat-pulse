@@ -1,4 +1,5 @@
 import { RUNGS, type Ladder, type Rung, type RungState, type Verdict } from "@/lib/ladder/types";
+import { untrackedNote } from "@/lib/ladder/coverage";
 import type { ClaimView, EventView, Fact, RoleActions, RungView, SourceRef, TimelineItem } from "./types";
 
 /** Short rung names used across the site. */
@@ -31,15 +32,19 @@ function newest(sources: SourceRef[]): string | undefined {
 }
 
 function rungs(l: Ladder, input: RungInput[]): RungView[] {
-  return RUNGS.map((r, i) => ({
-    rung: r,
-    num: String(i + 1).padStart(2, "0"),
-    step: RUNG_SHORT[r],
-    state: l[r],
-    evidence: input[i][0],
-    sources: input[i][1],
-    newestAt: newest(input[i][1]),
-  }));
+  return RUNGS.map((r, i) => {
+    const untracked = l[r] === "none" ? (untrackedNote("vulnerability", r) ?? undefined) : undefined;
+    return {
+      rung: r,
+      num: String(i + 1).padStart(2, "0"),
+      step: RUNG_SHORT[r],
+      state: l[r],
+      evidence: untracked ?? input[i][0],
+      sources: untracked ? [] : input[i][1],
+      newestAt: untracked ? undefined : newest(input[i][1]),
+      untracked,
+    };
+  });
 }
 
 const CISA_KEV: SourceRef = { label: "CISA Known Exploited Vulnerabilities", url: "https://www.cisa.gov/known-exploited-vulnerabilities-catalog", at: "2026-10-20" };

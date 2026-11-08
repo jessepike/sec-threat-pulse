@@ -82,6 +82,7 @@ export const SCHEMAS = {
       rankWhy: nullable({ type: "array", items: { type: "string" }, description: "One plain line per ranking factor." }),
       rulesVersion: { type: "string" },
       ladder: { $ref: "#/components/schemas/Ladder" },
+      untrackedRungs: { type: "array", items: { type: "string", enum: ["talk", "exposure", "attempts", "exploited", "damage"] }, description: "Rungs with no evidence that no source we use can fill yet. Read none there as unknown, not as nothing." },
       cves: { type: "array", items: { type: "string" } },
       vendor: nullable({ type: "string" }),
       product: nullable({ type: "string" }),
@@ -98,7 +99,7 @@ export const SCHEMAS = {
       updatedAt: { type: "string", format: "date-time" },
       newestEvidenceAt: { type: "string", format: "date-time" },
     },
-    required: ["id", "url", "title", "verdict", "verdictReason", "tier", "rankScore", "rankWhy", "rulesVersion", "ladder", "cves", "vendor", "product", "affectedProducts", "category", "summary", "cvss", "epss", "exploitMaturity", "kevListed", "kevDateAdded", "kevDueDate", "firstSeenAt", "updatedAt", "newestEvidenceAt"],
+    required: ["id", "url", "title", "verdict", "verdictReason", "tier", "rankScore", "rankWhy", "rulesVersion", "ladder", "untrackedRungs", "cves", "vendor", "product", "affectedProducts", "category", "summary", "cvss", "epss", "exploitMaturity", "kevListed", "kevDateAdded", "kevDueDate", "firstSeenAt", "updatedAt", "newestEvidenceAt"],
   },
   EventDetail: {
     allOf: [

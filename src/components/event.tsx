@@ -151,6 +151,8 @@ const STATE_LOOK: Record<RungView["state"], { status: string; cls: string }> = {
   none: { status: "□ NO EVIDENCE YET", cls: "text-muted" },
 };
 
+const UNTRACKED_LOOK = { status: "□ NOT TRACKED YET", cls: "text-faint" };
+
 function SourceList({ sources }: { sources: SourceRef[] }) {
   if (sources.length === 0) return <div className="font-mono text-[11px] leading-normal text-faint">SRC: NONE YET</div>;
   return (
@@ -185,7 +187,7 @@ export function FullLadder({ e }: { e: EventView }) {
       <div className="rounded border border-line bg-surface">
         <ol role="list" aria-label={`Evidence ladder. ${ladderLabel(e.ladder)}`} className="m-0 grid list-none grid-cols-1 p-0 md:grid-cols-2 lg:grid-cols-5">
           {e.rungs.map((r) => {
-            const look = STATE_LOOK[r.state];
+            const look = r.untracked ? UNTRACKED_LOOK : STATE_LOOK[r.state];
             return (
               <li key={r.rung} className="flex flex-col gap-3.5 border-b border-line-soft p-6 lg:border-b-0 lg:border-r lg:last:border-r-0">
                 <h3 className="m-0 font-mono text-[13px] font-bold tracking-[0.1em]">
@@ -194,12 +196,16 @@ export function FullLadder({ e }: { e: EventView }) {
                 <Seg state={r.state} large />
                 <div className={`font-mono text-xs font-bold tracking-[0.08em] ${look.cls}`}>{look.status}</div>
                 <div className="font-mono text-[11px] tracking-[0.06em] text-muted">
-                  NEWEST EVIDENCE {r.newestAt ? <time dateTime={r.newestAt}>{fmtDayYear(r.newestAt)}</time> : "NONE YET"}
+                  {r.untracked ? (
+                    "NO SOURCE FOR THIS STEP YET"
+                  ) : (
+                    <>NEWEST EVIDENCE {r.newestAt ? <time dateTime={r.newestAt}>{fmtDayYear(r.newestAt)}</time> : "NONE YET"}</>
+                  )}
                   {r.sourceCount ? ` · ${r.sourceCount} ${r.sourceCount === 1 ? "SOURCE" : "INDEPENDENT SOURCES"}` : ""}
                 </div>
                 <p className="m-0 text-sm leading-[1.55] text-fg-2">{r.evidence}</p>
                 <div className="mt-auto">
-                  <SourceList sources={r.sources} />
+                  {r.untracked ? null : <SourceList sources={r.sources} />}
                 </div>
               </li>
             );

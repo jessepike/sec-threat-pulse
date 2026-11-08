@@ -69,6 +69,10 @@ export default function Methodology() {
           <li><strong>5 Damage.</strong> A filing, a state notice or a breach record links real harm to the event.</li>
         </ul>
         <p>On the page, a solid bar means confirmed. A hatched bar means reported but not confirmed. An outlined bar means no evidence. Each state also has a word, so color is never the only signal.</p>
+        <p>
+          Some rungs read <strong>not tracked yet</strong>. That means no source we use can fill that rung for this kind of event, so an empty rung tells you nothing. Today that is Exposed (we have no
+          count of exposed systems) and Damage on flaw events (breach notices and filings rarely name the flaw). The API lists these rungs in <code>untrackedRungs</code>.
+        </p>
         <p>A site admin can override a verdict. Every override needs a written reason and is logged. No person or AI model picks a verdict by opinion.</p>
       </section>
 

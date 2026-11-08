@@ -10,6 +10,7 @@ import { productName } from "@/lib/ladder/plain-title";
 import { categorize } from "@/lib/ladder/category";
 import type { ClaimView, ClockPointView, ClockView, CorrectionView, CountsView, EventRow, EventView, ProductChip, RungView, SourceRef, StatusView, TimelineItem, VerdictFilter } from "./types";
 import { computeClock, sourceCounts, type Clock } from "@/lib/ladder/clock";
+import { untrackedNote } from "@/lib/ladder/coverage";
 import { matchesProductQuery, productLabel, resolveAffectedProducts, type AffectedProduct } from "@/lib/products";
 
 type Db = NonNullable<ReturnType<typeof getDb>>;
@@ -430,7 +431,8 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     const shown = entailed ? obs.filter((x) => x.o.kind === "exploited") : mine;
     const times = shown.map((x) => x.o.publishedAt ?? x.o.observedAt).filter(Boolean).map((d) => d.getTime());
     const newestAt = times.length ? new Date(Math.max(...times)).toISOString() : undefined;
-    return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: text, sources: shown.slice(0, 4).map(ref), newestAt, sourceCount: counts[r] };
+    const untracked = ladder[r] === "none" ? (untrackedNote(e.kind, r) ?? undefined) : undefined;
+    return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: untracked ?? text, sources: shown.slice(0, 4).map(ref), newestAt, sourceCount: counts[r], untracked };
   });
 
   const [narrative] = (await publishedNarratives(db, [id])).values();
