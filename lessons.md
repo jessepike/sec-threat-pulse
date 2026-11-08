@@ -5,6 +5,7 @@ into AGENTS.md or docs and drop them from here. Read at session start.
 
 ## 2026-11-08
 
+- The routine's GitHub access cannot dispatch a workflow (403 "Resource not accessible by integration"), so a drill or a manual rerun needs the owner. Squash merges also leave old branches that git cannot prove are merged; check the PR list, not `git branch --merged`.
 - GitHub ran none of the new scheduled workflows in the first four hours after they landed on main, and this repo's weekly schedule has fired up to nine hours late. Private repos get low scheduler priority and capped minutes. Do not treat a missing first scheduled run as a workflow bug; use "Run workflow" for a drill.
 - A symbol glyph (▲ ◆ ●) in a `next/og` image makes Satori fetch a font for it from Google at request time; on Vercel that call fails with 400 on every share. Keep share images to letters and draw shapes with divs.
 - The auto-mode classifier refuses `git push --force-with-lease` and edits that remove a security job, even on a branch only this session uses. Merge the stale remote branch instead of forcing, and gate a job instead of deleting it.

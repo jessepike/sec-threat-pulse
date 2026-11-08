@@ -52,10 +52,11 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 ## Wave 0: Durable floor and autonomy (started Nov 8, 2026) · Gate: 7 days fresh with no session; a staged outage caught within 24 hours
 
 - [x] Public `/status.json` and `/api/v1/health`: last complete sync, last attempt, per-source health, rules version
-- [ ] Outside-host freshness probe (GitHub Action) that opens and closes `alert` issues (on main Nov 8; first scheduled run and the drill still to confirm)
-- [ ] Nightly snapshot of the public API to a `data` branch, CC BY 4.0 for STP's own fields (on main Nov 8; first run still to confirm)
+- [x] Outside-host freshness probe (GitHub Action) that opens and closes `alert` issues (scheduled runs confirmed Nov 8)
+- [x] Nightly snapshot of the public API to a `data` branch, CC BY 4.0 for STP's own fields (first commit Nov 8, 12:00 UTC)
 - [x] Daily Claude Code routine: feedback issues, alerts, Dependabot, status.md; merges its own PRs on green (`docs/routine.md`, scheduled 4:23 AM Pacific)
-- [ ] Hygiene: merge safe Dependabot bumps and hold TypeScript 7 and ESLint 10 (done Nov 8); delete the 9 merged `feat/*` branches (owner)
+- [ ] Hygiene: merge safe Dependabot bumps and hold TypeScript 7 and ESLint 10 (done Nov 8); delete the 9 merged `feat/*` branches (owner); gitleaks-action 3 waits for the owner
+- [ ] Probe drill: a staged outage caught within 24 hours (the routine gets 403 on workflow dispatch; owner runs Freshness probe with `simulate: down` from the Actions tab)
 - [x] Small fixes from the site review: share-image font error, empty "why it matters" texts, duplicate CIRCL evidence rows, verdict reason template, first-seen date shift, Low count card, feed guids, sample data
 
 ## Public repo (owner asked Nov 8, 2026) · Gate: owner flips visibility
