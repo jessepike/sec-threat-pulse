@@ -103,7 +103,7 @@ export default function Methodology() {
 
       <section id="where-the-facts-come-from">
         <h2>Where the facts come from</h2>
-        <p>We read public sources several times a day. They include CISA KEV, VulnCheck KEV, the CVE List, NVD, FIRST EPSS, CIRCL sightings, SEC 8-K filings, Have I Been Pwned and state attorney general breach notices. Each source has its own terms. We follow them.</p>
+        <p>We read public sources several times a day. They include CISA KEV, VulnCheck KEV, Microsoft&apos;s security update guide, the CVE List, NVD, FIRST EPSS, CIRCL sightings, SEC 8-K filings, Have I Been Pwned and state attorney general breach notices. Each source has its own terms. We follow them.</p>
         <p>Every statement on an event page links to its source and shows a date. If we lack evidence, the page says so.</p>
       </section>
       <section id="named-organizations-and-claims">

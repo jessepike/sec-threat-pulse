@@ -1,0 +1,14 @@
+{"DocumentTitle":{"Value":"October 2026 Security Updates"},
+"ProductTree":{"FullProductName":[{"ProductID":"12345","Value":"Windows 11 Version 24H2 for x64-based Systems"}]},
+"Vulnerability":[
+{"Title":{"Value":"Windows Common Log File System Driver Elevation of Privilege Vulnerability"},"CVE":"CVE-2026-41001",
+ "Threats":[{"Description":{"Value":"Important"},"ProductID":["12345"],"Type":3},{"Description":{"Value":"Publicly Disclosed:No;Exploited:Yes;Latest Software Release:Exploitation Detected"},"ProductID":["12345"],"Type":1}],
+ "RevisionHistory":[{"Number":"1.0","Date":"2026-10-13T07:00:00","Description":{"Value":"<p>Information published.</p>"}},{"Number":"1.1","Date":"2026-10-20T07:00:00","Description":{"Value":"<p>Updated exploitability index.</p>"}}]},
+{"Title":{"Value":"Microsoft SharePoint Server Remote Code Execution Vulnerability"},"CVE":"CVE-2026-41002",
+ "Threats":[{"Description":{"Value":"Publicly Disclosed:Yes;Exploited:No;Latest Software Release:Exploitation More Likely"},"ProductID":["12345"],"Type":1}],
+ "RevisionHistory":[{"Number":"1.0","Date":"2026-10-13T07:00:00","Description":{"Value":"<p>Information published.</p>"}}]},
+{"Title":{"Value":"Chromium: CVE-2026-41003 Use after free in V8"},"CVE":"CVE-2026-41003",
+ "Threats":[{"Description":{"Value":"Exploited:Yes"},"ProductID":["12345"],"Type":1}],
+ "RevisionHistory":[{"Number":"1.0","Date":"2026-10-15T00:00:00Z","Description":{"Value":"<p>Information published.</p>"}}]},
+{"Title":{"Value":"Malformed entry"},"CVE":"ADV260001","Threats":[{"Description":{"Value":"Exploited:Yes"},"Type":1}]}
+]}

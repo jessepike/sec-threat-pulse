@@ -3,6 +3,7 @@ import type { AdapterContext } from "@/lib/ladder/types";
 import { fakeFetch, fixture, noSleep } from "./testing";
 import { cisaKevAdapter } from "./adapters/cisa-kev";
 import { vulncheckKevAdapter } from "./adapters/vulncheck-kev";
+import { isExploited, msrcAdapter, msrcComponent } from "./adapters/msrc";
 import { epssAdapter } from "./adapters/epss";
 import { cvelistAdapter, cvePath, parseCveRecord } from "./adapters/cvelist";
 import { nvdAdapter } from "./adapters/nvd";
@@ -25,7 +26,7 @@ const unique = (xs: string[]) => new Set(xs).size === xs.length;
 describe("registry", () => {
   it("has one definition per P1 source with metadata", () => {
     const ids = SOURCE_REGISTRY.map((d) => d.adapter.id);
-    expect(ids).toEqual(["cisa-kev", "vulncheck-kev", "nvd", "cvelist", "epss", "circl-sightings", "metasploit", "nuclei", "poc-github", "exploitdb", "sec-8k", "hibp", "wa-ag", "ca-ag", ...NEWS_FEEDS.map((f) => f.id), ...ADVISORY_FEEDS.map((f) => f.id)]);
+    expect(ids).toEqual(["cisa-kev", "vulncheck-kev", "msrc", "nvd", "cvelist", "epss", "circl-sightings", "metasploit", "nuclei", "poc-github", "exploitdb", "sec-8k", "hibp", "wa-ag", "ca-ag", ...NEWS_FEEDS.map((f) => f.id), ...ADVISORY_FEEDS.map((f) => f.id)]);
     for (const d of SOURCE_REGISTRY) {
       expect(d.homepage).toMatch(/^https:/);
       expect(d.attribution).toBeTruthy();
@@ -402,5 +403,49 @@ describe("ca-ag", () => {
 
   it("rejects an unexpected payload", async () => {
     await expect(caAgAdapter.run(ctx(fakeFetch([["oag", "<html>blocked</html>"]]).fetch))).rejects.toThrow();
+  });
+});
+
+describe("msrc", () => {
+  const f = () =>
+    fakeFetch([
+      ["/cvrf/v3.0/updates", fixture("msrc-updates.json")],
+      ["/cvrf/v3.0/cvrf/2026-Oct", fixture("msrc-cvrf.json")],
+      ["/cvrf/v3.0/cvrf/2026-Sep", JSON.stringify({ Vulnerability: [] })],
+    ]);
+
+  it("reads recent documents and keeps only CVEs Microsoft marks Exploited:Yes", async () => {
+    const ff = f();
+    const r = await msrcAdapter.run(ctx(ff.fetch));
+    expect(ff.calls.map((c) => c.url)).toEqual([expect.stringContaining("/updates"), expect.stringContaining("2026-Oct"), expect.stringContaining("2026-Sep")]);
+    expect(ff.calls[0].headers.Accept).toBe("application/json");
+    expect(r.observations.map((o) => o.cveIds[0])).toEqual(["CVE-2026-41001", "CVE-2026-41003"]);
+    expect(r.observations[0]).toMatchObject({
+      sourceId: "msrc",
+      dedupeKey: "msrc:CVE-2026-41001",
+      kind: "exploited",
+      strength: "confirmed",
+      vendor: "Microsoft",
+      product: "Windows Common Log File System Driver",
+      url: "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-41001",
+      publishedAt: "2026-10-20T07:00:00.000Z",
+    });
+    expect(r.vulnerabilities[0]).toMatchObject({ cveId: "CVE-2026-41001", vendor: "Microsoft", publishedAt: "2026-10-13T07:00:00.000Z" });
+    expect(r.observations[1]).toMatchObject({ vendor: "Google", product: "Chromium" });
+    expect(JSON.parse(r.cursor!)).toEqual({ "2026-Oct": "2026-10-20T07:00:00Z", "2026-Sep": "2026-09-08T07:00:00Z" });
+  });
+
+  it("skips documents whose revision it has already read", async () => {
+    const ff = f();
+    const r = await msrcAdapter.run(ctx(ff.fetch, { cursor: JSON.stringify({ "2026-Oct": "2026-10-20T07:00:00Z", "2026-Sep": "2026-09-08T07:00:00Z" }) }));
+    expect(ff.calls).toHaveLength(1);
+    expect(r.observations).toEqual([]);
+  });
+
+  it("parses the exploit status and the component name", () => {
+    expect(isExploited({ Threats: [{ Type: 1, Description: { Value: "Publicly Disclosed:No;Exploited:No;Latest Software Release:Exploitation More Likely" } }] })).toBe(false);
+    expect(isExploited({ Threats: [{ Type: 3, Description: { Value: "Exploited:Yes" } }] })).toBe(false);
+    expect(msrcComponent("Microsoft Exchange Server Spoofing Vulnerability")).toBe("Microsoft Exchange Server");
+    expect(msrcComponent("Chromium: CVE-2026-1 Use after free in V8")).toBe("Chromium: CVE-2026-1 Use after free in V8");
   });
 });

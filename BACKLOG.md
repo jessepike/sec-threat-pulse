@@ -74,7 +74,8 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 ## Wave 2: Verdicts worth trusting (started Nov 8, 2026) · Gate: a public live track record exists; a later rules version beats v2 on held-out data
 
 - [x] Live track record at `/track-record` and `/api/v1/track-record` (MCP `get_track_record`): every early Act now scored against KEV at 30 days, per rules version, with 95% intervals, pending calls, KEV listings called first and lead time; backtest per version beside it
-- [ ] Keyless second exploitation sources: MSRC CVRF, ENISA EUVD, vendor PSIRT feeds, CISA ICS advisories
+- [x] Keyless second exploitation source: Microsoft (MSRC CVRF, "Exploited:Yes" is vendor confirmed exploitation)
+- [ ] More keyless sources: ENISA EUVD, vendor PSIRT feeds, CISA ICS advisories
 - [x] Exposure and Damage shown as "not tracked yet" where no source covers them (`src/lib/ladder/coverage.ts`; event page, `untrackedRungs` in the API and CSV)
 - [ ] Next rules version: backtest, one held-out reveal, owner approves
 
