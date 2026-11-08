@@ -25,7 +25,24 @@ export function getRules(version: string = CURRENT_RULES_VERSION): RulesVersion 
   return r;
 }
 
+/**
+ * The versions whose reader-facing wording applies to a result: the version itself, then the
+ * version whose verdicts it keeps (`verdictsFrom`), and so on. A version that only adds a tier
+ * or a score writes the same sentences as its base, so the base's wording fixes still apply.
+ */
+export function wordingVersions(version: string): string[] {
+  const out = [version];
+  let next = RULES[version]?.verdictsFrom;
+  while (next && !out.includes(next)) {
+    out.push(next);
+    next = RULES[next]?.verdictsFrom;
+  }
+  return out;
+}
+
 /** Evaluate and apply reader-facing wording (reasons.ts). The backtest calls the version's evaluate directly. */
 export function evaluateVerdict(ladder: Ladder, ctx: VerdictContext, version: string = CURRENT_RULES_VERSION): VerdictResult & { rulesVersion: string } {
-  return { ...presentReason(version, getRules(version).evaluate(ladder, ctx)), rulesVersion: version };
+  let result = getRules(version).evaluate(ladder, ctx);
+  for (const v of wordingVersions(version)) result = presentReason(v, result);
+  return { ...result, rulesVersion: version };
 }
