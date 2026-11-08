@@ -160,15 +160,18 @@ describe("evidence helpers", () => {
   it("dedupes rows with the same source, title and day and keeps the first", async () => {
     const { dedupeEvidence } = await import("./db");
     const d = (iso: string) => new Date(iso);
+    const u = "https://example.org/report-a";
     const rows = [
-      { sourceId: "circl", title: "Sighting of CVE-2026-1 ", publishedAt: d("2026-11-06T10:00:00Z") },
-      { sourceId: "circl", title: "Sighting of CVE-2026-1", publishedAt: d("2026-11-06T04:00:00Z") },
-      { sourceId: "circl", title: "Sighting of CVE-2026-1", publishedAt: d("2026-11-05T23:00:00Z") },
-      { sourceId: "cisa-kev", title: "Sighting of CVE-2026-1", publishedAt: d("2026-11-06T04:00:00Z") },
-      { sourceId: "circl", title: "Sighting of CVE-2026-1", publishedAt: null, observedAt: d("2026-11-06T04:00:00Z") },
+      { sourceId: "circl", url: u, title: "Sighting of CVE-2026-1 ", publishedAt: d("2026-11-06T10:00:00Z") },
+      { sourceId: "circl", url: u, title: "Sighting of CVE-2026-1", publishedAt: d("2026-11-06T04:00:00Z") },
+      { sourceId: "circl", url: u, title: "Sighting of CVE-2026-1", publishedAt: d("2026-11-05T23:00:00Z") },
+      { sourceId: "cisa-kev", url: u, title: "Sighting of CVE-2026-1", publishedAt: d("2026-11-06T04:00:00Z") },
+      { sourceId: "circl", url: u, title: "Sighting of CVE-2026-1", publishedAt: null, observedAt: d("2026-11-06T04:00:00Z") },
+      // A second publisher's report of the same sighting keeps its own link and stays.
+      { sourceId: "circl", url: "https://example.org/report-b", title: "Sighting of CVE-2026-1", publishedAt: d("2026-11-06T04:00:00Z") },
     ];
     const out = dedupeEvidence(rows, (r) => r);
-    expect(out.map((r) => r.publishedAt?.toISOString() ?? "observed")).toEqual(["2026-11-06T10:00:00.000Z", "2026-11-05T23:00:00.000Z", "2026-11-06T04:00:00.000Z"]);
+    expect(out.map((r) => `${r.url.slice(-1)} ${r.publishedAt?.toISOString() ?? "observed"}`)).toEqual(["a 2026-11-06T10:00:00.000Z", "a 2026-11-05T23:00:00.000Z", "a 2026-11-06T04:00:00.000Z", "b 2026-11-06T04:00:00.000Z"]);
   });
   it("shows a midnight UTC first-seen time as a plain date", async () => {
     const { asDisplayDate } = await import("./db");

@@ -38,7 +38,8 @@ do {
   pages = d.pages ?? 1;
   events.push(...(d.events ?? []));
   page += 1;
-} while (page <= pages && page <= 50);
+} while (page <= pages);
+if (events.length === 0) throw new Error("The API listed no events; not publishing an empty snapshot.");
 
 const details = [];
 for (const e of events) {

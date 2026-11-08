@@ -311,17 +311,18 @@ export function kevFix(obs: { sourceId: string; metadata?: unknown }[], now: Dat
 }
 
 /**
- * Collapses evidence rows that say the same thing: the same source, the same title and the same
- * day. Sighting feeds re-list a CVE on every poll, which showed as nine identical rows. The first
- * row in the given order (newest first) is kept, so counts of distinct reports stay honest.
+ * Collapses evidence rows that say the same thing: the same source, the same link, the same title
+ * and the same day. Sighting feeds re-list a CVE on every poll, which showed as nine identical rows.
+ * Two reports from different publishers keep different links, so both stay. The first row in the
+ * given order (newest first) is kept.
  */
-export function dedupeEvidence<T>(rows: T[], pick: (row: T) => { sourceId: string; title: string; publishedAt: Date | null; observedAt?: Date }): T[] {
+export function dedupeEvidence<T>(rows: T[], pick: (row: T) => { sourceId: string; title: string; url: string; publishedAt: Date | null; observedAt?: Date }): T[] {
   const seen = new Set<string>();
   const out: T[] = [];
   for (const row of rows) {
     const o = pick(row);
     const day = (o.publishedAt ?? o.observedAt)?.toISOString().slice(0, 10) ?? "";
-    const key = `${o.sourceId}\u0000${o.title.replace(/\s+/g, " ").trim().toLowerCase()}\u0000${day}`;
+    const key = `${o.sourceId}\u0000${o.url}\u0000${o.title.replace(/\s+/g, " ").trim().toLowerCase()}\u0000${day}`;
     if (seen.has(key)) continue;
     seen.add(key);
     out.push(row);
