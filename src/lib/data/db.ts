@@ -310,6 +310,32 @@ export function kevFix(obs: { sourceId: string; metadata?: unknown }[], now: Dat
   return parts.join(" ");
 }
 
+/**
+ * Collapses evidence rows that say the same thing: the same source, the same link, the same title
+ * and the same day. Sighting feeds re-list a CVE on every poll, which showed as nine identical rows.
+ * Two reports from different publishers keep different links, so both stay. The first row in the
+ * given order (newest first) is kept.
+ */
+export function dedupeEvidence<T>(rows: T[], pick: (row: T) => { sourceId: string; title: string; url: string; publishedAt: Date | null; observedAt?: Date }): T[] {
+  const seen = new Set<string>();
+  const out: T[] = [];
+  for (const row of rows) {
+    const o = pick(row);
+    const day = (o.publishedAt ?? o.observedAt)?.toISOString().slice(0, 10) ?? "";
+    const key = `${o.sourceId}\u0000${o.url}\u0000${o.title.replace(/\s+/g, " ").trim().toLowerCase()}\u0000${day}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(row);
+  }
+  return out;
+}
+
+/** A timestamp at exactly midnight UTC came from a date-only source (a KEV listing day); show it as that date everywhere. */
+export function asDisplayDate(d: Date): string {
+  const iso = d.toISOString();
+  return iso.endsWith("T00:00:00.000Z") ? iso.slice(0, 10) : iso;
+}
+
 export async function dbEvent(id: string): Promise<EventView | null> {
   const db = getDb();
   if (!db) return null;
@@ -318,12 +344,13 @@ export async function dbEvent(id: string): Promise<EventView | null> {
   const cveRows = await db.select().from(schema.eventCves).where(eq(schema.eventCves.eventId, id));
   const cves = cveRows.map((c) => c.cveId).sort();
   const vulns = cves.length ? await db.select().from(schema.vulnerabilities).where(inArray(schema.vulnerabilities.cveId, cves)) : [];
-  const obs = await db
+  const allObs = await db
     .select({ o: schema.observations, sourceName: schema.sources.name, sourceHome: schema.sources.homepage })
     .from(schema.observations)
     .leftJoin(schema.sources, eq(schema.sources.id, schema.observations.sourceId))
     .where(eq(schema.observations.eventId, id))
     .orderBy(desc(schema.observations.publishedAt));
+  const obs = dedupeEvidence(allObs, (x) => x.o);
 
   const ref = (x: (typeof obs)[number]): SourceRef => ({
     label: x.sourceName ? `${x.sourceName}: ${x.o.title}` : x.o.title,
@@ -415,7 +442,7 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     aiDrafted: narrative?.source === "ai_draft",
     sources: [...sourceMap.values()],
     updatedAt: e.updatedAt.toISOString(),
-    trackingSince: e.firstSeenAt.toISOString(),
+    trackingSince: asDisplayDate(e.firstSeenAt),
   };
 }
 

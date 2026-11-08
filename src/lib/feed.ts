@@ -59,7 +59,7 @@ export function actNowFeed(events: FeedEvent[], site: string = SITE_URL): string
       "    <item>",
       `      <title>${xmlEscape(e.title)}</title>`,
       `      <link>${xmlEscape(link)}</link>`,
-      `      <guid isPermaLink="false">${xmlEscape(`${e.id}@${e.updatedAt}`)}</guid>`,
+      `      <guid isPermaLink="true">${xmlEscape(link)}</guid>`,
       `      <pubDate>${new Date(e.updatedAt).toUTCString()}</pubDate>`,
       `      <description>${xmlEscape(text)}</description>`,
       "    </item>",

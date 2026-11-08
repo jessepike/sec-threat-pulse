@@ -30,6 +30,7 @@ exploitation, 5 Confirmed damage. Each rung is `confirmed`, `reported` or `none`
 | [docs/plan/](docs/plan/) | Mirrors of the owner's plans (world-class plan, value brief) |
 | [docs/research/](docs/research/) | Research findings: leader needs, comparables, site reviews, SMP model |
 | [lessons.md](lessons.md) | Hot buffer of session lessons. Read at start, add one line when you learn something |
+| [docs/routine.md](docs/routine.md) | What the daily scheduled session does, step by step. Change the routine there |
 
 The owner's canonical planning doc (intent, scorecard, roadmap) lives in a Claude Doc; `intent.md`
 and `BACKLOG.md` mirror it for agents.
@@ -63,6 +64,9 @@ docs/                  architecture, source registry, design prototypes
   (+https://securitythreatpulse.com; jp@jessepike.dev)` on every request.
 - Adapters must be idempotent: re-running a source never creates duplicates (use `dedupe_key`).
 - A failed source never breaks the site: record the failure, keep the last good data.
+- `/status.json` is the public health report (last complete run, last attempt, per-source health). An
+  outside probe reads it from GitHub Actions every 30 minutes and opens an `alert` issue when the site
+  is stale. The nightly snapshot on the `data` branch is the rebuild path and the bulk download.
 - Tests: every adapter has a fixture-based test. `npm test` must pass before pushing. After a
   deploy, `npm run smoke` checks the live pages, API, feeds, MCP server and phone layout.
 - Commit as `jesse@keatingpike.com` (Vercel rejects other authors). Conventional commits.

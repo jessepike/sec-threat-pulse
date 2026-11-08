@@ -26,6 +26,10 @@ export interface SourceHealth {
   state: HealthState;
   /** One plain sentence for the alert. Empty when the source is healthy. */
   reason: string;
+  /** ISO time of the last successful run, when known. Shown on /status.json. */
+  lastSuccessAt?: string | null;
+  /** How often the source should run, when known. */
+  intervalMinutes?: number;
 }
 
 function hours(ms: number): string {
@@ -38,9 +42,10 @@ function hours(ms: number): string {
  * API key) is "unconfigured" and never alerts. Errors in a row beat staleness as the reason.
  */
 export function assessHealth(sources: SourceHealthInput[], now: Date = new Date()): SourceHealth[] {
-  return sources.map((s) => {
+  return sources.map((s): SourceHealth => {
+    const base = { id: s.id, name: s.name, lastSuccessAt: s.lastSuccessAt ? s.lastSuccessAt.toISOString() : null, intervalMinutes: s.intervalMinutes };
     const finished = s.recent.filter((r) => r !== "running");
-    if (!s.lastSuccessAt && finished.length === 0) return { id: s.id, name: s.name, state: "unconfigured", reason: "" };
+    if (!s.lastSuccessAt && finished.length === 0) return { ...base, state: "unconfigured", reason: "" };
     let streak = 0;
     for (const r of finished) {
       if (r !== "error") break;
@@ -48,15 +53,15 @@ export function assessHealth(sources: SourceHealthInput[], now: Date = new Date(
     }
     if (streak >= FAILING_AFTER) {
       const err = s.lastError ? ` Last error: ${s.lastError.slice(0, 300)}` : "";
-      return { id: s.id, name: s.name, state: "failing", reason: `The last ${streak} runs failed.${err}` };
+      return { ...base, state: "failing", reason: `The last ${streak} runs failed.${err}` };
     }
     const limit = Math.max(STALE_MIN_MS, STALE_INTERVALS * s.intervalMinutes * 60_000);
     const age = s.lastSuccessAt ? now.getTime() - s.lastSuccessAt.getTime() : Infinity;
     if (age > limit) {
       const since = s.lastSuccessAt ? `No successful run in ${hours(age)}` : "No successful run yet";
-      return { id: s.id, name: s.name, state: "stale", reason: `${since}; it should run every ${s.intervalMinutes} minutes.` };
+      return { ...base, state: "stale", reason: `${since}; it should run every ${s.intervalMinutes} minutes.` };
     }
-    return { id: s.id, name: s.name, state: "ok", reason: "" };
+    return { ...base, state: "ok", reason: "" };
   });
 }
 
@@ -92,13 +97,21 @@ export const EVENTS_SYNC_KEY = "ops.events_sync";
 /** The events sync runs every 15 minutes; alert after an hour without a success. */
 export const EVENTS_SYNC_STALE_MS = 60 * 60_000;
 
+/** What the settings row for the events sync holds. `lastAttemptAt` is the last run, success or not. */
+export interface EventsSyncRecord {
+  lastSuccessAt?: string | null;
+  lastAttemptAt?: string | null;
+  failures?: number;
+  lastError?: string;
+}
+
 /** Records the result of an events sync run in settings, for the health check. */
 export async function recordEventsSync(db: Db, ok: boolean, error?: string, now: Date = new Date()): Promise<void> {
   const prev = await db.select().from(schema.settings).where(eq(schema.settings.key, EVENTS_SYNC_KEY));
-  const before = (prev[0]?.value ?? {}) as { lastSuccessAt?: string; failures?: number };
-  const value = ok
-    ? { lastSuccessAt: now.toISOString(), failures: 0 }
-    : { lastSuccessAt: before.lastSuccessAt ?? null, failures: (before.failures ?? 0) + 1, lastError: (error ?? "").slice(0, 500) };
+  const before = (prev[0]?.value ?? {}) as EventsSyncRecord;
+  const value: EventsSyncRecord = ok
+    ? { lastSuccessAt: now.toISOString(), lastAttemptAt: now.toISOString(), failures: 0 }
+    : { lastSuccessAt: before.lastSuccessAt ?? null, lastAttemptAt: now.toISOString(), failures: (before.failures ?? 0) + 1, lastError: (error ?? "").slice(0, 500) };
   await db
     .insert(schema.settings)
     .values({ key: EVENTS_SYNC_KEY, value, updatedAt: now })
@@ -106,8 +119,8 @@ export async function recordEventsSync(db: Db, ok: boolean, error?: string, now:
 }
 
 /** Health of the events sync job itself, in the same shape as a source. */
-export function assessEventsSync(value: { lastSuccessAt?: string | null; failures?: number; lastError?: string } | undefined, now: Date = new Date()): SourceHealth {
-  const base = { id: "events-sync", name: "Event builder (events cron)" };
+export function assessEventsSync(value: EventsSyncRecord | undefined, now: Date = new Date()): SourceHealth {
+  const base = { id: "events-sync", name: "Event builder (events cron)", lastSuccessAt: value?.lastSuccessAt ?? null, intervalMinutes: 15 };
   if (!value) return { ...base, state: "unconfigured", reason: "" };
   if ((value.failures ?? 0) >= FAILING_AFTER) {
     return { ...base, state: "failing", reason: `The last ${value.failures} runs failed.${value.lastError ? ` Last error: ${value.lastError.slice(0, 300)}` : ""}` };
@@ -119,9 +132,13 @@ export function assessEventsSync(value: { lastSuccessAt?: string | null; failure
   return { ...base, state: "ok", reason: "" };
 }
 
-export async function loadEventsSyncHealth(db: Db, now: Date = new Date()): Promise<SourceHealth> {
+export async function loadEventsSyncRecord(db: Db): Promise<EventsSyncRecord | undefined> {
   const rows = await db.select().from(schema.settings).where(eq(schema.settings.key, EVENTS_SYNC_KEY));
-  return assessEventsSync(rows[0]?.value as Parameters<typeof assessEventsSync>[0], now);
+  return rows[0]?.value as EventsSyncRecord | undefined;
+}
+
+export async function loadEventsSyncHealth(db: Db, now: Date = new Date()): Promise<SourceHealth> {
+  return assessEventsSync(await loadEventsSyncRecord(db), now);
 }
 
 /** Neon's free plan stores 0.5 GB per project. Alert at 80% so there is time to prune or upgrade. */

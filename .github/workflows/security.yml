@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: actions/setup-node@v4.4.0
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 22
           cache: npm
@@ -31,7 +31,7 @@ jobs:
       contents: read
       pull-requests: read
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
       - uses: gitleaks/gitleaks-action@v2.3.9
@@ -39,6 +39,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   codeql:
+    # Code scanning upload needs GitHub Advanced Security, which private repos
+    # without it cannot enable. Runs once the repo is public (launch gate).
+    if: github.event.repository.private == false
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
@@ -46,10 +49,10 @@ jobs:
       security-events: write
       actions: read
     steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: github/codeql-action/init@v3.28.18
+      - uses: actions/checkout@v7.0.1
+      - uses: github/codeql-action/init@v4.39.3
         with:
           languages: javascript-typescript
-      - uses: github/codeql-action/analyze@v3.28.18
+      - uses: github/codeql-action/analyze@v4.39.3
         with:
           category: "/language:javascript-typescript"

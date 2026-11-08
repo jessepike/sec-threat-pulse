@@ -9,7 +9,8 @@ const GRID = "grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))]";
 
 export function Hero({ data }: { data: HomeData }) {
   const { hero, counts } = data;
-  const rows: { v: "act_now" | "watch" | "low" }[] = [{ v: "act_now" }, { v: "watch" }, { v: "low" }];
+  // Low is hidden while the rules produce none; a "0" row only raises the question of why.
+  const rows: { v: "act_now" | "watch" | "low" }[] = [{ v: "act_now" }, { v: "watch" }, ...(counts.low > 0 ? [{ v: "low" as const }] : [])];
   return (
     <section aria-labelledby="hero" className="flex flex-wrap items-stretch gap-8">
       <div className="hero-card flex min-w-0 flex-[999_1_min(100%,620px)] flex-col gap-[18px] rounded border border-l-[6px] border-line border-l-crit p-6 sm:p-9">

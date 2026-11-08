@@ -27,3 +27,15 @@ describe("reasons", () => {
     expect(presentReason("v0", { verdict: "watch", reason: "x" })).toEqual({ verdict: "watch", reason: "x" });
   });
 });
+
+describe("v2 wording", () => {
+  it("replaces the recency clause for a confirmed, recent flaw without touching the verdict", () => {
+    const ladder = { ...EMPTY_LADDER, exploited: "confirmed" as const, attempts: "confirmed" as const };
+    const fresh = evaluateVerdict(ladder, { exploitMaturity: "none", daysSincePublished: 0 }, "v2");
+    expect(fresh.verdict).toBe("act_now");
+    expect(fresh.reason).toBe("Attacks are confirmed. The vulnerability is new today, so almost nothing is patched yet.");
+    const older = evaluateVerdict(ladder, { exploitMaturity: "none", daysSincePublished: 207 }, "v2");
+    expect(older.reason).toContain("207 days old, so many systems are likely still unpatched.");
+    expect(older.reason).not.toContain("current versions are being attacked");
+  });
+});

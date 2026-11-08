@@ -1,0 +1,55 @@
+name: Nightly snapshot
+
+# Copies the public API to the `data` branch every night: a rebuild path and a bulk download.
+# STP's own fields are CC BY 4.0; source data keeps its own terms; withheld sources stay out.
+on:
+  schedule:
+    - cron: "23 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          sparse-checkout: scripts/ops
+          path: src
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 22
+      - name: Check out the data branch (created on the first run)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eu
+          git clone --depth 1 --branch data "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" data 2>/dev/null || {
+            git init -q data
+            cd data
+            git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+            git checkout -q --orphan data
+            cd ..
+          }
+      - name: Take the snapshot
+        run: |
+          set -eu
+          find data -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          node src/scripts/ops/snapshot.mjs data https://securitythreatpulse.com
+      - name: Commit and push
+        run: |
+          set -eu
+          cd data
+          git config user.name "Jesse Pike"
+          git config user.email "jesse@keatingpike.com"
+          git add -A
+          if git diff --cached --quiet; then echo "No change since the last snapshot."; exit 0; fi
+          git commit -q -m "data: snapshot $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push origin HEAD:data
