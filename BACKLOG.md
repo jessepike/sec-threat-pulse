@@ -85,9 +85,9 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [x] Weekly short list as RSS at `/brief/feed.xml` (one item per week, id'd by the Monday) and JSON at `/api/v1/brief`
 - [x] Vendor pages at `/vendors/{key}` and `/vendors?stack=` (your vendors in the address, bookmarkable)
 - [x] `get_brief` and `check_stack` as MCP tools and API (`/api/v1/brief`, `/api/v1/check-stack?products=`); agent questions 32 and 33
-- [ ] One live chart
-- [ ] NEW and CHANGED markers
-- [ ] Phone fold and tap targets
+- [x] One live chart: CISA KEV additions per week, last 12 weeks, on the home page (hover and focus tooltips, table view)
+- [x] NEW and CHANGED markers from `verdict_history` (first or latest verdict or ladder change in 7 days)
+- [x] Phone fold and tap targets: shorter mission block, one-row nav on phones (TRENDS hidden there), 24px targets on breadcrumbs
 
 ## Public repo (owner asked Nov 8, 2026) · Gate: owner flips visibility
 

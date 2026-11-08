@@ -78,6 +78,8 @@ export interface EventRow {
   category?: { id: string; label: string; doThis: string };
   /** Affected products, direct first, then products that ship the component. */
   products?: ProductChip[];
+  /** NEW: first appeared in the last 7 days. CHANGED: verdict or ladder moved in the last 7 days. */
+  mark?: "new" | "changed";
 }
 
 export type ClaimRating = "TRUE" | "OVERSTATED" | "TOO EARLY" | "FALSE" | "UNVERIFIED";
@@ -216,6 +218,8 @@ export interface HomeData {
   top: { rank: number; row: EventRow }[];
   /** One sentence for the week, from fixed templates. */
   weekLine: string;
+  /** CISA KEV additions per week, the last 12 weeks, oldest first. */
+  kevWeeks: { week: string; count: number; partial: boolean }[];
   counts: CountsView;
   countsNote: string;
   kpis: KpiView[];
