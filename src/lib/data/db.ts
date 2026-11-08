@@ -481,7 +481,8 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     cvss: scores.length ? Math.max(...scores) : undefined,
     summary: e.summary ?? "",
     verdictReason: e.overrideReason ?? e.verdictReason ?? undefined,
-    rankWhy: row.tier ? (e.rankWhy ?? undefined) : undefined,
+    // Every verdict ranks, so every event can say why. An admin override replaces the rule's reasoning.
+    rankWhy: e.overrideVerdict ? undefined : (e.rankWhy ?? undefined),
     exploitMaturity: (e.exploitMaturity as ExploitMaturity) ?? "none",
     facts: [
       { label: "HIGHEST CONFIRMED RUNG", value: top ? RUNG_SHORT[top] : "NOTHING YET" },

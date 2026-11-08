@@ -78,6 +78,12 @@ describe("rules v3: the score", () => {
     expect(s(confirmed, { ...none, embedsComponent: true })).toBe(4);
   });
 
+  it("calls an undated confirmation's fallback date a report, never a confirmation", () => {
+    const r = scoreFor(confirmed, { ...none, daysSinceFirstReport: 0 });
+    expect(r.why).toContain("The first report is from today.");
+    expect(r.why.join(" ")).not.toContain("confirmation");
+  });
+
   it("uses the first report date when exploitation is not confirmed", () => {
     const r = scoreFor(reported, { ...none, daysSinceFirstReport: 1, daysSinceConfirmed: 300 });
     expect(r.why).toContain("The first report is 1 day old.");

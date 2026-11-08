@@ -63,8 +63,10 @@ export function scoreFor(ladder: Ladder, ctx: VerdictContext): { score: number; 
   if (isExposed(ctx)) parts.push([2, "The product faces the internet or gives remote access."]);
   if (ctx.kevRansomware) parts.push([2, "Ransomware groups are known to use it."]);
   if (ctx.exploitMaturity === "weaponized") parts.push([1, "Ready-made attack tools are public."]);
+  // Name the date by where it came from: an undated confirmation falls back to the first report.
+  const usedConfirmation = ladder.exploited === "confirmed" && ctx.daysSinceConfirmed !== undefined;
   const days = daysSinceSignal(ladder, ctx);
-  const what = ladder.exploited === "confirmed" ? "confirmation" : "first report";
+  const what = usedConfirmation ? "confirmation" : "first report";
   const ageText = (n: number) => (n === 0 ? "from today" : n === 1 ? "1 day old" : `${n} days old`);
   if (days !== undefined && days <= FRESH_DAYS) parts.push([2, `The ${what} is ${ageText(days)}.`]);
   else if (days !== undefined && days <= RECENT_DAYS) parts.push([1, `The ${what} is ${ageText(days)}.`]);
