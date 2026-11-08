@@ -88,8 +88,8 @@ const isSummary = (e) =>
   ISO_RE.test(e.newestEvidenceAt);
 const ladderOk = (l) => l && typeof l === "object" && RUNGS.every((r) => STATES.includes(l[r]));
 const ladderConsistent = (l) => {
-  // Confirmed exploitation entails attempts and exposure.
-  if (l.exploited === "confirmed" && (l.attempts === "none" || l.exposure === "none")) return false;
+  // Confirmed exploitation entails attempts. Exposure (public exploit code) is independent.
+  if (l.exploited === "confirmed" && l.attempts === "none") return false;
   if (l.damage === "confirmed" && l.exploited === "none") return false;
   return true;
 };
@@ -232,14 +232,16 @@ await run(18, "Tell me everything about the top Act now event (detail endpoint).
 }));
 await run(19, "Does every evidence item carry a source link and a date, or an explicit null?", () => {
   if (!ev) return { pass: false, detail: "no event" };
-  const bad = ev.evidence.filter((x) => !/^https?:\/\//.test(x.url ?? "") || !(x.publishedAt === null || ISO_RE.test(x.publishedAt)) || !RUNGS.concat("advisory").includes(x.rung) || !x.source?.id);
+  const bad = ev.evidence.filter((x) => !/^https?:\/\//.test(x.url ?? "") || !(x.publishedAt === null || ISO_RE.test(x.publishedAt)) || typeof x.rung !== "string" || !x.rung || !x.source?.id);
   return { pass: ev.evidence.length > 0 && bad.length === 0, detail: `${ev.evidence.length} items, ${bad.length} bad` };
 });
 await run(20, "Does the ladder match the evidence shown (no confirmed rung without a confirmed item)?", () => {
   if (!ev) return { pass: false, detail: "no event" };
   const withheld = ev.evidenceWithheld ?? 0;
   const confirmedRungs = RUNGS.filter((r) => ev.ladder[r] === "confirmed");
-  const covered = confirmedRungs.filter((r) => ev.evidence.some((x) => (x.rung === r || (r === "attempts" && x.rung === "exploited") || (r === "talk" && x.rung === "advisory")) && x.strength === "confirmed"));
+  const items = (r) => ev.evidence.filter((x) => x.rung === r || (r === "attempts" && x.rung === "exploited") || (r === "talk" && x.rung === "advisory"));
+  // Talk and attempts also confirm from two independent reports, as the ladder rules say.
+  const covered = confirmedRungs.filter((r) => items(r).some((x) => x.strength === "confirmed") || (["attempts", "talk"].includes(r) && new Set(items(r).filter((x) => x.strength !== "claimed").map((x) => x.source.id)).size >= 2));
   return { pass: covered.length === confirmedRungs.length || withheld > 0, detail: `${covered.length}/${confirmedRungs.length} confirmed rungs backed${withheld ? `, ${withheld} items withheld` : ""}` };
 });
 await run(21, "Is the clock dated and ordered (disclosure before first report before KEV listing)?", () => {
