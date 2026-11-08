@@ -17,14 +17,16 @@ The scheduled task's prompt is one line: read this file and follow it. Change th
 3. **Alerts.** List open issues labeled `alert`. Read `/status.json` on the live site. For each alert,
    find the cause (admin runs page, adapter code, source terms), fix it on the branch, reply on the
    issue. Alerts close themselves when the probe or health check sees recovery. Never close one by hand
-   unless the source was retired on purpose.
+   unless the source was retired on purpose. An alert titled "[alert] Agent test set: ..." comes from the
+   nightly 30 questions (`npm run agent-tests`); its table names the failing question and the value seen.
 4. **Freshness.** If `/status.json` says `delayed` or `down` and no alert exists, open one labeled
    `alert` and treat it as the day's first job.
 5. **Dependencies.** Open Dependabot pull requests: merge patch and minor bumps once CI is green. Hold
    major bumps that the backlog lists as held (TypeScript 7, ESLint 10, `@types/node` above the runtime)
    and any bump that fails CI; say why on the pull request.
 6. **Health of the record.** Confirm the nightly snapshot workflow committed to the `data` branch in
-   the last 36 hours and the freshness probe ran in the last hour. If either did not, fix the workflow.
+   the last 36 hours, the freshness probe ran in the last hour and the agent test set ran last night. If
+   any did not, fix the workflow.
 7. **Ship.** Run `npm test`, `npm run lint`, `npm run typecheck`. For any page change, render at
    1440px and 390px and attach both screenshots to the pull request. Open the pull request, wait for
    checks, merge with squash. After the deploy, run `npm run smoke`.

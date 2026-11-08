@@ -5,6 +5,7 @@ Status: Phase 0 to 1 design, Oct 24, 2026.
 ## Data flow
 
 ```
+Vercel build: scripts/db-migrate.mjs applies pending Drizzle migrations (production only), then next build
 Vercel Cron (every 15 min) -> /api/cron/ingest  (CRON_SECRET)
    picks sources whose interval has elapsed
    v
@@ -89,6 +90,7 @@ not). A site that keeps attempting and never completes is `delayed`, and says so
 | Health report | `/status.json`, `/api/v1/health` (`src/lib/api/health.ts`) | State `ok`, `delayed` or `down`; last complete and last attempt; per-source health; rules version; counts. 503 only when there is no data at all |
 | Outside probe | `.github/workflows/freshness.yml`, `scripts/ops/freshness-probe.mjs` | Every 30 minutes from GitHub Actions, never from Vercel. Opens one issue labeled `alert` ("[alert] Site freshness: ...") when the last complete run is older than an hour or the report fails; closes it on recovery. `workflow_dispatch` with `simulate` drills the alert path |
 | Inside health check | `/api/cron/ingest` after each run (`src/lib/ingest/health.ts`, `alerts.ts`) | Per-source alerts, events cron, database size. Goes quiet when the cron dies; the probe covers that |
+| Agent test set | `.github/workflows/agent-tests.yml`, `scripts/agent-tests.mjs` | Nightly from GitHub Actions: 30 questions an agent asks the live site through the API, OpenAPI, MCP, feeds, llms.txt and health, each with a mechanical check (fields, ladder consistency, rank order, filters, 400 and 404 behaviour, API and MCP agreement). Keeps one issue labeled `alert` ("[alert] Agent test set: ...") open while any fail |
 | Nightly snapshot | `.github/workflows/snapshot.yml`, `scripts/ops/snapshot.mjs` | Copies the public API to the `data` branch every night: `events.json`, one file per event, `status.json`, `manifest.json` with SHA-256 per file. STP fields CC BY 4.0; source data keeps its terms; withheld sources stay out |
 | Daily routine | `docs/routine.md`, a scheduled Claude Code session | Feedback issues, alerts, Dependabot, status.md; opens and merges its own pull requests on green |
 
