@@ -68,6 +68,16 @@ period scorecard; held-out results need `--reveal-heldout`, and every reveal is 
 `reports/backtest/heldout-reveals.log`. `scripts/backtest/sensitivity.ts` and `signal-study.ts`
 reproduce the alternative views and single signal figures in `docs/methodology-rules.md`.
 
+## Products and the clock (Wave 1)
+
+| Piece | Where | What |
+|---|---|---|
+| CPE pairs | `vulnerabilities.cpes` | Every vulnerable `vendor/product` pair NVD lists (first 60) plus the CVE record's `affected` entries, unioned on upsert |
+| Canonical products | `src/lib/products/` | `resolveAffectedProducts` merges KEV, CVE record and CPE mentions into display names from a hand-kept table (`table.ts`), title-casing the rest; `EMBEDDED` lists products that ship a component, each with a reference link |
+| On events | `events.affected_products` | Rebuilt by every sync; the API, the event page chips and the `/events?product=` filter read it |
+| The clock | `src/lib/ladder/clock.ts` | Disclosure (CVE record), first public exploit, first attack or exploitation report, KEV listing and federal deadline, each with the observation that set it; distinct sources per rung |
+| Contract | `/api/v1/openapi.json` | OpenAPI 3.1; one Event schema shared by the list, the detail and the MCP tools. `v1.test.ts` checks the schema's required fields match the summary type |
+
 ## Operations: the durable floor (Wave 0, Nov 8, 2026)
 
 Two clocks are published and kept apart, as Security Market Pulse does: the **last complete** run

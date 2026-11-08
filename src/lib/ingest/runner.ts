@@ -64,6 +64,8 @@ export function mergeVulnerabilityInputs(list: VulnerabilityInput[]): Vulnerabil
       if (val === undefined || val === null) continue;
       if (k === "exploitMaturity") {
         if ((MATURITY_RANK[val as string] ?? 0) > (MATURITY_RANK[cur.exploitMaturity ?? "none"] ?? 0)) cur.exploitMaturity = val as ExploitMaturity;
+      } else if (k === "cpes") {
+        cur.cpes = [...new Set([...(cur.cpes ?? []), ...(val as string[])])];
       } else if (keepFirst.has(k) && cur[k] !== undefined) continue;
       else (cur as unknown as Record<string, unknown>)[k] = val;
     }
@@ -96,6 +98,7 @@ export async function upsertVulnerabilities(db: Db, list: VulnerabilityInput[]):
           kevCisaRansomware: v.kevCisaRansomware,
           kevVulncheckDateAdded: v.kevVulncheckDateAdded,
           exploitMaturity: v.exploitMaturity ?? "none",
+          cpes: v.cpes,
         })),
       )
       .onConflictDoUpdate({
@@ -115,6 +118,8 @@ export async function upsertVulnerabilities(db: Db, list: VulnerabilityInput[]):
           kevCisaRansomware: sql`coalesce(excluded.kev_cisa_ransomware, ${vulnerabilities.kevCisaRansomware})`,
           kevVulncheckDateAdded: sql`coalesce(${vulnerabilities.kevVulncheckDateAdded}, excluded.kev_vulncheck_date_added)`,
           exploitMaturity: sql`case when ${rank("excluded.exploit_maturity")} > ${rank('"vulnerabilities"."exploit_maturity"')} then excluded.exploit_maturity else "vulnerabilities"."exploit_maturity" end`,
+          // Union of every pair seen, in first-seen order, so a later source adds pairs and never drops one.
+          cpes: sql`case when excluded.cpes is null then ${vulnerabilities.cpes} when ${vulnerabilities.cpes} is null then excluded.cpes else (select coalesce(jsonb_agg(x.v order by x.i), '[]'::jsonb) from (select min(i) as i, v from (select row_number() over () as i, v from jsonb_array_elements(${vulnerabilities.cpes} || excluded.cpes) as t(v)) s group by v) x) end`,
           updatedAt: sql`now()`,
         },
       });

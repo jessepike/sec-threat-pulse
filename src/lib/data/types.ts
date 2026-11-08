@@ -15,6 +15,34 @@ export interface Fact {
   tone?: "ok" | "default";
 }
 
+/** A product chip on lists and event pages. */
+export interface ProductChip {
+  /** "Fortinet FortiOS". */
+  label: string;
+  /** Filter key, for example "fortinet/fortios". */
+  slug: string;
+  kind: "direct" | "embedded";
+  /** For embedded products, the component they ship and the page that says so. */
+  via?: string;
+  ref?: string;
+}
+
+/** One dated point on the event's clock, with the source that set it. */
+export interface ClockPointView {
+  key: "disclosed" | "exploitCode" | "firstReport" | "kevListed" | "kevDue";
+  label: string;
+  /** YYYY-MM-DD, or undefined when the date is not known. */
+  date?: string;
+  source?: string;
+  url?: string;
+}
+
+export interface ClockView {
+  points: ClockPointView[];
+  /** One plain sentence, for example "Attacks were reported 2 days after disclosure." */
+  note?: string;
+}
+
 export interface RungView {
   rung: Rung;
   num: string;
@@ -25,6 +53,8 @@ export interface RungView {
   sources: SourceRef[];
   /** ISO timestamp or date of the newest evidence on this rung, if any. */
   newestAt?: string;
+  /** Distinct sources behind this rung. */
+  sourceCount?: number;
 }
 
 export interface EventRow {
@@ -41,6 +71,8 @@ export interface EventRow {
   vendor?: string;
   /** Plain category of system and its first step, from the fixed table in lib/ladder/category. */
   category?: { id: string; label: string; doThis: string };
+  /** Affected products, direct first, then products that ship the component. */
+  products?: ProductChip[];
 }
 
 export type ClaimRating = "TRUE" | "OVERSTATED" | "TOO EARLY" | "FALSE" | "UNVERIFIED";
@@ -78,6 +110,7 @@ export interface EventView extends EventRow {
   exploitMaturity: ExploitMaturity;
   facts: Fact[];
   rungs: RungView[];
+  clock?: ClockView;
   verdictChangesIf?: string;
   businessTerms?: string;
   whyAct?: string;
@@ -211,6 +244,8 @@ export interface EventsIndexData {
   status: StatusView;
   mode: DataMode;
   filter: VerdictFilter;
+  /** Product filter as given in the URL, when set. */
+  product?: string;
   /** Counts over every visible event, ignoring the filter. */
   counts: CountsView;
   rows: EventRow[];

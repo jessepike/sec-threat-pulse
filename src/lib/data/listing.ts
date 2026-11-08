@@ -82,9 +82,10 @@ export function paginateListed<T extends Listable>(items: T[], filter: VerdictFi
 }
 
 /** Link to a page of the /events index. Default values stay out of the query string. */
-export function eventsHref(filter: VerdictFilter, page: number): string {
+export function eventsHref(filter: VerdictFilter, page: number, product?: string): string {
   const q = new URLSearchParams();
   if (filter !== "all") q.set("verdict", filter);
+  if (product) q.set("product", product);
   if (page > 1) q.set("page", String(page));
   const s = q.toString();
   return s ? `/events?${s}` : "/events";

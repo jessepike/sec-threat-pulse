@@ -92,6 +92,8 @@ export interface VulnerabilityInput {
   kevCisaRansomware?: boolean;
   kevVulncheckDateAdded?: string;
   exploitMaturity?: ExploitMaturity;
+  /** Vulnerable "vendor/product" pairs as the source names them (lower-case tokens), in source order. */
+  cpes?: string[];
 }
 
 export interface AdapterResult {

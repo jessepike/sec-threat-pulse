@@ -149,6 +149,9 @@ describe("cvelist", () => {
     const { observations, vulnerability } = parseCveRecord("CVE-2021-44228", record);
     expect(observations).toHaveLength(1);
     expect(observations[0]).toMatchObject({ kind: "exploited", strength: "confirmed", dedupeKey: "cvelist-ssvc:CVE-2021-44228:active" });
+    // The SSVC decision's own timestamp dates the observation, not the CVE publish date.
+    expect(observations[0].publishedAt).toBe("2025-02-04T14:25:34.416Z");
+    expect(observations[0].metadata).toMatchObject({ reportedAt: "2025-02-04T14:25:34.416Z" });
     expect(vulnerability.cvssScore).toBe(10);
     expect(vulnerability.vendor).toBe("Apache Software Foundation");
     expect(vulnerability.cwe?.length).toBeGreaterThan(0);

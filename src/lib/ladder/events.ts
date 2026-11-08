@@ -2,6 +2,7 @@ import { computeExploitMaturity, computeLadder, reportedExploitationSources, typ
 import { plainTitle } from "./plain-title";
 import { CURRENT_RULES_VERSION, evaluateVerdict } from "./rules";
 import type { ExploitMaturity, Ladder, Verdict } from "./types";
+import { fromCpePairs, resolveAffectedProducts, type AffectedProduct, type ProductEvidence } from "@/lib/products";
 
 /** Vulnerability facts the grouper needs. Dates are YYYY-MM-DD. */
 export interface EventVuln {
@@ -19,6 +20,8 @@ export interface EventVuln {
   /** CVE record publish time (Date or ISO string). */
   publishedAt?: Date | string | null;
   cwe?: string[] | null;
+  /** Vulnerable "vendor/product" pairs from NVD and the CVE record. */
+  cpes?: string[] | null;
 }
 
 export interface EventObservation extends LadderObservation {
@@ -32,6 +35,8 @@ export interface ComputedEvent {
   summary?: string;
   vendor?: string;
   product?: string;
+  /** Canonical products from KEV, the CVE records and CPE, plus embedded products from the table. */
+  affectedProducts: AffectedProduct[];
   cveIds: string[];
   /** ISO timestamp of the earliest KEV addition in the event. */
   firstSeenAt: string;
@@ -54,6 +59,18 @@ export function kevDate(v: EventVuln): string | undefined {
 }
 
 const norm = (s?: string | null) => (s ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+
+/**
+ * Affected products for a group of CVEs. The KEV catalog name (the event's vendor and product)
+ * leads, then each CVE record's own vendor and product, then every CPE pair.
+ */
+export function affectedProductsFor(vulns: EventVuln[], kev: { vendor?: string | null; product?: string | null } | undefined, kevListed: boolean): AffectedProduct[] {
+  const inputs: { vendor?: string | null; product?: string | null; evidence: ProductEvidence }[] = [];
+  if (kev && (kev.vendor || kev.product)) inputs.push({ vendor: kev.vendor, product: kev.product, evidence: kevListed ? "kev" : "cna" });
+  for (const v of vulns) if (v.vendor || v.product) inputs.push({ vendor: v.vendor, product: v.product, evidence: kevListed ? "kev" : "cna" });
+  for (const v of vulns) inputs.push(...fromCpePairs(v.cpes));
+  return resolveAffectedProducts(inputs);
+}
 
 export function slug(s: string, max = 40): string {
   return s
@@ -212,6 +229,7 @@ export function buildEvents(vulns: EventVuln[], observations: EventObservation[]
       summary: clipSummary(first.description),
       vendor: c.vendor,
       product: c.product,
+      affectedProducts: affectedProductsFor(c.vulns, c, true),
       cveIds,
       firstSeenAt: new Date(`${c.firstDate}T00:00:00Z`).toISOString(),
       ...a,
@@ -291,6 +309,7 @@ export function buildEarlyEvents(
       summary: clipSummary(v.description),
       vendor: v.vendor ?? undefined,
       product: v.product ?? undefined,
+      affectedProducts: affectedProductsFor([v], undefined, false),
       cveIds: [cve],
       firstSeenAt: new Date(earliest).toISOString(),
       ...a,

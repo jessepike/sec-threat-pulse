@@ -14,8 +14,9 @@ Verdicts (act_now, watch, low) come from versioned, published rules. No model pi
 
 ## Data for agents
 
-- [Events API](${SITE_URL}/api/v1/events): JSON, newest evidence first. Filter with ?verdict=act_now|watch|low and page with ?page=2. No key.
-- [One event](${SITE_URL}/api/v1/events/{id}): JSON with the ladder, verdict reason, CISA's fix and dated, linked evidence.
+- [Events API](${SITE_URL}/api/v1/events): JSON, newest evidence first. Filter with ?verdict=act_now|watch|low, ?product=fortinet/fortios (vendor, product or slug), ?cve=CVE-2026-12345, ?since=<ISO time> (a changes feed), and page with ?page=2. No key. Each event carries affectedProducts, cvss, epss, exploitMaturity, kevListed, kevDateAdded and kevDueDate.
+- [One event](${SITE_URL}/api/v1/events/{id}): JSON with the ladder, the clock (disclosure, exploit code, first attack report, KEV listing, deadline), distinct sources per rung, verdict reason, CISA's fix and dated, linked evidence.
+- [OpenAPI](${SITE_URL}/api/v1/openapi.json): OpenAPI 3.1 with one Event schema shared by every response.
 - [MCP server](${SITE_URL}/api/mcp): Streamable HTTP, read only, no key. Tools: list_events, get_event, search_events.
 - [Act now feed](${SITE_URL}/events/feed.xml): RSS of events rated Act now.
 - [Corrections feed](${SITE_URL}/corrections/feed.xml): RSS of every correction.

@@ -59,6 +59,17 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [ ] Probe drill: a staged outage caught within 24 hours (the routine gets 403 on workflow dispatch; owner runs Freshness probe with `simulate: down` from the Actions tab)
 - [x] Small fixes from the site review: share-image font error, empty "why it matters" texts, duplicate CIRCL evidence rows, verdict reason template, first-seen date shift, Low count card, feed guids, sample data
 
+## Wave 1: Evidence and product spine (started Nov 8, 2026) · Gate: the top 5 is computable and published with its rule; a 30-question agent test set passes nightly
+
+- [x] `affectedProducts` on every event: every vulnerable vendor/product pair from NVD CPE and the CVE record, canonical names from a hand-kept table (`src/lib/products/`), embedded products from a sourced component table
+- [x] The clock per event: disclosure, exploit code, first attack report, KEV listing, federal deadline, each linked to its source
+- [x] Independent-source counts per rung
+- [x] Richer API fields (`affectedProducts`, `cvss`, `epss`, `exploitMaturity`, `kevListed`, `kevDateAdded`, `kevDueDate`, `clock`, `ladderSources`) and filters (`product`, `cve`, `since`); OpenAPI 3.1 at `/api/v1/openapi.json`; MCP tools take `product` and `since`
+- [x] `/events?product=` filter and product chips on event pages
+- [ ] Ranking rule for the top 3 to 5 (versioned, backtested) and a tier inside Act now; owner approves the rules version
+- [ ] 30-question agent test set run nightly
+- [ ] Changes RSS and dated CSV export
+
 ## Public repo (owner asked Nov 8, 2026) · Gate: owner flips visibility
 
 - [x] Pre-flight: full-history secret scan, fixture review, MIT LICENSE, README
