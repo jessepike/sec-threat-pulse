@@ -1,0 +1,32 @@
+name: Agent test set
+
+# Asks the live site the 30 questions an agent asks (API, OpenAPI, MCP, feeds, llms.txt, health)
+# and keeps one `alert` issue open while any fail. Read only.
+on:
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: agent-tests
+  cancel-in-progress: false
+
+jobs:
+  ask:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          sparse-checkout: scripts
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 22
+      - name: Ask the 30 questions and sync the alert issue
+        run: node scripts/agent-tests.mjs https://securitythreatpulse.com
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

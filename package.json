@@ -15,7 +15,8 @@
     "ingest:local": "tsx scripts/ingest-local.ts",
     "backtest": "tsx scripts/backtest/run.ts",
     "backtest:dataset": "tsx scripts/backtest/build-dataset.ts",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "agent-tests": "node scripts/agent-tests.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.3.1",
