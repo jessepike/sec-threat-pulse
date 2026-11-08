@@ -13,6 +13,7 @@ const event: ApiEventSummary = {
   rankWhy: ["Exploitation confirmed"],
   rulesVersion: "v3",
   ladder: { talk: "confirmed", exposure: "none", attempts: "confirmed", exploited: "confirmed", damage: "none" },
+  untrackedRungs: ["exposure", "damage"],
   cves: ["CVE-2026-1", "CVE-2026-2"],
   vendor: "Vendor",
   product: "X",

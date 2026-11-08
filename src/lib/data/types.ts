@@ -56,6 +56,8 @@ export interface RungView {
   newestAt?: string;
   /** Distinct sources behind this rung. */
   sourceCount?: number;
+  /** Set when the rung has no evidence and no source we use can fill it: why. */
+  untracked?: string;
 }
 
 export interface EventRow {

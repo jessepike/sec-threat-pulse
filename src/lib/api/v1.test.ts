@@ -46,7 +46,7 @@ describe("OpenAPI document", () => {
   it("requires exactly the fields the summary type produces", () => {
     // A compile-time check that every required field exists on the type, and a runtime check of the reverse.
     const sample: Record<keyof ApiEventSummary, true> = {
-      id: true, url: true, title: true, verdict: true, verdictReason: true, tier: true, rankScore: true, rankWhy: true, rulesVersion: true, ladder: true, cves: true, vendor: true, product: true,
+      id: true, url: true, title: true, verdict: true, verdictReason: true, tier: true, rankScore: true, rankWhy: true, rulesVersion: true, ladder: true, untrackedRungs: true, cves: true, vendor: true, product: true,
       affectedProducts: true, category: true, summary: true, cvss: true, epss: true, exploitMaturity: true, kevListed: true, kevDateAdded: true, kevDueDate: true,
       firstSeenAt: true, updatedAt: true, newestEvidenceAt: true,
     };

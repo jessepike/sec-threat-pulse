@@ -6,6 +6,8 @@ import type { ActTier } from "@/lib/ladder/rules";
 import { kevFix, loadRecords, recMatchesProduct, type Rec } from "@/lib/data/db";
 import { SITE_URL } from "@/lib/site";
 import { categorize, type Category } from "@/lib/ladder/category";
+import { untrackedRungs } from "@/lib/ladder/coverage";
+import { EMPTY_LADDER, type Ladder } from "@/lib/ladder/types";
 import { computeClock, sourceCounts, type Clock } from "@/lib/ladder/clock";
 import { resolveAffectedProducts, type AffectedProduct } from "@/lib/products";
 
@@ -36,6 +38,8 @@ export interface ApiEventSummary {
   rankWhy: string[] | null;
   rulesVersion: string;
   ladder: Record<string, string>;
+  /** Rungs with no evidence that no source we use can fill yet. Read "none" there as unknown, not as nothing. */
+  untrackedRungs: string[];
   cves: string[];
   vendor: string | null;
   product: string | null;
@@ -87,6 +91,8 @@ export interface ApiEventDetail extends ApiEventSummary {
   evidenceWithheld: number;
 }
 
+const asLadder = (l: Record<string, string>): Ladder => ({ ...EMPTY_LADDER, ...(l as Partial<Ladder>) });
+
 function toSummary(r: Rec, f: SummaryFacts): ApiEventSummary {
   const e = r.e;
   return {
@@ -100,6 +106,7 @@ function toSummary(r: Rec, f: SummaryFacts): ApiEventSummary {
     rankWhy: e.rankWhy ?? null,
     rulesVersion: e.rulesVersion,
     ladder: e.ladder,
+    untrackedRungs: untrackedRungs(e.kind, asLadder(e.ladder)),
     cves: f.cves,
     vendor: e.vendor,
     product: e.product,
