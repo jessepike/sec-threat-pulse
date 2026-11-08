@@ -1,0 +1,119 @@
+{
+  "id": "kev-2026-08-31-papercut-ng-mf",
+  "url": "https://securitythreatpulse.com/events/kev-2026-08-31-papercut-ng-mf",
+  "title": "PaperCut NG MF: 2 flaws used in attacks; attackers can get in without a password",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 63 days old, so current versions are being attacked. Ready-made attack tools are public. The severity score is critical (9.4). The exploit prediction score is 85%.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "reported",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-81578",
+    "CVE-2026-82078"
+  ],
+  "vendor": "PaperCut",
+  "product": "NG/MF",
+  "category": {
+    "id": "business-app",
+    "label": "Business software",
+    "why": "It runs day-to-day business work such as finance, printing, phones or manufacturing.",
+    "doThis": "Ask the vendor or the team that owns it whether the fix is in."
+  },
+  "summary": "PaperCut NG/MF contains a missing authentication for critical function vulnerability which allows an unauthenticated remote attacker to modify certain system configurations. This vulnerability can be chained with CVE-2026-82078.",
+  "firstSeenAt": "2026-08-31T00:00:00.000Z",
+  "updatedAt": "2026-10-30T23:37:41.203Z",
+  "newestEvidenceAt": "2026-10-28T01:37:04.194Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 14, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Nuclei scan template: PaperCut NG/MF <=26.0.4 - Unauthenticated ConfigEditor Access via Tapestry Complex-Direct",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2026/CVE-2026-81578.yaml",
+      "publishedAt": null,
+      "source": {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "PaperCut NG/MF Unsafe Reflection Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-82078",
+      "publishedAt": "2026-08-31T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "PaperCut NG/MF Missing Authentication for Critical Function Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-81578",
+      "publishedAt": "2026-08-31T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "2 public GitHub repositories claim a proof of concept for CVE-2026-81578",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-81578.json",
+      "publishedAt": "2026-08-29T13:12:33.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-82078 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-82078",
+      "publishedAt": "2026-08-28T11:45:25.388Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-81578 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-81578",
+      "publishedAt": "2026-08-28T11:39:45.402Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Metasploit exploit module: PaperCut NG/MF Unauthenticated RCE (CVE-2026-81578 + CVE-2026-82078)",
+      "url": "https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/multi/http/papercut_ng_external_user_lookup_rce.rb",
+      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "source": {
+        "id": "metasploit",
+        "name": "Metasploit module metadata",
+        "attribution": "Metasploit Framework module metadata (BSD-3-Clause, Rapid7)"
+      }
+    }
+  ],
+  "evidenceWithheld": 1
+}

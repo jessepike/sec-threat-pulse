@@ -1,0 +1,70 @@
+{
+  "id": "kev-2026-09-24-wso2-multiple-products",
+  "url": "https://securitythreatpulse.com/events/kev-2026-09-24-wso2-multiple-products",
+  "title": "Several WSO2 products: attackers can read or change files",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 94 days old, so many systems are likely still unpatched. The severity score is critical (10.0).",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "reported",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-5430"
+  ],
+  "vendor": "WSO2",
+  "product": "Multiple Products",
+  "category": {
+    "id": "website",
+    "label": "Website or online store",
+    "why": "It runs public websites, online stores or the software behind them.",
+    "doThis": "Ask whoever runs your website or store to update it."
+  },
+  "summary": "WSO2 API Control Plane, API Manager, Traffic Manager & Universal Gateway contain a path traversal vulnerability that could allow for unrestricted file upload and lead to remote code execution.",
+  "firstSeenAt": "2026-09-24T00:00:00.000Z",
+  "updatedAt": "2026-11-08T07:37:41.474Z",
+  "newestEvidenceAt": "2026-10-28T01:36:55.113Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 27, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "WSO2 Multiple Products Path Traversal Vulnerability ",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-5430",
+      "publishedAt": "2026-09-24T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "4 public GitHub repositories claim a proof of concept for CVE-2026-5430",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-5430.json",
+      "publishedAt": "2026-09-16T05:56:55.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-5430 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-5430",
+      "publishedAt": "2026-08-06T07:33:28.156Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 6
+}

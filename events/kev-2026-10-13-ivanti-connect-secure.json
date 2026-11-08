@@ -1,0 +1,118 @@
+{
+  "id": "kev-2026-10-13-ivanti-connect-secure",
+  "url": "https://securitythreatpulse.com/events/kev-2026-10-13-ivanti-connect-secure",
+  "title": "Ivanti Connect Secure: attackers can get in without a password",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 25 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The exploit prediction score is 89%.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-104935"
+  ],
+  "vendor": "Ivanti",
+  "product": "Connect Secure",
+  "category": {
+    "id": "edge",
+    "label": "VPN, firewall or gateway",
+    "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+    "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+  },
+  "summary": "Ivanti Connect Secure contains an authentication bypass by spoofing vulnerability that allows a remote unauthenticated attacker to execute arbitrary commands.",
+  "firstSeenAt": "2026-10-13T00:00:00.000Z",
+  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "newestEvidenceAt": "2026-11-03T15:19:11.536Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 16, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Nuclei scan template: Ivanti Connect Secure <= 22.8R2.4 - Authentication Bypass via X-DSCGI-PATH Header",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2026/CVE-2026-104935.yaml",
+      "publishedAt": null,
+      "source": {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "U.S. CISA adds Ivanti Connect Secure flaws to its Known Exploited Vulnerabilities catalog",
+      "url": "https://securityaffairs.com/202175/security/u-s-cisa-adds-ivanti-connect-secure-flaws-to-its-known-exploited-vulnerabilities-catalog.html",
+      "publishedAt": "2026-10-31T19:33:36.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
+      }
+    },
+    {
+      "rung": "advisory",
+      "strength": "reported",
+      "title": "Ivanti security advisory (AV26-1035) - Update 1",
+      "url": "https://cyber.gc.ca/en/alerts-advisories/ivanti-security-advisory-av26-1035",
+      "publishedAt": "2026-10-16T15:09:38.000Z",
+      "source": {
+        "id": "advisory-cccs",
+        "name": "Canadian Centre for Cyber Security",
+        "attribution": "Advisory headlines and links from Canadian Centre for Cyber Security"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Ivanti ICS Zero-Day Attacks Highlight Vendor Patching Hurdles",
+      "url": "https://www.darkreading.com/vulnerabilities-threats/ivanti-ics-zero-day-attacks-vendor-patching",
+      "publishedAt": "2026-10-14T21:20:13.000Z",
+      "source": {
+        "id": "news-darkreading",
+        "name": "Dark Reading",
+        "attribution": "Headlines and links from Dark Reading"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "5 public GitHub repositories claim a proof of concept for CVE-2026-104935",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-104935.json",
+      "publishedAt": "2026-10-13T19:53:51.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-104935 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-104935",
+      "publishedAt": "2026-10-13T15:31:07.757Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Ivanti Connect Secure Authentication Bypass by Spoofing Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-104935",
+      "publishedAt": "2026-10-13T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 36
+}

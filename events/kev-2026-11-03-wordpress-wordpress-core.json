@@ -1,0 +1,106 @@
+{
+  "id": "kev-2026-11-03-wordpress-wordpress-core",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-03-wordpress-wordpress-core",
+  "title": "WordPress Core: attackers can run their own code",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 8 days old, so many systems are likely still unpatched.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-119977"
+  ],
+  "vendor": "WordPress",
+  "product": "WordPress Core",
+  "category": {
+    "id": "website",
+    "label": "Website or online store",
+    "why": "It runs public websites, online stores or the software behind them.",
+    "doThis": "Ask whoever runs your website or store to update it."
+  },
+  "summary": "WordPress WordPress Core contains a time-of-check time-of-use (TOCTOU) race condition vulnerability that could allow unauthenticated attackers to execute code on the server during the upgrade window. This is due to predictable, web-accessible staging paths used during full-package core upgrades.",
+  "firstSeenAt": "2026-11-03T00:00:00.000Z",
+  "updatedAt": "2026-11-08T05:37:40.252Z",
+  "newestEvidenceAt": "2026-11-07T15:24:50.645Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 6, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "U.S. CISA adds WordPress flaw to its Known Exploited Vulnerabilities catalog",
+      "url": "https://securityaffairs.com/202394/security/u-s-cisa-adds-wordpress-flaw-to-its-known-exploited-vulnerabilities-catalog-2.html",
+      "publishedAt": "2026-11-04T09:16:37.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "CISA Confirms Hackers Exploiting WordPress Core Flaw During Software Upgrades",
+      "url": "https://thehackernews.com/2026/11/cisa-confirms-hackers-exploiting.html",
+      "publishedAt": "2026-11-04T05:43:11.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-119977",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-119977.json",
+      "publishedAt": "2026-11-04T04:15:42.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "advisory",
+      "strength": "reported",
+      "title": "WordPress security advisory (AV26-1117)",
+      "url": "https://cyber.gc.ca/en/alerts-advisories/wordpress-security-advisory-av26-1117",
+      "publishedAt": "2026-11-03T21:36:07.000Z",
+      "source": {
+        "id": "advisory-cccs",
+        "name": "Canadian Centre for Cyber Security",
+        "attribution": "Advisory headlines and links from Canadian Centre for Cyber Security"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-119977",
+      "publishedAt": "2026-11-03T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-119977 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-119977",
+      "publishedAt": "2026-10-31T05:33:07.059Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 89
+}

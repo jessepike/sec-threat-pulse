@@ -1,0 +1,106 @@
+{
+  "id": "kev-2026-10-23-collabora-collabora-online-built-in-code",
+  "url": "https://securitythreatpulse.com/events/kev-2026-10-23-collabora-collabora-online-built-in-code",
+  "title": "Collabora Online, Built-in CODE Server: attackers can run commands on it",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 25 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.2). The exploit prediction score is 73%.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-110447"
+  ],
+  "vendor": "Collabora",
+  "product": "Collabora Online – Built-in CODE Server",
+  "category": {
+    "id": "collaboration",
+    "label": "Documents and collaboration",
+    "why": "It holds shared documents and internal pages.",
+    "doThis": "Patch it, or ask your provider whether they have."
+  },
+  "summary": "Collabora Collabora Online – Built-in CODE Server when used within the NextCloud platform contains an OS command injection vulnerability that allows for remote code execution when the CODE server isn't running.",
+  "firstSeenAt": "2026-10-23T00:00:00.000Z",
+  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "newestEvidenceAt": "2026-11-05T17:47:13.081Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 26, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Nuclei scan template: Collabora Built-in CODE Server < 26.4.303 - OS Command Injection",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2026/CVE-2026-110447.yaml",
+      "publishedAt": null,
+      "source": {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "U.S. CISA adds Collabora Online flaw to its Known Exploited Vulnerabilities catalog",
+      "url": "https://securityaffairs.com/201652/security/u-s-cisa-adds-collabora-online-flaw-to-its-known-exploited-vulnerabilities-catalog.html",
+      "publishedAt": "2026-10-24T16:53:59.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "CISA Flags Two Actively Exploited Critical Flaws in Collabora Online and Arista VeloCloud",
+      "url": "https://thehackernews.com/2026/10/cisa-flags-two-actively-exploited.html",
+      "publishedAt": "2026-10-24T06:25:57.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Collabora Online – Built-in CODE Server OS Command Injection Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-110447",
+      "publishedAt": "2026-10-23T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-110447",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-110447.json",
+      "publishedAt": "2026-10-14T19:22:35.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-110447 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-110447",
+      "publishedAt": "2026-10-14T02:27:42.315Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 21
+}

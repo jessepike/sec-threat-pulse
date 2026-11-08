@@ -1,0 +1,82 @@
+{
+  "id": "kev-2026-10-20-siemens-software-center",
+  "url": "https://securitythreatpulse.com/events/kev-2026-10-20-siemens-software-center",
+  "title": "Siemens Software Center: attackers can run their own code",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 23 days old, so many systems are likely still unpatched.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "reported",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-110936"
+  ],
+  "vendor": "Siemens",
+  "product": "Software Center",
+  "category": {
+    "id": "business-app",
+    "label": "Business software",
+    "why": "It runs day-to-day business work such as finance, printing, phones or manufacturing.",
+    "doThis": "Ask the vendor or the team that owns it whether the fix is in."
+  },
+  "summary": "Siemens Software Center contains an uncontrolled search path element vulnerability that could allow an authenticated local attacker to place a specially crafted DLL in a directory that the application searches, leading to arbitrary code execution with the privileges of the affected application.",
+  "firstSeenAt": "2026-10-20T00:00:00.000Z",
+  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "newestEvidenceAt": "2026-10-21T22:56:17.000Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 3, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-110936",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-110936.json",
+      "publishedAt": "2026-10-21T22:56:17.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "advisory",
+      "strength": "reported",
+      "title": "Siemens security advisory (AV26-1063) – Update 1",
+      "url": "https://cyber.gc.ca/en/alerts-advisories/siemens-security-advisory-av26-1063",
+      "publishedAt": "2026-10-20T19:57:09.000Z",
+      "source": {
+        "id": "advisory-cccs",
+        "name": "Canadian Centre for Cyber Security",
+        "attribution": "Advisory headlines and links from Canadian Centre for Cyber Security"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Siemens Software Center Uncontrolled Search Path Element Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-110936",
+      "publishedAt": "2026-10-20T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-110936 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-110936",
+      "publishedAt": "2026-10-15T14:01:17.797Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 0
+}

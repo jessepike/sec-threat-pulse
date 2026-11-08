@@ -1,0 +1,58 @@
+{
+  "id": "kev-2026-08-26-microsoft-sql-server",
+  "url": "https://securitythreatpulse.com/events/kev-2026-08-26-microsoft-sql-server",
+  "title": "Microsoft SQL Server: attackers can run their own code",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The exploit prediction score is 57%.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "none",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2019-1068"
+  ],
+  "vendor": "Microsoft",
+  "product": "SQL Server",
+  "category": {
+    "id": "server-backup",
+    "label": "Servers and backups",
+    "why": "It runs or protects many systems at once, including your backups.",
+    "doThis": "Patch it and keep its admin access off the internet."
+  },
+  "summary": "Microsoft SQL Server contains a remote code execution vulnerability that could allow an attacker to execute code in the context of the SQL Server Database Engine service account.",
+  "firstSeenAt": "2026-08-26T00:00:00.000Z",
+  "updatedAt": "2026-10-24T23:22:40.337Z",
+  "newestEvidenceAt": "2026-08-26T00:00:00.000Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Aug 29, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Microsoft SQL Server Remote Code Execution Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2019-1068",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2019-1068 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2019-1068",
+      "publishedAt": "2019-07-15T18:56:20.000Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 0
+}

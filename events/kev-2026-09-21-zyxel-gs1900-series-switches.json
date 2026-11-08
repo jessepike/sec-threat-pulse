@@ -1,0 +1,70 @@
+{
+  "id": "kev-2026-09-21-zyxel-gs1900-series-switches",
+  "url": "https://securitythreatpulse.com/events/kev-2026-09-21-zyxel-gs1900-series-switches",
+  "title": "Zyxel GS1900 Series Switches: a memory flaw attackers can abuse",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 145 days old, so many systems are likely still unpatched.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-7273"
+  ],
+  "vendor": "Zyxel",
+  "product": "GS1900 Series Switches",
+  "category": {
+    "id": "network-device",
+    "label": "Routers, cameras and devices",
+    "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+    "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+  },
+  "summary": "Zyxel GS1900 series switches contain a stack-based buffer overflow vulnerability in the CGI program which could allow a LAN-based, unauthenticated attacker to exploit the flaw and potentially execute OS commands via a crafted HTTP request.",
+  "firstSeenAt": "2026-09-21T00:00:00.000Z",
+  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "newestEvidenceAt": "2026-11-07T15:50:05.228Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 24, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Patched Zyxel GS1900 switches remained open to in-the-wild exploit (CVE-2026-107441)",
+      "url": "https://www.helpnetsecurity.com/2026/11/05/zyxel-cve-2026-107441-exploit/",
+      "publishedAt": "2026-11-05T12:06:32.000Z",
+      "source": {
+        "id": "news-helpnetsecurity",
+        "name": "Help Net Security",
+        "attribution": "Headlines and links from Help Net Security"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Zyxel GS1900 Series Switches Stack-Based Buffer Overflow Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-7273",
+      "publishedAt": "2026-09-21T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-7273 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-7273",
+      "publishedAt": "2026-06-16T02:20:29.847Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 11
+}

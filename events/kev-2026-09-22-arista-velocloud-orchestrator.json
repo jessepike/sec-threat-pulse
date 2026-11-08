@@ -1,0 +1,58 @@
+{
+  "id": "kev-2026-09-22-arista-velocloud-orchestrator",
+  "url": "https://securitythreatpulse.com/events/kev-2026-09-22-arista-velocloud-orchestrator",
+  "title": "Arista VeloCloud Orchestrator: security flaw used in attacks",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 47 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.5).",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "none",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-93952"
+  ],
+  "vendor": "Arista",
+  "product": "VeloCloud Orchestrator",
+  "category": {
+    "id": "edge",
+    "label": "VPN, firewall or gateway",
+    "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+    "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+  },
+  "summary": "Arista VeloCloud Orchestrator (VCO) on-prem contains an improper input validation vulnerability that may allow a remote attacker to access privileged internal functionality and impact the VCO host. Successful exploitation may compromise the confidentiality, integrity, and availability of the orchestrator and data managed by the orchestrator.",
+  "firstSeenAt": "2026-09-22T00:00:00.000Z",
+  "updatedAt": "2026-11-08T07:37:41.474Z",
+  "newestEvidenceAt": "2026-09-22T07:37:24.300Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 25, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-93952 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-93952",
+      "publishedAt": "2026-09-22T07:37:24.300Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Arista VeloCloud Orchestrator Improper Input Validation Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-93952",
+      "publishedAt": "2026-09-22T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 0
+}

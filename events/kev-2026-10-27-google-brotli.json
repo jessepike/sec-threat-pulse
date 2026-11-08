@@ -1,0 +1,214 @@
+{
+  "id": "kev-2026-10-27-google-brotli",
+  "url": "https://securitythreatpulse.com/events/kev-2026-10-27-google-brotli",
+  "title": "Google Brotli: attackers can run their own code",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 16 days old, so many systems are likely still unpatched. The severity score is critical (9.2). The exploit prediction score is 83%.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-111497"
+  ],
+  "vendor": "Google",
+  "product": "Brotli",
+  "category": {
+    "id": "endpoint",
+    "label": "Computers, phones and browsers",
+    "why": "It runs on staff computers, phones or browsers.",
+    "doThis": "Install the latest updates on every device, and turn on automatic updates."
+  },
+  "summary": "Google Brotli contains an unchecked return value vulnerability that allows a remote unauthenticated attacker to corrupt adjacent decoder state memory, disclose sensitive memory contents, cause a denial of service, or potentially execute arbitrary code using a crafted Brotli-compressed stream.",
+  "firstSeenAt": "2026-10-27T00:00:00.000Z",
+  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "newestEvidenceAt": "2026-11-07T11:53:00.189Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 10, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Product showcase: Sweet Virtual Patching stops HTTP2Shell while fixes catch up",
+      "url": "https://www.helpnetsecurity.com/2026/11/03/product-showcase-sweet-security-virtual-patching/",
+      "publishedAt": "2026-11-03T06:00:18.000Z",
+      "source": {
+        "id": "news-helpnetsecurity",
+        "name": "Help Net Security",
+        "attribution": "Headlines and links from Help Net Security"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Security Affairs newsletter Round 602 by Pierluigi Paganini – INTERNATIONAL EDITION",
+      "url": "https://securityaffairs.com/202200/breaking-news/security-affairs-newsletter-round-602-by-pierluigi-paganini-international-edition.html",
+      "publishedAt": "2026-11-01T13:22:58.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
+      }
+    },
+    {
+      "rung": "advisory",
+      "strength": "reported",
+      "title": "AL26-027 - Critical vulnerability impacting Google Brotli – CVE-2026-111497",
+      "url": "https://cyber.gc.ca/en/alerts-advisories/al26-027-critical-vulnerability-impacting-google-brotli-cve-2026-111497",
+      "publishedAt": "2026-10-28T12:46:09.000Z",
+      "source": {
+        "id": "advisory-cccs",
+        "name": "Canadian Centre for Cyber Security",
+        "attribution": "Advisory headlines and links from Canadian Centre for Cyber Security"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "U.S. CISA adds Google Brotli and Adobe Commerce and Magento flaws to its Known Exploited Vulnerabilities catalog",
+      "url": "https://securityaffairs.com/201922/security/u-s-cisa-adds-google-brotli-and-adobe-commerce-and-magento-flaws-to-its-known-exploited-vulnerabilities-catalog.html",
+      "publishedAt": "2026-10-28T10:05:15.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Adobe Commerce PolyShell Attacks Breach Hundreds of Stores as Brotli Exploit Traffic Emerges",
+      "url": "https://thehackernews.com/2026/10/adobe-commerce-polyshell-attacks-breach.html",
+      "publishedAt": "2026-10-28T05:42:26.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "advisory",
+      "strength": "reported",
+      "title": "Google security advisory (AV26-1085) - Update 1",
+      "url": "https://cyber.gc.ca/en/alerts-advisories/google-security-advisory-av26-1085",
+      "publishedAt": "2026-10-27T20:32:57.000Z",
+      "source": {
+        "id": "advisory-cccs",
+        "name": "Canadian Centre for Cyber Security",
+        "attribution": "Advisory headlines and links from Canadian Centre for Cyber Security"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Brotli bug reaches far beyond Node.js (CVE-2026-111497)",
+      "url": "https://www.helpnetsecurity.com/2026/10/27/node2shell-broccoli2shell-vulnerability-cve-2026-111497/",
+      "publishedAt": "2026-10-27T17:38:51.000Z",
+      "source": {
+        "id": "news-helpnetsecurity",
+        "name": "Help Net Security",
+        "attribution": "Headlines and links from Help Net Security"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Experts temper emergency-level alarms over critical Brotli defect",
+      "url": "https://cyberscoop.com/brotli-critical-vulnerability-decompression-library-node2shell-broccoli2shell/",
+      "publishedAt": "2026-10-27T00:22:54.000Z",
+      "source": {
+        "id": "news-cyberscoop",
+        "name": "CyberScoop",
+        "attribution": "Headlines and links from CyberScoop"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Google Brotli Unchecked Return Value Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-111497",
+      "publishedAt": "2026-10-27T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Microsoft releases emergency .NET security fixes for Google Brotli bug",
+      "url": "https://www.theregister.com/security/2026/10/26/microsoft-releases-emergency-net-security-fixes-for-google-brotli-bug/5305515",
+      "publishedAt": "2026-10-26T17:58:00.000Z",
+      "source": {
+        "id": "news-theregister",
+        "name": "The Register (security)",
+        "attribution": "Headlines and links from The Register (security)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "PHP Issues Second Windows Security Update in Five Days to Fix Brotli Code Execution Flaw",
+      "url": "https://thehackernews.com/2026/10/php-issues-second-windows-security.html",
+      "publishedAt": "2026-10-26T17:45:57.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Brotli Decoder Flaw Behind Node.js RCE Also Affects Bun, Python and Other Widely Used Software",
+      "url": "https://thehackernews.com/2026/10/brotli-decoder-flaw-behind-nodejs-rce.html",
+      "publishedAt": "2026-10-24T11:09:29.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Researchers Demonstrate Node2Shell RCE Exploit on Node.js Build Using Crafted Brotli Data",
+      "url": "https://thehackernews.com/2026/10/researchers-demonstrate-node2shell-rce.html",
+      "publishedAt": "2026-10-23T08:40:43.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-111497 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-111497",
+      "publishedAt": "2026-10-22T13:35:41.975Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "59 public GitHub repositories claim a proof of concept for CVE-2026-111497",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-111497.json",
+      "publishedAt": "2026-10-21T15:47:21.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    }
+  ],
+  "evidenceWithheld": 194
+}

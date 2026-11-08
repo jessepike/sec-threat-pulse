@@ -1,0 +1,82 @@
+{
+  "id": "kev-2026-09-14-cisco-secure-email-gateway",
+  "url": "https://securitythreatpulse.com/events/kev-2026-09-14-cisco-secure-email-gateway",
+  "title": "Cisco Secure Email Gateway: attackers can read or change its database",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 54 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "reported",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-76461"
+  ],
+  "vendor": "Cisco",
+  "product": "Secure Email Gateway",
+  "category": {
+    "id": "email",
+    "label": "Email",
+    "why": "It carries internal and customer mail.",
+    "doThis": "Patch it, or ask your email provider whether they have."
+  },
+  "summary": "Cisco AsyncOS software for Cisco Secure Email Gateway (SEG) contains a SQL injection vulnerability that could allow an unauthenticated, remote attacker to execute arbitrary commands with root privileges on the underlying operating system.",
+  "firstSeenAt": "2026-09-14T00:00:00.000Z",
+  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "newestEvidenceAt": "2026-11-06T15:30:56.822Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 17, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "4 public GitHub repositories claim a proof of concept for CVE-2026-76461",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-76461.json",
+      "publishedAt": "2026-09-15T06:13:37.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-76461 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-76461",
+      "publishedAt": "2026-09-14T16:09:07.839Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Cisco Secure Email Gateway SQL Injection Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-76461",
+      "publishedAt": "2026-09-14T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Metasploit exploit module: Cisco Secure Email Gateway ECS Message-ID SQL Injection RCE",
+      "url": "https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/unix/smtp/cisco_secure_email_gateway_ecs_sqli_rce.rb",
+      "publishedAt": "2026-09-14T00:00:00.000Z",
+      "source": {
+        "id": "metasploit",
+        "name": "Metasploit module metadata",
+        "attribution": "Metasploit Framework module metadata (BSD-3-Clause, Rapid7)"
+      }
+    }
+  ],
+  "evidenceWithheld": 4
+}

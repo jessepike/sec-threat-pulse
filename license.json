@@ -1,0 +1,19 @@
+{
+  "stpFields": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Attribute as: Security Threat Pulse, https://securitythreatpulse.com",
+  "stpFieldsCovered": [
+    "id",
+    "url",
+    "title",
+    "verdict",
+    "verdictReason",
+    "rulesVersion",
+    "ladder",
+    "category",
+    "firstSeenAt",
+    "updatedAt",
+    "newestEvidenceAt",
+    "fix"
+  ],
+  "sourceData": "Each evidence item (title, url, publishedAt, source) stays under its own source's terms, named in source.attribution and in docs/source-registry.md. Sources whose terms do not allow re-serving are not in this snapshot, as in the API.",
+  "notAdvice": "Verdicts follow the published rules at https://securitythreatpulse.com/methodology. Not advice."
+}

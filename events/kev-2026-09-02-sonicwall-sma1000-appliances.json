@@ -1,0 +1,119 @@
+{
+  "id": "kev-2026-09-02-sonicwall-sma1000-appliances",
+  "url": "https://securitythreatpulse.com/events/kev-2026-09-02-sonicwall-sma1000-appliances",
+  "title": "SonicWall SMA1000 Appliances: 2 flaws used in attacks; attackers can reach systems behind it",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 61 days old, so current versions are being attacked. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (10.0).",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "none",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-83548",
+    "CVE-2026-83549"
+  ],
+  "vendor": "SonicWall",
+  "product": "SMA1000 Appliances",
+  "category": {
+    "id": "edge",
+    "label": "VPN, firewall or gateway",
+    "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+    "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+  },
+  "summary": "SonicWall SMA1000 Appliances contains a server-side request forgery vulnerability that could allow a remote unauthenticated attacker to gain unauthorized access to sensitive functionality and perform unauthorized operations.",
+  "firstSeenAt": "2026-09-02T00:00:00.000Z",
+  "updatedAt": "2026-11-01T21:37:40.840Z",
+  "newestEvidenceAt": "2026-10-24T23:23:07.997Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 5, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Nuclei scan template: SonicWall SMA1000 WorkPlace - Unauthenticated SSRF to CouchDB",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/blob/main/javascript/cves/2026/CVE-2026-83548.yaml",
+      "publishedAt": null,
+      "source": {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "3 public GitHub repositories claim a proof of concept for CVE-2026-83548",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-83548.json",
+      "publishedAt": "2026-09-03T11:03:36.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "SonicWall SMA1000 Appliances OS Command Injection Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-83549",
+      "publishedAt": "2026-09-02T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "SonicWall SMA1000 Appliances Server-Side Request Forgery Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-83548",
+      "publishedAt": "2026-09-02T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-83549 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-83549",
+      "publishedAt": "2026-09-01T21:28:50.717Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-83548 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-83548",
+      "publishedAt": "2026-09-01T21:25:45.368Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Metasploit exploit module: SonicWall SMA1000 WorkPlace SSRF to Root Remote Code Execution",
+      "url": "https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/linux/http/sonicwall_sma1000_couchdb_rce.rb",
+      "publishedAt": "2026-09-01T00:00:00.000Z",
+      "source": {
+        "id": "metasploit",
+        "name": "Metasploit module metadata",
+        "attribution": "Metasploit Framework module metadata (BSD-3-Clause, Rapid7)"
+      }
+    }
+  ],
+  "evidenceWithheld": 2
+}

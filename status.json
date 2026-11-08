@@ -1,0 +1,244 @@
+{
+  "apiVersion": "1",
+  "generatedAt": "2026-11-08T12:00:33.730Z",
+  "state": "ok",
+  "summary": "Fresh. The last complete run was 8 minutes ago and every source is current.",
+  "lastCompleteAt": "2026-11-08T11:52:42.090Z",
+  "lastAttemptAt": "2026-11-08T11:52:42.090Z",
+  "nextRunDueAt": "2026-11-08T12:07:42.090Z",
+  "rulesVersion": "v2",
+  "counts": {
+    "act_now": 75,
+    "watch": 37,
+    "low": 0,
+    "total": 112
+  },
+  "newestEvidenceAt": "2026-11-08T10:15:29.114Z",
+  "sources": {
+    "total": 29,
+    "ok": 28,
+    "failing": 0,
+    "stale": 0,
+    "unconfigured": 1,
+    "list": [
+      {
+        "id": "advisory-cccs",
+        "name": "Canadian Centre for Cyber Security",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "advisory-cert-eu",
+        "name": "CERT-EU",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "advisory-ncsc-uk",
+        "name": "UK NCSC",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "ca-ag",
+        "name": "California Attorney General breach notices",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-07T23:30:44.833Z",
+        "reason": ""
+      },
+      {
+        "id": "circl-sightings",
+        "name": "CIRCL Vulnerability-Lookup sightings",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "epss",
+        "name": "FIRST EPSS",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-07T23:30:44.833Z",
+        "reason": ""
+      },
+      {
+        "id": "exploitdb",
+        "name": "Exploit-DB",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-07T23:30:44.833Z",
+        "reason": ""
+      },
+      {
+        "id": "hibp",
+        "name": "Have I Been Pwned breaches",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "metasploit",
+        "name": "Metasploit module metadata",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-bleepingcomputer",
+        "name": "BleepingComputer",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-cyberscoop",
+        "name": "CyberScoop",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-cybersecuritydive",
+        "name": "Cybersecurity Dive",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-darkreading",
+        "name": "Dark Reading",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-helpnetsecurity",
+        "name": "Help Net Security",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-krebs",
+        "name": "Krebs on Security",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-sansisc",
+        "name": "SANS Internet Storm Center",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-securityweek",
+        "name": "SecurityWeek",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-therecord",
+        "name": "The Record",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "news-theregister",
+        "name": "The Register (security)",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "nvd",
+        "name": "NVD API 2.0",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "sec-8k",
+        "name": "SEC EDGAR 8-K Item 1.05",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-08T11:30:44.414Z",
+        "reason": ""
+      },
+      {
+        "id": "vulncheck-kev",
+        "name": "VulnCheck KEV",
+        "state": "unconfigured",
+        "lastSuccessAt": null,
+        "reason": ""
+      },
+      {
+        "id": "wa-ag",
+        "name": "Washington Attorney General breach notices",
+        "state": "ok",
+        "lastSuccessAt": "2026-11-07T23:30:44.833Z",
+        "reason": ""
+      }
+    ]
+  },
+  "eventsSync": {
+    "state": "ok",
+    "lastSuccessAt": "2026-11-08T11:52:42.090Z",
+    "reason": ""
+  },
+  "database": {
+    "state": "ok",
+    "reason": ""
+  },
+  "links": {
+    "site": "https://securitythreatpulse.com",
+    "api": "https://securitythreatpulse.com/api/v1/events",
+    "methodology": "https://securitythreatpulse.com/methodology",
+    "alerts": "https://github.com/jessepike/sec-threat-pulse/issues?q=is%3Aissue+is%3Aopen+label%3Aalert"
+  }
+}

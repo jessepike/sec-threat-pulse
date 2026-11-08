@@ -1,0 +1,118 @@
+{
+  "id": "kev-2026-10-28-broadcom-vmware-esx",
+  "url": "https://securitythreatpulse.com/events/kev-2026-10-28-broadcom-vmware-esx",
+  "title": "Broadcom VMware ESX: security flaw used in attacks",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 100 days old, so many systems are likely still unpatched.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-41709"
+  ],
+  "vendor": "Broadcom",
+  "product": "VMware ESX",
+  "category": {
+    "id": "server-backup",
+    "label": "Servers and backups",
+    "why": "It runs or protects many systems at once, including your backups.",
+    "doThis": "Patch it and keep its admin access off the internet."
+  },
+  "summary": "Broadcom VMWare ESX contains an insufficient logging vulnerability that could allow a malicious actor with admin access to perform certain operations without being logged.",
+  "firstSeenAt": "2026-10-28T00:00:00.000Z",
+  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "newestEvidenceAt": "2026-11-02T15:53:30.412Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 11, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Chinese hackers used VMware ESX zero-day; PHP2Shell and Fragnesia chained to root firewalls",
+      "url": "https://www.helpnetsecurity.com/2026/10/29/php2shell-fragnesia-vmware-esx-zero-day/",
+      "publishedAt": "2026-10-29T16:25:10.000Z",
+      "source": {
+        "id": "news-helpnetsecurity",
+        "name": "Help Net Security",
+        "attribution": "Headlines and links from Help Net Security"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "U.S. CISA adds Linux Kernel and Broadcom VMWare ESX flaws to its Known Exploited Vulnerabilities catalog",
+      "url": "https://securityaffairs.com/202050/hacking/u-s-cisa-adds-linux-kernel-and-broadcom-vmware-esx-flaws-to-its-known-exploited-vulnerabilities-catalog.html",
+      "publishedAt": "2026-10-29T16:05:56.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Chinese Hackers Quietly Used Low-Severity ESXi Logging Flaw as Zero-Day",
+      "url": "https://www.securityweek.com/chinese-hackers-quietly-used-low-severity-esxi-logging-flaw-as-zero-day/",
+      "publishedAt": "2026-10-29T08:01:05.000Z",
+      "source": {
+        "id": "news-securityweek",
+        "name": "SecurityWeek",
+        "attribution": "Headlines and links from SecurityWeek"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "China-Linked Hackers Exploited VMware ESX Zero-Day to Reduce Audit Trail Visibility",
+      "url": "https://thehackernews.com/2026/10/china-linked-hackers-exploited-vmware.html",
+      "publishedAt": "2026-10-29T06:22:33.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "advisory",
+      "strength": "reported",
+      "title": "VMware security advisory (AV26-763) – Update 2",
+      "url": "https://cyber.gc.ca/en/alerts-advisories/vmware-security-advisory-av26-763",
+      "publishedAt": "2026-10-28T19:53:28.000Z",
+      "source": {
+        "id": "advisory-cccs",
+        "name": "Canadian Centre for Cyber Security",
+        "attribution": "Advisory headlines and links from Canadian Centre for Cyber Security"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Broadcom VMWare ESX Insufficient Logging Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-41709",
+      "publishedAt": "2026-10-28T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-41709 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-41709",
+      "publishedAt": "2026-07-30T12:45:02.292Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 56
+}

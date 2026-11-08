@@ -1,0 +1,70 @@
+{
+  "id": "kev-2026-09-02-berriai-litellm",
+  "url": "https://securitythreatpulse.com/events/kev-2026-09-02-berriai-litellm",
+  "title": "BerriAI LiteLLM: attackers can get in without a password",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 116 days old, so current versions are being attacked.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "reported",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-59822"
+  ],
+  "vendor": "BerriAI",
+  "product": "LiteLLM",
+  "category": {
+    "id": "ai",
+    "label": "AI tools",
+    "why": "It connects to AI models and often holds the keys to paid services and data.",
+    "doThis": "Update it and change any API keys stored in it."
+  },
+  "summary": "BerriAI LiteLLM contains an improper authentication vulnerability in the MCP Streamable HTTP endpoint that could allow an unauthenticated attacker to establish an authenticated MCP session using an arbitrary Bearer token.",
+  "firstSeenAt": "2026-09-02T00:00:00.000Z",
+  "updatedAt": "2026-11-01T19:37:40.189Z",
+  "newestEvidenceAt": "2026-10-26T12:41:05.000Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 16, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-59822",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-59822.json",
+      "publishedAt": "2026-09-03T06:10:22.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "BerriAI LiteLLM Improper Authentication Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-59822",
+      "publishedAt": "2026-09-02T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-59822 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-59822",
+      "publishedAt": "2026-07-08T19:32:18.611Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 2
+}

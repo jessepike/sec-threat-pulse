@@ -1,0 +1,70 @@
+{
+  "id": "kev-2026-09-25-microsoft-sharepoint",
+  "url": "https://securitythreatpulse.com/events/kev-2026-09-25-microsoft-sharepoint",
+  "title": "Microsoft SharePoint: attackers can run their own code",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 88 days old, so many systems are likely still unpatched.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "reported",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-65660"
+  ],
+  "vendor": "Microsoft",
+  "product": "SharePoint",
+  "category": {
+    "id": "collaboration",
+    "label": "Documents and collaboration",
+    "why": "It holds shared documents and internal pages.",
+    "doThis": "Patch it, or ask your provider whether they have."
+  },
+  "summary": "Microsoft SharePoint contains a code injection vulnerability which could allow an authorized attacker to execute code over a network.",
+  "firstSeenAt": "2026-09-25T00:00:00.000Z",
+  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "newestEvidenceAt": "2026-11-05T10:06:28.695Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 28, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "2 public GitHub repositories claim a proof of concept for CVE-2026-65660",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-65660.json",
+      "publishedAt": "2026-09-25T03:22:53.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Microsoft SharePoint Code Injection Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-65660",
+      "publishedAt": "2026-09-25T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-65660 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-65660",
+      "publishedAt": "2026-08-11T17:04:55.666Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 7
+}

@@ -1,0 +1,82 @@
+{
+  "id": "kev-2026-09-02-kludex-starlette",
+  "url": "https://securitythreatpulse.com/events/kev-2026-09-02-kludex-starlette",
+  "title": "Kludex Starlette: attackers can get in without a password",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 159 days old, so current versions are being attacked. Ready-made attack tools are public. The exploit prediction score is 70%.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "none",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-48710"
+  ],
+  "vendor": "Kludex",
+  "product": "Starlette",
+  "category": {
+    "id": "website",
+    "label": "Website or online store",
+    "why": "It runs public websites, online stores or the software behind them.",
+    "doThis": "Ask whoever runs your website or store to update it."
+  },
+  "summary": "Kludex Starlette contains a HTTP request/response smuggling vulnerability that could allow attackers to inject paths into the host part, prepending the actual path leading to issues such as authentication bypass when the authentication depends on the reconstructed URL’s path. This vulnerability could be chaned with CVE-2026-42271.",
+  "firstSeenAt": "2026-09-02T00:00:00.000Z",
+  "updatedAt": "2026-11-01T22:07:41.078Z",
+  "newestEvidenceAt": "2026-10-24T23:23:07.997Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 16, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Nuclei scan template: Starlette - Improper Validation of Unsafe Equivalence in Input",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2026/CVE-2026-48710.yaml",
+      "publishedAt": null,
+      "source": {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Kludex Starlette HTTP Request/Response Smuggling Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-48710",
+      "publishedAt": "2026-09-02T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-48710 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-48710",
+      "publishedAt": "2026-05-26T21:54:54.393Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "5 public GitHub repositories claim a proof of concept for CVE-2026-48710",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-48710.json",
+      "publishedAt": "2026-04-01T02:12:00.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    }
+  ],
+  "evidenceWithheld": 0
+}

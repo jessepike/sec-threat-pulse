@@ -1,0 +1,82 @@
+{
+  "id": "kev-2026-09-02-jfrog-artifactory",
+  "url": "https://securitythreatpulse.com/events/kev-2026-09-02-jfrog-artifactory",
+  "title": "JFrog Artifactory: attackers can get in without a password",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 65 days old, so current versions are being attacked. Ready-made attack tools are public. The severity score is critical (9.8).",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "none",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-82329"
+  ],
+  "vendor": "JFrog",
+  "product": "Artifactory",
+  "category": {
+    "id": "developer",
+    "label": "Developer tools",
+    "why": "It holds source code and the keys used to build and ship software.",
+    "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
+  },
+  "summary": "JFrog Artifactory contains an improper authentication vulnerability that under default configuration can allow an unauthenticated attacker with network access to obtain administrative privileges.",
+  "firstSeenAt": "2026-09-02T00:00:00.000Z",
+  "updatedAt": "2026-11-01T18:37:40.206Z",
+  "newestEvidenceAt": "2026-10-24T23:23:07.997Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 5, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Nuclei scan template: JFrog Artifactory Access Blank Join Key Authentication Bypass",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2026/CVE-2026-82329.yaml",
+      "publishedAt": null,
+      "source": {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "JFrog Artifactory Improper Authentication Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-82329",
+      "publishedAt": "2026-09-02T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "8 public GitHub repositories claim a proof of concept for CVE-2026-82329",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-82329.json",
+      "publishedAt": "2026-09-01T06:15:07.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-82329 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-82329",
+      "publishedAt": "2026-08-28T18:27:43.632Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 0
+}

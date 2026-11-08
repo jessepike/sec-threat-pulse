@@ -1,0 +1,58 @@
+{
+  "id": "kev-2026-09-11-connectwise-screenconnect",
+  "url": "https://securitythreatpulse.com/events/kev-2026-09-11-connectwise-screenconnect",
+  "title": "ConnectWise ScreenConnect: attackers can gain admin rights",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 60 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.9).",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "reported",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-84869"
+  ],
+  "vendor": "ConnectWise",
+  "product": "ScreenConnect",
+  "category": {
+    "id": "remote-it",
+    "label": "Remote support or IT management",
+    "why": "It controls many computers at once, so one break-in can reach all of them.",
+    "doThis": "Patch it today, or ask your IT provider if they run it for you."
+  },
+  "summary": "ConnectWise ScreenConnect contains both an improper privilege management and missing authorization vulnerability that may allow an attacker to transfer and execute files through an active remote session without authorization or host confirmation.",
+  "firstSeenAt": "2026-09-11T00:00:00.000Z",
+  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "newestEvidenceAt": "2026-11-05T10:06:28.723Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 14, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "ConnectWise ScreenConnect Improper Privilege Management and Missing Authorization Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-84869",
+      "publishedAt": "2026-09-11T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-84869 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-84869",
+      "publishedAt": "2026-09-08T19:29:33.630Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 1
+}

@@ -1,0 +1,142 @@
+{
+  "id": "kev-2026-10-08-proftpd-proftpd",
+  "url": "https://securitythreatpulse.com/events/kev-2026-10-08-proftpd-proftpd",
+  "title": "ProFTPD: attackers can gain admin rights",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 99%.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "reported",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2015-3306"
+  ],
+  "vendor": "ProFTPD",
+  "product": "ProFTPD",
+  "category": {
+    "id": "file-transfer",
+    "label": "File transfer",
+    "why": "It holds files you swap with customers and partners, a common target for bulk data theft.",
+    "doThis": "Patch it today and check it for files or accounts you do not recognize."
+  },
+  "summary": "ProFTPD contains an improper access control vulnerability that could allow remote attackers to read and write to arbitrary files via the site cpfr and site cpto commands.",
+  "firstSeenAt": "2026-10-08T00:00:00.000Z",
+  "updatedAt": "2026-11-06T21:37:41.397Z",
+  "newestEvidenceAt": "2026-11-07T07:33:46.616Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 11, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Nuclei scan template: ProFTPd - Remote Code Execution",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/blob/main/network/cves/2015/CVE-2015-3306.yaml",
+      "publishedAt": null,
+      "source": {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "ProFTPD Improper Access Control Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2015-3306",
+      "publishedAt": "2026-10-08T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "reported",
+      "title": "Exploit-DB entry: ProFTPd 1.3.5 - 'mod_copy' Remote Command Execution (2)",
+      "url": "https://www.exploit-db.com/exploits/49908",
+      "publishedAt": "2021-05-26T00:00:00.000Z",
+      "source": {
+        "id": "exploitdb",
+        "name": "Exploit-DB",
+        "attribution": "Exploit-DB (OffSec), metadata and links only"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "reported",
+      "title": "Exploit-DB entry: ProFTPd 1.3.5 - 'mod_copy' Command Execution (Metasploit)",
+      "url": "https://www.exploit-db.com/exploits/37262",
+      "publishedAt": "2015-06-10T00:00:00.000Z",
+      "source": {
+        "id": "exploitdb",
+        "name": "Exploit-DB",
+        "attribution": "Exploit-DB (OffSec), metadata and links only"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2015-3306 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2015-3306",
+      "publishedAt": "2015-05-18T15:00:00.000Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Metasploit exploit module: ProFTPD 1.3.5 Mod_Copy Command Execution",
+      "url": "https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/unix/ftp/proftpd_modcopy_exec.rb",
+      "publishedAt": "2015-04-22T00:00:00.000Z",
+      "source": {
+        "id": "metasploit",
+        "name": "Metasploit module metadata",
+        "attribution": "Metasploit Framework module metadata (BSD-3-Clause, Rapid7)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "18 public GitHub repositories claim a proof of concept for CVE-2015-3306",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2015/CVE-2015-3306.json",
+      "publishedAt": "2015-04-21T12:51:51.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "reported",
+      "title": "Exploit-DB entry: ProFTPd 1.3.5 - 'mod_copy' Remote Command Execution",
+      "url": "https://www.exploit-db.com/exploits/36803",
+      "publishedAt": "2015-04-21T00:00:00.000Z",
+      "source": {
+        "id": "exploitdb",
+        "name": "Exploit-DB",
+        "attribution": "Exploit-DB (OffSec), metadata and links only"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "reported",
+      "title": "Exploit-DB entry: ProFTPd 1.3.5 - File Copy",
+      "url": "https://www.exploit-db.com/exploits/36742",
+      "publishedAt": "2015-04-13T00:00:00.000Z",
+      "source": {
+        "id": "exploitdb",
+        "name": "Exploit-DB",
+        "attribution": "Exploit-DB (OffSec), metadata and links only"
+      }
+    }
+  ],
+  "evidenceWithheld": 2
+}

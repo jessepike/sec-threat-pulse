@@ -1,0 +1,94 @@
+{
+  "id": "kev-2026-08-26-red-hat-libuser",
+  "url": "https://securitythreatpulse.com/events/kev-2026-08-26-red-hat-libuser",
+  "title": "Red Hat Libuser: attackers can gain admin rights",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. Ready-made attack tools are public.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "none",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2015-3246"
+  ],
+  "vendor": "Red Hat",
+  "product": "Libuser",
+  "category": {
+    "id": "endpoint",
+    "label": "Computers, phones and browsers",
+    "why": "It runs on staff computers, phones or browsers.",
+    "doThis": "Install the latest updates on every device, and turn on automatic updates."
+  },
+  "summary": "Red Hat libuser contains a race condition vulnerability that allows authenticated local users to corrupt the /etc/passwd file to cause a denial of service or privilege escalation.",
+  "firstSeenAt": "2026-08-26T00:00:00.000Z",
+  "updatedAt": "2026-10-24T23:37:40.396Z",
+  "newestEvidenceAt": "2026-08-26T00:00:00.000Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 9, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Red Hat Libuser Race Condition Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2015-3246",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "reported",
+      "title": "Exploit-DB entry: Libuser - 'roothelper' Local Privilege Escalation (Metasploit)",
+      "url": "https://www.exploit-db.com/exploits/44633",
+      "publishedAt": "2018-05-16T00:00:00.000Z",
+      "source": {
+        "id": "exploitdb",
+        "name": "Exploit-DB",
+        "attribution": "Exploit-DB (OffSec), metadata and links only"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2015-3246 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2015-3246",
+      "publishedAt": "2015-08-11T14:00:00.000Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "reported",
+      "title": "Exploit-DB entry: Libuser Library - Multiple Vulnerabilities",
+      "url": "https://www.exploit-db.com/exploits/37706",
+      "publishedAt": "2015-07-27T00:00:00.000Z",
+      "source": {
+        "id": "exploitdb",
+        "name": "Exploit-DB",
+        "attribution": "Exploit-DB (OffSec), metadata and links only"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Metasploit exploit module: Libuser roothelper Privilege Escalation",
+      "url": "https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/linux/local/libuser_roothelper_priv_esc.rb",
+      "publishedAt": "2015-07-24T00:00:00.000Z",
+      "source": {
+        "id": "metasploit",
+        "name": "Metasploit module metadata",
+        "attribution": "Metasploit Framework module metadata (BSD-3-Clause, Rapid7)"
+      }
+    }
+  ],
+  "evidenceWithheld": 0
+}

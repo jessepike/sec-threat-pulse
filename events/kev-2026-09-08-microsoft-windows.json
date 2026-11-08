@@ -1,0 +1,107 @@
+{
+  "id": "kev-2026-09-08-microsoft-windows",
+  "url": "https://securitythreatpulse.com/events/kev-2026-09-08-microsoft-windows",
+  "title": "Microsoft Windows: 2 flaws used in attacks; attackers can gain admin rights",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 60 days old, so current versions are being attacked.",
+  "rulesVersion": "v2",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "cves": [
+    "CVE-2026-81963",
+    "CVE-2026-85880"
+  ],
+  "vendor": "Microsoft",
+  "product": "Windows",
+  "category": {
+    "id": "endpoint",
+    "label": "Computers, phones and browsers",
+    "why": "It runs on staff computers, phones or browsers.",
+    "doThis": "Install the latest updates on every device, and turn on automatic updates."
+  },
+  "summary": "Microsoft Windows Update Stack contains a link following vulnerability that allows a local attacker to escalate privileges locally up to SYSTEM.",
+  "firstSeenAt": "2026-09-08T00:00:00.000Z",
+  "updatedAt": "2026-11-07T17:22:40.206Z",
+  "newestEvidenceAt": "2026-11-04T06:24:45.979Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 22, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-81963",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-81963.json",
+      "publishedAt": "2026-10-19T21:51:07.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Microsoft Plugs Nearly 1,000 Security Holes",
+      "url": "https://krebsonsecurity.com/2026/09/microsoft-plugs-nearly-1000-security-holes/",
+      "publishedAt": "2026-09-08T21:44:22.000Z",
+      "source": {
+        "id": "news-krebs",
+        "name": "Krebs on Security",
+        "attribution": "Headlines and links from Krebs on Security"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-81963 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-81963",
+      "publishedAt": "2026-09-08T17:19:13.121Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-85880 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-85880",
+      "publishedAt": "2026-09-08T17:14:21.465Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Microsoft Windows Link Following Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-81963",
+      "publishedAt": "2026-09-08T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Microsoft Windows Heap-Based Buffer Overflow Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-85880",
+      "publishedAt": "2026-09-08T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 2
+}

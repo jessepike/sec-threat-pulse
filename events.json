@@ -1,0 +1,3404 @@
+{
+  "snapshotAt": "2026-11-08T12:00:33.272Z",
+  "apiVersion": "1",
+  "rulesVersion": "v2",
+  "total": 112,
+  "license": {
+    "stpFields": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Attribute as: Security Threat Pulse, https://securitythreatpulse.com",
+    "stpFieldsCovered": [
+      "id",
+      "url",
+      "title",
+      "verdict",
+      "verdictReason",
+      "rulesVersion",
+      "ladder",
+      "category",
+      "firstSeenAt",
+      "updatedAt",
+      "newestEvidenceAt",
+      "fix"
+    ],
+    "sourceData": "Each evidence item (title, url, publishedAt, source) stays under its own source's terms, named in source.attribution and in docs/source-registry.md. Sources whose terms do not allow re-serving are not in this snapshot, as in the API.",
+    "notAdvice": "Verdicts follow the published rules at https://securitythreatpulse.com/methodology. Not advice."
+  },
+  "events": [
+    {
+      "id": "kev-2026-11-06-sonicwall-sonicos-sslvpn",
+      "url": "https://securitythreatpulse.com/events/kev-2026-11-06-sonicwall-sonicos-sslvpn",
+      "title": "SonicWall SonicOS SSLVPN: security flaw used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 1 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-19868"
+      ],
+      "vendor": "SonicWall",
+      "product": "SonicOS SSLVPN",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "SonicWall SonicOS SSLVPN contains a use of single-factor authentication vulnerability that may allow a user with valid credentials for an alternate authentication method to bypass SAML authentication controls. Successful exploitation may also bypass SAML-enforced multi-factor authentication (MFA).",
+      "firstSeenAt": "2026-11-06T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-08T10:15:29.114Z"
+    },
+    {
+      "id": "kev-2026-10-14-ahsay-ahsaycbs",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-14-ahsay-ahsaycbs",
+      "title": "AhsayCBS: 2 flaws used in attacks; attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 35 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 84%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-105133",
+        "CVE-2026-105134"
+      ],
+      "vendor": "Ahsay",
+      "product": "AhsayCBS",
+      "category": {
+        "id": "server-backup",
+        "label": "Servers and backups",
+        "why": "It runs or protects many systems at once, including your backups.",
+        "doThis": "Patch it and keep its admin access off the internet."
+      },
+      "summary": "Ahsay AhsayCBS contains an improper authentication vulnerability that could allow a remote attacker to bypass authentication via manipulation of the random parameter in the API component’s checkSysPwd function. This vulnerability can be chained with CVE-2026-105134.",
+      "firstSeenAt": "2026-10-14T00:00:00.000Z",
+      "updatedAt": "2026-11-08T05:37:40.252Z",
+      "newestEvidenceAt": "2026-11-08T07:22:41.075Z"
+    },
+    {
+      "id": "early-cve-2026-109618",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-109618",
+      "title": "PHP: 2 flaws used in attacks; attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 17 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.2). The exploit prediction score is 100%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-109618",
+        "CVE-2026-109619"
+      ],
+      "vendor": "PHP Group",
+      "product": "PHP",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "PHP uses longjmp() for out-of-memory (OOM) errors to exit the current context and abort handling of the request. Some contexts may not properly account for this scenario and leave request memory in an uninitialized state before performing an allocation. The subsequent request cleanup procedure may read or branch on this memory.",
+      "firstSeenAt": "2026-10-21T23:00:53.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-08T00:00:08.000Z"
+    },
+    {
+      "id": "kev-2026-09-11-jfrog-artifactory",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-11-jfrog-artifactory",
+      "title": "JFrog Artifactory: 2 flaws used in attacks; attackers can gain admin rights",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 87 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-42016",
+        "CVE-2026-42018"
+      ],
+      "vendor": "JFrog",
+      "product": "Artifactory",
+      "category": {
+        "id": "developer",
+        "label": "Developer tools",
+        "why": "It holds source code and the keys used to build and ship software.",
+        "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
+      },
+      "summary": "JFrog Artifactory contains an incorrect authorization vulnerability that leads to a privilege escalation attack due to a validation check of the token signature/issuer and not the token’s scope.",
+      "firstSeenAt": "2026-09-11T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-08T00:00:08.000Z"
+    },
+    {
+      "id": "kev-2026-09-21-zyxel-gs1900-series-switches",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-21-zyxel-gs1900-series-switches",
+      "title": "Zyxel GS1900 Series Switches: a memory flaw attackers can abuse",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 145 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-7273"
+      ],
+      "vendor": "Zyxel",
+      "product": "GS1900 Series Switches",
+      "category": {
+        "id": "network-device",
+        "label": "Routers, cameras and devices",
+        "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+        "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+      },
+      "summary": "Zyxel GS1900 series switches contain a stack-based buffer overflow vulnerability in the CGI program which could allow a LAN-based, unauthenticated attacker to exploit the flaw and potentially execute OS commands via a crafted HTTP request.",
+      "firstSeenAt": "2026-09-21T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-07T15:50:05.228Z"
+    },
+    {
+      "id": "kev-2026-11-03-wordpress-wordpress-core",
+      "url": "https://securitythreatpulse.com/events/kev-2026-11-03-wordpress-wordpress-core",
+      "title": "WordPress Core: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 8 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-119977"
+      ],
+      "vendor": "WordPress",
+      "product": "WordPress Core",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "WordPress WordPress Core contains a time-of-check time-of-use (TOCTOU) race condition vulnerability that could allow unauthenticated attackers to execute code on the server during the upgrade window. This is due to predictable, web-accessible staging paths used during full-package core upgrades.",
+      "firstSeenAt": "2026-11-03T00:00:00.000Z",
+      "updatedAt": "2026-11-08T05:37:40.252Z",
+      "newestEvidenceAt": "2026-11-07T15:24:50.645Z"
+    },
+    {
+      "id": "kev-2026-10-27-adobe-commerce-and-magento",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-27-adobe-commerce-and-magento",
+      "title": "Adobe Commerce and Magento: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 116 days old, so many systems are likely still unpatched. The severity score is critical (9.3).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-48356"
+      ],
+      "vendor": "Adobe",
+      "product": "Commerce and Magento",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "Adobe Commerce and Magento contain an unrestricted upload of file with dangerous type vulnerability that could result in arbitrary code execution in the context of the current user, potentially gaining elevated access or control over the victim's account or session.",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-07T15:18:18.669Z"
+    },
+    {
+      "id": "kev-2026-10-20-plex-media-server",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-20-plex-media-server",
+      "title": "Plex Media Server: 4 flaws used in attacks; attackers can reach systems behind it",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 45 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-96652",
+        "CVE-2026-96654",
+        "CVE-2026-96655",
+        "CVE-2026-96656"
+      ],
+      "vendor": "Plex",
+      "product": "Media Server",
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Plex Media Server contains a server-side request forgery (SSRF) vulnerability which could allow an attacker using any X-Plex-Token value to include a full URL in the 'protocol' parameter and force the Plex server to POST to the attacker's chosen destination. This vulnerability can be chained with CVE-2026-96654, CVE-2026-96655, and CVE-2026-96656.",
+      "firstSeenAt": "2026-10-20T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-07T11:53:22.415Z"
+    },
+    {
+      "id": "kev-2026-10-27-google-brotli",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-27-google-brotli",
+      "title": "Google Brotli: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 16 days old, so many systems are likely still unpatched. The severity score is critical (9.2). The exploit prediction score is 83%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-111497"
+      ],
+      "vendor": "Google",
+      "product": "Brotli",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Google Brotli contains an unchecked return value vulnerability that allows a remote unauthenticated attacker to corrupt adjacent decoder state memory, disclose sensitive memory contents, cause a denial of service, or potentially execute arbitrary code using a crafted Brotli-compressed stream.",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-07T11:53:00.189Z"
+    },
+    {
+      "id": "kev-2026-10-14-cisco-secure-email-gateway",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-14-cisco-secure-email-gateway",
+      "title": "Cisco Secure Email Gateway: attackers can read or change files",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 24 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-76519"
+      ],
+      "vendor": "Cisco",
+      "product": "Secure Email Gateway",
+      "category": {
+        "id": "email",
+        "label": "Email",
+        "why": "It carries internal and customer mail.",
+        "doThis": "Patch it, or ask your email provider whether they have."
+      },
+      "summary": "Cisco Secure Email Gateway contains a relative path traversal vulnerability that could allow an unauthenticated, remote attacker to write arbitrary files on the underlying operating system.",
+      "firstSeenAt": "2026-10-14T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-07T11:13:03.187Z"
+    },
+    {
+      "id": "kev-2026-10-13-microsoft-windows",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-13-microsoft-windows",
+      "title": "Microsoft Windows: attackers can run commands on it",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 25 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-96951"
+      ],
+      "vendor": "Microsoft",
+      "product": "Windows",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Microsoft Windows Shell contains a command injection vulnerability that allows an unauthorized attacker to bypass a security feature over a network.",
+      "firstSeenAt": "2026-10-13T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-07T11:04:10.611Z"
+    },
+    {
+      "id": "kev-2026-10-08-onlyoffice-docs",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-08-onlyoffice-docs",
+      "title": "ONLYOFFICE Docs: attackers can read or change files",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The severity score is critical (9.8).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2021-3199"
+      ],
+      "vendor": "ONLYOFFICE",
+      "product": "Docs",
+      "category": {
+        "id": "collaboration",
+        "label": "Documents and collaboration",
+        "why": "It holds shared documents and internal pages.",
+        "doThis": "Patch it, or ask your provider whether they have."
+      },
+      "summary": "ONLYOFFICE Docs contains a path traversal vulnerability that can occur when JWT is used, via a /.. sequence in an image upload parameter and could allow for remote code execution.",
+      "firstSeenAt": "2026-10-08T00:00:00.000Z",
+      "updatedAt": "2026-11-07T09:37:40.440Z",
+      "newestEvidenceAt": "2026-11-07T07:33:46.646Z"
+    },
+    {
+      "id": "kev-2026-10-08-proftpd-proftpd",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-08-proftpd-proftpd",
+      "title": "ProFTPD: attackers can gain admin rights",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 99%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2015-3306"
+      ],
+      "vendor": "ProFTPD",
+      "product": "ProFTPD",
+      "category": {
+        "id": "file-transfer",
+        "label": "File transfer",
+        "why": "It holds files you swap with customers and partners, a common target for bulk data theft.",
+        "doThis": "Patch it today and check it for files or accounts you do not recognize."
+      },
+      "summary": "ProFTPD contains an improper access control vulnerability that could allow remote attackers to read and write to arbitrary files via the site cpfr and site cpto commands.",
+      "firstSeenAt": "2026-10-08T00:00:00.000Z",
+      "updatedAt": "2026-11-06T21:37:41.397Z",
+      "newestEvidenceAt": "2026-11-07T07:33:46.616Z"
+    },
+    {
+      "id": "kev-2026-10-15-atlassian-multiple-products",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-15-atlassian-multiple-products",
+      "title": "Several Atlassian products: security flaw used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 33 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.3). The exploit prediction score is 100%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-21589"
+      ],
+      "vendor": "Atlassian",
+      "product": "Multiple Products",
+      "category": {
+        "id": "collaboration",
+        "label": "Documents and collaboration",
+        "why": "It holds shared documents and internal pages.",
+        "doThis": "Patch it, or ask your provider whether they have."
+      },
+      "summary": "Multiple Atlassian products (Bitbucket Data Center ,Confluence Data Center, Jira Service Management Data Center, Jira Software Data Center, Bamboo Data Center, Crowd Data Center, Crucible and Fisheye) contain a files or directories accessible to external parties vulnerability which could allow an unauthenticated attacker to access specific files within the web application root directory in…",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-07T05:13:29.454Z"
+    },
+    {
+      "id": "kev-2026-10-29-gitlab-community-edition-and-enterpri",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-29-gitlab-community-edition-and-enterpri",
+      "title": "GitLab Community Edition and Enterprise Edition: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 26 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 65%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-97229"
+      ],
+      "vendor": "GitLab",
+      "product": "Community Edition and Enterprise Edition",
+      "category": {
+        "id": "developer",
+        "label": "Developer tools",
+        "why": "It holds source code and the keys used to build and ship software.",
+        "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
+      },
+      "summary": "GitLab Community Edition and Enterprise Edition contain a integer overflow or wraparound vulnerability that could allow an unauthenticated user to execute arbitrary code on the GitLab server via a specially crafted regular expression in a CI/CD configuration, due to insufficient regular expression validation.",
+      "firstSeenAt": "2026-10-29T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-07T04:49:37.998Z"
+    },
+    {
+      "id": "kev-2026-10-08-isc-bind",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-08-isc-bind",
+      "title": "ISC BIND: attackers can knock it offline",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The exploit prediction score is 100%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2015-5477"
+      ],
+      "vendor": "ISC",
+      "product": "BIND",
+      "category": {
+        "id": "server-backup",
+        "label": "Servers and backups",
+        "why": "It runs or protects many systems at once, including your backups.",
+        "doThis": "Patch it and keep its admin access off the internet."
+      },
+      "summary": "ISC BIND contains a data processing errors vulnerability that could allow remote attackers to cause a denial of service via TKEY queries.",
+      "firstSeenAt": "2026-10-08T00:00:00.000Z",
+      "updatedAt": "2026-11-06T21:37:41.397Z",
+      "newestEvidenceAt": "2026-11-06T20:03:08.849Z"
+    },
+    {
+      "id": "kev-2026-09-14-cisco-secure-email-gateway",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-14-cisco-secure-email-gateway",
+      "title": "Cisco Secure Email Gateway: attackers can read or change its database",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 54 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-76461"
+      ],
+      "vendor": "Cisco",
+      "product": "Secure Email Gateway",
+      "category": {
+        "id": "email",
+        "label": "Email",
+        "why": "It carries internal and customer mail.",
+        "doThis": "Patch it, or ask your email provider whether they have."
+      },
+      "summary": "Cisco AsyncOS software for Cisco Secure Email Gateway (SEG) contains a SQL injection vulnerability that could allow an unauthenticated, remote attacker to execute arbitrary commands with root privileges on the underlying operating system.",
+      "firstSeenAt": "2026-09-14T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-06T15:30:56.822Z"
+    },
+    {
+      "id": "kev-2026-10-16-beyondtrust-remote-support",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-16-beyondtrust-remote-support",
+      "title": "BeyondTrust Remote Support: attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 23 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3). The exploit prediction score is 78%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-102764"
+      ],
+      "vendor": "BeyondTrust",
+      "product": "Remote Support",
+      "category": {
+        "id": "remote-it",
+        "label": "Remote support or IT management",
+        "why": "It controls many computers at once, so one break-in can reach all of them.",
+        "doThis": "Patch it today, or ask your IT provider if they run it for you."
+      },
+      "summary": "BeyondTrust Remote Support contains an authentication bypass by spoofing vulnerability that could allow a remote attacker to perform file operations on the appliance.",
+      "firstSeenAt": "2026-10-16T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-06T06:06:15.657Z"
+    },
+    {
+      "id": "early-cve-2026-76418",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-76418",
+      "title": "Cisco Secure Firewall Adaptive Security Appliance (ASA) Software: attackers can knock it offline",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 10 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-76418"
+      ],
+      "vendor": "Cisco",
+      "product": "Cisco Secure Firewall Adaptive Security Appliance (ASA) Software",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "A vulnerability in the Remote Access SSL VPN service of Cisco Secure Firewall Adaptive Security Appliance (ASA) Software and Cisco Secure Firewall Threat Defense (FTD) Software could allow an unauthenticated, remote attacker to cause the device to reload unexpectedly, resulting in a denial of service (DoS) condition.",
+      "firstSeenAt": "2026-10-29T12:54:01.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-06T04:48:11.072Z"
+    },
+    {
+      "id": "kev-2026-10-30-ivanti-connect-secure",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-30-ivanti-connect-secure",
+      "title": "Ivanti Connect Secure: 2 flaws used in attacks; attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 4 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-111357",
+        "CVE-2026-118527"
+      ],
+      "vendor": "Ivanti",
+      "product": "Connect Secure",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Ivanti Connect Secure contains a missing authentication for critical function vulnerability that could allow a local authenticated attacker to escalate their privileges. This vulnerability can be chained with CVE-2026-104935 and CVE-2026-118527.",
+      "firstSeenAt": "2026-10-30T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-06T01:55:06.816Z"
+    },
+    {
+      "id": "kev-2026-10-23-collabora-collabora-online-built-in-code",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-23-collabora-collabora-online-built-in-code",
+      "title": "Collabora Online, Built-in CODE Server: attackers can run commands on it",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 25 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.2). The exploit prediction score is 73%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-110447"
+      ],
+      "vendor": "Collabora",
+      "product": "Collabora Online – Built-in CODE Server",
+      "category": {
+        "id": "collaboration",
+        "label": "Documents and collaboration",
+        "why": "It holds shared documents and internal pages.",
+        "doThis": "Patch it, or ask your provider whether they have."
+      },
+      "summary": "Collabora Collabora Online – Built-in CODE Server when used within the NextCloud platform contains an OS command injection vulnerability that allows for remote code execution when the CODE server isn't running.",
+      "firstSeenAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-05T17:47:13.081Z"
+    },
+    {
+      "id": "kev-2026-09-08-adobe-commerce-and-magento",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-08-adobe-commerce-and-magento",
+      "title": "Adobe Commerce and Magento: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 61 days old, so current versions are being attacked. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 99%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-75650"
+      ],
+      "vendor": "Adobe",
+      "product": "Commerce and Magento",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "Adobe Commerce and Magento Open Source contain an improper neutralization of special elements used in a template engine vulnerability that could allow an attacker to execute arbitrary code.",
+      "firstSeenAt": "2026-09-08T00:00:00.000Z",
+      "updatedAt": "2026-11-07T23:37:40.191Z",
+      "newestEvidenceAt": "2026-11-05T15:30:06.518Z"
+    },
+    {
+      "id": "kev-2026-10-16-fortinet-multiple-products",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-16-fortinet-multiple-products",
+      "title": "Several Fortinet products: attackers can read or change files",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 207 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2025-61624"
+      ],
+      "vendor": "Fortinet",
+      "product": "Multiple Products",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "FortiOS, FortiPAM, FortiProxy, and FortiSwitchManager contain a path traversal vulnerability that may allow an authenticated attacker with admin profile and at least read-write permissions to write or delete arbitrary files via specific CLI commands.",
+      "firstSeenAt": "2026-10-16T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-05T10:56:45.699Z"
+    },
+    {
+      "id": "kev-2026-10-14-palo-alto-networks-pan-os",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-14-palo-alto-networks-pan-os",
+      "title": "Palo Alto Networks PAN-OS: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 24 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-0322"
+      ],
+      "vendor": "Palo Alto Networks",
+      "product": "PAN-OS",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Palo Alto Networks PAN-OS contains a code injection vulnerability that could allow an authenticated attacker with network access to execute arbitrary code with root privileges on the firewall.",
+      "firstSeenAt": "2026-10-14T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-05T10:06:28.744Z"
+    },
+    {
+      "id": "kev-2026-09-11-connectwise-screenconnect",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-11-connectwise-screenconnect",
+      "title": "ConnectWise ScreenConnect: attackers can gain admin rights",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 60 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.9).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-84869"
+      ],
+      "vendor": "ConnectWise",
+      "product": "ScreenConnect",
+      "category": {
+        "id": "remote-it",
+        "label": "Remote support or IT management",
+        "why": "It controls many computers at once, so one break-in can reach all of them.",
+        "doThis": "Patch it today, or ask your IT provider if they run it for you."
+      },
+      "summary": "ConnectWise ScreenConnect contains both an improper privilege management and missing authorization vulnerability that may allow an attacker to transfer and execute files through an active remote session without authorization or host confirmation.",
+      "firstSeenAt": "2026-09-11T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-05T10:06:28.723Z"
+    },
+    {
+      "id": "kev-2026-09-25-microsoft-sharepoint",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-25-microsoft-sharepoint",
+      "title": "Microsoft SharePoint: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 88 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-65660"
+      ],
+      "vendor": "Microsoft",
+      "product": "SharePoint",
+      "category": {
+        "id": "collaboration",
+        "label": "Documents and collaboration",
+        "why": "It holds shared documents and internal pages.",
+        "doThis": "Patch it, or ask your provider whether they have."
+      },
+      "summary": "Microsoft SharePoint contains a code injection vulnerability which could allow an authorized attacker to execute code over a network.",
+      "firstSeenAt": "2026-09-25T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-05T10:06:28.695Z"
+    },
+    {
+      "id": "kev-2026-10-28-linux-kernel",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-28-linux-kernel",
+      "title": "Linux Kernel: security flaw used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 169 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-46300"
+      ],
+      "vendor": "Linux",
+      "product": "Kernel",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Linux Kernel contains a missing initialization of a variable vulnerability that could allow for unintended modification of page-cache-backed data via failure to preserve the shared-fragment marker during socket buffer coalescing, causing ESP input processing to decrypt shared fragments in place.",
+      "firstSeenAt": "2026-10-28T00:00:00.000Z",
+      "updatedAt": "2026-11-08T11:52:41.651Z",
+      "newestEvidenceAt": "2026-11-05T07:02:33.622Z"
+    },
+    {
+      "id": "kev-2026-09-27-citrix-netscaler",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-27-citrix-netscaler",
+      "title": "Citrix NetScaler: 2 flaws used in attacks; attackers can run commands on it",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 41 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.5). The exploit prediction score is 82%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-88771",
+        "CVE-2026-88772"
+      ],
+      "vendor": "Citrix",
+      "product": "NetScaler",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Citrix NetScaler ADC and NetScaler Gateway contain an improper input validation vulnerability that could allow an unauthenticated attacker to execute arbitrary commands.",
+      "firstSeenAt": "2026-09-27T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-04T23:22:01.000Z"
+    },
+    {
+      "id": "kev-2026-09-30-cisco-catalyst-sd-wan-manager",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-30-cisco-catalyst-sd-wan-manager",
+      "title": "Cisco Catalyst SD-WAN Manager: security flaw used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 38 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-76504"
+      ],
+      "vendor": "Cisco",
+      "product": "Catalyst SD-WAN Manager",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Cisco Catalyst SD-WAN Manager contains a hex encoding vulnerability that could allow an unauthenticated, remote attacker to access an affected system with privileges of the admin user due to improper handling of URI encoding in an HTTP request.",
+      "firstSeenAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-04T14:00:57.000Z"
+    },
+    {
+      "id": "kev-2026-10-01-fortinet-fortimail",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-01-fortinet-fortimail",
+      "title": "Fortinet FortiMail: attackers can read or change files",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 37 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-104286"
+      ],
+      "vendor": "Fortinet",
+      "product": "FortiMail",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Fortinet FortiMail contains a path traversal and an improper neutralization of NULL byte or NULL character vulnerability that may allow an unauthenticated attacker to write arbitrary files on the underlying system via crafted HTTP or HTTPS requests.",
+      "firstSeenAt": "2026-10-01T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-04T13:44:26.692Z"
+    },
+    {
+      "id": "kev-2026-10-04-citrix-netscaler",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-04-citrix-netscaler",
+      "title": "Citrix NetScaler: attackers can knock it offline",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 35 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-88779"
+      ],
+      "vendor": "Citrix",
+      "product": "NetScaler",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Citrix NetScaler ADC (formerly Citrix ADC) and Citrix NetScaler Gateway (formerly Citrix Gateway) contain an improper restriction of operations within the bounds of a memory buffer vulnerability that could allow for a denial of service.",
+      "firstSeenAt": "2026-10-04T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-04T12:39:55.363Z"
+    },
+    {
+      "id": "kev-2026-09-08-n-able-n-central",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-08-n-able-n-central",
+      "title": "N-able N-central: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 62 days old, so current versions are being attacked. Ready-made attack tools are public. The severity score is critical (10.0).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-86218"
+      ],
+      "vendor": "N-able",
+      "product": "N-central",
+      "category": {
+        "id": "remote-it",
+        "label": "Remote support or IT management",
+        "why": "It controls many computers at once, so one break-in can reach all of them.",
+        "doThis": "Patch it today, or ask your IT provider if they run it for you."
+      },
+      "summary": "N-able N-central contains a static code injection vulnerability that could allow for pre-authentication remote code execution.",
+      "firstSeenAt": "2026-09-08T00:00:00.000Z",
+      "updatedAt": "2026-11-07T02:22:40.909Z",
+      "newestEvidenceAt": "2026-11-04T10:39:36.596Z"
+    },
+    {
+      "id": "kev-2026-09-08-microsoft-windows",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-08-microsoft-windows",
+      "title": "Microsoft Windows: 2 flaws used in attacks; attackers can gain admin rights",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 60 days old, so current versions are being attacked.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-81963",
+        "CVE-2026-85880"
+      ],
+      "vendor": "Microsoft",
+      "product": "Windows",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Microsoft Windows Update Stack contains a link following vulnerability that allows a local attacker to escalate privileges locally up to SYSTEM.",
+      "firstSeenAt": "2026-09-08T00:00:00.000Z",
+      "updatedAt": "2026-11-07T17:22:40.206Z",
+      "newestEvidenceAt": "2026-11-04T06:24:45.979Z"
+    },
+    {
+      "id": "kev-2026-09-04-google-chromium-v8",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-04-google-chromium-v8",
+      "title": "Google Chromium V8: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 61 days old, so current versions are being attacked.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-85046"
+      ],
+      "vendor": "Google",
+      "product": "Chromium V8",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Google Chromium V8 contains a type confusion vulnerability that allows a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. This vulnerability could affect multiple web browsers that utilize Chromium, including, but not limited to, Google Chrome, Microsoft Edge, and Opera.",
+      "firstSeenAt": "2026-09-04T00:00:00.000Z",
+      "updatedAt": "2026-11-03T19:37:40.448Z",
+      "newestEvidenceAt": "2026-11-03T16:09:23.000Z"
+    },
+    {
+      "id": "kev-2026-09-09-google-chromium-v8",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-09-google-chromium-v8",
+      "title": "Google Chromium V8: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 60 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-87491"
+      ],
+      "vendor": "Google",
+      "product": "Chromium V8",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Google Chromium V8 contains an out of bounds write vulnerability that allows a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. This vulnerability could affect multiple web browsers that utilize Chromium, including, but not limited to, Google Chrome, Microsoft Edge, and Opera.",
+      "firstSeenAt": "2026-09-09T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-03T16:09:23.000Z"
+    },
+    {
+      "id": "kev-2026-10-13-ivanti-connect-secure",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-13-ivanti-connect-secure",
+      "title": "Ivanti Connect Secure: attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 25 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The exploit prediction score is 89%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-104935"
+      ],
+      "vendor": "Ivanti",
+      "product": "Connect Secure",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Ivanti Connect Secure contains an authentication bypass by spoofing vulnerability that allows a remote unauthenticated attacker to execute arbitrary commands.",
+      "firstSeenAt": "2026-10-13T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-03T15:19:11.536Z"
+    },
+    {
+      "id": "kev-2026-10-20-eg-secure-solutions-siteguard-server-edition",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-20-eg-secure-solutions-siteguard-server-edition",
+      "title": "EG Secure Solutions SiteGuard Server Edition: attackers can run commands on it",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 25 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-106931"
+      ],
+      "vendor": "EG Secure Solutions",
+      "product": "SiteGuard Server Edition",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "EG Secure Solutions SiteGuard Server Edition contains an OS command injection vulnerability which may allow an attacker to execute arbitrary OS commands with root or SYSTEM privileges on the system running the affected product.",
+      "firstSeenAt": "2026-10-20T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:52:40.397Z",
+      "newestEvidenceAt": "2026-11-03T06:18:11.433Z"
+    },
+    {
+      "id": "kev-2026-09-22-check-point-multiple-products",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-22-check-point-multiple-products",
+      "title": "Several Check Point products: 2 flaws used in attacks; attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 46 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.8). The exploit prediction score is 92%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-85102",
+        "CVE-2026-93616"
+      ],
+      "vendor": "Check Point",
+      "product": "Multiple Products",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Check Point Security Gateway and Check Point Spark Firewall using Site to Site VPN or Remote Access VPN contain an improper certificate validation vulnerability which could allow an unauthenticated remote attacker to execute arbitrary code on the Gateway.",
+      "firstSeenAt": "2026-09-22T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-02T23:21:20.073Z"
+    },
+    {
+      "id": "kev-2026-09-11-gitlab-community-edition-and-enterpri",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-11-gitlab-community-edition-and-enterpri",
+      "title": "GitLab Community Edition and Enterprise Edition: attackers can read or change files",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 57 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 97%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-85706"
+      ],
+      "vendor": "GitLab",
+      "product": "Community Edition and Enterprise Edition",
+      "category": {
+        "id": "developer",
+        "label": "Developer tools",
+        "why": "It holds source code and the keys used to build and ship software.",
+        "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
+      },
+      "summary": "GitLab Community Edition and Enterprise Edition contains a path traversal vulnerability that allows an unauthenticated user to read arbitrary files due to an improper path confinement and missing authentication enforcement in the repository commits API.",
+      "firstSeenAt": "2026-09-11T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-02T18:00:07.000Z"
+    },
+    {
+      "id": "kev-2026-10-28-broadcom-vmware-esx",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-28-broadcom-vmware-esx",
+      "title": "Broadcom VMware ESX: security flaw used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 100 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-41709"
+      ],
+      "vendor": "Broadcom",
+      "product": "VMware ESX",
+      "category": {
+        "id": "server-backup",
+        "label": "Servers and backups",
+        "why": "It runs or protects many systems at once, including your backups.",
+        "doThis": "Patch it and keep its admin access off the internet."
+      },
+      "summary": "Broadcom VMWare ESX contains an insufficient logging vulnerability that could allow a malicious actor with admin access to perform certain operations without being logged.",
+      "firstSeenAt": "2026-10-28T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-02T15:53:30.412Z"
+    },
+    {
+      "id": "kev-2026-09-16-cisco-identity-services-engine",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-16-cisco-identity-services-engine",
+      "title": "Cisco Identity Services Engine: security flaw used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 52 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 76%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-76460"
+      ],
+      "vendor": "Cisco",
+      "product": "Identity Services Engine",
+      "category": {
+        "id": "identity",
+        "label": "Logins and access",
+        "why": "It controls who can log in to what.",
+        "doThis": "Patch it and review who has admin access."
+      },
+      "summary": "Cisco Identity Services Engine (ISE) and Cisco ISE Passive Identity Connector (ISE-PIC) contain an incorrect use of privileged APIs vulnerability that could allow an unauthenticated, remote attacker to gain unauthorized access to the affected device by bypassing the web-based management interface.",
+      "firstSeenAt": "2026-09-16T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-11-02T14:03:09.701Z"
+    },
+    {
+      "id": "kev-2026-09-29-apple-multiple-products",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-29-apple-multiple-products",
+      "title": "Several Apple products: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 40 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-86950"
+      ],
+      "vendor": "Apple",
+      "product": "Multiple Products",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Apple iOS, macOS, and iPadOS contain an out-of-bounds write vulnerability in CoreGraphics that may lead to arbitrary code execution.",
+      "firstSeenAt": "2026-09-29T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-10-31T01:49:43.174Z"
+    },
+    {
+      "id": "kev-2026-09-09-citrix-netscaler",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-09-citrix-netscaler",
+      "title": "Citrix NetScaler: attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 80 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-19490"
+      ],
+      "vendor": "Citrix",
+      "product": "NetScaler",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Citrix NetScaler ADC and NetScaler Gateway contain an authentication-bypass vulnerability involving an alternate path or channel. When the NetScaler appliance is configured as an AAA virtual server or as a Gateway (SSL VPN, ICA Proxy, CVPN, or RDP Proxy), an unauthenticated remote threat actor may be able to bypass authentication.",
+      "firstSeenAt": "2026-09-09T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-10-30T08:16:12.435Z"
+    },
+    {
+      "id": "kev-2026-10-23-arista-velocloud-orchestrator",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-23-arista-velocloud-orchestrator",
+      "title": "Arista VeloCloud Orchestrator: attackers can read or change its database",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 16 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.4).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-114625"
+      ],
+      "vendor": "Arista",
+      "product": "VeloCloud Orchestrator",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Arista VeloCloud Orchestrator on-prem contains a SQL injection vulnerability that may allow a remote attacker to access privileged internal functionality and impact the VCO host. Successful exploitation may compromise the confidentiality, integrity, and availability of the orchestrator and data managed by the orchestrator.",
+      "firstSeenAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-10-29T18:25:06.802Z"
+    },
+    {
+      "id": "kev-2026-08-31-papercut-ng-mf",
+      "url": "https://securitythreatpulse.com/events/kev-2026-08-31-papercut-ng-mf",
+      "title": "PaperCut NG MF: 2 flaws used in attacks; attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 63 days old, so current versions are being attacked. Ready-made attack tools are public. The severity score is critical (9.4). The exploit prediction score is 85%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-81578",
+        "CVE-2026-82078"
+      ],
+      "vendor": "PaperCut",
+      "product": "NG/MF",
+      "category": {
+        "id": "business-app",
+        "label": "Business software",
+        "why": "It runs day-to-day business work such as finance, printing, phones or manufacturing.",
+        "doThis": "Ask the vendor or the team that owns it whether the fix is in."
+      },
+      "summary": "PaperCut NG/MF contains a missing authentication for critical function vulnerability which allows an unauthenticated remote attacker to modify certain system configurations. This vulnerability can be chained with CVE-2026-82078.",
+      "firstSeenAt": "2026-08-31T00:00:00.000Z",
+      "updatedAt": "2026-10-30T23:37:41.203Z",
+      "newestEvidenceAt": "2026-10-28T01:37:04.194Z"
+    },
+    {
+      "id": "kev-2026-09-24-wso2-multiple-products",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-24-wso2-multiple-products",
+      "title": "Several WSO2 products: attackers can read or change files",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 94 days old, so many systems are likely still unpatched. The severity score is critical (10.0).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-5430"
+      ],
+      "vendor": "WSO2",
+      "product": "Multiple Products",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "WSO2 API Control Plane, API Manager, Traffic Manager & Universal Gateway contain a path traversal vulnerability that could allow for unrestricted file upload and lead to remote code execution.",
+      "firstSeenAt": "2026-09-24T00:00:00.000Z",
+      "updatedAt": "2026-11-08T07:37:41.474Z",
+      "newestEvidenceAt": "2026-10-28T01:36:55.113Z"
+    },
+    {
+      "id": "kev-2026-09-02-berriai-litellm",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-02-berriai-litellm",
+      "title": "BerriAI LiteLLM: attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 116 days old, so current versions are being attacked.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-59822"
+      ],
+      "vendor": "BerriAI",
+      "product": "LiteLLM",
+      "category": {
+        "id": "ai",
+        "label": "AI tools",
+        "why": "It connects to AI models and often holds the keys to paid services and data.",
+        "doThis": "Update it and change any API keys stored in it."
+      },
+      "summary": "BerriAI LiteLLM contains an improper authentication vulnerability in the MCP Streamable HTTP endpoint that could allow an unauthenticated attacker to establish an authenticated MCP session using an arbitrary Bearer token.",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "updatedAt": "2026-11-01T19:37:40.189Z",
+      "newestEvidenceAt": "2026-10-26T12:41:05.000Z"
+    },
+    {
+      "id": "kev-2026-09-25-wordpress-core",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-25-wordpress-core",
+      "title": "WordPress Core: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 46 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The exploit prediction score is 96%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-87902"
+      ],
+      "vendor": "WordPress",
+      "product": "Core",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "WordPress Core contains a remote file inclusion vulnerability which could allow an unauthenticated attacker to make page-template resolution include a chosen readable local `.php` file outside the active theme directories, leading to remote code execution.",
+      "firstSeenAt": "2026-09-25T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-10-25T01:28:25.684Z"
+    },
+    {
+      "id": "kev-2026-09-25-mikrotik-routeros",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-25-mikrotik-routeros",
+      "title": "MikroTik RouterOS: security flaw used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 63 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-67279"
+      ],
+      "vendor": "MikroTik",
+      "product": "RouterOS",
+      "category": {
+        "id": "network-device",
+        "label": "Routers, cameras and devices",
+        "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+        "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+      },
+      "summary": "Mikrotik RouterOS contains an improper enforcement of behavioral workflow vulnerability that could allow an unauthenticated client to open a session channel and send an exec request. This vulnerability can be chained to achieve unauthenticated exploitation of CVE-2026-86060.",
+      "firstSeenAt": "2026-09-25T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-10-25T01:27:17.427Z"
+    },
+    {
+      "id": "kev-2026-09-24-adobe-commerce-and-magento",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-24-adobe-commerce-and-magento",
+      "title": "Adobe Commerce and Magento: attackers can gain admin rights",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 88 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.1). The exploit prediction score is 90%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-71362"
+      ],
+      "vendor": "Adobe",
+      "product": "Commerce and Magento ",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "Adobe Commerce and Magento contains an incorrect authorization vulnerability that could allow an attacker to leverage this vulnerability to gain elevated access to sensitive resources without any user interaction.",
+      "firstSeenAt": "2026-09-24T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-10-25T01:02:39.879Z"
+    },
+    {
+      "id": "kev-2026-08-25-gitea-gitea",
+      "url": "https://securitythreatpulse.com/events/kev-2026-08-25-gitea-gitea",
+      "title": "Gitea: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 59 days old, so current versions are being attacked. Ready-made attack tools are public. The severity score is critical (9.8).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-60004"
+      ],
+      "vendor": "Gitea",
+      "product": "Gitea",
+      "category": {
+        "id": "developer",
+        "label": "Developer tools",
+        "why": "It holds source code and the keys used to build and ship software.",
+        "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
+      },
+      "summary": "Gitea contains a code injection vulnerability that allows an attacker with repository write access to send a malicious patch to the diffpatch API endpoint to plant an executable Git hook and run shell commands as the Gitea service account.",
+      "firstSeenAt": "2026-08-25T00:00:00.000Z",
+      "updatedAt": "2026-10-24T23:23:22.790Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.997Z"
+    },
+    {
+      "id": "kev-2026-09-02-jfrog-artifactory",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-02-jfrog-artifactory",
+      "title": "JFrog Artifactory: attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 65 days old, so current versions are being attacked. Ready-made attack tools are public. The severity score is critical (9.8).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-82329"
+      ],
+      "vendor": "JFrog",
+      "product": "Artifactory",
+      "category": {
+        "id": "developer",
+        "label": "Developer tools",
+        "why": "It holds source code and the keys used to build and ship software.",
+        "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
+      },
+      "summary": "JFrog Artifactory contains an improper authentication vulnerability that under default configuration can allow an unauthenticated attacker with network access to obtain administrative privileges.",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "updatedAt": "2026-11-01T18:37:40.206Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.997Z"
+    },
+    {
+      "id": "kev-2026-09-02-kludex-starlette",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-02-kludex-starlette",
+      "title": "Kludex Starlette: attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 159 days old, so current versions are being attacked. Ready-made attack tools are public. The exploit prediction score is 70%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-48710"
+      ],
+      "vendor": "Kludex",
+      "product": "Starlette",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "Kludex Starlette contains a HTTP request/response smuggling vulnerability that could allow attackers to inject paths into the host part, prepending the actual path leading to issues such as authentication bypass when the authentication depends on the reconstructed URL’s path. This vulnerability could be chaned with CVE-2026-42271.",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "updatedAt": "2026-11-01T22:07:41.078Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.997Z"
+    },
+    {
+      "id": "kev-2026-09-02-sangoma-switchvox",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-02-sangoma-switchvox",
+      "title": "Sangoma Switchvox: attackers can read or change its database",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 107 days old, so current versions are being attacked. Ready-made attack tools are public. The severity score is critical (9.3).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-9586"
+      ],
+      "vendor": "Sangoma",
+      "product": "Switchvox",
+      "category": {
+        "id": "business-app",
+        "label": "Business software",
+        "why": "It runs day-to-day business work such as finance, printing, phones or manufacturing.",
+        "doThis": "Ask the vendor or the team that owns it whether the fix is in."
+      },
+      "summary": "Sangoma Switchvox contains a SQL injection vulnerability which allows an unauthenticated remote attacker to execute arbitrary SQL statements against the backend PostgreSQL database using a single crafted request, including database operations and remote code execution.",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "updatedAt": "2026-11-01T16:07:40.213Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.997Z"
+    },
+    {
+      "id": "kev-2026-09-02-sonicwall-sma1000-appliances",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-02-sonicwall-sma1000-appliances",
+      "title": "SonicWall SMA1000 Appliances: 2 flaws used in attacks; attackers can reach systems behind it",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 61 days old, so current versions are being attacked. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (10.0).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-83548",
+        "CVE-2026-83549"
+      ],
+      "vendor": "SonicWall",
+      "product": "SMA1000 Appliances",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "SonicWall SMA1000 Appliances contains a server-side request forgery vulnerability that could allow a remote unauthenticated attacker to gain unauthorized access to sensitive functionality and perform unauthorized operations.",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "updatedAt": "2026-11-01T21:37:40.840Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.997Z"
+    },
+    {
+      "id": "kev-2026-09-09-cisco-secure-firewall-management-cen",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-09-cisco-secure-firewall-management-cen",
+      "title": "Cisco Secure Firewall Management Center (FMC) and Security Cloud Control (SCC) Firewall Management: attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 248 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (10.0). The exploit prediction score is 89%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-20079"
+      ],
+      "vendor": "Cisco",
+      "product": "Secure Firewall Management Center (FMC) and Security Cloud Control (SCC) Firewall Management",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Cisco Secure Firewall Management Center (FMC) Software and Cisco Security Cloud Control (SCC) Firewall Management contain an authentication Bypass using an alternate path or channel vulnerability that could allow an unauthenticated, remote attacker to bypass authentication and execute script files on an affected device to obtain root access to the underlying operating system.",
+      "firstSeenAt": "2026-09-09T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.997Z"
+    },
+    {
+      "id": "kev-2026-10-08-apache-struts",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-08-apache-struts",
+      "title": "Apache Struts: attackers can run commands on it",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. Ready-made attack tools are public. The exploit prediction score is 97%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2016-3081"
+      ],
+      "vendor": "Apache",
+      "product": "Struts",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "Apache Struts contains a command injection vulnerability that could allow remote attackers to execute arbitrary code via method:prefix when Dynamic Method Invocation is enabled.",
+      "firstSeenAt": "2026-10-08T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.941Z"
+    },
+    {
+      "id": "kev-2026-08-26-citrix-netscaler-adc-and-netscaler-ga",
+      "url": "https://securitythreatpulse.com/events/kev-2026-08-26-citrix-netscaler-adc-and-netscaler-ga",
+      "title": "Citrix NetScaler ADC and NetScaler Gateway: attackers can knock it offline",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 117 days old, so current versions are being attacked. It affects a product that faces the internet or gives remote access.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-8452"
+      ],
+      "vendor": "Citrix",
+      "product": "NetScaler ADC and NetScaler Gateway",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Citrix NetScaler ADC and NetScaler Gateway contain an improper restriction of operations within the bounds of a memory buffer vulnerability which could lead to denial of service.",
+      "firstSeenAt": "2026-08-26T00:00:00.000Z",
+      "updatedAt": "2026-10-25T12:52:40.299Z",
+      "newestEvidenceAt": "2026-10-24T20:00:08.947Z"
+    },
+    {
+      "id": "kev-2026-10-20-siemens-software-center",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-20-siemens-software-center",
+      "title": "Siemens Software Center: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 23 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-110936"
+      ],
+      "vendor": "Siemens",
+      "product": "Software Center",
+      "category": {
+        "id": "business-app",
+        "label": "Business software",
+        "why": "It runs day-to-day business work such as finance, printing, phones or manufacturing.",
+        "doThis": "Ask the vendor or the team that owns it whether the fix is in."
+      },
+      "summary": "Siemens Software Center contains an uncontrolled search path element vulnerability that could allow an authenticated local attacker to place a specially crafted DLL in a directory that the application searches, leading to arbitrary code execution with the privileges of the affected application.",
+      "firstSeenAt": "2026-10-20T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-10-21T22:56:17.000Z"
+    },
+    {
+      "id": "kev-2026-10-02-zammad-gmbh-zammad",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-02-zammad-gmbh-zammad",
+      "title": "Zammad: 2 flaws used in attacks; attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 38 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-102489",
+        "CVE-2026-102490"
+      ],
+      "vendor": "Zammad GmbH",
+      "product": "Zammad",
+      "category": {
+        "id": "collaboration",
+        "label": "Documents and collaboration",
+        "why": "It holds shared documents and internal pages.",
+        "doThis": "Patch it, or ask your provider whether they have."
+      },
+      "summary": "Zammad GmbH Zammad contains a session fixation vulnerability that can lead to remote code execution as the zammad user. This vulnerability can be chained with CVE-2026-102490.",
+      "firstSeenAt": "2026-10-02T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-10-06T19:00:36.000Z"
+    },
+    {
+      "id": "kev-2026-09-22-f5-big-ip-apm",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-22-f5-big-ip-apm",
+      "title": "F5 BIG-IP APM: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 46 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-94127"
+      ],
+      "vendor": "F5",
+      "product": "BIG-IP APM",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "F5 BIG-IP APM contains a heap-based buffer overflow vulnerability when access policy and an OAuth profile are configured on a virtual server. This vulnerability could allow an unauthenticated attacker to perform remote code execution.",
+      "firstSeenAt": "2026-09-22T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-09-24T16:48:59.969Z"
+    },
+    {
+      "id": "kev-2026-09-10-mikrotik-routeros",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-10-mikrotik-routeros",
+      "title": "MikroTik RouterOS: 2 flaws used in attacks; attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 63 days old, so many systems are likely still unpatched. The severity score is critical (9.2).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-67277",
+        "CVE-2026-86060"
+      ],
+      "vendor": "MikroTik",
+      "product": "RouterOS",
+      "category": {
+        "id": "network-device",
+        "label": "Routers, cameras and devices",
+        "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+        "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+      },
+      "summary": "MikroTik RouterOS contains a missing authentication for critical function vulnerability which allows kernel memory disclosure and denial of service in the btest service.",
+      "firstSeenAt": "2026-09-10T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
+      "id": "kev-2026-09-22-arista-velocloud-orchestrator",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-22-arista-velocloud-orchestrator",
+      "title": "Arista VeloCloud Orchestrator: security flaw used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 47 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.5).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-93952"
+      ],
+      "vendor": "Arista",
+      "product": "VeloCloud Orchestrator",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Arista VeloCloud Orchestrator (VCO) on-prem contains an improper input validation vulnerability that may allow a remote attacker to access privileged internal functionality and impact the VCO host. Successful exploitation may compromise the confidentiality, integrity, and availability of the orchestrator and data managed by the orchestrator.",
+      "firstSeenAt": "2026-09-22T00:00:00.000Z",
+      "updatedAt": "2026-11-08T07:37:41.474Z",
+      "newestEvidenceAt": "2026-09-22T07:37:24.300Z"
+    },
+    {
+      "id": "kev-2026-09-18-linux-kernel",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-18-linux-kernel",
+      "title": "Linux Kernel: 3 memory flaws used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 136 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2025-39682",
+        "CVE-2025-39964",
+        "CVE-2026-53266"
+      ],
+      "vendor": "Linux",
+      "product": "Kernel",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Linux Kernel contains an improper check for unusual or exceptional conditions vulnerability in the TLS receive path which allows a zero-length record retrieved from the rx_list to bypass the intended recvmsg() record-type handling, potentially causing subsequent TLS records to be processed using incorrect zero-copy and queuing assumptions.",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "updatedAt": "2026-11-08T08:52:40.949Z",
+      "newestEvidenceAt": "2026-09-20T06:03:40.000Z"
+    },
+    {
+      "id": "kev-2026-09-16-acronis-backup",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-16-acronis-backup",
+      "title": "Acronis Backup: attackers can gain admin rights",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 51 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-87886"
+      ],
+      "vendor": "Acronis",
+      "product": "Backup",
+      "category": {
+        "id": "server-backup",
+        "label": "Servers and backups",
+        "why": "It runs or protects many systems at once, including your backups.",
+        "doThis": "Patch it and keep its admin access off the internet."
+      },
+      "summary": "Acronis Backup plugin for cPanel & WHM and extension for Plesk contains an incorrect default permissions vulnerability that could allow for privilege escalation.",
+      "firstSeenAt": "2026-09-16T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-09-17T22:57:18.089Z"
+    },
+    {
+      "id": "kev-2026-09-16-google-pixel",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-16-google-pixel",
+      "title": "Google Pixel: attackers can gain admin rights",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 53 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-58704"
+      ],
+      "vendor": "Google",
+      "product": "Pixel",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Google Pixel devices contain an improper authorization vulnerability in the cellular modem. A logic error may allow an attacker to bypass permission checks and escalate privileges.",
+      "firstSeenAt": "2026-09-16T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-09-16T00:00:00.000Z"
+    },
+    {
+      "id": "kev-2026-09-09-fortinet-multiple-products",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-09-fortinet-multiple-products",
+      "title": "Several Fortinet products: a memory flaw attackers can abuse",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 298 days old, so many systems are likely still unpatched.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2025-25249"
+      ],
+      "vendor": "Fortinet",
+      "product": "Multiple Products",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Fortinet FortiOS, FortiSwitchManager, and FortiSASE contain a heap-based buffer overflow vulnerability that allows an attacker to execute unauthorized code or commands via specially crafted packets.",
+      "firstSeenAt": "2026-09-09T00:00:00.000Z",
+      "updatedAt": "2026-11-08T04:37:40.532Z",
+      "newestEvidenceAt": "2026-09-09T00:00:00.000Z"
+    },
+    {
+      "id": "kev-2026-09-02-kestra-kestra-oss",
+      "url": "https://securitythreatpulse.com/events/kev-2026-09-02-kestra-kestra-oss",
+      "title": "Kestra OSS: attackers can run commands on it",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 128 days old, so current versions are being attacked. The severity score is critical (10.0).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-49869"
+      ],
+      "vendor": "Kestra",
+      "product": "Kestra OSS",
+      "category": {
+        "id": "developer",
+        "label": "Developer tools",
+        "why": "It holds source code and the keys used to build and ship software.",
+        "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
+      },
+      "summary": "Kestra OSS contains an OS command injection vulnerability that could allow an unauthenticated remote attacker to create and execute arbitrary workflows without credentials.",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "updatedAt": "2026-11-01T21:07:40.565Z",
+      "newestEvidenceAt": "2026-09-02T00:00:00.000Z"
+    },
+    {
+      "id": "kev-2026-08-27-jfrog-artifactory",
+      "url": "https://securitythreatpulse.com/events/kev-2026-08-27-jfrog-artifactory",
+      "title": "JFrog Artifactory: attackers can read or change files",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 75 days old, so current versions are being attacked.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2026-66384"
+      ],
+      "vendor": "JFrog",
+      "product": "Artifactory",
+      "category": {
+        "id": "developer",
+        "label": "Developer tools",
+        "why": "It holds source code and the keys used to build and ship software.",
+        "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
+      },
+      "summary": "JFrog Artifactory contains an improper limitation of a pathname to a restricted directory vulnerability. This can allow an authenticated user to write data outside the intended Docker cache path under specific remote-repository conditions.",
+      "firstSeenAt": "2026-08-27T00:00:00.000Z",
+      "updatedAt": "2026-10-26T15:22:40.236Z",
+      "newestEvidenceAt": "2026-08-28T16:06:44.000Z"
+    },
+    {
+      "id": "kev-2026-08-26-linux-kernel",
+      "url": "https://securitythreatpulse.com/events/kev-2026-08-26-linux-kernel",
+      "title": "Linux Kernel: 2 flaws used in attacks; attackers can knock it offline",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 114 days old, so current versions are being attacked. Ready-made attack tools are public.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2022-0995",
+        "CVE-2026-53362"
+      ],
+      "vendor": "Linux",
+      "product": "Kernel",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Linux Kernel contains an out-of-bounds memory write vulnerability which could allow a local user to gain privileged access or cause a denial of service on the system.",
+      "firstSeenAt": "2026-08-26T00:00:00.000Z",
+      "updatedAt": "2026-10-26T12:07:40.282Z",
+      "newestEvidenceAt": "2026-08-27T00:00:00.000Z"
+    },
+    {
+      "id": "kev-2026-08-27-owncloud-owncloud",
+      "url": "https://securitythreatpulse.com/events/kev-2026-08-27-owncloud-owncloud",
+      "title": "ownCloud: attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The severity score is critical (9.8).",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2023-49105"
+      ],
+      "vendor": "ownCloud",
+      "product": "ownCloud",
+      "category": {
+        "id": "collaboration",
+        "label": "Documents and collaboration",
+        "why": "It holds shared documents and internal pages.",
+        "doThis": "Patch it, or ask your provider whether they have."
+      },
+      "summary": "ownCloud contains an improper authentication vulnerability that allows an attacker to access, modify, or delete any file without authentication if the username of a victim is known, and the victim has no signing-key configured.",
+      "firstSeenAt": "2026-08-27T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-08-27T00:00:00.000Z"
+    },
+    {
+      "id": "kev-2026-08-26-ajax-net-professiona-ajax-net-professional",
+      "url": "https://securitythreatpulse.com/events/kev-2026-08-26-ajax-net-professiona-ajax-net-professional",
+      "title": "Ajax.NET Professional: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. Ready-made attack tools are public. The exploit prediction score is 83%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2021-23758"
+      ],
+      "vendor": "Ajax.NET Professional",
+      "product": "Ajax.NET Professional",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "Ajax.NET Professional (AjaxPro) contains a deserialization of untrusted data vulnerability that could allow for remote code execution via arbitrary .NET classes. The impacted product(s) could be end-of-life (EoL) and/or end-of-service (EoS). Users are advised to discontinue use and/or transition to a supported version.",
+      "firstSeenAt": "2026-08-26T00:00:00.000Z",
+      "updatedAt": "2026-10-24T23:23:22.790Z",
+      "newestEvidenceAt": "2026-08-26T00:00:00.000Z"
+    },
+    {
+      "id": "kev-2026-08-26-microsoft-sql-server",
+      "url": "https://securitythreatpulse.com/events/kev-2026-08-26-microsoft-sql-server",
+      "title": "Microsoft SQL Server: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The exploit prediction score is 57%.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2019-1068"
+      ],
+      "vendor": "Microsoft",
+      "product": "SQL Server",
+      "category": {
+        "id": "server-backup",
+        "label": "Servers and backups",
+        "why": "It runs or protects many systems at once, including your backups.",
+        "doThis": "Patch it and keep its admin access off the internet."
+      },
+      "summary": "Microsoft SQL Server contains a remote code execution vulnerability that could allow an attacker to execute code in the context of the SQL Server Database Engine service account.",
+      "firstSeenAt": "2026-08-26T00:00:00.000Z",
+      "updatedAt": "2026-10-24T23:22:40.337Z",
+      "newestEvidenceAt": "2026-08-26T00:00:00.000Z"
+    },
+    {
+      "id": "kev-2026-08-26-red-hat-automatic-bug-reporting-tool",
+      "url": "https://securitythreatpulse.com/events/kev-2026-08-26-red-hat-automatic-bug-reporting-tool",
+      "title": "Red Hat Automatic Bug Reporting Tool: attackers can gain admin rights",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. Ready-made attack tools are public.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2015-5287"
+      ],
+      "vendor": "Red Hat",
+      "product": "Automatic Bug Reporting Tool",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Red Hat Automatic Bug Reporting Tool (ABRT) contains a privilege escalation vulnerability that could allow local users with certain permissions to gain privileges via a symlink attack on a file with a predictable name. The impacted product(s) could be end-of-life (EoL) and/or end-of-service (EoS). Users are advised to discontinue use and/or transition to a supported version.",
+      "firstSeenAt": "2026-08-26T00:00:00.000Z",
+      "updatedAt": "2026-10-24T23:23:22.790Z",
+      "newestEvidenceAt": "2026-08-26T00:00:00.000Z"
+    },
+    {
+      "id": "kev-2026-08-26-red-hat-libuser",
+      "url": "https://securitythreatpulse.com/events/kev-2026-08-26-red-hat-libuser",
+      "title": "Red Hat Libuser: attackers can gain admin rights",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. Ready-made attack tools are public.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2015-3246"
+      ],
+      "vendor": "Red Hat",
+      "product": "Libuser",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Red Hat libuser contains a race condition vulnerability that allows authenticated local users to corrupt the /etc/passwd file to cause a denial of service or privilege escalation.",
+      "firstSeenAt": "2026-08-26T00:00:00.000Z",
+      "updatedAt": "2026-10-24T23:37:40.396Z",
+      "newestEvidenceAt": "2026-08-26T00:00:00.000Z"
+    },
+    {
+      "id": "early-cve-2026-98432",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-98432",
+      "title": "Linux: a memory flaw attackers can abuse",
+      "verdict": "watch",
+      "verdictReason": "One source reports attacks and the vulnerability is 23 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "reported",
+        "exposure": "none",
+        "exploited": "reported"
+      },
+      "cves": [
+        "CVE-2026-98432"
+      ],
+      "vendor": "Linux",
+      "product": "Linux",
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "In the Linux kernel, the following vulnerability has been resolved: ipv4: free inet_opt and ireq_opt after an RCU grace period tcp_v4_syn_recv_sock() transfers ownership of ireq->ireq_opt to the child socket (newinet->inet_opt) without copying it. Another cpu can concurrently process a retransmitted SYN for the same request socket, and send a SYNACK from tcp_check_req().",
+      "firstSeenAt": "2026-11-02T04:04:19.000Z",
+      "updatedAt": "2026-11-07T12:22:40.246Z",
+      "newestEvidenceAt": "2026-11-08T09:54:38.038Z"
+    },
+    {
+      "id": "early-cve-2026-40217",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-40217",
+      "title": "BerriAI LiteLLM: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "Attacks are reported but not confirmed by an authoritative source, and the vulnerability is more than 90 days old.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "reported",
+        "exposure": "none",
+        "exploited": "reported"
+      },
+      "cves": [
+        "CVE-2026-40217"
+      ],
+      "vendor": "BerriAI",
+      "product": "LiteLLM",
+      "category": {
+        "id": "ai",
+        "label": "AI tools",
+        "why": "It connects to AI models and often holds the keys to paid services and data.",
+        "doThis": "Update it and change any API keys stored in it."
+      },
+      "summary": "LiteLLM through 2026-04-08 allows remote attackers to execute arbitrary code via bytecode rewriting at the /guardrails/test_custom_code URI.",
+      "firstSeenAt": "2026-11-06T05:13:29.000Z",
+      "updatedAt": "2026-11-08T05:37:40.252Z",
+      "newestEvidenceAt": "2026-11-08T05:30:58.032Z"
+    },
+    {
+      "id": "early-cve-2024-3721",
+      "url": "https://securitythreatpulse.com/events/early-cve-2024-3721",
+      "title": "TBK DVR-4104: attackers can run commands on it",
+      "verdict": "watch",
+      "verdictReason": "Attacks are reported but not confirmed by an authoritative source, and the vulnerability is more than 90 days old.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "reported"
+      },
+      "cves": [
+        "CVE-2024-3721"
+      ],
+      "vendor": "TBK",
+      "product": "DVR-4104",
+      "category": {
+        "id": "network-device",
+        "label": "Routers, cameras and devices",
+        "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+        "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+      },
+      "summary": "A vulnerability was found in TBK DVR-4104 and DVR-4216 up to 20240412 and classified as critical. This issue affects some unknown processing of the file /device.rsp?opt=sys&cmd=___S_O_S_T_R_E_A_MAX___. The manipulation of the argument mdb/mdc leads to os command injection. The attack may be initiated remotely. The exploit has been disclosed to the public and may be used.",
+      "firstSeenAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-11-07T17:37:41.139Z",
+      "newestEvidenceAt": "2026-11-07T16:35:07.997Z"
+    },
+    {
+      "id": "kev-2026-11-04-apple-multiple-products",
+      "url": "https://securitythreatpulse.com/events/kev-2026-11-04-apple-multiple-products",
+      "title": "Several Apple products: attackers can get in without a password",
+      "verdict": "watch",
+      "verdictReason": "Attacks are confirmed, but the vulnerability is more than a year old and we see no ransomware use, public attack tools, internet-facing product, critical severity or high prediction score. Check whether it applies to you.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2024-27834"
+      ],
+      "vendor": "Apple",
+      "product": "Multiple Products",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Apple iOS, iPadOS, macOS, Safari, tvOS and watchOS 10.5 contain an improper authentication vulnerability which could allow an attacker with arbitrary read and write capability to bypass pointer authentication.",
+      "firstSeenAt": "2026-11-04T00:00:00.000Z",
+      "updatedAt": "2026-11-05T06:37:40.930Z",
+      "newestEvidenceAt": "2026-11-07T08:00:03.921Z"
+    },
+    {
+      "id": "early-cve-2026-58115",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-58115",
+      "title": "Siemens SIMATIC IoT2050 Advanced: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "One source reports attacks and the vulnerability is 88 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "reported",
+        "exposure": "none",
+        "exploited": "reported"
+      },
+      "cves": [
+        "CVE-2026-58115"
+      ],
+      "vendor": "Siemens",
+      "product": "SIMATIC IoT2050 Advanced",
+      "category": {
+        "id": "business-app",
+        "label": "Business software",
+        "why": "It runs day-to-day business work such as finance, printing, phones or manufacturing.",
+        "doThis": "Ask the vendor or the team that owns it whether the fix is in."
+      },
+      "summary": "A vulnerability has been identified in SIMATIC IoT2050 Advanced (6ES7647-0BA00-1YA2) (All versions < V4.3.4.1 running Industrial OS with Node-RED installed). Affected devices do not enforce authentication on the Node-RED HTTP interface, allowing unauthenticated access to programming nodes that are capable of executing system commands on the server.",
+      "firstSeenAt": "2026-11-03T08:09:54.000Z",
+      "updatedAt": "2026-11-07T12:22:40.246Z",
+      "newestEvidenceAt": "2026-11-07T00:52:11.496Z"
+    },
+    {
+      "id": "early-cve-2025-29927",
+      "url": "https://securitythreatpulse.com/events/early-cve-2025-29927",
+      "title": "Vercel Next.js: attackers can gain admin rights",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2025-29927"
+      ],
+      "vendor": "vercel",
+      "product": "next.js",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "Next.js is a React framework for building full-stack web applications. Starting in version 1.11.4 and prior to versions 12.3.5, 13.5.9, 14.2.25, and 15.2.3, it is possible to bypass authorization checks within a Next.js application, if the authorization check occurs in middleware.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T04:07:40.608Z",
+      "newestEvidenceAt": "2026-11-06T20:05:42.000Z"
+    },
+    {
+      "id": "early-cve-2026-110264",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-110264",
+      "title": "GitLab: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "One source reports attacks and the vulnerability is 17 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "reported",
+        "exposure": "none",
+        "exploited": "reported"
+      },
+      "cves": [
+        "CVE-2026-110264"
+      ],
+      "vendor": "GitLab",
+      "product": "GitLab",
+      "category": {
+        "id": "developer",
+        "label": "Developer tools",
+        "why": "It holds source code and the keys used to build and ship software.",
+        "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
+      },
+      "summary": "An issue has been discovered in GitLab CE/EE affecting all versions from 7.0 before 18.11.13, 19.0 before 19.0.10, 19.1 before 19.1.9, 19.2 before 19.2.9, 19.3 before 19.3.6, 19.4 before 19.4.3, and 19.5 before 19.5.1 that, under certain conditions, could have allowed an unauthenticated user to execute arbitrary code on the GitLab server due to integer overflow when compiling a specially crafted…",
+      "firstSeenAt": "2026-11-02T18:00:07.000Z",
+      "updatedAt": "2026-11-08T00:37:40.199Z",
+      "newestEvidenceAt": "2026-11-05T22:43:29.279Z"
+    },
+    {
+      "id": "early-cve-2026-42589",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-42589",
+      "title": "Gotenberg: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "Attacks are reported but not confirmed by an authoritative source, and the vulnerability is more than 90 days old.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "reported",
+        "exposure": "none",
+        "exploited": "reported"
+      },
+      "cves": [
+        "CVE-2026-42589"
+      ],
+      "vendor": "gotenberg",
+      "product": "gotenberg",
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Gotenberg is a Docker-powered stateless API for PDF files. Prior to 8.31.0, Gotenberg's /forms/pdfengines/metadata/write HTTP endpoint accepts a JSON metadata object and passes its keys directly to ExifTool via the go-exiftool library. No validation is performed on key characters.",
+      "firstSeenAt": "2026-11-04T16:07:28.000Z",
+      "updatedAt": "2026-11-05T05:37:41.013Z",
+      "newestEvidenceAt": "2026-11-05T05:30:59.371Z"
+    },
+    {
+      "id": "early-cve-2025-2611",
+      "url": "https://securitythreatpulse.com/events/early-cve-2025-2611",
+      "title": "ICT Innovations ICTBroadcast: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "Attacks are reported but not confirmed by an authoritative source, and the vulnerability is more than 90 days old.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "reported",
+        "exposure": "none",
+        "exploited": "reported"
+      },
+      "cves": [
+        "CVE-2025-2611"
+      ],
+      "vendor": "ICT Innovations",
+      "product": "ICTBroadcast",
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "The ICTBroadcast application unsafely passes session cookie data to shell processing, allowing an attacker to inject shell commands into a session cookie that get executed on the server. This results in unauthenticated remote code execution in the session handling. Versions 7.4 and below are known to be vulnerable.",
+      "firstSeenAt": "2026-11-04T14:05:23.000Z",
+      "updatedAt": "2026-11-05T05:37:41.013Z",
+      "newestEvidenceAt": "2026-11-05T05:30:59.334Z"
+    },
+    {
+      "id": "early-cve-2025-5054",
+      "url": "https://securitythreatpulse.com/events/early-cve-2025-5054",
+      "title": "Canonical Apport: attackers can read data they should not see",
+      "verdict": "watch",
+      "verdictReason": "Attacks are reported but not confirmed by an authoritative source, and the vulnerability is more than 90 days old.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "reported",
+        "exposure": "none",
+        "exploited": "reported"
+      },
+      "cves": [
+        "CVE-2025-5054"
+      ],
+      "vendor": "Canonical",
+      "product": "Apport",
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Race condition in Canonical apport up to and including 2.32.0 allows a local attacker to leak sensitive information via PID-reuse by leveraging namespaces. When handling a crash, the function `_check_global_pid_and_forward`, which detects if the crashing process resided in a container, was being called before `consistency_checks`, which attempts to detect if the crashing process had been…",
+      "firstSeenAt": "2026-11-04T19:58:47.740Z",
+      "updatedAt": "2026-11-04T21:37:40.169Z",
+      "newestEvidenceAt": "2026-11-04T19:58:47.740Z"
+    },
+    {
+      "id": "early-cve-2022-2588",
+      "url": "https://securitythreatpulse.com/events/early-cve-2022-2588",
+      "title": "Linux: a memory flaw attackers can abuse",
+      "verdict": "watch",
+      "verdictReason": "Attacks are reported but not confirmed by an authoritative source, and the vulnerability is more than 90 days old.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "reported",
+        "exposure": "none",
+        "exploited": "reported"
+      },
+      "cves": [
+        "CVE-2022-2588"
+      ],
+      "vendor": "The Linux Kernel Organization",
+      "product": "linux",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "It was discovered that the cls_route filter implementation in the Linux kernel would not remove an old filter from the hashtable before freeing it if its handle had the value 0.",
+      "firstSeenAt": "2026-11-04T19:57:18.462Z",
+      "updatedAt": "2026-11-04T21:37:40.169Z",
+      "newestEvidenceAt": "2026-11-04T19:57:18.462Z"
+    },
+    {
+      "id": "early-cve-2026-49950",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-49950",
+      "title": "Xorbitsai Xoscar: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "One source reports attacks and the vulnerability is 25 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "reported",
+        "exposure": "none",
+        "exploited": "reported"
+      },
+      "cves": [
+        "CVE-2026-49950"
+      ],
+      "vendor": "xorbitsai",
+      "product": "xoscar",
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Xorbits Xoscar through 0.11.2 contains an unauthenticated deserialization vulnerability that allows remote attackers to execute arbitrary code by sending crafted data over the actor-pool TCP channel.",
+      "firstSeenAt": "2026-11-04T16:07:28.000Z",
+      "updatedAt": "2026-11-07T20:22:40.177Z",
+      "newestEvidenceAt": "2026-11-04T16:07:28.000Z"
+    },
+    {
+      "id": "early-cve-2022-21894",
+      "url": "https://securitythreatpulse.com/events/early-cve-2022-21894",
+      "title": "Microsoft Windows 10 Version 1809: security flaw reported in attacks",
+      "verdict": "watch",
+      "verdictReason": "Attacks are confirmed, but the vulnerability is more than a year old and we see no ransomware use, public attack tools, internet-facing product, critical severity or high prediction score. Check whether it applies to you.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2022-21894"
+      ],
+      "vendor": "Microsoft",
+      "product": "Windows 10 Version 1809",
+      "category": {
+        "id": "endpoint",
+        "label": "Computers, phones and browsers",
+        "why": "It runs on staff computers, phones or browsers.",
+        "doThis": "Install the latest updates on every device, and turn on automatic updates."
+      },
+      "summary": "Secure Boot Security Feature Bypass Vulnerability",
+      "firstSeenAt": "2026-10-22T16:44:37.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-11-03T19:09:02.049Z"
+    },
+    {
+      "id": "early-cve-2024-6188",
+      "url": "https://securitythreatpulse.com/events/early-cve-2024-6188",
+      "title": "Parsec Automation TrackSYS: security flaw reported in attacks",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2024-6188"
+      ],
+      "vendor": "Parsec Automation",
+      "product": "TrackSYS",
+      "category": {
+        "id": "business-app",
+        "label": "Business software",
+        "why": "It runs day-to-day business work such as finance, printing, phones or manufacturing.",
+        "doThis": "Ask the vendor or the team that owns it whether the fix is in."
+      },
+      "summary": "A vulnerability was found in Parsec Automation TrackSYS 11.x.x and classified as problematic. This issue affects some unknown processing of the file /TS/export/pagedefinition. The manipulation of the argument ID leads to direct request. The attack may be initiated remotely. The exploit has been disclosed to the public and may be used. The associated identifier of this vulnerability is VDB-269159.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-25T05:31:49.216Z"
+    },
+    {
+      "id": "early-cve-2024-7339",
+      "url": "https://securitythreatpulse.com/events/early-cve-2024-7339",
+      "title": "TVT DVR TD-2104TS-CL: attackers can read data they should not see",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2024-7339"
+      ],
+      "vendor": "TVT",
+      "product": "DVR TD-2104TS-CL",
+      "category": {
+        "id": "network-device",
+        "label": "Routers, cameras and devices",
+        "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+        "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+      },
+      "summary": "A vulnerability has been found in TVT DVR TD-2104TS-CL, DVR TD-2108TS-HP, Provision-ISR DVR SH-4050A5-5L(MM) and AVISION DVR AV108T and classified as problematic. This vulnerability affects unknown code of the file /queryDevInfo. The manipulation leads to information disclosure. The attack can be initiated remotely. The exploit has been disclosed to the public and may be used.",
+      "firstSeenAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-25T05:31:49.216Z"
+    },
+    {
+      "id": "early-cve-2026-2652",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-2652",
+      "title": "Mlflow: attackers can get in without a password",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2026-2652"
+      ],
+      "vendor": "mlflow",
+      "product": "mlflow/mlflow",
+      "category": {
+        "id": "developer",
+        "label": "Developer tools",
+        "why": "It holds source code and the keys used to build and ship software.",
+        "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
+      },
+      "summary": "A vulnerability in mlflow/mlflow versions 3.9.0 and earlier allows unauthenticated access to certain FastAPI routes when the server is started with authentication enabled (`--app-name basic-auth`) and served via uvicorn (ASGI).",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T04:07:40.608Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.997Z"
+    },
+    {
+      "id": "early-cve-2026-2699",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-2699",
+      "title": "Progress ShareFile Storage Zones Controller: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2026-2699"
+      ],
+      "vendor": "Progress",
+      "product": "ShareFile Storage Zones Controller",
+      "category": {
+        "id": "file-transfer",
+        "label": "File transfer",
+        "why": "It holds files you swap with customers and partners, a common target for bulk data theft.",
+        "doThis": "Patch it today and check it for files or accounts you do not recognize."
+      },
+      "summary": "Customer Managed ShareFile Storage Zones Controller (SZC) allows an unauthenticated attacker to access restricted configuration pages. This leads to changing system configuration and potential remote code execution.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.997Z"
+    },
+    {
+      "id": "early-cve-2022-39952",
+      "url": "https://securitythreatpulse.com/events/early-cve-2022-39952",
+      "title": "Fortinet FortiNAC: attackers can read or change files",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2022-39952"
+      ],
+      "vendor": "Fortinet",
+      "product": "FortiNAC",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "A external control of file name or path in Fortinet FortiNAC versions 9.4.0, 9.2.0 through 9.2.5, 9.1.0 through 9.1.7, 8.8.0 through 8.8.11, 8.7.0 through 8.7.6, 8.6.0 through 8.6.5, 8.5.0 through 8.5.4, 8.3.7 may allow an unauthenticated attacker to execute unauthorized code or commands via specifically crafted HTTP request.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.970Z"
+    },
+    {
+      "id": "early-cve-2023-24488",
+      "url": "https://securitythreatpulse.com/events/early-cve-2023-24488",
+      "title": "Citrix ADC and Citrix Gateway: attackers can hijack users' sessions",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2023-24488"
+      ],
+      "vendor": "Citrix",
+      "product": "Citrix ADC and Citrix Gateway ",
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Cross site scripting vulnerability in Citrix ADC and Citrix Gateway in allows and attacker to perform cross site scripting",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.970Z"
+    },
+    {
+      "id": "early-cve-2023-38646",
+      "url": "https://securitythreatpulse.com/events/early-cve-2023-38646",
+      "title": "CVE-2023-38646: attackers can run commands on it",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2023-38646"
+      ],
+      "vendor": null,
+      "product": null,
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Metabase open source before 0.46.6.1 and Metabase Enterprise before 1.46.6.1 allow attackers to execute arbitrary commands on the server, at the server's privilege level. Authentication is not required for exploitation. The other fixed versions are 0.45.4.1, 1.45.4.1, 0.44.7.1, 1.44.7.1, 0.43.7.2, and 1.43.7.2.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:52:41.230Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.970Z"
+    },
+    {
+      "id": "early-cve-2023-47253",
+      "url": "https://securitythreatpulse.com/events/early-cve-2023-47253",
+      "title": "CVE-2023-47253: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2023-47253"
+      ],
+      "vendor": null,
+      "product": null,
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Qualitor through 8.20 allows remote attackers to execute arbitrary code via PHP code in the html/ad/adpesquisasql/request/processVariavel.php gridValoresPopHidden parameter.",
+      "firstSeenAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:52:41.230Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.970Z"
+    },
+    {
+      "id": "early-cve-2024-0204",
+      "url": "https://securitythreatpulse.com/events/early-cve-2024-0204",
+      "title": "Fortra GoAnywhere MFT: attackers can get in without a password",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2024-0204"
+      ],
+      "vendor": "Fortra",
+      "product": "GoAnywhere MFT",
+      "category": {
+        "id": "file-transfer",
+        "label": "File transfer",
+        "why": "It holds files you swap with customers and partners, a common target for bulk data theft.",
+        "doThis": "Patch it today and check it for files or accounts you do not recognize."
+      },
+      "summary": "Authentication bypass in Fortra's GoAnywhere MFT prior to 7.4.1 allows an unauthorized user to create an admin user via the administration portal.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.970Z"
+    },
+    {
+      "id": "early-cve-2024-54763",
+      "url": "https://securitythreatpulse.com/events/early-cve-2024-54763",
+      "title": "CVE-2024-54763: attackers can read data they should not see",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2024-54763"
+      ],
+      "vendor": null,
+      "product": null,
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "An access control issue in the component /login/hostinfo.cgi of ipTIME A2004 v12.17.0 allows attackers to obtain sensitive information without authentication.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:52:41.230Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.970Z"
+    },
+    {
+      "id": "early-cve-2024-54764",
+      "url": "https://securitythreatpulse.com/events/early-cve-2024-54764",
+      "title": "CVE-2024-54764: attackers can read data they should not see",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2024-54764"
+      ],
+      "vendor": null,
+      "product": null,
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "An access control issue in the component /login/hostinfo2.cgi of ipTIME A2004 v12.17.0 allows attackers to obtain sensitive information without authentication.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:52:41.230Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.970Z"
+    },
+    {
+      "id": "early-cve-2018-9995",
+      "url": "https://securitythreatpulse.com/events/early-cve-2018-9995",
+      "title": "CVE-2018-9995: attackers can get in without a password",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2018-9995"
+      ],
+      "vendor": null,
+      "product": null,
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "TBK DVR4104 and DVR4216 devices, as well as Novo, CeNova, QSee, Pulnix, XVR 5 in 1, Securus, Night OWL, DVR Login, HVR Login, and MDVR Login, which run re-branded versions of the original TBK DVR4104 and DVR4216 series, allow remote attackers to bypass authentication via a \"Cookie: uid=admin\" header, as demonstrated by a device.rsp?opt=user&cmd=list request that provides credentials within JSON…",
+      "firstSeenAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:52:41.230Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.941Z"
+    },
+    {
+      "id": "early-cve-2019-19824",
+      "url": "https://securitythreatpulse.com/events/early-cve-2019-19824",
+      "title": "CVE-2019-19824",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2019-19824"
+      ],
+      "vendor": null,
+      "product": null,
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "On certain TOTOLINK Realtek SDK based routers, an authenticated attacker may execute arbitrary OS commands via the sysCmd parameter to the boafrm/formSysCmd URI, even if the GUI (syscmd.htm) is not available. This allows for full control over the device's internals.",
+      "firstSeenAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-10-24T23:37:40.396Z",
+      "newestEvidenceAt": "2026-10-24T23:23:07.941Z"
+    },
+    {
+      "id": "early-cve-2016-10372",
+      "url": "https://securitythreatpulse.com/events/early-cve-2016-10372",
+      "title": "CVE-2016-10372: attackers can run commands on it",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2016-10372"
+      ],
+      "vendor": null,
+      "product": null,
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "The Eir D1000 modem does not properly restrict the TR-064 protocol, which allows remote attackers to execute arbitrary commands via TCP port 7547, as demonstrated by opening WAN access to TCP port 80, retrieving the login password (which defaults to the Wi-Fi password), and using the NewNTPServer feature.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:52:41.230Z",
+      "newestEvidenceAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "early-cve-2017-17215",
+      "url": "https://securitythreatpulse.com/events/early-cve-2017-17215",
+      "title": "Huawei Technologies HG532: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2017-17215"
+      ],
+      "vendor": "Huawei Technologies Co., Ltd.",
+      "product": "HG532",
+      "category": {
+        "id": "network-device",
+        "label": "Routers, cameras and devices",
+        "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+        "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+      },
+      "summary": "Huawei HG532 with some customized versions has a remote code execution vulnerability. An authenticated attacker could send malicious packets to port 37215 to launch attacks. Successful exploit could lead to the remote execution of arbitrary code.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T04:07:40.608Z",
+      "newestEvidenceAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "early-cve-2019-12780",
+      "url": "https://securitythreatpulse.com/events/early-cve-2019-12780",
+      "title": "CVE-2019-12780: attackers can run commands on it",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2019-12780"
+      ],
+      "vendor": null,
+      "product": null,
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "The Belkin Wemo Enabled Crock-Pot allows command injection in the Wemo UPnP API via the SmartDevURL argument to the SetSmartDevInfo action. A simple POST request to /upnp/control/basicevent1 can allow an attacker to execute commands without authentication.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:52:41.230Z",
+      "newestEvidenceAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "early-cve-2021-27691",
+      "url": "https://securitythreatpulse.com/events/early-cve-2021-27691",
+      "title": "CVE-2021-27691: attackers can run commands on it",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2021-27691"
+      ],
+      "vendor": null,
+      "product": null,
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Command Injection in Tenda G0 routers with firmware versions v15.11.0.6(9039)_CN and v15.11.0.5(5876)_CN , and Tenda G1 and G3 routers with firmware versions v15.11.0.17(9502)_CN or v15.11.0.16(9024)_CN allows remote attackers to execute arbitrary OS commands via a crafted action/setDebugCfg request.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:52:41.230Z",
+      "newestEvidenceAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "early-cve-2024-12847",
+      "url": "https://securitythreatpulse.com/events/early-cve-2024-12847",
+      "title": "NETGEAR DGN1000: attackers can run commands on it",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2024-12847"
+      ],
+      "vendor": "NETGEAR",
+      "product": "DGN1000",
+      "category": {
+        "id": "network-device",
+        "label": "Routers, cameras and devices",
+        "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+        "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+      },
+      "summary": "NETGEAR DGN1000 before 1.1.00.48 is vulnerable to an authentication bypass vulnerability. A remote and unauthenticated attacker can execute arbitrary operating system commands as root by sending crafted HTTP requests to the setup.cgi endpoint. This vulnerability has been observed to be exploited in the wild since at least 2017 and specifically by the Shadowserver Foundation on 2025-02-06 UTC.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "early-cve-2025-34036",
+      "url": "https://securitythreatpulse.com/events/early-cve-2025-34036",
+      "title": "Shenzhen TVT CCTV-DVR: attackers can run commands on it",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2025-34036"
+      ],
+      "vendor": "Shenzhen TVT",
+      "product": "CCTV-DVR",
+      "category": {
+        "id": "network-device",
+        "label": "Routers, cameras and devices",
+        "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+        "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+      },
+      "summary": "An OS command injection vulnerability exists in white-labeled DVRs manufactured by TVT, affecting a custom HTTP service called \"Cross Web Server\" that listens on TCP ports 81 and 82. The web interface fails to sanitize input in the URI path passed to the language extraction functionality.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "early-cve-2025-34037",
+      "url": "https://securitythreatpulse.com/events/early-cve-2025-34037",
+      "title": "Linksys E4200: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2025-34037"
+      ],
+      "vendor": "Linksys",
+      "product": "E4200",
+      "category": {
+        "id": "network-device",
+        "label": "Routers, cameras and devices",
+        "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+        "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+      },
+      "summary": "An OS command injection vulnerability exists in various models of E-Series Linksys routers via the /tmUnblock.cgi and /hndUnblock.cgi endpoints over HTTP on port 8080. The CGI scripts improperly process user-supplied input passed to the ttcp_ip parameter without sanitization, allowing unauthenticated attackers to inject shell commands.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "early-cve-2025-34043",
+      "url": "https://securitythreatpulse.com/events/early-cve-2025-34043",
+      "title": "Vacron Network Video Recorder (NVR): attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2025-34043"
+      ],
+      "vendor": "Vacron",
+      "product": "Network Video Recorder (NVR)",
+      "category": {
+        "id": "network-device",
+        "label": "Routers, cameras and devices",
+        "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+        "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+      },
+      "summary": "A remote command injection vulnerability exists in Vacron Network Video Recorder (NVR) devices v1.4 due to improper input sanitization in the board.cgi script. The vulnerability allows unauthenticated attackers to pass arbitrary commands to the underlying operating system via crafted HTTP requests.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "early-cve-2020-36870",
+      "url": "https://securitythreatpulse.com/events/early-cve-2020-36870",
+      "title": "Beijing Star-Net Ruijie Network Technology RG-EG1000C: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2020-36870"
+      ],
+      "vendor": "Beijing Star-Net Ruijie Network Technology Co., Ltd.",
+      "product": "RG-EG1000C",
+      "category": {
+        "id": "network-device",
+        "label": "Routers, cameras and devices",
+        "why": "Routers, cameras and recorders are often forgotten and rarely updated.",
+        "doThis": "Update it or replace it. Never leave its admin page open to the internet."
+      },
+      "summary": "Various Ruijie Gateway EG and NBR models firmware versions 11.1(6)B9P1 < 11.9(4)B12P1 contain a code execution vulnerability in the EWEB management system that can be abused via front-end functionality.",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T04:07:40.608Z",
+      "newestEvidenceAt": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "early-cve-2023-7334",
+      "url": "https://securitythreatpulse.com/events/early-cve-2023-7334",
+      "title": "Changjetong Information Technology T+: attackers can run their own code",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "cves": [
+        "CVE-2023-7334"
+      ],
+      "vendor": "Changjetong Information Technology Co., Ltd.",
+      "product": "T+",
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Changjetong T+ versions up to and including 16.x contain a .NET deserialization vulnerability in an AjaxPro endpoint that can lead to remote code execution. A remote attacker can send a crafted request to /tplus/ajaxpro/Ufida.T.CodeBehind._PriorityLevel,App_Code.ashx?method=GetStoreWarehouseByStore with a malicious JSON body that leverages deserialization of attacker-controlled .NET types to…",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-10-26T04:07:40.608Z",
+      "newestEvidenceAt": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "kev-2026-10-08-strapi-strapi",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-08-strapi-strapi",
+      "title": "Strapi: attackers can read data they should not see",
+      "verdict": "watch",
+      "verdictReason": "Attacks are confirmed, but the vulnerability is more than a year old and we see no ransomware use, public attack tools, internet-facing product, critical severity or high prediction score. Check whether it applies to you.",
+      "rulesVersion": "v2",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "cves": [
+        "CVE-2023-22894"
+      ],
+      "vendor": "Strapi",
+      "product": "Strapi",
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "Strapi contains a cleartext storage of sensitive information vulnerability that could allow attackers with access to the admin panel to discover sensitive user details via the query filter. The impacted product(s) could be end-of-life (EoL) and/or end-of-service (EoS). Users are advised to discontinue use and/or transition to a supported version.",
+      "firstSeenAt": "2026-10-08T00:00:00.000Z",
+      "updatedAt": "2026-10-26T03:37:40.509Z",
+      "newestEvidenceAt": "2026-10-08T00:00:00.000Z"
+    }
+  ]
+}
