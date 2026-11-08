@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { DriverBar, EventRow, HomeData, KpiView } from "@/lib/data/types";
 import { RUNG_SHORT } from "@/lib/data/sample";
-import { Eyebrow, H2, LadderKey, MiniLadder, Panel, VERDICT_STYLE, VerdictBadge, topLabel } from "./ui";
+import { Eyebrow, H2, LadderKey, MiniLadder, Panel, TierBadge, VERDICT_STYLE, VerdictBadge, topLabel } from "./ui";
 import { YourVendors } from "./YourVendors";
 
 const GRID = "grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))]";
@@ -188,7 +188,10 @@ export function EventsGrid({ events, label, empty = "No events are tracked yet."
                 <MiniLadder ladder={e.ladder} topLabel={topLabel(e.topConfirmed ? RUNG_SHORT[e.topConfirmed] : null)} />
               </td>
               <td className="px-6 py-5 align-top">
-                <VerdictBadge verdict={e.verdict} />
+                <div className="flex flex-wrap gap-2">
+                  <VerdictBadge verdict={e.verdict} />
+                  <TierBadge tier={e.tier} />
+                </div>
               </td>
               <td className="px-6 py-5 align-top text-[15px] leading-normal text-fg-2">
                 {e.category?.doThis ?? e.question ?? <span className="text-muted">Not written yet.</span>}
@@ -211,6 +214,7 @@ function EventCards({ events, label, empty }: { events: EventRow[]; label: strin
         <li key={e.id} className="flex min-w-0 flex-col gap-3 rounded border border-line bg-surface p-5 [overflow-wrap:anywhere]">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <VerdictBadge verdict={e.verdict} />
+            <TierBadge tier={e.tier} />
             <span className="font-mono text-xs text-faint">{e.idsLabel}</span>
           </div>
           <Link href={e.href} className="font-display text-lg font-semibold leading-snug text-fg no-underline hover:text-accent">

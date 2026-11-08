@@ -10,6 +10,17 @@ describe("sortListed", () => {
     const out = sortListed([mk("l", "low", 9), mk("w-old", "watch", 1), mk("a", "act_now", 0), mk("w-new", "watch", 5)]);
     expect(out.map((x) => x.id)).toEqual(["a", "w-new", "w-old", "l"]);
   });
+  it("puts the Act today tier first, then the ranking score, before recency; untiered rows sort as before", () => {
+    const out = sortListed([
+      { ...mk("now-high", "act_now", 1), tier: "now", rankScore: 9 },
+      { ...mk("today-low", "act_now", 1), tier: "today", rankScore: 5 },
+      { ...mk("today-high", "act_now", 0), tier: "today", rankScore: 8 },
+      { ...mk("now-fresh", "act_now", 9), tier: "now", rankScore: 4 },
+      mk("legacy", "act_now", 7),
+      { ...mk("w", "watch", 9), rankScore: 11 },
+    ]);
+    expect(out.map((x) => x.id)).toEqual(["today-high", "today-low", "now-high", "now-fresh", "legacy", "w"]);
+  });
 });
 
 const DAY = 86_400_000;

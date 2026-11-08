@@ -118,6 +118,10 @@ export const events = pgTable(
     verdict: text("verdict").notNull().default("low"),
     verdictReason: text("verdict_reason"),
     rulesVersion: text("rules_version").notNull(),
+    /** Tier inside Act now ("today" or "now") and the ranking score, from rules v3 on. Null before. */
+    tier: text("tier"),
+    rankScore: integer("rank_score"),
+    rankWhy: jsonb("rank_why").$type<string[]>(),
     overrideVerdict: text("override_verdict"),
     overrideReason: text("override_reason"),
     hidden: boolean("hidden").notNull().default(false),

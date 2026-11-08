@@ -1,0 +1,52 @@
+{
+  "rulesVersion": "v3",
+  "ranAt": "2026-11-08T14:01:20.288Z",
+  "dataset": {
+    "path": "data/backtest/dataset.json.gz",
+    "builtAt": "2026-10-24T20:56:42.484Z"
+  },
+  "windows": [
+    14,
+    21,
+    30
+  ],
+  "period": "tuning",
+  "days": 335,
+  "actNow": {
+    "median": 126,
+    "p90": 201,
+    "max": 223
+  },
+  "byWindow": {
+    "14": {
+      "median": 5,
+      "p90": 8,
+      "max": 17,
+      "daysEmpty": 1,
+      "daysOverFive": 134,
+      "everInTier": 117,
+      "residencyMedian": 15,
+      "top5CutoffMedian": 6
+    },
+    "21": {
+      "median": 7,
+      "p90": 11,
+      "max": 17,
+      "daysEmpty": 0,
+      "daysOverFive": 243,
+      "everInTier": 118,
+      "residencyMedian": 22,
+      "top5CutoffMedian": 6
+    },
+    "30": {
+      "median": 10,
+      "p90": 16,
+      "max": 20,
+      "daysEmpty": 0,
+      "daysOverFive": 292,
+      "everInTier": 123,
+      "residencyMedian": 31,
+      "top5CutoffMedian": 6
+    }
+  }
+}

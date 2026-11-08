@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { ClaimRating, EventView, ProductChip, RungView, SourceRef } from "@/lib/data/types";
 import { RUNG_SHORT } from "@/lib/data/sample";
 import { fmtDay, fmtDayYear } from "@/lib/data/format";
-import { Eyebrow, H2, LadderKey, MiniLadder, Panel, Seg, VERDICT_STYLE, VerdictBadge, ladderLabel } from "./ui";
+import { Eyebrow, H2, LadderKey, MiniLadder, Panel, Seg, TierBadge, VERDICT_STYLE, VerdictBadge, ladderLabel } from "./ui";
 
 export function EventHero({ e }: { e: EventView }) {
   const v = VERDICT_STYLE[e.verdict];
@@ -17,6 +17,7 @@ export function EventHero({ e }: { e: EventView }) {
         <div className="flex min-w-0 flex-[999_1_min(100%,560px)] flex-col gap-[18px]">
           <div className="flex flex-wrap items-center gap-3.5">
             <VerdictBadge verdict={e.verdict} large />
+            <TierBadge tier={e.tier} large />
             <span className="font-mono text-[13px] text-muted">
               {[...e.cves, e.cvss ? `CVSS ${e.cvss.toFixed(1)}` : null].filter(Boolean).join(" · ") || e.idsLabel}
             </span>
@@ -53,6 +54,12 @@ export function EventHero({ e }: { e: EventView }) {
             <p className="m-0 max-w-[720px] text-[15px] leading-normal text-muted">
               <span className={`font-mono text-xs font-bold tracking-[0.1em] ${v.text}`}>WHY THIS VERDICT </span>
               {e.verdictReason}
+            </p>
+          )}
+          {e.rankWhy && e.rankWhy.length > 0 && (
+            <p className="m-0 text-[15px] leading-relaxed text-fg-2">
+              <span className="font-mono text-xs font-bold tracking-[0.1em] text-muted">WHY IT RANKS HERE </span>
+              {e.rankWhy.join(" ")}
             </p>
           )}
         </div>

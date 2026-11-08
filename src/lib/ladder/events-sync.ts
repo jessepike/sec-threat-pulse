@@ -201,6 +201,9 @@ export async function syncEvents(db: Db, opts: SyncOptions = {}): Promise<SyncSu
       stableJson(cur.affectedProducts ?? []) !== stableJson(e.affectedProducts) ||
       cur.exploitMaturity !== e.exploitMaturity ||
       cur.verdictReason !== e.verdictReason ||
+      (cur.tier ?? undefined) !== e.tier ||
+      (cur.rankScore ?? undefined) !== e.rankScore ||
+      stableJson(cur.rankWhy ?? undefined) !== stableJson(e.rankWhy) ||
       cur.rulesVersion !== e.rulesVersion;
     if (ladderChanged || verdictChanged || fieldsChanged) toUpdate.push({ e, ladderOrVerdictChanged: ladderChanged || verdictChanged });
     else summary.unchanged++;
@@ -216,6 +219,9 @@ export async function syncEvents(db: Db, opts: SyncOptions = {}): Promise<SyncSu
     exploitMaturity: e.exploitMaturity,
     verdict: e.verdict,
     verdictReason: e.verdictReason,
+    tier: e.tier ?? null,
+    rankScore: e.rankScore ?? null,
+    rankWhy: e.rankWhy ?? null,
     rulesVersion: e.rulesVersion,
   });
   const history = (e: ComputedEvent) => ({
