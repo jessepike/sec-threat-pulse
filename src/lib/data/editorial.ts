@@ -7,9 +7,6 @@ import type { BriefData, DoItem, DriverBar, DriverParagraph, KpiView, NoiseItem,
 
 export const SAMPLE_WEEK_OF = "Oct 19, 2026";
 
-export const SAMPLE_HERO_BLURB =
-  "Attacks are getting faster. One flaw needs action this week: critical bugs in PHP, the software behind most websites. Attackers tried it before the fix existed. No breaches confirmed yet.";
-
 export const SAMPLE_REAL: RealItem[] = [
   { title: "PHP2Shell is being tried in the wild", text: "Probed four days before a patch existed. Hits nearly every PHP web server." },
   { title: "Citrix NetScaler zero-days confirmed", text: "CISA confirms global exploitation. Two flaws each allow remote takeover." },

@@ -41,13 +41,22 @@ export function fmtLong(d: Date): string {
   return `${pick(p, "month")} ${pick(p, "day")}, ${pick(p, "year")}`;
 }
 
-/** Monday of the week containing `now`, in Pacific time. */
-export function weekOfLabel(now: Date): string {
+function weekMonday(now: Date): Date {
   const p = parts(now, { weekday: "short", year: "numeric", month: "numeric", day: "numeric" });
   const idx = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].indexOf(pick(p, "weekday"));
   const local = new Date(Date.UTC(Number(pick(p, "year")), Number(pick(p, "month")) - 1, Number(pick(p, "day"))));
   local.setUTCDate(local.getUTCDate() - Math.max(idx, 0));
-  return new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric" }).format(local);
+  return local;
+}
+
+/** Monday of the week containing `now`, in Pacific time. */
+export function weekOfLabel(now: Date): string {
+  return new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric" }).format(weekMonday(now));
+}
+
+/** Monday of the week containing `now`, in Pacific time, as YYYY-MM-DD: the week's permanent id. */
+export function weekStartIso(now: Date): string {
+  return weekMonday(now).toISOString().slice(0, 10);
 }
 
 /** "OCT 23, 2026". Date-only values are formatted as written. */

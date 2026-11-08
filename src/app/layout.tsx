@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   alternates: {
     types: {
       "application/rss+xml": [
+        { url: "/brief/feed.xml", title: `${SITE_NAME}: weekly short list` },
         { url: "/events/feed.xml", title: `${SITE_NAME}: Act now` },
         { url: "/corrections/feed.xml", title: `${SITE_NAME} corrections` },
       ],

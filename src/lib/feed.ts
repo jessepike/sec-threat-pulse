@@ -82,3 +82,44 @@ export function actNowFeed(events: FeedEvent[], site: string = SITE_URL): string
     "",
   ].join("\n");
 }
+
+export interface FeedBrief {
+  week: string;
+  weekOf: string;
+  weekLine: string;
+  top: { rank: number; id: string; title: string; doThis: string; tier: string | null }[];
+}
+
+/**
+ * RSS 2.0 feed of the weekly short list: one item per week, id'd by the week's Monday, so a
+ * reader is told once a week. The item text is the week's sentence and the ranked list as it
+ * stands when the reader fetches it.
+ */
+export function briefFeed(b: FeedBrief, site: string = SITE_URL): string {
+  const lines = b.top.map((t) => `${t.rank}. ${t.title}${t.tier === "today" ? " (Act today)" : ""}. Do this: ${t.doThis} ${site}/events/${t.id}`);
+  const pub = new Date(`${b.week}T00:00:00Z`).toUTCString();
+  const item = [
+    "    <item>",
+    `      <title>${xmlEscape(`Week of ${b.weekOf}: do this first`)}</title>`,
+    `      <link>${site}/</link>`,
+    `      <guid isPermaLink="false">${xmlEscape(`${site}/brief#week-${b.week}`)}</guid>`,
+    `      <pubDate>${pub}</pubDate>`,
+    `      <description>${xmlEscape([b.weekLine, ...lines].join("\n"))}</description>`,
+    "    </item>",
+  ].join("\n");
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    "  <channel>",
+    `    <title>${xmlEscape(`${SITE_NAME} weekly short list`)}</title>`,
+    `    <link>${site}/</link>`,
+    `    <atom:link href="${site}/brief/feed.xml" rel="self" type="application/rss+xml" />`,
+    "    <description>Once a week: up to five flaws to act on first, in rank order, with the first step for each.</description>",
+    "    <language>en-us</language>",
+    `    <lastBuildDate>${pub}</lastBuildDate>`,
+    item,
+    "  </channel>",
+    "</rss>",
+    "",
+  ].join("\n");
+}

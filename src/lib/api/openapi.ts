@@ -298,6 +298,72 @@ export function openApiDocument() {
           },
         },
       },
+      "/api/v1/brief": {
+        get: {
+          operationId: "getBrief",
+          summary: "The week's short list: up to five Act now events in rank order (verdict, Act today tier, ranking score, newest evidence) with the first step for each, and one sentence for the week from fixed templates. The same list the home page leads with.",
+          responses: {
+            "200": {
+              description: "The brief. `week` (the Monday, Pacific time) is its permanent id.",
+              content: {
+                "application/json": {
+                  schema: envelope(
+                    {
+                      page: { type: "string", format: "uri" },
+                      feed: { type: "string", format: "uri" },
+                      week: dateOnly,
+                      weekOf: { type: "string" },
+                      weekLine: { type: "string" },
+                      rulesVersion: { type: "string" },
+                      actNowRecent: { type: "integer", description: "Act now events with an attack, exploitation or damage report in the last 30 days." },
+                      top: {
+                        type: "array",
+                        maxItems: 5,
+                        items: { allOf: [{ $ref: "#/components/schemas/Event" }, { type: "object", properties: { rank: { type: "integer", minimum: 1, maximum: 5 }, doThis: { type: "string" } }, required: ["rank", "doThis"] }] },
+                      },
+                    },
+                    ["week", "weekOf", "weekLine", "rulesVersion", "actNowRecent", "top"],
+                  ),
+                },
+              },
+            },
+            "503": { description: "Data is not available right now." },
+          },
+        },
+      },
+      "/api/v1/check-stack": {
+        get: {
+          operationId: "checkStack",
+          summary: "Vendors or products in, the Act now and Watch events naming each one out, in rank order, up to 10 each.",
+          parameters: [{ name: "products", in: "query", required: true, description: "Comma-separated, 1 to 25 names of 2 to 80 characters, for example Fortinet,PAN-OS,Ivanti.", schema: { type: "string" } }],
+          responses: {
+            "200": {
+              description: "One result per product, in the order given.",
+              content: {
+                "application/json": {
+                  schema: envelope(
+                    {
+                      products: { type: "array", items: { type: "string" } },
+                      actNowTotal: { type: "integer", description: "Distinct Act now events across the whole stack." },
+                      results: {
+                        type: "array",
+                        items: {
+                          type: "object",
+                          properties: { query: { type: "string" }, matched: { type: "integer" }, actNow: { type: "integer" }, events: { type: "array", maxItems: 10, items: { $ref: "#/components/schemas/Event" } } },
+                          required: ["query", "matched", "actNow", "events"],
+                        },
+                      },
+                    },
+                    ["products", "actNowTotal", "results"],
+                  ),
+                },
+              },
+            },
+            "400": { description: "Missing or malformed products list." },
+            "503": { description: "Data is not available right now." },
+          },
+        },
+      },
       "/api/v1/track-record": {
         get: {
           operationId: "getTrackRecord",
