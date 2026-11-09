@@ -24,15 +24,20 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7.0.1
-        with:
-          sparse-checkout: scripts
       - uses: actions/setup-node@v7.1.0
         with:
           node-version: 24
+          cache: npm
+      - name: Install dependencies and the browser for the phone layout checks
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
       - name: Give the new deployment a minute to take traffic
         run: sleep 45
       - name: Run the smoke test
         id: smoke
+        env:
+          SMOKE_REQUIRE_LAYOUT: "1"
         run: |
           set -o pipefail
           node scripts/smoke.mjs https://securitythreatpulse.com 2>&1 | tee smoke.log

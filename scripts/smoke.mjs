@@ -121,7 +121,10 @@ try {
   }
   await browser.close();
 } catch (e) {
-  console.log(`skip layout checks: ${e instanceof Error ? e.message.split("\n")[0] : e}`);
+  const why = e instanceof Error ? e.message.split("\n")[0] : e;
+  // The post-deploy workflow sets SMOKE_REQUIRE_LAYOUT so a missing browser fails the run instead of passing quietly.
+  if (process.env.SMOKE_REQUIRE_LAYOUT) ok(false, `layout checks ran (${why})`);
+  else console.log(`skip layout checks: ${why}`);
 }
 
 console.log(failures.length ? `\n${failures.length} check(s) failed` : "\nall checks passed");
