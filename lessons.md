@@ -3,6 +3,10 @@
 Hot buffer. One line per insight, newest first. Keep the last 15 or so; promote lasting patterns
 into AGENTS.md or docs and drop them from here. Read at session start.
 
+## 2026-11-09
+
+- A daily schedule on this private repo can be skipped outright, not only delayed (05:23 snapshot and 05:17 agent tests had not fired 7 hours later). Give each daily workflow fallback slots with a skip guard instead of one slot.
+
 ## 2026-11-08
 
 - A pull request that adds columns took the live site down for 15 minutes twice (#16, #17): the new build selected the columns before the next cron tick applied the migration. Migrations now run in the Vercel build (`scripts/db-migrate.mjs`, production only) before `next build`, and must stay additive because the old deployment serves until the new one is live.

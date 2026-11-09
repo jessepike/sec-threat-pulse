@@ -2,9 +2,14 @@ name: Nightly snapshot
 
 # Copies the public API to the `data` branch every night: a rebuild path and a bulk download.
 # STP's own fields are CC BY 4.0; source data keeps its own terms; withheld sources stay out.
+# GitHub runs schedules on this private repo hours late or not at all (Nov 9: the 05:23 slot had
+# not fired by 12:27). Two later slots are fallbacks; a scheduled run skips when the data branch
+# already has a commit from the last 20 hours, so the branch keeps one snapshot a day.
 on:
   schedule:
     - cron: "23 5 * * *"
+    - cron: "23 13 * * *"
+    - cron: "23 21 * * *"
   workflow_dispatch:
 
 permissions:
@@ -38,12 +43,26 @@ jobs:
             git checkout -q --orphan data
             cd ..
           }
+      - name: Skip when today's snapshot is already in
+        id: due
+        run: |
+          set -eu
+          last=$(git -C data log -1 --format=%ct 2>/dev/null || echo 0)
+          age=$(( $(date +%s) - last ))
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$age" -lt 72000 ]; then
+            echo "Last snapshot is $((age / 3600)) hours old. Skipping."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Take the snapshot
+        if: steps.due.outputs.run == 'true'
         run: |
           set -eu
           find data -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           node src/scripts/ops/snapshot.mjs data https://securitythreatpulse.com
       - name: Commit and push
+        if: steps.due.outputs.run == 'true'
         run: |
           set -eu
           cd data

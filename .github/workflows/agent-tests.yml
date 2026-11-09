@@ -2,9 +2,13 @@ name: Agent test set
 
 # Asks the live site the 30 questions an agent asks (API, OpenAPI, MCP, feeds, llms.txt, health)
 # and keeps one `alert` issue open while any fail. Read only.
+# GitHub runs schedules on this private repo hours late or not at all, so the set runs three times
+# a day. It is read only; each run syncs the same single alert issue.
 on:
   schedule:
     - cron: "17 5 * * *"
+    - cron: "17 13 * * *"
+    - cron: "17 21 * * *"
   workflow_dispatch:
 
 permissions:
