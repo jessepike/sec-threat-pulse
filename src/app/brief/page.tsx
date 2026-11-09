@@ -21,10 +21,10 @@ export default async function BriefPage() {
       <a href="#main" className="skip-link no-print">
         Skip to content
       </a>
-      <div className="no-print mx-auto mb-4 flex max-w-[816px] flex-wrap items-center justify-between gap-3">
+      <nav aria-label="Board brief" className="no-print mx-auto mb-4 flex max-w-[816px] flex-wrap items-center justify-between gap-3">
         <Link href="/" className="font-mono text-[13px] tracking-[0.06em] text-[#0b5c94]">← BACK TO THIS WEEK</Link>
         <PrintButton />
-      </div>
+      </nav>
       <main id="main" className="brief-sheet mx-auto box-border flex w-full max-w-[816px] flex-col gap-[22px] px-5 py-8 shadow-[0_2px_16px_rgba(10,14,19,0.18)] sm:min-h-[1056px] sm:px-[60px] sm:py-[52px]">
         <header className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-[var(--b-ink)] pb-3">
           <div className="flex items-center gap-2.5">
@@ -49,7 +49,7 @@ export default async function BriefPage() {
             <h2 className={`m-0 ${LAB}`}>TRACKED EVENTS</h2>
             <div className="flex justify-between text-[13px]"><span className="font-bold text-[#9b2a21]">▲ ACT NOW</span><span className="font-bold">{b.counts.act_now}</span></div>
             <div className="flex justify-between text-[13px]"><span className="font-bold text-[#7a5300]">◆ WATCH</span><span className="font-bold">{b.counts.watch}</span></div>
-            <div className="flex justify-between text-[13px]"><span className="font-bold text-[#2e6b4c]">● LOW</span><span className="font-bold">{b.counts.low}</span></div>
+            {b.counts.low > 0 && <div className="flex justify-between text-[13px]"><span className="font-bold text-[#2e6b4c]">● LOW</span><span className="font-bold">{b.counts.low}</span></div>}
           </div>
         </section>
 
@@ -87,7 +87,7 @@ export default async function BriefPage() {
 
         <section aria-labelledby="op" className="flex flex-col gap-2.5">
           <h2 id="op" className={`m-0 ${LAB}`}>OUR POSITION</h2>
-          <div className="overflow-x-auto border border-[var(--b-line)]">
+          <div className="overflow-x-auto border border-[var(--b-line)]" tabIndex={0} role="region" aria-label="Our position table">
             <table className="w-full min-w-[460px] border-collapse text-[13px]">
               <thead>
                 <tr className="bg-[var(--b-head)] font-mono text-[11px] tracking-[0.08em] text-[var(--b-ink-2)]">

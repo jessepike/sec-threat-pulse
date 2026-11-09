@@ -196,3 +196,30 @@ describe("NEW and CHANGED marks", () => {
     expect(home.items.find((x) => x.row.id === "quiet")?.row.mark).toBeUndefined();
   });
 });
+
+describe("event page repeats and labels", () => {
+  it("collapses one source repeating a title into a single timeline line with a count", async () => {
+    const { collapseTimeline } = await import("./db");
+    const at = (d: number, h = 18) => new Date(Date.UTC(2026, 10, d, h));
+    const sighting = { sourceId: "circl-sightings", title: "CVE-2026-19868 discussed publicly (CIRCL sighting)", hot: false };
+    const out = collapseTimeline([
+      { sourceId: "cisa-kev", title: "Listed as exploited", at: at(6), hot: true },
+      { ...sighting, at: at(6) },
+      { ...sighting, at: at(7) },
+      { ...sighting, at: at(9) },
+      { sourceId: "news-x", title: "CVE-2026-19868 discussed publicly (CIRCL sighting)", at: at(8), hot: false },
+    ]);
+    expect(out).toHaveLength(3);
+    expect(out[0]).toMatchObject({ when: "NOV 6, 2026", what: "Listed as exploited", hot: true });
+    expect(out[1].what).toBe("CVE-2026-19868 discussed publicly (CIRCL sighting) (3 reports, latest NOV 9)");
+    expect(out[2].what).toBe("CVE-2026-19868 discussed publicly (CIRCL sighting)");
+  });
+
+  it("says when exploit code is only claimed", async () => {
+    const { exploitCodeLabel } = await import("./db");
+    expect(exploitCodeLabel("poc", true)).toBe("PROOF OF CONCEPT CLAIMED");
+    expect(exploitCodeLabel("poc", false)).toBe("PROOF OF CONCEPT");
+    expect(exploitCodeLabel("weaponized", true)).toBe("READY TO USE");
+    expect(exploitCodeLabel(null, false)).toBe("NONE KNOWN");
+  });
+});

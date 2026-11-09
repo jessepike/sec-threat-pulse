@@ -29,3 +29,11 @@ describe("weekLine", () => {
     expect(weekLine([row("w", "watch")], [], 4)).toBe("No Act now flaw has a new attack report in the last 30 days. The 4 older ones are on the events list.");
   });
 });
+
+describe("board brief change text", () => {
+  it("uses the plain line and the first step, never the advisory text", async () => {
+    const { briefChangeText } = await import("./index");
+    expect(briefChangeText({ exposure: "It sits at the edge of your network.", category: { id: "edge", label: "VPN", doThis: "Patch it today." } })).toBe("It sits at the edge of your network. First step: Patch it today.");
+    expect(briefChangeText({ exposure: "It holds shared documents." })).toBe("It holds shared documents.");
+  });
+});

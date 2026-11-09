@@ -77,14 +77,22 @@ export async function listRuns(db: Db, f: { sourceId?: string; status?: string }
   return db.select().from(sourceRuns).where(where).orderBy(desc(sourceRuns.startedAt)).limit(200);
 }
 
-export async function listEvents(db: Db, f: { q?: string; verdict?: string; hidden?: boolean }) {
+export const ADMIN_EVENTS_PAGE_SIZE = 50;
+
+/** One page of events, most recently updated first, with the total that matches the filter. */
+export async function listEvents(db: Db, f: { q?: string; verdict?: string; hidden?: boolean; page?: number }) {
   const q = f.q?.trim();
   const where = and(
     q ? or(ilike(events.title, `%${q}%`), ilike(events.titleOverride, `%${q}%`), ilike(events.id, `%${q}%`)) : undefined,
     f.verdict ? sql`coalesce(${events.overrideVerdict}, ${events.verdict}) = ${f.verdict}` : undefined,
     f.hidden === undefined ? undefined : eq(events.hidden, f.hidden),
   );
-  return db.select().from(events).where(where).orderBy(desc(events.updatedAt)).limit(100);
+  const page = Math.max(1, Math.floor(f.page ?? 1));
+  const [rows, [{ n }]] = await Promise.all([
+    db.select().from(events).where(where).orderBy(desc(events.updatedAt)).limit(ADMIN_EVENTS_PAGE_SIZE).offset((page - 1) * ADMIN_EVENTS_PAGE_SIZE),
+    db.select({ n: sql<number>`count(*)::int` }).from(events).where(where),
+  ]);
+  return { rows, total: Number(n) };
 }
 
 export async function eventDetail(db: Db, id: string) {

@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 async function Body({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const { error } = await searchParams;
   return (
-    <div className="adm-signin">
+    <main className="adm-signin">
       <div className="adm-card adm-signin-card">
         <div className="adm-brand">
           <span className="adm-dot" />
@@ -34,7 +34,7 @@ async function Body({ searchParams }: { searchParams: Promise<{ error?: string }
           <p className="adm-muted adm-small">Dev bypass is on. Open /admin directly.</p>
         ) : null}
       </div>
-    </div>
+    </main>
   );
 }
 

@@ -47,7 +47,7 @@ export default async function RunsPage({ searchParams }: { searchParams: SP }) {
               <button className="adm-btn adm-btn-primary" type="submit">Run now</button>
             </form>
           </div>
-          <div className="adm-card adm-scroll">
+          <div className="adm-card adm-scroll" tabIndex={0} role="region" aria-label="Runs table">
             <table className="adm-table">
               <thead>
                 <tr><th>Started</th><th>Source</th><th>Status</th><th>Fetched</th><th>New</th><th>Finished</th><th>Error</th></tr>
