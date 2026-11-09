@@ -5,6 +5,8 @@ into AGENTS.md or docs and drop them from here. Read at session start.
 
 ## 2026-11-09
 
+- Two crons seven minutes apart never let Neon sleep: its free plan suspends after 5 idle minutes and counts awake time against 100 compute hours a month. Count scheduled database touches per hour, not query cost.
+- An issue opened with the owner's own token notifies nobody, because GitHub does not email you about your own actions. Alerts must come from a bot identity.
 - A daily schedule on this private repo can be skipped outright, not only delayed (05:23 snapshot and 05:17 agent tests had not fired 7 hours later). Give each daily workflow fallback slots with a skip guard instead of one slot.
 
 ## 2026-11-08

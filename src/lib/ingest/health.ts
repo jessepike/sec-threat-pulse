@@ -94,8 +94,8 @@ export async function loadSourceHealth(db: Db, now: Date = new Date()): Promise<
 }
 
 export const EVENTS_SYNC_KEY = "ops.events_sync";
-/** The events sync runs every 15 minutes; alert after an hour without a success. */
-export const EVENTS_SYNC_STALE_MS = 60 * 60_000;
+/** The events sync runs every 30 minutes with ingest; it is stale after two missed runs. */
+export const EVENTS_SYNC_STALE_MS = 75 * 60_000;
 
 /** What the settings row for the events sync holds. `lastAttemptAt` is the last run, success or not. */
 export interface EventsSyncRecord {
@@ -120,14 +120,14 @@ export async function recordEventsSync(db: Db, ok: boolean, error?: string, now:
 
 /** Health of the events sync job itself, in the same shape as a source. */
 export function assessEventsSync(value: EventsSyncRecord | undefined, now: Date = new Date()): SourceHealth {
-  const base = { id: "events-sync", name: "Event builder (events cron)", lastSuccessAt: value?.lastSuccessAt ?? null, intervalMinutes: 15 };
+  const base = { id: "events-sync", name: "Event builder (events sync)", lastSuccessAt: value?.lastSuccessAt ?? null, intervalMinutes: 30 };
   if (!value) return { ...base, state: "unconfigured", reason: "" };
   if ((value.failures ?? 0) >= FAILING_AFTER) {
     return { ...base, state: "failing", reason: `The last ${value.failures} runs failed.${value.lastError ? ` Last error: ${value.lastError.slice(0, 300)}` : ""}` };
   }
   const last = value.lastSuccessAt ? Date.parse(value.lastSuccessAt) : NaN;
   if (!Number.isFinite(last) || now.getTime() - last > EVENTS_SYNC_STALE_MS) {
-    return { ...base, state: "stale", reason: "No successful run in the last hour; it should run every 15 minutes." };
+    return { ...base, state: "stale", reason: "No successful run in the last 75 minutes; it should run every 30 minutes." };
   }
   return { ...base, state: "ok", reason: "" };
 }

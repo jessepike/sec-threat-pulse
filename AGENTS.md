@@ -66,7 +66,7 @@ docs/                  architecture, source registry, design prototypes
 - Adapters must be idempotent: re-running a source never creates duplicates (use `dedupe_key`).
 - A failed source never breaks the site: record the failure, keep the last good data.
 - `/status.json` is the public health report (last complete run, last attempt, per-source health). An
-  outside probe reads it from GitHub Actions every 30 minutes and opens an `alert` issue when the site
+  outside probe reads it from GitHub Actions every 30 minutes and opens `alert` issues when the site
   is stale. The nightly snapshot on the `data` branch is the rebuild path and the bulk download.
 - Tests: every adapter has a fixture-based test. `npm test` must pass before pushing. After a
   deploy, `npm run smoke` checks the live pages, API, feeds, MCP server and phone layout.
@@ -82,10 +82,17 @@ docs/                  architecture, source registry, design prototypes
   Make small, clear changes, reply on the issue with what changed (commit and page), and close it
   (`gh api -X PATCH repos/jessepike/sec-threat-pulse/issues/<n> -f state=closed`). For anything
   large or ambiguous, reply with a recommendation and what you need, and leave it open.
-- Source alerts come next. After every ingest run, a health check keeps one open issue labeled
-  `alert` per source that has failed 3 runs in a row or has not succeeded in 3 intervals (3 hours
-  at least), plus the events cron itself (`events-sync`, no success in an hour) and database storage (`database-size`, 80% of the Neon free plan). List them with `labels=alert` the same way, fix the cause, and reply. The issue closes
-  itself when the source recovers. The site strip shows DELAYED when nothing has updated for an hour.
+- Source alerts come next. The outside probe owns every issue labeled `alert`: site freshness (no
+  complete run in 75 minutes), one per source that has failed 3 runs in a row or has not succeeded
+  in 3 intervals (3 hours at least), database storage (`database-size`, 80% of the Neon free plan)
+  and a failed post-deploy smoke test. The site opens none itself. List them with `labels=alert`
+  the same way, fix the cause, and reply. Each issue closes itself on recovery. The site strip shows
+  DELAYED when nothing has updated for an hour.
+- One scheduled run every 30 minutes (`/api/cron/ingest`) ingests and then rebuilds events. Keep it
+  one invocation: Neon's free plan sleeps after 5 idle minutes and allows 100 compute hours a month,
+  so each extra scheduled touch of the database costs about 5 minutes of compute.
+- Migrations stay additive (`src/lib/db/migrations.test.ts` fails on a drop, rename or tightening).
+- `npm run backup:local` writes every table to `~/stp-backups/`, outside the repo. Never commit one.
 - Comments on the Claude Doc are also feedback: check open threads whose newest comment is Jesse's
   and has no Claude reply, and handle them the same way. Never resolve a thread Jesse wrote in.
 

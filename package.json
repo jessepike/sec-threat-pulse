@@ -2,6 +2,9 @@
   "name": "sec-threat-pulse",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/db-migrate.mjs && next build",
@@ -16,7 +19,8 @@
     "backtest": "tsx scripts/backtest/run.ts",
     "backtest:dataset": "tsx scripts/backtest/build-dataset.ts",
     "smoke": "node scripts/smoke.mjs",
-    "agent-tests": "node scripts/agent-tests.mjs"
+    "agent-tests": "node scripts/agent-tests.mjs",
+    "backup:local": "node scripts/ops/backup-local.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.3.1",

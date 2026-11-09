@@ -3,7 +3,7 @@ import { API_HEADERS, API_NOTICE, API_VERSION, apiEvents, parseApiFilters, type 
 
 export const dynamic = "force-dynamic";
 
-const cached = unstable_cache((key: string) => apiEvents(JSON.parse(key) as ApiListFilters), ["api-v1-events"], { revalidate: 300, tags: ["stp"] });
+const cached = unstable_cache((key: string) => apiEvents(JSON.parse(key) as ApiListFilters), ["api-v1-events"], { revalidate: 1800, tags: ["stp"] });
 
 export async function GET(req: Request) {
   const parsed = parseApiFilters(new URL(req.url).searchParams);

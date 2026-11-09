@@ -2,14 +2,18 @@ import { revalidateTag } from "next/cache";
 import { getDb } from "@/lib/db/client";
 import { ensureMigrated } from "@/lib/db/migrate";
 import type { Db } from "@/lib/ingest/db";
-import { refreshOldTitles, syncEvents } from "@/lib/ladder/events-sync";
-import { recordEventsSync } from "@/lib/ingest/health";
+import { runEventsSync } from "@/lib/ingest/events-run";
 import { checkCronAuth } from "../auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
 
+/**
+ * Rebuilds events on their own. The scheduled run is /api/cron/ingest, which ingests and then
+ * rebuilds events in one invocation; this route stays for a rebuild by hand (for example with
+ * `?lookbackDays=`) and is not on a schedule.
+ */
 async function handle(req: Request): Promise<Response> {
   const denied = checkCronAuth(req);
   if (denied) return denied;
@@ -22,19 +26,10 @@ async function handle(req: Request): Promise<Response> {
   }
 
   const lookback = Number(new URL(req.url).searchParams.get("lookbackDays"));
-  const started = Date.now();
-  try {
-    const summary = await syncEvents(db, Number.isFinite(lookback) && lookback > 0 ? { lookbackDays: lookback } : {});
-    const titlesRefreshed = await refreshOldTitles(db).catch(() => 0);
-    // Public pages read through unstable_cache tagged "stp"; expire it so new events show at once.
-    revalidateTag("stp", { expire: 0 });
-    await recordEventsSync(db, true).catch(() => undefined);
-    return Response.json({ ok: true, durationMs: Date.now() - started, titlesRefreshed, ...summary });
-  } catch (e) {
-    const message = e instanceof Error ? e.message : String(e);
-    await recordEventsSync(db, false, message).catch(() => undefined);
-    return Response.json({ ok: false, error: message, durationMs: Date.now() - started }, { status: 500 });
-  }
+  const result = await runEventsSync(db, Number.isFinite(lookback) && lookback > 0 ? { lookbackDays: lookback } : {});
+  // Public pages read through unstable_cache tagged "stp"; expire it so new events show at once.
+  if (result.ok) revalidateTag("stp", { expire: 0 });
+  return Response.json(result, { status: result.ok ? 200 : 500 });
 }
 
 export const GET = handle;

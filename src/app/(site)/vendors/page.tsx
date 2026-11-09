@@ -7,7 +7,7 @@ import { getVendors } from "@/lib/data";
 import { parseVendorStack, stackTotals, type VendorSummary } from "@/lib/data/vendors";
 import { pageMeta } from "@/lib/site";
 
-export const revalidate = 300;
+export const revalidate = 1800;
 export const metadata: Metadata = pageMeta({
   title: "Vendors",
   description: "Every vendor named by a tracked event, with how many of its flaws are rated Act now or Watch. Add ?stack= to see only the vendors you use.",

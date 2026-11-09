@@ -16,7 +16,7 @@ The scheduled task's prompt is one line: read this file and follow it. Change th
    recommendation and stays open.
 3. **Alerts.** List open issues labeled `alert`. Read `/status.json` on the live site. For each alert,
    find the cause (admin runs page, adapter code, source terms), fix it on the branch, reply on the
-   issue. Alerts close themselves when the probe or health check sees recovery. Never close one by hand
+   issue. The outside probe opens and closes every alert from `/status.json`. Never close one by hand
    unless the source was retired on purpose. An alert titled "[alert] Agent test set: ..." comes from the
    nightly 30 questions (`npm run agent-tests`); its table names the failing question and the value seen.
 4. **Freshness.** If `/status.json` says `delayed` or `down` and no alert exists, open one labeled
@@ -29,7 +29,9 @@ The scheduled task's prompt is one line: read this file and follow it. Change th
    any did not, fix the workflow.
 7. **Ship.** Run `npm test`, `npm run lint`, `npm run typecheck`. For any page change, render at
    1440px and 390px and attach both screenshots to the pull request. Open the pull request, wait for
-   checks, merge with squash. After the deploy, run `npm run smoke`.
+   checks, merge with squash. The smoke test runs by itself after each production deployment and
+   opens an alert if it fails; confirm it passed. Put the day's work in one pull request: each merge
+   is a production build.
 8. **Record.** Update `status.md` (date, what changed, what is next). Add one line to `lessons.md`
    when something surprised you. Tick the matching boxes in `BACKLOG.md`.
 9. **Report.** Say in one short message what changed, what is open, and what needs the owner. If

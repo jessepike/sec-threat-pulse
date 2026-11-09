@@ -255,7 +255,7 @@ export async function runDueSources(db: Db, opts: RunnerOptions = {}): Promise<S
       continue;
     }
     const intervalMs = (row.intervalMinutes ?? adapter.intervalMinutes) * 60000;
-    // A minute of slack so a 15 minute cron does not skip a 15 minute source by seconds.
+    // A minute of slack so a 30 minute cron does not skip a 30 minute source by seconds.
     if (!opts.force && row.lastRunAt && now.getTime() - row.lastRunAt.getTime() < intervalMs - 60000) {
       summaries.push({ ...base, status: "not_due" });
       continue;

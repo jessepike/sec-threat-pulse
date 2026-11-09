@@ -1,12 +1,12 @@
 # Architecture
 
-Status: Phase 0 to 1 design, Oct 24, 2026.
+Status: live. Last revised Nov 9, 2026 (one scheduled run, probe-owned alerts).
 
 ## Data flow
 
 ```
 Vercel build: scripts/db-migrate.mjs applies pending Drizzle migrations (production only), then next build
-Vercel Cron (every 15 min) -> /api/cron/ingest  (CRON_SECRET)
+Vercel Cron (every 30 min) -> /api/cron/ingest  (CRON_SECRET), one invocation for the whole run
    picks sources whose interval has elapsed
    v
 adapter.run()  -> AdapterResult { observations, vulnerabilities, raw, cursor }
@@ -14,14 +14,20 @@ adapter.run()  -> AdapterResult { observations, vulnerabilities, raw, cursor }
 ingest runner: records source_runs, hashes raw payload (R2 when configured),
 upserts vulnerabilities by CVE, inserts observations (dedupe_key unique, idempotent)
    v
-/api/cron/events (after ingest): group observations into events, compute ladder,
-apply verdict rules (versioned), write verdict_history on any change
+events sync (same invocation, src/lib/ingest/events-run.ts): group observations into events,
+compute ladder, apply verdict rules (versioned), write verdict_history on any change,
+then expire the "stp" cache tag
    v
-Public pages (server components, revalidate 5 min) read events + observations
+Public pages (server components, cached until the next run expires the tag; 30 min timer as a
+fallback) read events + observations
 /admin (Auth.js, GitHub allowlist) reads and writes with audit_log
 ```
 
 GitHub Actions run long jobs Vercel functions should not: historical backfill and the backtest.
+
+One invocation, on purpose. Neon's free plan sleeps the database after 5 idle minutes and allows 100
+compute hours a month. Two crons seven minutes apart (the design until Nov 9, 2026) kept it awake
+about 80% of the time. `/api/cron/events` remains for a rebuild by hand and is not scheduled.
 
 ## Evidence ladder
 
@@ -52,7 +58,7 @@ Versioned in `src/lib/ladder/rules/`. Each version is a pure function
 `(ladder, context) -> { verdict, reason }`. The context carries exploit maturity, EPSS, the KEV
 ransomware flag, vendor and product, CVSS, days since the CVE was published and the PoC repository
 count. Changing rules means adding a new version, never editing an old one, so the backtest can
-replay any version. v2 is current; v0 and v1 stay for replay. Reader-facing wording fixes for frozen
+replay any version. v3 is current (v2's verdicts plus a tier and a ranking score); v0 to v2 stay for replay. Reader-facing wording fixes for frozen
 versions live in `rules/reasons.ts`. [docs/methodology-rules.md](methodology-rules.md) describes v2
 and the corrected backtest.
 
@@ -82,14 +88,15 @@ reproduce the alternative views and single signal figures in `docs/methodology-r
 ## Operations: the durable floor (Wave 0, Nov 8, 2026)
 
 Two clocks are published and kept apart, as Security Market Pulse does: the **last complete** run
-(the events cron finished and pages were rebuilt) and the **last attempt** (anything ran, success or
+(the events sync finished and pages were rebuilt) and the **last attempt** (anything ran, success or
 not). A site that keeps attempting and never completes is `delayed`, and says so.
 
 | Piece | Where | What it does |
 |---|---|---|
 | Health report | `/status.json`, `/api/v1/health` (`src/lib/api/health.ts`) | State `ok`, `delayed` or `down`; last complete and last attempt; per-source health; rules version; counts. 503 only when there is no data at all |
-| Outside probe | `.github/workflows/freshness.yml`, `scripts/ops/freshness-probe.mjs` | Every 30 minutes from GitHub Actions, never from Vercel. Opens one issue labeled `alert` ("[alert] Site freshness: ...") when the last complete run is older than an hour or the report fails; closes it on recovery. `workflow_dispatch` with `simulate` drills the alert path |
-| Inside health check | `/api/cron/ingest` after each run (`src/lib/ingest/health.ts`, `alerts.ts`) | Per-source alerts, events cron, database size. Goes quiet when the cron dies; the probe covers that |
+| Outside probe | `.github/workflows/freshness.yml`, `scripts/ops/freshness-probe.mjs`, `judge-freshness.mjs`, `plan-alerts.mjs` | Every 30 minutes from GitHub Actions, never from Vercel. Owns every `alert` issue: "[alert] Site freshness: ..." when the last complete run is older than 75 minutes or the report fails, and "[alert] Source <id>: ..." per failing or stale source and for database storage, all read from `/status.json`. Closes each on recovery. A monthly scheduled drill (the 1st, 15:07 UTC) simulates an outage; the next regular run closes it. `workflow_dispatch` with `simulate` drills by hand |
+| Post-deploy smoke | `.github/workflows/smoke.yml`, `scripts/smoke.mjs` | Runs after each successful production deployment. Keeps one "[alert] Smoke test: ..." issue open while it fails |
+| Health assessment | `src/lib/ingest/health.ts` | Judges each source, the events sync and database size for `/status.json` and the admin overview. Opens no issues |
 | Changes feed and export | `src/lib/api/changes.ts`, `src/lib/api/export.ts`, `/api/v1/changes`, `/events/changes.xml`, `/api/v1/export/events-YYYY-MM-DD.csv|json` | Changes read `verdict_history` with the previous row per event (new, verdict, ladder, admin), default 7 days, at most 90, JSON and RSS. The export serves today's events as CSV or JSON at a dated URL with a license link header; earlier days come from the data branch. `events-latest.*` redirects to today's file |
 | Agent test set | `.github/workflows/agent-tests.yml`, `scripts/agent-tests.mjs` | Nightly from GitHub Actions: 30 questions an agent asks the live site through the API, OpenAPI, MCP, feeds, llms.txt and health, each with a mechanical check (fields, ladder consistency, rank order, filters, 400 and 404 behaviour, API and MCP agreement). Keeps one issue labeled `alert` ("[alert] Agent test set: ...") open while any fail |
 | Nightly snapshot | `.github/workflows/snapshot.yml`, `scripts/ops/snapshot.mjs` | Copies the public API to the `data` branch every night: `events.json`, one file per event, `status.json`, `manifest.json` with SHA-256 per file. STP fields CC BY 4.0; source data keeps its terms; withheld sources stay out |
@@ -98,4 +105,4 @@ not). A site that keeps attempting and never completes is `delayed`, and says so
 ## Failure handling
 
 A failing source records `status=error` and `last_error`, keeps its last good data, and raises an
-alert after 2 consecutive failures. The site never depends on a live source call at request time.
+alert after 3 consecutive failures. The site never depends on a live source call at request time.

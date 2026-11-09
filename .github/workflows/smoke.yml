@@ -1,0 +1,70 @@
+name: Post-deploy smoke test
+
+# Runs the smoke test against the live site after every successful production deployment, so the
+# check no longer depends on a session remembering to run it. Keeps one `alert` issue open while it
+# fails and closes it on the next pass. Read only.
+on:
+  deployment_status:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' && startsWith(github.event.deployment.environment, 'Production'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          sparse-checkout: scripts
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+      - name: Give the new deployment a minute to take traffic
+        run: sleep 45
+      - name: Run the smoke test
+        id: smoke
+        run: |
+          set -o pipefail
+          node scripts/smoke.mjs https://securitythreatpulse.com 2>&1 | tee smoke.log
+      - name: Sync the alert issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OUTCOME: ${{ steps.smoke.outcome }}
+          SHA: ${{ github.event.deployment.sha || github.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -eu
+          title="[alert] Smoke test: failing after a deploy"
+          open=$(gh issue list --repo "$GITHUB_REPOSITORY" --label alert --state open --search "in:title \"[alert] Smoke test\"" --json number --jq '.[0].number // empty')
+          if [ "$OUTCOME" = "success" ]; then
+            if [ -n "$open" ]; then
+              gh issue close "$open" --repo "$GITHUB_REPOSITORY" --comment "Recovered: the smoke test passed on $SHA. Closing."
+            fi
+            exit 0
+          fi
+          if [ "$OUTCOME" != "failure" ]; then exit 0; fi
+          {
+            echo "The post-deploy smoke test failed on commit $SHA. Run: $RUN_URL"
+            echo
+            echo '```'
+            grep -E '^FAIL|check\(s\) failed' smoke.log | head -40 || true
+            echo '```'
+            echo
+            echo "Agents: find the cause, fix it or roll the deployment back in Vercel, and reply here. This issue closes itself when the smoke test next passes."
+          } > body.md
+          if [ -n "$open" ]; then
+            gh issue comment "$open" --repo "$GITHUB_REPOSITORY" --body-file body.md
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --label alert --body-file body.md
+          fi

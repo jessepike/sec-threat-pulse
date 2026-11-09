@@ -8,7 +8,7 @@ import { Eyebrow, LadderKey, VERDICT_STYLE } from "@/components/ui";
 import { getVendor } from "@/lib/data";
 import { pageMeta } from "@/lib/site";
 
-export const revalidate = 300;
+export const revalidate = 1800;
 
 type Props = { params: Promise<{ key: string }> };
 

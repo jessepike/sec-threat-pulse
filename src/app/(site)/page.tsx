@@ -4,7 +4,7 @@ import { HomeStrip } from "@/components/StatusStrip";
 import { KevWeeks } from "@/components/KevWeeks";
 import { getHomeData } from "@/lib/data";
 
-export const revalidate = 300;
+export const revalidate = 1800;
 
 export default async function HomePage() {
   const data = await getHomeData();

@@ -6,7 +6,7 @@ import { EventStrip } from "@/components/StatusStrip";
 import { getEvent } from "@/lib/data";
 import { pageMeta } from "@/lib/site";
 
-export const revalidate = 300;
+export const revalidate = 1800;
 
 type Props = { params: Promise<{ id: string }> };
 

@@ -12,7 +12,7 @@ const cached = unstable_cache(
     return db ? apiChanges(db, new Date(sinceIso), 1) : null;
   },
   ["feed-changes"],
-  { revalidate: 300, tags: ["stp"] },
+  { revalidate: 1800, tags: ["stp"] },
 );
 
 /** RSS of verdict and ladder changes in the last 7 days, newest first, 50 items. */

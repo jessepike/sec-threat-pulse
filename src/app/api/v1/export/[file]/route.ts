@@ -7,7 +7,7 @@ import { SITE_URL } from "@/lib/site";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-const cached = unstable_cache(() => apiAllEvents(), ["api-v1-export"], { revalidate: 300, tags: ["stp"] });
+const cached = unstable_cache(() => apiAllEvents(), ["api-v1-export"], { revalidate: 1800, tags: ["stp"] });
 const SNAPSHOT_URL = "https://github.com/jessepike/sec-threat-pulse/tree/data";
 
 /**

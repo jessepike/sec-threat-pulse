@@ -12,7 +12,7 @@ const cached = unstable_cache(
     return db ? apiChanges(db, new Date(sinceIso), page) : null;
   },
   ["api-v1-changes"],
-  { revalidate: 300, tags: ["stp"] },
+  { revalidate: 1800, tags: ["stp"] },
 );
 
 /** Verdict and ladder changes since a time (default 7 days, at most 90), newest first, 100 a page. */

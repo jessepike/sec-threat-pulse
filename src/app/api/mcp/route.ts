@@ -12,9 +12,9 @@ export const maxDuration = 30;
 const listCached = unstable_cache(
   (verdict: string, page: number, product: string, since: string) => apiEvents({ verdict: parseApiVerdict(verdict), page, product: product || null, since: since || null }),
   ["mcp-events"],
-  { revalidate: 300, tags: ["stp"] },
+  { revalidate: 1800, tags: ["stp"] },
 );
-const eventCached = unstable_cache((id: string) => apiEvent(id), ["mcp-event"], { revalidate: 300, tags: ["stp"] });
+const eventCached = unstable_cache((id: string) => apiEvent(id), ["mcp-event"], { revalidate: 1800, tags: ["stp"] });
 
 const json = (value: unknown) => ({ content: [{ type: "text" as const, text: JSON.stringify(value, null, 1) }] });
 const fail = (text: string) => ({ content: [{ type: "text" as const, text }], isError: true });

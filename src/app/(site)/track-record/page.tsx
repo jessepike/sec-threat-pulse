@@ -7,7 +7,7 @@ import { pageMeta } from "@/lib/site";
 import { ACT_NOW_HORIZON_DAYS, versionRows, WATCH_HORIZON_DAYS, type BacktestRate, type Outcome, type RecordCell, type TrackRecord, type VersionRow } from "@/lib/track-record";
 import { cachedTrackRecord } from "@/lib/track-record/cached";
 
-export const revalidate = 300;
+export const revalidate = 1800;
 
 export const metadata: Metadata = pageMeta({
   title: "Track record",

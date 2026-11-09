@@ -5,7 +5,7 @@ import { indexingAllowed } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-const cached = unstable_cache(() => apiEvents({ verdict: "act_now", page: 1 }), ["feed-act-now"], { revalidate: 300, tags: ["stp"] });
+const cached = unstable_cache(() => apiEvents({ verdict: "act_now", page: 1 }), ["feed-act-now"], { revalidate: 1800, tags: ["stp"] });
 
 export async function GET() {
   const data = await cached();

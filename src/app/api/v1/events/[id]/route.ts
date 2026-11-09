@@ -3,7 +3,7 @@ import { API_HEADERS, API_NOTICE, API_VERSION, apiEvent } from "@/lib/api/v1";
 
 export const dynamic = "force-dynamic";
 
-const cached = unstable_cache((id: string) => apiEvent(id), ["api-v1-event"], { revalidate: 300, tags: ["stp"] });
+const cached = unstable_cache((id: string) => apiEvent(id), ["api-v1-event"], { revalidate: 1800, tags: ["stp"] });
 
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
