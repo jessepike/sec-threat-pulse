@@ -3,9 +3,11 @@ name: Post-deploy smoke test
 # Runs the smoke test against the live site after every successful production deployment, so the
 # check no longer depends on a session remembering to run it. Keeps one `alert` issue open while it
 # fails and closes it on the next pass. Read only.
-# Vercel announces deployments with repository_dispatch. It sent no deployment_status event for this
-# repo on the first production deployment after this workflow landed, so both triggers are listed.
+# Trigger: Vercel sets a commit status named "Vercel" when a deployment finishes. That status is the
+# only deployment signal Vercel sends this repo; its deployment_status and repository_dispatch events
+# never arrived (checked on two production deployments, Nov 9), so they stay only as spares.
 on:
+  status:
   repository_dispatch:
     types: [vercel.deployment.success]
   deployment_status:
@@ -15,16 +17,17 @@ permissions:
   contents: read
   issues: write
 
-concurrency:
-  group: smoke
-  cancel-in-progress: true
-
 jobs:
   smoke:
     if: >-
       github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'status' && github.event.context == 'Vercel' && github.event.state == 'success' && contains(github.event.branches.*.name, 'main')) ||
       (github.event_name == 'repository_dispatch' && (github.event.client_payload.environment == 'production' || github.event.client_payload.target == 'production')) ||
       (github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success' && startsWith(github.event.deployment.environment, 'Production'))
+    # On the job, so a status event that is skipped here cannot cancel a smoke test that is running.
+    concurrency:
+      group: smoke
+      cancel-in-progress: true
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -51,7 +54,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OUTCOME: ${{ steps.smoke.outcome }}
-          SHA: ${{ github.event.client_payload.git.sha || github.event.deployment.sha || github.sha }}
+          SHA: ${{ github.event.sha || github.event.client_payload.git.sha || github.event.deployment.sha || github.sha }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -eu
