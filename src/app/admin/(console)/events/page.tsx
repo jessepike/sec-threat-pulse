@@ -62,7 +62,7 @@ export default async function EventsPage({ searchParams }: { searchParams: SP })
                     <td><LadderCells ladder={e.ladder} /></td>
                     <td>
                       <VerdictPill verdict={e.overrideVerdict ?? e.verdict} />
-                      {e.tier === "today" ? <span className="adm-pill adm-pill-act">Today</span> : null}
+                      {e.tier === "today" && (e.overrideVerdict ?? e.verdict) === "act_now" ? <span className="adm-pill adm-pill-act">Today</span> : null}
                       {e.overrideVerdict ? <span className="adm-muted adm-small"> override</span> : null}
                     </td>
                     <td className="adm-mono">{fmt(e.updatedAt)}</td>
