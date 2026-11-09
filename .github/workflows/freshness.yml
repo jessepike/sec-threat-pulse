@@ -1,10 +1,14 @@
 name: Freshness probe
 
-# Checks the live site from outside Vercel. The site's own health check runs inside the cron it
-# watches, so it goes quiet exactly when that cron dies. This one does not.
+# Checks the live site from outside Vercel and owns every alert issue (site freshness, each source,
+# database storage). A check that runs inside the cron it watches goes quiet exactly when that cron
+# dies. This one does not.
 on:
   schedule:
     - cron: "11,41 * * * *"
+    # Monthly self-drill: pretend the site is down so the alert path is proven with no one clicking.
+    # The next regular run sees the real site and closes the drill issue.
+    - cron: "7 15 1 * *"
   workflow_dispatch:
     inputs:
       simulate:
@@ -31,9 +35,9 @@ jobs:
           sparse-checkout: scripts/ops
       - uses: actions/setup-node@v7.1.0
         with:
-          node-version: 22
+          node-version: 24
       - name: Probe /status.json and sync the alert issue
         run: node scripts/ops/freshness-probe.mjs https://securitythreatpulse.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SIMULATE: ${{ inputs.simulate }}
+          SIMULATE: ${{ inputs.simulate || (github.event.schedule == '7 15 1 * *' && 'down') || '' }}

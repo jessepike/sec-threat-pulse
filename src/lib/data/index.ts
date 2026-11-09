@@ -29,7 +29,9 @@ export * from "./types";
 export { EVENTS_PAGE_SIZE, parsePage, parseVerdictFilter } from "./listing";
 export { RUNG_SHORT } from "./sample";
 
-const REVALIDATE = 300;
+// Every scheduled run expires the "stp" tag, so this timer only matters when runs stop. It matches
+// the 30 minute run cadence: a shorter timer would wake the database between runs for nothing.
+const REVALIDATE = 1800;
 
 export function getMode(): DataMode {
   return process.env.DATABASE_URL ? "live" : "sample";

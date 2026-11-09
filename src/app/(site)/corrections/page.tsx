@@ -5,7 +5,7 @@ import { getCorrections } from "@/lib/data";
 import { fmtDayYear } from "@/lib/data/format";
 import { pageMeta } from "@/lib/site";
 
-export const revalidate = 300;
+export const revalidate = 1800;
 
 export const metadata: Metadata = pageMeta({
   title: "Corrections",

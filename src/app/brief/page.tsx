@@ -7,7 +7,7 @@ import { RUNG_SHORT } from "@/lib/data/sample";
 import { RUNGS } from "@/lib/ladder/types";
 import { pageMeta } from "@/lib/site";
 
-export const revalidate = 300;
+export const revalidate = 1800;
 export const metadata: Metadata = pageMeta({ title: "Board brief", description: "A one-page, printable weekly summary for boards and executives.", path: "/brief" });
 
 const LAB = "font-mono text-[11px] font-bold tracking-[0.1em] text-[var(--b-muted)]";

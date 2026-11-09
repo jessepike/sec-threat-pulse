@@ -14,8 +14,10 @@ import { SITE_URL } from "@/lib/site";
 
 export type SiteState = "ok" | "delayed" | "down";
 
-/** The site is delayed when nothing has completed for this long. The events cron runs every 15 minutes. */
+/** The site is delayed when nothing has completed for this long. Runs are due every 30 minutes, so this is one missed run. */
 export const DELAYED_AFTER_MS = 60 * 60_000;
+/** The scheduled run (ingest, then events sync) fires every 30 minutes. See vercel.json. */
+export const RUN_INTERVAL_MS = 30 * 60_000;
 
 export interface HealthInput {
   /** Per-source health from the ingest health check. */
@@ -42,7 +44,7 @@ export interface HealthReport {
   summary: string;
   lastCompleteAt: string | null;
   lastAttemptAt: string | null;
-  /** When the next events cron run is due, from the last complete run. */
+  /** When the next scheduled run is due, from the last complete run. */
   nextRunDueAt: string | null;
   rulesVersion: string;
   counts: HealthInput["counts"];
@@ -79,7 +81,7 @@ export function buildHealth(input: HealthInput, now: Date = new Date()): HealthR
     state === "down"
       ? "No data is available. The site has not completed a run."
       : state === "delayed"
-        ? `Delayed. The last complete run was ${mins} minutes ago; runs are due every 15 minutes. The site shows the last good data.`
+        ? `Delayed. The last complete run was ${mins} minutes ago; runs are due every 30 minutes. The site shows the last good data.`
         : unhealthy
           ? `Fresh. The last complete run was ${mins} minutes ago. ${unhealthy} of ${input.sources.length} sources ${unhealthy === 1 ? "needs" : "need"} attention; the rest are current.`
           : `Fresh. The last complete run was ${mins} minutes ago and every source is current.`;
@@ -90,7 +92,7 @@ export function buildHealth(input: HealthInput, now: Date = new Date()): HealthR
     summary,
     lastCompleteAt,
     lastAttemptAt,
-    nextRunDueAt: lastCompleteAt ? new Date(Date.parse(lastCompleteAt) + 15 * 60_000).toISOString() : null,
+    nextRunDueAt: lastCompleteAt ? new Date(Date.parse(lastCompleteAt) + RUN_INTERVAL_MS).toISOString() : null,
     rulesVersion: CURRENT_RULES_VERSION,
     counts: input.counts,
     newestEvidenceAt: input.newestEvidenceAt,
@@ -120,7 +122,7 @@ export function downReport(now: Date = new Date()): HealthReport {
   return buildHealth(
     {
       sources: [],
-      eventsSync: { id: "events-sync", name: "Event builder (events cron)", state: "unconfigured", reason: "", lastSuccessAt: null },
+      eventsSync: { id: "events-sync", name: "Event builder (events sync)", state: "unconfigured", reason: "", lastSuccessAt: null },
       eventsSyncAttemptAt: null,
       sourcesAttemptAt: null,
       database: null,
@@ -133,8 +135,9 @@ export function downReport(now: Date = new Date()): HealthReport {
 
 export const HEALTH_HEADERS: Record<string, string> = {
   "Content-Type": "application/json; charset=utf-8",
-  // Short cache so a probe sees a fresh answer; stale-while-revalidate keeps it cheap.
-  "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120",
+  // Five minutes at the edge: fresh enough for a probe that alerts after 75 minutes, and a client
+  // that polls every minute cannot keep the database awake.
+  "Cache-Control": "public, s-maxage=300, stale-while-revalidate=300",
   "Access-Control-Allow-Origin": "*",
   "X-Robots-Tag": "noindex",
 };

@@ -17,7 +17,7 @@ function Strip({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** Data counts as delayed when no source has succeeded for this long. Ingest runs every 15 minutes. */
+/** Data counts as delayed when no source has succeeded for this long. Ingest runs every 30 minutes. */
 export const DELAYED_AFTER_MS = 60 * 60_000;
 
 export function isDelayed(status: StatusView, now: number = Date.now()): boolean {

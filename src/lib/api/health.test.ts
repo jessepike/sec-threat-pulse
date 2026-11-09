@@ -25,7 +25,7 @@ describe("buildHealth", () => {
     expect(r.state).toBe("ok");
     expect(r.lastCompleteAt).toBe(ago(8));
     expect(r.lastAttemptAt).toBe(ago(3));
-    expect(r.nextRunDueAt).toBe(ago(8 - 15));
+    expect(r.nextRunDueAt).toBe(ago(8 - 30));
     expect(r.summary).toBe("Fresh. The last complete run was 8 minutes ago and every source is current.");
     expect(r.sources).toMatchObject({ total: 3, ok: 2, failing: 0, stale: 0, unconfigured: 1 });
     expect(r.rulesVersion).toBe("v3");
