@@ -1,6 +1,8 @@
 # Status
 
-Updated Nov 8, 2026, 23:45 UTC. The site is live with real data at https://securitythreatpulse.com.
+Updated Nov 9, 2026, 12:40 UTC. The site is live with real data at https://securitythreatpulse.com.
+
+**Nov 9 daily routine.** No feedback or alert issues open. `/status.json` at 12:27 UTC: ok, last complete run 12:22 UTC, 29 of 30 sources ok (VulnCheck unconfigured), 113 events (75 Act now, 38 Watch, 0 Low). Open Dependabot PRs are the three held majors (TypeScript 7, ESLint 10, `@types/node` 26). Health of the record: GitHub had not fired today's 05:23 snapshot or the first 05:17 agent test set by 12:27 UTC, and the 30-minute freshness probe ran only every 4 to 8 hours overnight (last 08:39 UTC). The data branch's last snapshot is Nov 8 12:00 UTC, inside the 36-hour window. Fix: the snapshot and the agent test set now also run at 13:xx and 21:xx UTC; a scheduled snapshot skips when the data branch already has a commit from the last 20 hours. Next: confirm the agent test set has run once; if private-repo scheduling stays this late after the repo goes public, trigger these from the Vercel cron instead.
 
 **Nov 8 session, Wave 4 prep.** PR #26 (markers, chart, phone pass) merged after one Codex fix (chart labels no longer shrink the peak bar). Production checked at 23:25 UTC: `/status.json` ok, 29 of 30 sources ok (VulnCheck unconfigured), MSRC succeeding; `/api/v1/brief` lists 24 recent Act now, 6 marked TODAY; `/vendors` live. Wave 4 prep with no outward step: `/llms-full.txt` (the llms.txt index plus the whole methodology), `server.json` for the official MCP registry (not published), and `docs/launch/launch-steps.md` with the outward steps in order and drafted permission and partnership emails. Every remaining Wave 4 step is the owner's: indexing on, the registry listing, sending the asks. Still open from Wave 3: routine-drafted write-ups and the blind scorer review.
 
