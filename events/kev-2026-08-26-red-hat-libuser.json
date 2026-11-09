@@ -4,6 +4,9 @@
   "title": "Red Hat Libuser: attackers can gain admin rights",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. Ready-made attack tools are public.",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "none",
@@ -12,11 +15,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2015-3246"
   ],
   "vendor": "Red Hat",
   "product": "Libuser",
+  "affectedProducts": [
+    {
+      "vendorKey": "redhat",
+      "productKey": "libuser",
+      "vendor": "Red Hat",
+      "product": "Libuser",
+      "slug": "redhat/libuser",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "endpoint",
     "label": "Computers, phones and browsers",
@@ -24,10 +44,52 @@
     "doThis": "Install the latest updates on every device, and turn on automatic updates."
   },
   "summary": "Red Hat libuser contains a race condition vulnerability that allows authenticated local users to corrupt the /etc/passwd file to cause a denial of service or privilege escalation.",
+  "cvss": 7.4,
+  "epss": 0.08503,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-08-26",
+  "kevDueDate": "2026-09-09",
   "firstSeenAt": "2026-08-26T00:00:00.000Z",
   "updatedAt": "2026-10-24T23:37:40.396Z",
   "newestEvidenceAt": "2026-08-26T00:00:00.000Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 9, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2015-08-11",
+      "label": "CVE-2015-3246 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2015-3246"
+    },
+    "exploitCode": {
+      "date": "2015-07-27",
+      "label": "Exploit-DB",
+      "url": "https://www.exploit-db.com/exploits/37706"
+    },
+    "firstReport": {
+      "date": "2026-08-26",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2015-3246"
+    },
+    "kevListed": {
+      "date": "2026-08-26",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2015-3246"
+    },
+    "kevDue": {
+      "date": "2026-09-09",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2015-3246"
+    },
+    "daysToFirstReport": 4033,
+    "daysToKev": 4033
+  },
+  "ladderSources": {
+    "talk": 0,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploited",

@@ -3,8 +3,15 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-23-collabora-collabora-online-built-in-code",
   "title": "Collabora Online, Built-in CODE Server: attackers can run commands on it",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 25 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.2). The exploit prediction score is 73%.",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 26 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.2). The exploit prediction score is 73%.",
+  "tier": "now",
+  "rankScore": 5,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "Ready-made attack tools are public.",
+    "The confirmation is 17 days old."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "confirmed",
     "damage": "none",
@@ -12,11 +19,29 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-110447"
   ],
   "vendor": "Collabora",
   "product": "Collabora Online – Built-in CODE Server",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "collabora/collaboraonlinebuiltincodeserver",
+      "vendor": "Collabora",
+      "product": "Collabora Online – Built-in CODE Server",
+      "evidence": [
+        "kev",
+        "cpe"
+      ],
+      "vendorKey": "collabora",
+      "productKey": "collaboraonlinebuiltincodeserver"
+    }
+  ],
   "category": {
     "id": "collaboration",
     "label": "Documents and collaboration",
@@ -24,10 +49,50 @@
     "doThis": "Patch it, or ask your provider whether they have."
   },
   "summary": "Collabora Collabora Online – Built-in CODE Server when used within the NextCloud platform contains an OS command injection vulnerability that allows for remote code execution when the CODE server isn't running.",
+  "cvss": 9.2,
+  "epss": 0.73307,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-10-23",
+  "kevDueDate": "2026-10-26",
   "firstSeenAt": "2026-10-23T00:00:00.000Z",
-  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "updatedAt": "2026-11-09T02:37:40.324Z",
   "newestEvidenceAt": "2026-11-05T17:47:13.081Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 26, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-10-14",
+      "label": "CVE-2026-110447 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-110447"
+    },
+    "exploitCode": {
+      "date": "2026-10-28",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-10-23",
+      "label": "a source withheld from the API"
+    },
+    "kevListed": {
+      "date": "2026-10-23",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-110447"
+    },
+    "kevDue": {
+      "date": "2026-10-26",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-110447"
+    },
+    "daysToFirstReport": 9,
+    "daysToKev": 9
+  },
+  "ladderSources": {
+    "talk": 3,
+    "exposure": 0,
+    "attempts": 3,
+    "exploited": 3,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",

@@ -3,8 +3,15 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-09-cisco-secure-firewall-management-cen",
   "title": "Cisco Secure Firewall Management Center (FMC) and Security Cloud Control (SCC) Firewall Management: attackers can get in without a password",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 248 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (10.0). The exploit prediction score is 89%.",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 249 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (10.0). The exploit prediction score is 89%.",
+  "tier": "now",
+  "rankScore": 6,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The product faces the internet or gives remote access.",
+    "Ready-made attack tools are public."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "none",
     "damage": "none",
@@ -12,11 +19,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-20079"
   ],
   "vendor": "Cisco",
   "product": "Secure Firewall Management Center (FMC) and Security Cloud Control (SCC) Firewall Management",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "cisco/securefirewallmanagementcenterfmcandsecuritycloudcontrolsccfirewallmanagement",
+      "vendor": "Cisco",
+      "product": "Secure Firewall Management Center (FMC) and Security Cloud Control (SCC) Firewall Management",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "cisco",
+      "productKey": "securefirewallmanagementcenterfmcandsecuritycloudcontrolsccfirewallmanagement"
+    }
+  ],
   "category": {
     "id": "edge",
     "label": "VPN, firewall or gateway",
@@ -24,10 +48,51 @@
     "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
   },
   "summary": "Cisco Secure Firewall Management Center (FMC) Software and Cisco Security Cloud Control (SCC) Firewall Management contain an authentication Bypass using an alternate path or channel vulnerability that could allow an unauthenticated, remote attacker to bypass authentication and execute script files on an affected device to obtain root access to the underlying operating system.",
+  "cvss": 10,
+  "epss": 0.88658,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-09",
+  "kevDueDate": "2026-09-12",
   "firstSeenAt": "2026-09-09T00:00:00.000Z",
-  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "updatedAt": "2026-11-08T17:22:40.179Z",
   "newestEvidenceAt": "2026-10-24T23:23:07.997Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 12, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-03-04",
+      "label": "CVE-2026-20079 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-20079"
+    },
+    "exploitCode": {
+      "date": "2026-10-23",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-09-09",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-20079"
+    },
+    "kevListed": {
+      "date": "2026-09-09",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-20079"
+    },
+    "kevDue": {
+      "date": "2026-09-12",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-20079"
+    },
+    "daysToFirstReport": 189,
+    "daysToKev": 189
+  },
+  "ladderSources": {
+    "talk": 0,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",

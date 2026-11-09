@@ -4,6 +4,9 @@
   "title": "Sangoma Switchvox: attackers can read or change its database",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. The vulnerability is 107 days old, so current versions are being attacked. Ready-made attack tools are public. The severity score is critical (9.3).",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "none",
@@ -12,11 +15,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-9586"
   ],
   "vendor": "Sangoma",
   "product": "Switchvox",
+  "affectedProducts": [
+    {
+      "vendorKey": "sangoma",
+      "productKey": "switchvox",
+      "vendor": "Sangoma",
+      "product": "Switchvox",
+      "slug": "sangoma/switchvox",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "business-app",
     "label": "Business software",
@@ -24,10 +44,51 @@
     "doThis": "Ask the vendor or the team that owns it whether the fix is in."
   },
   "summary": "Sangoma Switchvox contains a SQL injection vulnerability which allows an unauthenticated remote attacker to execute arbitrary SQL statements against the backend PostgreSQL database using a single crafted request, including database operations and remote code execution.",
+  "cvss": 9.3,
+  "epss": 0.18979,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-02",
+  "kevDueDate": "2026-09-05",
   "firstSeenAt": "2026-09-02T00:00:00.000Z",
   "updatedAt": "2026-11-01T16:07:40.213Z",
   "newestEvidenceAt": "2026-10-24T23:23:07.997Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 5, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-07-17",
+      "label": "CVE-2026-9586 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-9586"
+    },
+    "exploitCode": {
+      "date": "2026-09-02",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-09-02",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-9586"
+    },
+    "kevListed": {
+      "date": "2026-09-02",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-9586"
+    },
+    "kevDue": {
+      "date": "2026-09-05",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-9586"
+    },
+    "daysToFirstReport": 47,
+    "daysToKev": 47
+  },
+  "ladderSources": {
+    "talk": 0,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",

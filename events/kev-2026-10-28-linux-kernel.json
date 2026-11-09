@@ -3,8 +3,15 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-28-linux-kernel",
   "title": "Linux Kernel: security flaw used in attacks",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 169 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 170 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
+  "tier": "today",
+  "rankScore": 5,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "Ready-made attack tools are public.",
+    "The confirmation is 12 days old."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "confirmed",
     "damage": "none",
@@ -12,11 +19,39 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-46300"
   ],
   "vendor": "Linux",
   "product": "Kernel",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "linux/kernel",
+      "vendor": "Linux",
+      "product": "Kernel",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "linux",
+      "productKey": "kernel"
+    },
+    {
+      "kind": "direct",
+      "slug": "linux/linux",
+      "vendor": "Linux",
+      "product": "Linux",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "linux",
+      "productKey": "linux"
+    }
+  ],
   "category": {
     "id": "endpoint",
     "label": "Computers, phones and browsers",
@@ -24,10 +59,52 @@
     "doThis": "Install the latest updates on every device, and turn on automatic updates."
   },
   "summary": "Linux Kernel contains a missing initialization of a variable vulnerability that could allow for unintended modification of page-cache-backed data via failure to preserve the shared-fragment marker during socket buffer coalescing, causing ESP input processing to decrypt shared fragments in place.",
+  "cvss": 7.8,
+  "epss": 0.1613,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-10-28",
+  "kevDueDate": "2026-10-31",
   "firstSeenAt": "2026-10-28T00:00:00.000Z",
-  "updatedAt": "2026-11-08T11:52:41.651Z",
+  "updatedAt": "2026-11-09T11:52:40.265Z",
   "newestEvidenceAt": "2026-11-05T07:02:33.622Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 31, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-05-23",
+      "label": "CVE-2026-46300 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-46300"
+    },
+    "exploitCode": {
+      "date": "2026-05-29",
+      "label": "Exploit-DB",
+      "url": "https://www.exploit-db.com/exploits/52591"
+    },
+    "firstReport": {
+      "date": "2026-10-28",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-46300"
+    },
+    "kevListed": {
+      "date": "2026-10-28",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-46300"
+    },
+    "kevDue": {
+      "date": "2026-10-31",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-46300"
+    },
+    "daysToFirstReport": 158,
+    "daysToKev": 158
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploited",

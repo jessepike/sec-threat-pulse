@@ -3,8 +3,14 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-30-cisco-catalyst-sd-wan-manager",
   "title": "Cisco Catalyst SD-WAN Manager: security flaw used in attacks",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 38 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 40 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
+  "tier": "now",
+  "rankScore": 5,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The product faces the internet or gives remote access."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "reported",
     "damage": "none",
@@ -12,11 +18,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-76504"
   ],
   "vendor": "Cisco",
   "product": "Catalyst SD-WAN Manager",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "cisco/catalystsdwanmanager",
+      "vendor": "Cisco",
+      "product": "Catalyst SD-WAN Manager",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "cisco",
+      "productKey": "catalystsdwanmanager"
+    }
+  ],
   "category": {
     "id": "edge",
     "label": "VPN, firewall or gateway",
@@ -24,10 +47,51 @@
     "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
   },
   "summary": "Cisco Catalyst SD-WAN Manager contains a hex encoding vulnerability that could allow an unauthenticated, remote attacker to access an affected system with privileges of the admin user due to improper handling of URI encoding in an HTTP request.",
+  "cvss": 9.8,
+  "epss": 0.38928,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-30",
+  "kevDueDate": "2026-10-03",
   "firstSeenAt": "2026-09-30T00:00:00.000Z",
-  "updatedAt": "2026-11-08T04:37:40.532Z",
-  "newestEvidenceAt": "2026-11-04T14:00:57.000Z",
+  "updatedAt": "2026-11-09T13:07:40.294Z",
+  "newestEvidenceAt": "2026-11-08T13:00:26.001Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 3, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-09-30",
+      "label": "CVE-2026-76504 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-76504"
+    },
+    "exploitCode": {
+      "date": "2026-10-23",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-09-30",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-76504"
+    },
+    "kevListed": {
+      "date": "2026-09-30",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-76504"
+    },
+    "kevDue": {
+      "date": "2026-10-03",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-76504"
+    },
+    "daysToFirstReport": 0,
+    "daysToKev": 0
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",
@@ -66,5 +130,5 @@
       }
     }
   ],
-  "evidenceWithheld": 10
+  "evidenceWithheld": 11
 }

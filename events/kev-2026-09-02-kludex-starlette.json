@@ -4,6 +4,9 @@
   "title": "Kludex Starlette: attackers can get in without a password",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. The vulnerability is 159 days old, so current versions are being attacked. Ready-made attack tools are public. The exploit prediction score is 70%.",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "none",
@@ -12,11 +15,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-48710"
   ],
   "vendor": "Kludex",
   "product": "Starlette",
+  "affectedProducts": [
+    {
+      "vendorKey": "kludex",
+      "productKey": "starlette",
+      "vendor": "Kludex",
+      "product": "Starlette",
+      "slug": "kludex/starlette",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "website",
     "label": "Website or online store",
@@ -24,10 +44,47 @@
     "doThis": "Ask whoever runs your website or store to update it."
   },
   "summary": "Kludex Starlette contains a HTTP request/response smuggling vulnerability that could allow attackers to inject paths into the host part, prepending the actual path leading to issues such as authentication bypass when the authentication depends on the reconstructed URL’s path. This vulnerability could be chaned with CVE-2026-42271.",
+  "cvss": 6.5,
+  "epss": 0.70288,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-02",
+  "kevDueDate": "2026-09-16",
   "firstSeenAt": "2026-09-02T00:00:00.000Z",
   "updatedAt": "2026-11-01T22:07:41.078Z",
   "newestEvidenceAt": "2026-10-24T23:23:07.997Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 16, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-05-26",
+      "label": "CVE-2026-48710 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-48710"
+    },
+    "firstReport": {
+      "date": "2026-09-02",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-48710"
+    },
+    "kevListed": {
+      "date": "2026-09-02",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-48710"
+    },
+    "kevDue": {
+      "date": "2026-09-16",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-48710"
+    },
+    "daysToFirstReport": 99,
+    "daysToKev": 99
+  },
+  "ladderSources": {
+    "talk": 0,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",

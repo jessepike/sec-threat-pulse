@@ -3,8 +3,14 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-09-fortinet-multiple-products",
   "title": "Several Fortinet products: a memory flaw attackers can abuse",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 298 days old, so many systems are likely still unpatched.",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 299 days old, so many systems are likely still unpatched.",
+  "tier": "now",
+  "rankScore": 5,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The product faces the internet or gives remote access."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "none",
     "damage": "none",
@@ -12,11 +18,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2025-25249"
   ],
   "vendor": "Fortinet",
   "product": "Multiple Products",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "fortinet/multipleproducts",
+      "vendor": "Fortinet",
+      "product": "Multiple Products",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "fortinet",
+      "productKey": "multipleproducts"
+    }
+  ],
   "category": {
     "id": "edge",
     "label": "VPN, firewall or gateway",
@@ -24,10 +47,47 @@
     "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
   },
   "summary": "Fortinet FortiOS, FortiSwitchManager, and FortiSASE contain a heap-based buffer overflow vulnerability that allows an attacker to execute unauthorized code or commands via specially crafted packets.",
+  "cvss": 7.4,
+  "epss": 0.03742,
+  "exploitMaturity": "none",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-09",
+  "kevDueDate": "2026-09-12",
   "firstSeenAt": "2026-09-09T00:00:00.000Z",
-  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "updatedAt": "2026-11-08T16:37:40.566Z",
   "newestEvidenceAt": "2026-09-09T00:00:00.000Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 12, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-01-13",
+      "label": "CVE-2025-25249 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2025-25249"
+    },
+    "firstReport": {
+      "date": "2026-09-09",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-25249"
+    },
+    "kevListed": {
+      "date": "2026-09-09",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-25249"
+    },
+    "kevDue": {
+      "date": "2026-09-12",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-25249"
+    },
+    "daysToFirstReport": 239,
+    "daysToKev": 239
+  },
+  "ladderSources": {
+    "talk": 0,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploited",

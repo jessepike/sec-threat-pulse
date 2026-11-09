@@ -3,8 +3,14 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-13-microsoft-windows",
   "title": "Microsoft Windows: attackers can run commands on it",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 25 days old, so many systems are likely still unpatched.",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 26 days old, so many systems are likely still unpatched.",
+  "tier": "now",
+  "rankScore": 4,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "12 products are affected."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "confirmed",
     "damage": "none",
@@ -12,11 +18,149 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-96951"
   ],
   "vendor": "Microsoft",
   "product": "Windows",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "microsoft/windows",
+      "vendor": "Microsoft",
+      "product": "Windows",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "windows"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/microsoftedgechromiumbased",
+      "vendor": "Microsoft",
+      "product": "Microsoft Edge (chromium-based)",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "microsoftedgechromiumbased"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/outlookcom",
+      "vendor": "Microsoft",
+      "product": "Outlook.com",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "outlookcom"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/windows10version1607",
+      "vendor": "Microsoft",
+      "product": "Windows 10 Version 1607",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "windows10version1607"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/windows10version1809",
+      "vendor": "Microsoft",
+      "product": "Windows 10 Version 1809",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "windows10version1809"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/windows10version21h2",
+      "vendor": "Microsoft",
+      "product": "Windows 10 Version 21h2",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "windows10version21h2"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/windows10version22h2",
+      "vendor": "Microsoft",
+      "product": "Windows 10 Version 22h2",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "windows10version22h2"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/windows11version23h2",
+      "vendor": "Microsoft",
+      "product": "Windows 11 Version 23h2",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "windows11version23h2"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/windows11version24h2",
+      "vendor": "Microsoft",
+      "product": "Windows 11 Version 24h2",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "windows11version24h2"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/windows11version25h2",
+      "vendor": "Microsoft",
+      "product": "Windows 11 Version 25h2",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "windows11version25h2"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/windows11version26h1",
+      "vendor": "Microsoft",
+      "product": "Windows 11 Version 26h1",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "windows11version26h1"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/windows11version26h2",
+      "vendor": "Microsoft",
+      "product": "Windows 11 Version 26h2",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "windows11version26h2"
+    }
+  ],
   "category": {
     "id": "endpoint",
     "label": "Computers, phones and browsers",
@@ -24,10 +168,47 @@
     "doThis": "Install the latest updates on every device, and turn on automatic updates."
   },
   "summary": "Microsoft Windows Shell contains a command injection vulnerability that allows an unauthorized attacker to bypass a security feature over a network.",
+  "cvss": 8.8,
+  "epss": 0.09813,
+  "exploitMaturity": "none",
+  "kevListed": true,
+  "kevDateAdded": "2026-10-13",
+  "kevDueDate": "2026-10-16",
   "firstSeenAt": "2026-10-13T00:00:00.000Z",
-  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "updatedAt": "2026-11-08T19:07:40.218Z",
   "newestEvidenceAt": "2026-11-07T11:04:10.611Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 16, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-10-13",
+      "label": "CVE-2026-96951 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-96951"
+    },
+    "firstReport": {
+      "date": "2026-10-13",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-96951"
+    },
+    "kevListed": {
+      "date": "2026-10-13",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-96951"
+    },
+    "kevDue": {
+      "date": "2026-10-16",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-96951"
+    },
+    "daysToFirstReport": 0,
+    "daysToKev": 0
+  },
+  "ladderSources": {
+    "talk": 3,
+    "exposure": 0,
+    "attempts": 3,
+    "exploited": 3,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "talk",
@@ -39,6 +220,18 @@
         "id": "news-helpnetsecurity",
         "name": "Help Net Security",
         "attribution": "Headlines and links from Help Net Security"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Microsoft confirms exploitation: Windows Shell Security Feature Bypass Vulnerability",
+      "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96951",
+      "publishedAt": "2026-10-26T07:00:00.000Z",
+      "source": {
+        "id": "msrc",
+        "name": "Microsoft Security Response Center",
+        "attribution": "Microsoft Security Response Center security update guide"
       }
     },
     {

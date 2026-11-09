@@ -3,8 +3,14 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-03-wordpress-wordpress-core",
   "title": "WordPress Core: attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 8 days old, so many systems are likely still unpatched.",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 9 days old, so many systems are likely still unpatched.",
+  "tier": "now",
+  "rankScore": 5,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The confirmation is 6 days old."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "confirmed",
     "damage": "none",
@@ -12,11 +18,39 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-119977"
   ],
   "vendor": "WordPress",
   "product": "WordPress Core",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "wordpress/wordpresscore",
+      "vendor": "WordPress",
+      "product": "WordPress Core",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "wordpress",
+      "productKey": "wordpresscore"
+    },
+    {
+      "kind": "direct",
+      "slug": "wordpressfoundation/wordpress",
+      "vendor": "Wordpress Foundation",
+      "product": "Wordpress",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "wordpressfoundation",
+      "productKey": "wordpress"
+    }
+  ],
   "category": {
     "id": "website",
     "label": "Website or online store",
@@ -24,10 +58,51 @@
     "doThis": "Ask whoever runs your website or store to update it."
   },
   "summary": "WordPress WordPress Core contains a time-of-check time-of-use (TOCTOU) race condition vulnerability that could allow unauthenticated attackers to execute code on the server during the upgrade window. This is due to predictable, web-accessible staging paths used during full-package core upgrades.",
+  "cvss": 8.1,
+  "epss": 0.01157,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-03",
+  "kevDueDate": "2026-11-06",
   "firstSeenAt": "2026-11-03T00:00:00.000Z",
-  "updatedAt": "2026-11-08T05:37:40.252Z",
-  "newestEvidenceAt": "2026-11-07T15:24:50.645Z",
+  "updatedAt": "2026-11-09T05:37:40.948Z",
+  "newestEvidenceAt": "2026-11-08T17:54:30.153Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 6, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-10-31",
+      "label": "CVE-2026-119977 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-119977"
+    },
+    "exploitCode": {
+      "date": "2026-11-04",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-11-03",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-119977"
+    },
+    "kevListed": {
+      "date": "2026-11-03",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-119977"
+    },
+    "kevDue": {
+      "date": "2026-11-06",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-119977"
+    },
+    "daysToFirstReport": 3,
+    "daysToKev": 3
+  },
+  "ladderSources": {
+    "talk": 4,
+    "exposure": 0,
+    "attempts": 3,
+    "exploited": 3,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "talk",
@@ -102,5 +177,5 @@
       }
     }
   ],
-  "evidenceWithheld": 89
+  "evidenceWithheld": 93
 }

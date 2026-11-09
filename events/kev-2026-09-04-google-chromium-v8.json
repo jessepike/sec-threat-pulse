@@ -4,6 +4,9 @@
   "title": "Google Chromium V8: attackers can run their own code",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. The vulnerability is 61 days old, so current versions are being attacked.",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "reported",
@@ -12,11 +15,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-85046"
   ],
   "vendor": "Google",
   "product": "Chromium V8",
+  "affectedProducts": [
+    {
+      "vendorKey": "google",
+      "productKey": "chromiumv8",
+      "vendor": "Google",
+      "product": "Chromium V8",
+      "slug": "google/chromiumv8",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "endpoint",
     "label": "Computers, phones and browsers",
@@ -24,10 +44,47 @@
     "doThis": "Install the latest updates on every device, and turn on automatic updates."
   },
   "summary": "Google Chromium V8 contains a type confusion vulnerability that allows a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. This vulnerability could affect multiple web browsers that utilize Chromium, including, but not limited to, Google Chrome, Microsoft Edge, and Opera.",
+  "cvss": 8.8,
+  "epss": 0.01806,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-04",
+  "kevDueDate": "2026-09-18",
   "firstSeenAt": "2026-09-04T00:00:00.000Z",
   "updatedAt": "2026-11-03T19:37:40.448Z",
   "newestEvidenceAt": "2026-11-03T16:09:23.000Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 18, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-09-03",
+      "label": "CVE-2026-85046 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-85046"
+    },
+    "firstReport": {
+      "date": "2026-09-04",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-85046"
+    },
+    "kevListed": {
+      "date": "2026-09-04",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-85046"
+    },
+    "kevDue": {
+      "date": "2026-09-18",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-85046"
+    },
+    "daysToFirstReport": 1,
+    "daysToKev": 1
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",

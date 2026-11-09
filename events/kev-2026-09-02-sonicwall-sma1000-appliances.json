@@ -4,6 +4,9 @@
   "title": "SonicWall SMA1000 Appliances: 2 flaws used in attacks; attackers can reach systems behind it",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. The vulnerability is 61 days old, so current versions are being attacked. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (10.0).",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "none",
@@ -12,12 +15,29 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-83548",
     "CVE-2026-83549"
   ],
   "vendor": "SonicWall",
   "product": "SMA1000 Appliances",
+  "affectedProducts": [
+    {
+      "vendorKey": "sonicwall",
+      "productKey": "sma1000appliances",
+      "vendor": "SonicWall",
+      "product": "SMA1000 Appliances",
+      "slug": "sonicwall/sma1000appliances",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "edge",
     "label": "VPN, firewall or gateway",
@@ -25,10 +45,51 @@
     "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
   },
   "summary": "SonicWall SMA1000 Appliances contains a server-side request forgery vulnerability that could allow a remote unauthenticated attacker to gain unauthorized access to sensitive functionality and perform unauthorized operations.",
+  "cvss": 10,
+  "epss": 0.09889,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-02",
+  "kevDueDate": "2026-09-05",
   "firstSeenAt": "2026-09-02T00:00:00.000Z",
   "updatedAt": "2026-11-01T21:37:40.840Z",
   "newestEvidenceAt": "2026-10-24T23:23:07.997Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 5, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-09-01",
+      "label": "CVE-2026-83549 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-83549"
+    },
+    "exploitCode": {
+      "date": "2026-09-09",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-09-02",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-83549"
+    },
+    "kevListed": {
+      "date": "2026-09-02",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-83549"
+    },
+    "kevDue": {
+      "date": "2026-09-05",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-83549"
+    },
+    "daysToFirstReport": 1,
+    "daysToKev": 1
+  },
+  "ladderSources": {
+    "talk": 0,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",

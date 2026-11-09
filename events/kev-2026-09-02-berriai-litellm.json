@@ -4,6 +4,9 @@
   "title": "BerriAI LiteLLM: attackers can get in without a password",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. The vulnerability is 116 days old, so current versions are being attacked.",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "reported",
@@ -12,11 +15,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-59822"
   ],
   "vendor": "BerriAI",
   "product": "LiteLLM",
+  "affectedProducts": [
+    {
+      "vendorKey": "berriai",
+      "productKey": "litellm",
+      "vendor": "BerriAI",
+      "product": "LiteLLM",
+      "slug": "berriai/litellm",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "ai",
     "label": "AI tools",
@@ -24,10 +44,51 @@
     "doThis": "Update it and change any API keys stored in it."
   },
   "summary": "BerriAI LiteLLM contains an improper authentication vulnerability in the MCP Streamable HTTP endpoint that could allow an unauthenticated attacker to establish an authenticated MCP session using an arbitrary Bearer token.",
+  "cvss": 8.8,
+  "epss": 0.00836,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-02",
+  "kevDueDate": "2026-09-16",
   "firstSeenAt": "2026-09-02T00:00:00.000Z",
   "updatedAt": "2026-11-01T19:37:40.189Z",
   "newestEvidenceAt": "2026-10-26T12:41:05.000Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 16, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-07-08",
+      "label": "CVE-2026-59822 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-59822"
+    },
+    "exploitCode": {
+      "date": "2026-10-26",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-09-02",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-59822"
+    },
+    "kevListed": {
+      "date": "2026-09-02",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-59822"
+    },
+    "kevDue": {
+      "date": "2026-09-16",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-59822"
+    },
+    "daysToFirstReport": 56,
+    "daysToKev": 56
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",

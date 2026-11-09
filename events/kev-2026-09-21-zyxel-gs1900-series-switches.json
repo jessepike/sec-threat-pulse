@@ -3,8 +3,13 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-21-zyxel-gs1900-series-switches",
   "title": "Zyxel GS1900 Series Switches: a memory flaw attackers can abuse",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 145 days old, so many systems are likely still unpatched.",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 146 days old, so many systems are likely still unpatched.",
+  "tier": "now",
+  "rankScore": 3,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "confirmed",
     "damage": "none",
@@ -12,11 +17,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-7273"
   ],
   "vendor": "Zyxel",
   "product": "GS1900 Series Switches",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "zyxel/gs1900seriesswitches",
+      "vendor": "Zyxel",
+      "product": "GS1900 Series Switches",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "zyxel",
+      "productKey": "gs1900seriesswitches"
+    }
+  ],
   "category": {
     "id": "network-device",
     "label": "Routers, cameras and devices",
@@ -24,10 +46,47 @@
     "doThis": "Update it or replace it. Never leave its admin page open to the internet."
   },
   "summary": "Zyxel GS1900 series switches contain a stack-based buffer overflow vulnerability in the CGI program which could allow a LAN-based, unauthenticated attacker to exploit the flaw and potentially execute OS commands via a crafted HTTP request.",
+  "cvss": 8.8,
+  "epss": 0.02734,
+  "exploitMaturity": "none",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-21",
+  "kevDueDate": "2026-09-24",
   "firstSeenAt": "2026-09-21T00:00:00.000Z",
-  "updatedAt": "2026-11-08T04:37:40.532Z",
-  "newestEvidenceAt": "2026-11-07T15:50:05.228Z",
+  "updatedAt": "2026-11-09T02:22:40.662Z",
+  "newestEvidenceAt": "2026-11-09T09:00:07.891Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 24, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-06-16",
+      "label": "CVE-2026-7273 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-7273"
+    },
+    "firstReport": {
+      "date": "2026-09-21",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-7273"
+    },
+    "kevListed": {
+      "date": "2026-09-21",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-7273"
+    },
+    "kevDue": {
+      "date": "2026-09-24",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-7273"
+    },
+    "daysToFirstReport": 97,
+    "daysToKev": 97
+  },
+  "ladderSources": {
+    "talk": 2,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "talk",
@@ -66,5 +125,5 @@
       }
     }
   ],
-  "evidenceWithheld": 11
+  "evidenceWithheld": 12
 }

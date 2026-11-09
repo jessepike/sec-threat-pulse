@@ -4,6 +4,9 @@
   "title": "Kestra OSS: attackers can run commands on it",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. The vulnerability is 128 days old, so current versions are being attacked. The severity score is critical (10.0).",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "none",
@@ -12,11 +15,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-49869"
   ],
   "vendor": "Kestra",
   "product": "Kestra OSS",
+  "affectedProducts": [
+    {
+      "vendorKey": "kestra",
+      "productKey": "kestraoss",
+      "vendor": "Kestra",
+      "product": "Kestra OSS",
+      "slug": "kestra/kestraoss",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "developer",
     "label": "Developer tools",
@@ -24,10 +44,47 @@
     "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
   },
   "summary": "Kestra OSS contains an OS command injection vulnerability that could allow an unauthenticated remote attacker to create and execute arbitrary workflows without credentials.",
+  "cvss": 10,
+  "epss": 0.02095,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-02",
+  "kevDueDate": "2026-09-05",
   "firstSeenAt": "2026-09-02T00:00:00.000Z",
   "updatedAt": "2026-11-01T21:07:40.565Z",
   "newestEvidenceAt": "2026-09-02T00:00:00.000Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 5, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-06-26",
+      "label": "CVE-2026-49869 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-49869"
+    },
+    "firstReport": {
+      "date": "2026-09-02",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-49869"
+    },
+    "kevListed": {
+      "date": "2026-09-02",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-49869"
+    },
+    "kevDue": {
+      "date": "2026-09-05",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-49869"
+    },
+    "daysToFirstReport": 68,
+    "daysToKev": 68
+  },
+  "ladderSources": {
+    "talk": 0,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploited",

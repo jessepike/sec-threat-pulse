@@ -3,8 +3,14 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-25-wordpress-core",
   "title": "WordPress Core: attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 46 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The exploit prediction score is 96%.",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 47 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The exploit prediction score is 96%.",
+  "tier": "now",
+  "rankScore": 4,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "Ready-made attack tools are public."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "reported",
     "damage": "none",
@@ -12,11 +18,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-87902"
   ],
   "vendor": "WordPress",
   "product": "Core",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "wordpress/core",
+      "vendor": "WordPress",
+      "product": "Core",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "wordpress",
+      "productKey": "core"
+    }
+  ],
   "category": {
     "id": "website",
     "label": "Website or online store",
@@ -24,10 +47,51 @@
     "doThis": "Ask whoever runs your website or store to update it."
   },
   "summary": "WordPress Core contains a remote file inclusion vulnerability which could allow an unauthenticated attacker to make page-template resolution include a chosen readable local `.php` file outside the active theme directories, leading to remote code execution.",
+  "cvss": 8.1,
+  "epss": 0.95769,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-25",
+  "kevDueDate": "2026-09-28",
   "firstSeenAt": "2026-09-25T00:00:00.000Z",
-  "updatedAt": "2026-11-08T04:37:40.532Z",
-  "newestEvidenceAt": "2026-10-25T01:28:25.684Z",
+  "updatedAt": "2026-11-08T16:52:40.454Z",
+  "newestEvidenceAt": "2026-11-09T09:00:36.801Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 28, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-09-22",
+      "label": "CVE-2026-87902 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-87902"
+    },
+    "exploitCode": {
+      "date": "2026-09-23",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-09-25",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-87902"
+    },
+    "kevListed": {
+      "date": "2026-09-25",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-87902"
+    },
+    "kevDue": {
+      "date": "2026-09-28",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-87902"
+    },
+    "daysToFirstReport": 3,
+    "daysToKev": 3
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",
@@ -90,5 +154,5 @@
       }
     }
   ],
-  "evidenceWithheld": 4
+  "evidenceWithheld": 5
 }

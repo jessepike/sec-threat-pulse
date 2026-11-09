@@ -3,8 +3,14 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-01-fortinet-fortimail",
   "title": "Fortinet FortiMail: attackers can read or change files",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 37 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 38 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
+  "tier": "now",
+  "rankScore": 5,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The product faces the internet or gives remote access."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "reported",
     "damage": "none",
@@ -12,11 +18,29 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-104286"
   ],
   "vendor": "Fortinet",
   "product": "FortiMail",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "fortinet/fortimail",
+      "vendor": "Fortinet",
+      "product": "FortiMail",
+      "evidence": [
+        "kev",
+        "cpe"
+      ],
+      "vendorKey": "fortinet",
+      "productKey": "fortimail"
+    }
+  ],
   "category": {
     "id": "edge",
     "label": "VPN, firewall or gateway",
@@ -24,10 +48,51 @@
     "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
   },
   "summary": "Fortinet FortiMail contains a path traversal and an improper neutralization of NULL byte or NULL character vulnerability that may allow an unauthenticated attacker to write arbitrary files on the underlying system via crafted HTTP or HTTPS requests.",
+  "cvss": 9.8,
+  "epss": 0.04573,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-10-01",
+  "kevDueDate": "2026-10-04",
   "firstSeenAt": "2026-10-01T00:00:00.000Z",
-  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "updatedAt": "2026-11-08T19:22:40.530Z",
   "newestEvidenceAt": "2026-11-04T13:44:26.692Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 4, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-10-01",
+      "label": "CVE-2026-104286 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-104286"
+    },
+    "exploitCode": {
+      "date": "2026-10-24",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-10-01",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-104286"
+    },
+    "kevListed": {
+      "date": "2026-10-01",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-104286"
+    },
+    "kevDue": {
+      "date": "2026-10-04",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-104286"
+    },
+    "daysToFirstReport": 0,
+    "daysToKev": 0
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",

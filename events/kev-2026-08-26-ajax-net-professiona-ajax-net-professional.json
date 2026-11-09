@@ -4,6 +4,9 @@
   "title": "Ajax.NET Professional: attackers can run their own code",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. Ready-made attack tools are public. The exploit prediction score is 83%.",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "none",
@@ -12,11 +15,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2021-23758"
   ],
   "vendor": "Ajax.NET Professional",
   "product": "Ajax.NET Professional",
+  "affectedProducts": [
+    {
+      "vendorKey": "ajaxnetprofessional",
+      "productKey": "ajaxnetprofessional",
+      "vendor": "Ajax.NET Professional",
+      "product": "Ajax.NET Professional",
+      "slug": "ajaxnetprofessional/ajaxnetprofessional",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "website",
     "label": "Website or online store",
@@ -24,10 +44,47 @@
     "doThis": "Ask whoever runs your website or store to update it."
   },
   "summary": "Ajax.NET Professional (AjaxPro) contains a deserialization of untrusted data vulnerability that could allow for remote code execution via arbitrary .NET classes. The impacted product(s) could be end-of-life (EoL) and/or end-of-service (EoS). Users are advised to discontinue use and/or transition to a supported version.",
+  "cvss": 8.1,
+  "epss": 0.82578,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-08-26",
+  "kevDueDate": "2026-09-09",
   "firstSeenAt": "2026-08-26T00:00:00.000Z",
   "updatedAt": "2026-10-24T23:23:22.790Z",
   "newestEvidenceAt": "2026-08-26T00:00:00.000Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 9, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2021-12-03",
+      "label": "CVE-2021-23758 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2021-23758"
+    },
+    "firstReport": {
+      "date": "2026-08-26",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2021-23758"
+    },
+    "kevListed": {
+      "date": "2026-08-26",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2021-23758"
+    },
+    "kevDue": {
+      "date": "2026-09-09",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2021-23758"
+    },
+    "daysToFirstReport": 1727,
+    "daysToKev": 1727
+  },
+  "ladderSources": {
+    "talk": 0,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploited",

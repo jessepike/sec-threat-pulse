@@ -3,8 +3,15 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-16-fortinet-multiple-products",
   "title": "Several Fortinet products: attackers can read or change files",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 207 days old, so many systems are likely still unpatched.",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 208 days old, so many systems are likely still unpatched.",
+  "tier": "now",
+  "rankScore": 6,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The product faces the internet or gives remote access.",
+    "5 products are affected."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "reported",
     "damage": "none",
@@ -12,11 +19,72 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2025-61624"
   ],
   "vendor": "Fortinet",
   "product": "Multiple Products",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "fortinet/multipleproducts",
+      "vendor": "Fortinet",
+      "product": "Multiple Products",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "fortinet",
+      "productKey": "multipleproducts"
+    },
+    {
+      "kind": "direct",
+      "slug": "fortinet/fortios",
+      "vendor": "Fortinet",
+      "product": "FortiOS",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "fortinet",
+      "productKey": "fortios"
+    },
+    {
+      "kind": "direct",
+      "slug": "fortinet/fortiproxy",
+      "vendor": "Fortinet",
+      "product": "FortiProxy",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "fortinet",
+      "productKey": "fortiproxy"
+    },
+    {
+      "kind": "direct",
+      "slug": "fortinet/fortiswitchmanager",
+      "vendor": "Fortinet",
+      "product": "Fortiswitchmanager",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "fortinet",
+      "productKey": "fortiswitchmanager"
+    },
+    {
+      "kind": "direct",
+      "slug": "fortinet/fortipam",
+      "vendor": "Fortinet",
+      "product": "Fortipam",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "fortinet",
+      "productKey": "fortipam"
+    }
+  ],
   "category": {
     "id": "edge",
     "label": "VPN, firewall or gateway",
@@ -24,10 +92,47 @@
     "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
   },
   "summary": "FortiOS, FortiPAM, FortiProxy, and FortiSwitchManager contain a path traversal vulnerability that may allow an authenticated attacker with admin profile and at least read-write permissions to write or delete arbitrary files via specific CLI commands.",
+  "cvss": 5.4,
+  "epss": 0.01343,
+  "exploitMaturity": "none",
+  "kevListed": true,
+  "kevDateAdded": "2026-10-16",
+  "kevDueDate": "2026-10-19",
   "firstSeenAt": "2026-10-16T00:00:00.000Z",
-  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "updatedAt": "2026-11-08T16:37:40.566Z",
   "newestEvidenceAt": "2026-11-05T10:56:45.699Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 19, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-04-14",
+      "label": "CVE-2025-61624 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2025-61624"
+    },
+    "firstReport": {
+      "date": "2026-10-16",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-61624"
+    },
+    "kevListed": {
+      "date": "2026-10-16",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-61624"
+    },
+    "kevDue": {
+      "date": "2026-10-19",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-61624"
+    },
+    "daysToFirstReport": 185,
+    "daysToKev": 185
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploited",

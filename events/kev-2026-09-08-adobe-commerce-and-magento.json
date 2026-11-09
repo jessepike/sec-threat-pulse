@@ -4,6 +4,9 @@
   "title": "Adobe Commerce and Magento: attackers can run their own code",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. The vulnerability is 61 days old, so current versions are being attacked. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 99%.",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "reported",
@@ -12,11 +15,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-75650"
   ],
   "vendor": "Adobe",
   "product": "Commerce and Magento",
+  "affectedProducts": [
+    {
+      "vendorKey": "adobe",
+      "productKey": "commerceandmagento",
+      "vendor": "Adobe",
+      "product": "Commerce and Magento",
+      "slug": "adobe/commerceandmagento",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "website",
     "label": "Website or online store",
@@ -24,10 +44,51 @@
     "doThis": "Ask whoever runs your website or store to update it."
   },
   "summary": "Adobe Commerce and Magento Open Source contain an improper neutralization of special elements used in a template engine vulnerability that could allow an attacker to execute arbitrary code.",
+  "cvss": 10,
+  "epss": 0.99376,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-08",
+  "kevDueDate": "2026-09-11",
   "firstSeenAt": "2026-09-08T00:00:00.000Z",
   "updatedAt": "2026-11-07T23:37:40.191Z",
   "newestEvidenceAt": "2026-11-05T15:30:06.518Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 11, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-09-07",
+      "label": "CVE-2026-75650 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-75650"
+    },
+    "exploitCode": {
+      "date": "2026-10-26",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-09-08",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-75650"
+    },
+    "kevListed": {
+      "date": "2026-09-08",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-75650"
+    },
+    "kevDue": {
+      "date": "2026-09-11",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-75650"
+    },
+    "daysToFirstReport": 1,
+    "daysToKev": 1
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",

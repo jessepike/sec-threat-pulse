@@ -3,8 +3,13 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-24-wso2-multiple-products",
   "title": "Several WSO2 products: attackers can read or change files",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 94 days old, so many systems are likely still unpatched. The severity score is critical (10.0).",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 95 days old, so many systems are likely still unpatched. The severity score is critical (10.0).",
+  "tier": "now",
+  "rankScore": 3,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "reported",
     "damage": "none",
@@ -12,11 +17,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-5430"
   ],
   "vendor": "WSO2",
   "product": "Multiple Products",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "wso2/multipleproducts",
+      "vendor": "WSO2",
+      "product": "Multiple Products",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "wso2",
+      "productKey": "multipleproducts"
+    }
+  ],
   "category": {
     "id": "website",
     "label": "Website or online store",
@@ -24,10 +46,47 @@
     "doThis": "Ask whoever runs your website or store to update it."
   },
   "summary": "WSO2 API Control Plane, API Manager, Traffic Manager & Universal Gateway contain a path traversal vulnerability that could allow for unrestricted file upload and lead to remote code execution.",
+  "cvss": 10,
+  "epss": 0.2239,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-24",
+  "kevDueDate": "2026-09-27",
   "firstSeenAt": "2026-09-24T00:00:00.000Z",
-  "updatedAt": "2026-11-08T07:37:41.474Z",
+  "updatedAt": "2026-11-09T07:37:41.058Z",
   "newestEvidenceAt": "2026-10-28T01:36:55.113Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 27, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-08-06",
+      "label": "CVE-2026-5430 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-5430"
+    },
+    "firstReport": {
+      "date": "2026-09-24",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-5430"
+    },
+    "kevListed": {
+      "date": "2026-09-24",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-5430"
+    },
+    "kevDue": {
+      "date": "2026-09-27",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-5430"
+    },
+    "daysToFirstReport": 49,
+    "daysToKev": 49
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploited",

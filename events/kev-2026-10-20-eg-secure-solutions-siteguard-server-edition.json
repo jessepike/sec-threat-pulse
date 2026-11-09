@@ -3,8 +3,15 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-20-eg-secure-solutions-siteguard-server-edition",
   "title": "EG Secure Solutions SiteGuard Server Edition: attackers can run commands on it",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 25 days old, so many systems are likely still unpatched.",
-  "rulesVersion": "v2",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 26 days old, so many systems are likely still unpatched.",
+  "tier": "now",
+  "rankScore": 5,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The confirmation is 20 days old.",
+    "6 products are affected."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "confirmed",
     "damage": "none",
@@ -12,11 +19,83 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-106931"
   ],
   "vendor": "EG Secure Solutions",
   "product": "SiteGuard Server Edition",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "egsecuresolutions/siteguardserveredition",
+      "vendor": "EG Secure Solutions",
+      "product": "SiteGuard Server Edition",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "egsecuresolutions",
+      "productKey": "siteguardserveredition"
+    },
+    {
+      "kind": "direct",
+      "slug": "egsecuresolutionsinc/siteguardservereditionforapachehttpd",
+      "vendor": "Eg Secure Solutions Inc.",
+      "product": "Siteguard Server Edition For Apache Httpd",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "egsecuresolutionsinc",
+      "productKey": "siteguardservereditionforapachehttpd"
+    },
+    {
+      "kind": "direct",
+      "slug": "egsecuresolutionsinc/siteguardservereditionfornginx",
+      "vendor": "Eg Secure Solutions Inc.",
+      "product": "Siteguard Server Edition For Nginx",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "egsecuresolutionsinc",
+      "productKey": "siteguardservereditionfornginx"
+    },
+    {
+      "kind": "direct",
+      "slug": "egsecuresolutionsinc/siteguardservereditionforiis",
+      "vendor": "Eg Secure Solutions Inc.",
+      "product": "Siteguard Server Edition For Iis",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "egsecuresolutionsinc",
+      "productKey": "siteguardservereditionforiis"
+    },
+    {
+      "kind": "direct",
+      "slug": "egsecuresolutionsinc/siteguardservereditionforapachehttpdonfreebsd",
+      "vendor": "Eg Secure Solutions Inc.",
+      "product": "Siteguard Server Edition For Apache Httpd On Freebsd",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "egsecuresolutionsinc",
+      "productKey": "siteguardservereditionforapachehttpdonfreebsd"
+    },
+    {
+      "kind": "direct",
+      "slug": "egsecuresolutionsinc/siteguardservereditionfornginxonfreebsd",
+      "vendor": "Eg Secure Solutions Inc.",
+      "product": "Siteguard Server Edition For Nginx On Freebsd",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "egsecuresolutionsinc",
+      "productKey": "siteguardservereditionfornginxonfreebsd"
+    }
+  ],
   "category": {
     "id": "website",
     "label": "Website or online store",
@@ -24,10 +103,47 @@
     "doThis": "Ask whoever runs your website or store to update it."
   },
   "summary": "EG Secure Solutions SiteGuard Server Edition contains an OS command injection vulnerability which may allow an attacker to execute arbitrary OS commands with root or SYSTEM privileges on the system running the affected product.",
+  "cvss": 8.5,
+  "epss": 0.02528,
+  "exploitMaturity": "none",
+  "kevListed": true,
+  "kevDateAdded": "2026-10-20",
+  "kevDueDate": "2026-10-23",
   "firstSeenAt": "2026-10-20T00:00:00.000Z",
-  "updatedAt": "2026-11-08T04:52:40.397Z",
+  "updatedAt": "2026-11-09T04:52:40.615Z",
   "newestEvidenceAt": "2026-11-03T06:18:11.433Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 23, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-10-14",
+      "label": "CVE-2026-106931 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-106931"
+    },
+    "firstReport": {
+      "date": "2026-10-20",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-106931"
+    },
+    "kevListed": {
+      "date": "2026-10-20",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-106931"
+    },
+    "kevDue": {
+      "date": "2026-10-23",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-106931"
+    },
+    "daysToFirstReport": 6,
+    "daysToKev": 6
+  },
+  "ladderSources": {
+    "talk": 2,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "talk",

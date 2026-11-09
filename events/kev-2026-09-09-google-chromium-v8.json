@@ -4,7 +4,12 @@
   "title": "Google Chromium V8: attackers can run their own code",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. The vulnerability is 60 days old, so many systems are likely still unpatched.",
-  "rulesVersion": "v2",
+  "tier": "now",
+  "rankScore": 3,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source."
+  ],
+  "rulesVersion": "v3",
   "ladder": {
     "talk": "reported",
     "damage": "none",
@@ -12,11 +17,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-87491"
   ],
   "vendor": "Google",
   "product": "Chromium V8",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "google/chromiumv8",
+      "vendor": "Google",
+      "product": "Chromium V8",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "google",
+      "productKey": "chromiumv8"
+    }
+  ],
   "category": {
     "id": "endpoint",
     "label": "Computers, phones and browsers",
@@ -24,10 +46,47 @@
     "doThis": "Install the latest updates on every device, and turn on automatic updates."
   },
   "summary": "Google Chromium V8 contains an out of bounds write vulnerability that allows a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. This vulnerability could affect multiple web browsers that utilize Chromium, including, but not limited to, Google Chrome, Microsoft Edge, and Opera.",
+  "cvss": 8.8,
+  "epss": 0.03507,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-09-09",
+  "kevDueDate": "2026-09-23",
   "firstSeenAt": "2026-09-09T00:00:00.000Z",
-  "updatedAt": "2026-11-08T04:37:40.532Z",
+  "updatedAt": "2026-11-08T16:37:40.566Z",
   "newestEvidenceAt": "2026-11-03T16:09:23.000Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 23, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-09-09",
+      "label": "CVE-2026-87491 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-87491"
+    },
+    "firstReport": {
+      "date": "2026-09-09",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-87491"
+    },
+    "kevListed": {
+      "date": "2026-09-09",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-87491"
+    },
+    "kevDue": {
+      "date": "2026-09-23",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-87491"
+    },
+    "daysToFirstReport": 0,
+    "daysToKev": 0
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",

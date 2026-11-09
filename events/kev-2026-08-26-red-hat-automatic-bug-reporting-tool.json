@@ -4,6 +4,9 @@
   "title": "Red Hat Automatic Bug Reporting Tool: attackers can gain admin rights",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. Ready-made attack tools are public.",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "none",
@@ -12,11 +15,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2015-5287"
   ],
   "vendor": "Red Hat",
   "product": "Automatic Bug Reporting Tool",
+  "affectedProducts": [
+    {
+      "vendorKey": "redhat",
+      "productKey": "automaticbugreportingtool",
+      "vendor": "Red Hat",
+      "product": "Automatic Bug Reporting Tool",
+      "slug": "redhat/automaticbugreportingtool",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "endpoint",
     "label": "Computers, phones and browsers",
@@ -24,10 +44,52 @@
     "doThis": "Install the latest updates on every device, and turn on automatic updates."
   },
   "summary": "Red Hat Automatic Bug Reporting Tool (ABRT) contains a privilege escalation vulnerability that could allow local users with certain permissions to gain privileges via a symlink attack on a file with a predictable name. The impacted product(s) could be end-of-life (EoL) and/or end-of-service (EoS). Users are advised to discontinue use and/or transition to a supported version.",
+  "cvss": 7.8,
+  "epss": 0.05003,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-08-26",
+  "kevDueDate": "2026-09-09",
   "firstSeenAt": "2026-08-26T00:00:00.000Z",
   "updatedAt": "2026-10-24T23:23:22.790Z",
   "newestEvidenceAt": "2026-08-26T00:00:00.000Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 9, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2015-12-07",
+      "label": "CVE-2015-5287 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2015-5287"
+    },
+    "exploitCode": {
+      "date": "2015-12-01",
+      "label": "Exploit-DB",
+      "url": "https://www.exploit-db.com/exploits/38832"
+    },
+    "firstReport": {
+      "date": "2026-08-26",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2015-5287"
+    },
+    "kevListed": {
+      "date": "2026-08-26",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2015-5287"
+    },
+    "kevDue": {
+      "date": "2026-09-09",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2015-5287"
+    },
+    "daysToFirstReport": 3915,
+    "daysToKev": 3915
+  },
+  "ladderSources": {
+    "talk": 0,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploited",

@@ -4,6 +4,9 @@
   "title": "PaperCut NG MF: 2 flaws used in attacks; attackers can get in without a password",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. The vulnerability is 63 days old, so current versions are being attacked. Ready-made attack tools are public. The severity score is critical (9.4). The exploit prediction score is 85%.",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "reported",
@@ -12,12 +15,29 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-81578",
     "CVE-2026-82078"
   ],
   "vendor": "PaperCut",
   "product": "NG/MF",
+  "affectedProducts": [
+    {
+      "vendorKey": "papercut",
+      "productKey": "ngmf",
+      "vendor": "PaperCut",
+      "product": "NG/MF",
+      "slug": "papercut/ngmf",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "business-app",
     "label": "Business software",
@@ -25,10 +45,47 @@
     "doThis": "Ask the vendor or the team that owns it whether the fix is in."
   },
   "summary": "PaperCut NG/MF contains a missing authentication for critical function vulnerability which allows an unauthenticated remote attacker to modify certain system configurations. This vulnerability can be chained with CVE-2026-82078.",
+  "cvss": 9.4,
+  "epss": 0.84734,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-08-31",
+  "kevDueDate": "2026-09-14",
   "firstSeenAt": "2026-08-31T00:00:00.000Z",
   "updatedAt": "2026-10-30T23:37:41.203Z",
   "newestEvidenceAt": "2026-10-28T01:37:04.194Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 14, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-08-28",
+      "label": "CVE-2026-81578 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-81578"
+    },
+    "firstReport": {
+      "date": "2026-08-31",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-82078"
+    },
+    "kevListed": {
+      "date": "2026-08-31",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-82078"
+    },
+    "kevDue": {
+      "date": "2026-09-14",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-82078"
+    },
+    "daysToFirstReport": 3,
+    "daysToKev": 3
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploit_available",

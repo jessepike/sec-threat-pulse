@@ -4,6 +4,9 @@
   "title": "Citrix NetScaler ADC and NetScaler Gateway: attackers can knock it offline",
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. The vulnerability is 117 days old, so current versions are being attacked. It affects a product that faces the internet or gives remote access.",
+  "tier": null,
+  "rankScore": null,
+  "rankWhy": null,
   "rulesVersion": "v2",
   "ladder": {
     "talk": "reported",
@@ -12,11 +15,28 @@
     "exposure": "none",
     "exploited": "confirmed"
   },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
   "cves": [
     "CVE-2026-8452"
   ],
   "vendor": "Citrix",
   "product": "NetScaler ADC and NetScaler Gateway",
+  "affectedProducts": [
+    {
+      "vendorKey": "citrix",
+      "productKey": "netscaleradcandnetscalergateway",
+      "vendor": "Citrix",
+      "product": "NetScaler ADC and NetScaler Gateway",
+      "slug": "citrix/netscaleradcandnetscalergateway",
+      "kind": "direct",
+      "evidence": [
+        "kev"
+      ]
+    }
+  ],
   "category": {
     "id": "edge",
     "label": "VPN, firewall or gateway",
@@ -24,10 +44,51 @@
     "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
   },
   "summary": "Citrix NetScaler ADC and NetScaler Gateway contain an improper restriction of operations within the bounds of a memory buffer vulnerability which could lead to denial of service.",
+  "cvss": 8.8,
+  "epss": 0.01011,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-08-26",
+  "kevDueDate": "2026-08-29",
   "firstSeenAt": "2026-08-26T00:00:00.000Z",
   "updatedAt": "2026-10-25T12:52:40.299Z",
   "newestEvidenceAt": "2026-10-24T20:00:08.947Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Aug 29, 2026, has passed. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-06-30",
+      "label": "CVE-2026-8452 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-8452"
+    },
+    "exploitCode": {
+      "date": "2026-08-14",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-08-26",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-8452"
+    },
+    "kevListed": {
+      "date": "2026-08-26",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-8452"
+    },
+    "kevDue": {
+      "date": "2026-08-29",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-8452"
+    },
+    "daysToFirstReport": 57,
+    "daysToKev": 57
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
   "evidence": [
     {
       "rung": "exploited",
