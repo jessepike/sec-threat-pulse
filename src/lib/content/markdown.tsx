@@ -129,7 +129,7 @@ export function renderBlocks(blocks: Block[]): ReactNode[] {
       }
       case "table":
         return (
-          <div key={i} className="md-table" tabIndex={0} role="region" aria-label="Table, scrolls sideways on small screens">
+          <div key={i} className="md-table" tabIndex={0} role="region" aria-label={`Table ${blocks.slice(0, i).filter((x) => x.type === "table").length + 1}: ${b.head.join(", ").replace(/[*`_]/g, "").slice(0, 80)}. Scrolls sideways on small screens`}>
             <table>
               <thead>
                 <tr>{b.head.map((c, n) => <th key={n} scope="col">{renderInline(c)}</th>)}</tr>

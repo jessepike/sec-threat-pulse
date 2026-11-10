@@ -18,7 +18,7 @@ import {
   SAMPLE_REAL,
   SAMPLE_WEEK_OF,
 } from "./editorial";
-import { fmtDay, weekOfLabel } from "./format";
+import { weekOfLabel } from "./format";
 import { SAMPLE_EVENTS } from "./sample";
 import { topFive, weekLine } from "./top";
 import { groupVendors, VENDOR_KEY_RE, type VendorItem, type VendorSummary } from "./vendors";
@@ -181,13 +181,19 @@ export function briefBottomLine(kev: { d7: number; d30: number }, actNow: number
   return `CISA confirmed ${flaws(kev.d7)} in the last 7 days and ${kev.d30} in the last 30 days. ${actNow === 1 ? "1 event is" : `${actNow} events are`} rated Act now.`;
 }
 
+/** A board reader gets the plain "what it is" line and the first step, never the advisory's own wording. */
+export function briefChangeText(row: Pick<EventRow, "exposure" | "category">): string {
+  const step = row.category?.doThis?.trim();
+  return [row.exposure.trim(), step ? `First step: ${step}` : ""].filter(Boolean).join(" ");
+}
+
 async function liveBrief(): Promise<BriefData> {
   const [{ counts, top, recent }, kev] = await Promise.all([dbBriefEvents(), dbKevCounts()]);
   return {
     weekOf: weekOfLabel(new Date()),
     bottomLine: briefBottomLine(kev, counts.act_now) || LIVE_BOTTOM_LINE,
     counts,
-    changes: recent.map((x) => ({ lead: `${x.row.title}.`, text: x.summary ? firstSentence(x.summary, 220) : `Updated ${fmtDay(x.updatedAt)}.` })),
+    changes: recent.map((x) => ({ lead: `${x.row.title}.`, text: briefChangeText(x.row) })),
     flagship: top ? { title: top.row.title, ladder: top.row.ladder } : null,
     position: LIVE_BRIEF_STATIC.position,
     notConcern: BRIEF_STATIC.notConcern,

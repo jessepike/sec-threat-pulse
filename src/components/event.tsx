@@ -123,7 +123,7 @@ export function EventClock({ e }: { e: EventView }) {
             <li key={p.key} className="flex flex-col gap-1.5 border-b border-line-soft p-5 lg:border-b-0 lg:border-r lg:last:border-r-0">
               <div className="font-mono text-[11px] tracking-[0.1em] text-muted">{p.label.toUpperCase()}</div>
               <div className={`font-mono text-[22px] font-bold leading-none ${p.date ? "" : "text-faint"}`}>
-                {p.date ? <time dateTime={p.date}>{fmtDayYear(p.date)}</time> : "NOT YET"}
+                {p.date ? <time dateTime={p.date}>{fmtDayYear(p.date)}</time> : (p.pending ?? "NOT YET")}
               </div>
               {p.source && (
                 <div className="font-mono text-[11px] leading-normal text-faint">

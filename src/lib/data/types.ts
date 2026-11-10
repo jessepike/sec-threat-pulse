@@ -36,6 +36,8 @@ export interface ClockPointView {
   date?: string;
   source?: string;
   url?: string;
+  /** Shown in place of "NOT YET" when something is known but has no date, for example "CLAIMED". */
+  pending?: string;
 }
 
 export interface ClockView {

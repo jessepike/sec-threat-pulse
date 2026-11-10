@@ -5,7 +5,7 @@ import type { ActTier } from "@/lib/ladder/rules";
 import { RUNG_SHORT, topConfirmed } from "./sample";
 import { firstQuestion, questionLines } from "@/lib/narrative/model";
 import { homeSelection, paginateListed, sortListed, type Listable } from "./listing";
-import { isoDayPT, joinSentences } from "./format";
+import { fmtDay, fmtDayYear, isoDayPT, joinSentences } from "./format";
 import { productName } from "@/lib/ladder/plain-title";
 import { categorize } from "@/lib/ladder/category";
 import type { ClaimView, ClockPointView, ClockView, CorrectionView, CountsView, EventRow, EventView, ProductChip, RungView, SourceRef, StatusView, TimelineItem, VerdictFilter } from "./types";
@@ -459,6 +459,43 @@ export function dedupeEvidence<T>(rows: T[], pick: (row: T) => { sourceId: strin
   return out;
 }
 
+/**
+ * The timeline as the page shows it, oldest first. Reports from one source with the same title
+ * (a sighting feed lists each sighting as its own row, with its own link) become one line with a
+ * count and the day of the latest one. Dates read like every other date on the page.
+ */
+export function collapseTimeline(rows: { sourceId: string; title: string; at: Date; hot: boolean }[], limit = 12): TimelineItem[] {
+  const groups = new Map<string, { first: Date; last: Date; n: number; title: string; hot: boolean }>();
+  for (const r of [...rows].sort((a, b) => a.at.getTime() - b.at.getTime())) {
+    const title = r.title.replace(/\s+/g, " ").trim();
+    const key = `${r.sourceId}\u0000${title.toLowerCase()}`;
+    const g = groups.get(key);
+    if (g) {
+      g.n++;
+      g.last = r.at;
+      g.hot ||= r.hot;
+    } else groups.set(key, { first: r.at, last: r.at, n: 1, title, hot: r.hot });
+  }
+  return [...groups.values()].slice(0, limit).map((g) => {
+    const first = isoDayPT(g.first);
+    const last = isoDayPT(g.last);
+    const count = g.n > 1 ? ` (${g.n} reports${last !== first ? `, latest ${fmtDay(last)}` : ""})` : "";
+    return { when: fmtDayYear(first), what: `${g.title}${count}`, hot: g.hot };
+  });
+}
+
+/** Display label for the exploit code fact, saying so when the only evidence is an unverified claim. */
+export function exploitCodeLabel(maturity: string | null | undefined, claimedOnly: boolean): string {
+  if (maturity === "weaponized") return "READY TO USE";
+  if (maturity === "poc") return claimedOnly ? "PROOF OF CONCEPT CLAIMED" : "PROOF OF CONCEPT";
+  return "NONE KNOWN";
+}
+
+function uniqueBy<T>(rows: T[], key: (row: T) => string): T[] {
+  const seen = new Set<string>();
+  return rows.filter((r) => (seen.has(key(r)) ? false : (seen.add(key(r)), true)));
+}
+
 /** A timestamp at exactly midnight UTC came from a date-only source (a KEV listing day); show it as that date everywhere. */
 export function asDisplayDate(d: Date): string {
   const iso = d.toISOString();
@@ -490,6 +527,14 @@ export async function dbEvent(id: string): Promise<EventView | null> {
   const ladder = asLadder(e.ladder);
   const counts = sourceCounts(allObs.map((x) => x.o));
   const clock = clockView(computeClock(vulns, allObs.map((x) => ({ ...x.o, sourceName: x.sourceName }))));
+  // Exploit code known only from an unverified claim (a repository that says it is a proof of concept)
+  // has no date on the clock. Say that in both places so the page does not contradict itself.
+  const exploitObs = allObs.filter((x) => x.o.kind === "exploit_available");
+  const claimedOnly = exploitObs.length > 0 && exploitObs.every((x) => x.o.strength === "claimed");
+  const exploitPoint = clock?.points.find((p) => p.key === "exploitCode");
+  if (exploitPoint && !exploitPoint.date && e.exploitMaturity && e.exploitMaturity !== "none") {
+    exploitPoint.pending = claimedOnly ? "CLAIMED" : "DATE UNKNOWN";
+  }
   const rungViews: RungView[] = RUNGS.map((r, i) => {
     const mine = obs.filter((x) => x.o.kind === r);
     const entailed = r === "attempts" && !mine.length && ladder.exploited !== "none" && ladder[r] !== "none";
@@ -505,7 +550,7 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     const times = shown.map((x) => x.o.publishedAt ?? x.o.observedAt).filter(Boolean).map((d) => d.getTime());
     const newestAt = times.length ? new Date(Math.max(...times)).toISOString() : undefined;
     const untracked = ladder[r] === "none" ? (untrackedNote(e.kind, r) ?? undefined) : undefined;
-    return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: untracked ?? text, sources: shown.slice(0, 4).map(ref), newestAt, sourceCount: counts[r], untracked };
+    return { rung: r, num: String(i + 1).padStart(2, "0"), step: RUNG_SHORT[r], state: ladder[r], evidence: untracked ?? text, sources: uniqueBy(shown.map(ref), (s) => s.label).slice(0, 4), newestAt, sourceCount: counts[r], untracked };
   });
 
   const [narrative] = (await publishedNarratives(db, [id])).values();
@@ -517,11 +562,9 @@ export async function dbEvent(id: string): Promise<EventView | null> {
   const roleLabels = [["CISO", "ciso"], ["CIO", "cio"], ["CEO", "ceo"], ["BOARD", "board"]] as const;
   const roles = narrative ? roleLabels.map(([role, k]) => ({ role, items: narrative.roles[k] ?? [] })).filter((r) => r.items.length > 0) : [];
 
-  const timeline: TimelineItem[] = obs
-    .filter((x) => x.o.publishedAt)
-    .sort((a, b) => a.o.publishedAt!.getTime() - b.o.publishedAt!.getTime())
-    .slice(0, 12)
-    .map((x) => ({ when: isoDayPT(new Date(x.o.publishedAt!)), what: x.o.title, hot: x.o.kind === "attempts" || x.o.kind === "exploited" || x.o.kind === "damage" }));
+  const timeline = collapseTimeline(
+    obs.filter((x) => x.o.publishedAt).map((x) => ({ sourceId: x.o.sourceId, title: x.o.title, at: x.o.publishedAt!, hot: x.o.kind === "attempts" || x.o.kind === "exploited" || x.o.kind === "damage" })),
+  );
 
   const scores = vulns.map((v) => v.cvssScore).filter((n): n is number => typeof n === "number");
   const kev = vulns.some((v) => v.kevCisaDateAdded);
@@ -530,12 +573,17 @@ export async function dbEvent(id: string): Promise<EventView | null> {
   // At most 3 links per source; the rest collapse into one line that links to the source's home page.
   const sourceMap = new Map<string, SourceRef>();
   const perSource = new Map<string, number>();
+  const seenLabels = new Set<string>();
   const extra = new Map<string, { n: number; home: string | null; name: string }>();
   for (const x of obs) {
     if (sourceMap.has(x.o.url)) continue;
     const key = x.o.sourceId;
-    const n = (perSource.get(key) ?? 0) + 1;
-    perSource.set(key, n);
+    // The same source repeating the same title (a sighting feed) gets one link; the rest are counted.
+    const labelKey = `${key}\u0000${x.o.title.replace(/\s+/g, " ").trim().toLowerCase()}`;
+    const repeat = seenLabels.has(labelKey);
+    seenLabels.add(labelKey);
+    const n = repeat ? Infinity : (perSource.get(key) ?? 0) + 1;
+    if (!repeat) perSource.set(key, n);
     if (n <= 3) sourceMap.set(x.o.url, ref(x));
     else {
       const cur = extra.get(key) ?? { n: 0, home: x.sourceHome ?? null, name: x.sourceName ?? key };
@@ -562,7 +610,7 @@ export async function dbEvent(id: string): Promise<EventView | null> {
     facts: [
       { label: "HIGHEST CONFIRMED RUNG", value: top ? RUNG_SHORT[top] : "NOTHING YET" },
       { label: "CISA KEV", value: kev ? "LISTED" : "NOT YET" },
-      { label: "EXPLOIT CODE", value: e.exploitMaturity === "weaponized" ? "READY TO USE" : e.exploitMaturity === "poc" ? "PROOF OF CONCEPT" : "NONE KNOWN" },
+      { label: "EXPLOIT CODE", value: exploitCodeLabel(e.exploitMaturity, claimedOnly) },
     ],
     rungs: rungViews,
     clock,

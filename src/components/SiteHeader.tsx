@@ -5,7 +5,7 @@ const NAV = [
   { key: "week", href: "/", label: "THIS WEEK" },
   { key: "events", href: "/events", label: "EVENTS" },
   { key: "vendors", href: "/vendors", label: "VENDORS" },
-  { key: "trends", href: "/#trends", label: "TRENDS" },
+  { key: "record", href: "/track-record", label: "TRACK RECORD" },
   { key: "brief", href: "/brief", label: "BOARD BRIEF" },
 ] as const;
 
@@ -34,7 +34,7 @@ export function SiteHeader({ active, strip }: { active: NavKey; strip: ReactNode
               key={n.key}
               href={n.href}
               aria-current={active === n.key ? "page" : undefined}
-              className={`px-2.5 py-3 no-underline hover:text-fg sm:px-3 ${n.key === "trends" ? "max-sm:hidden" : ""} ${active === n.key ? "border-b-2 border-accent text-fg" : "border-b-2 border-transparent text-muted"}`}
+              className={`px-2.5 py-3 no-underline hover:text-fg sm:px-3 ${n.key === "record" ? "max-sm:hidden" : ""} ${active === n.key ? "border-b-2 border-accent text-fg" : "border-b-2 border-transparent text-muted"}`}
             >
               {n.label}
             </Link>

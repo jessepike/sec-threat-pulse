@@ -39,7 +39,7 @@ export function TierBadge({ tier, large = false }: { tier?: "today" | "now" | nu
   if (tier !== "today") return null;
   return (
     <span
-      className={`inline-block whitespace-nowrap rounded-sm border border-crit bg-crit font-mono font-bold text-white ${
+      className={`inline-block whitespace-nowrap rounded-sm border border-crit bg-crit font-mono font-bold text-accent-ink ${
         large ? "px-3 py-2 text-[15px] tracking-[0.1em]" : "px-[9px] py-1.5 text-xs tracking-[0.08em]"
       }`}
       title="Exploitation confirmed in the last two weeks on an internet-facing product, with ransomware use or with public attack tools"

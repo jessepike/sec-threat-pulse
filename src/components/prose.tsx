@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { SiteHeader } from "./SiteHeader";
+import { SiteHeader, type NavKey } from "./SiteHeader";
 import { PlainStrip } from "./StatusStrip";
 import { getMode } from "@/lib/data";
 
@@ -9,6 +9,7 @@ export function ProsePage({
   children,
   badge = "PRE-LAUNCH PREVIEW",
   footer = "LAST UPDATED OCT 25, 2026 · PRE-LAUNCH PREVIEW, SUBJECT TO CHANGE",
+  active = "none",
 }: {
   title: string;
   intro: string;
@@ -16,10 +17,12 @@ export function ProsePage({
   /** Label above the title. Pass null for none. */
   badge?: string | null;
   footer?: string;
+  /** The main nav item to mark as the current page. */
+  active?: NavKey;
 }) {
   return (
     <>
-      <SiteHeader active="none" strip={<PlainStrip mode={getMode()} />} />
+      <SiteHeader active={active} strip={<PlainStrip mode={getMode()} />} />
       <main id="main" className="mx-auto flex max-w-[760px] flex-col gap-8 px-4 pb-20 pt-12 sm:px-6">
         <div className="flex flex-col gap-4">
           {badge ? <div className="w-fit rounded-sm border border-warn px-2.5 py-1 font-mono text-xs font-bold tracking-[0.1em] text-warn-text">{badge}</div> : null}

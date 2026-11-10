@@ -49,6 +49,7 @@ export default async function EventPage({ params, searchParams }: { params: Prom
   return (
     <>
       <PageHead title={e.titleOverride ?? e.title} sub={`${e.id} · rules ${e.rulesVersion}`}>
+        {e.hidden ? null : <a href={`/events/${encodeURIComponent(e.id)}`} target="_blank" rel="noopener noreferrer" className="adm-btn">View public page</a>}
         <Link href="/admin/events" className="adm-btn">Back to events</Link>
       </PageHead>
       <Flash sp={sp} />

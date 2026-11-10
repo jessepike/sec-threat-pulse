@@ -121,7 +121,7 @@ function LiveSection({ data }: { data: TrackRecord }) {
         <Tile
           label={`RIGHT WITHIN ${ACT_NOW_HORIZON_DAYS} DAYS`}
           value={settled ? `${a.right} of ${settled}` : "None settled"}
-          detail={settled ? `${pct(a.rate)} of settled early calls${a.ci ? `, likely ${range(a.ci)}` : ""}.` : nextSettle ? `The first calls settle on ${longDay(nextSettle)}, unless KEV lists them sooner.` : "No early calls yet."}
+          detail={settled ? `${pct(a.rate)} of settled early calls${a.ci ? `, likely ${range(a.ci)}` : ""}. Each flaw counts once, so one event can add several.` : nextSettle ? `The first calls settle on ${longDay(nextSettle)}, unless KEV lists them sooner.` : "No early calls yet."}
         />
         <Tile label="PENDING" value={String(a.pending)} detail={`Early calls still inside their ${ACT_NOW_HORIZON_DAYS} day window.`} />
         <Tile
@@ -211,6 +211,7 @@ export default async function TrackRecordPage() {
   const live = data?.live.actNow.byVersion ?? {};
   return (
     <ProsePage
+      active="record"
       title="Track record"
       intro="How often our early Act now calls turned out right. The live record counts every call the site has made. The backtest replays each rules version over 18 months of history. Both include their misses."
       badge={null}

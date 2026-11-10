@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getDb } from "@/lib/db/client";
 import { requireAdmin } from "@/lib/admin/session";
-import { listEvents } from "@/lib/admin/queries";
+import { ADMIN_EVENTS_PAGE_SIZE, listEvents } from "@/lib/admin/queries";
 import { LadderCells } from "../../_components/ladder";
 import { Flash, NoDb, PageHead, VerdictPill, fmt, one, type SP } from "../../_components/ui";
 
@@ -17,12 +17,16 @@ export default async function EventsPage({ searchParams }: { searchParams: SP })
   const verdict = one(sp.verdict);
   const hidden = one(sp.hidden);
   const db = getDb();
-  const rows = db
-    ? await listEvents(db, { q, verdict: verdict || undefined, hidden: hidden === "yes" ? true : hidden === "no" ? false : undefined })
+  const page = Math.max(1, Math.floor(Number(one(sp.page)) || 1));
+  const found = db
+    ? await listEvents(db, { q, verdict: verdict || undefined, hidden: hidden === "yes" ? true : hidden === "no" ? false : undefined, page })
     : null;
+  const rows = found?.rows ?? null;
+  const pages = found ? Math.max(1, Math.ceil(found.total / ADMIN_EVENTS_PAGE_SIZE)) : 1;
+  const pageHref = (n: number) => `/admin/events?${new URLSearchParams({ ...(q ? { q } : {}), ...(verdict ? { verdict } : {}), ...(hidden ? { hidden } : {}), page: String(n) })}`;
   return (
     <>
-      <PageHead title="Events" sub="Up to 100 most recently updated." />
+      <PageHead title="Events" sub={found ? `${found.total} events, most recently updated first.` : "Most recently updated first."} />
       <Flash sp={sp} />
       {!rows ? (
         <NoDb />
@@ -43,10 +47,10 @@ export default async function EventsPage({ searchParams }: { searchParams: SP })
             </select>
             <button className="adm-btn" type="submit">Filter</button>
           </form>
-          <div className="adm-card adm-scroll">
+          <div className="adm-card adm-scroll" tabIndex={0} role="region" aria-label="Events table">
             <table className="adm-table">
               <thead>
-                <tr><th>Event</th><th>Ladder</th><th>Verdict</th><th>Updated</th></tr>
+                <tr><th>Event</th><th>Ladder</th><th>Verdict</th><th>Updated</th><th>Public page</th></tr>
               </thead>
               <tbody>
                 {rows.map((e) => (
@@ -58,15 +62,24 @@ export default async function EventsPage({ searchParams }: { searchParams: SP })
                     <td><LadderCells ladder={e.ladder} /></td>
                     <td>
                       <VerdictPill verdict={e.overrideVerdict ?? e.verdict} />
+                      {e.tier === "today" && (e.overrideVerdict ?? e.verdict) === "act_now" ? <span className="adm-pill adm-pill-act">Today</span> : null}
                       {e.overrideVerdict ? <span className="adm-muted adm-small"> override</span> : null}
                     </td>
                     <td className="adm-mono">{fmt(e.updatedAt)}</td>
+                    <td>{e.hidden ? <span className="adm-muted">hidden</span> : <a href={`/events/${encodeURIComponent(e.id)}`} target="_blank" rel="noopener noreferrer">View</a>}</td>
                   </tr>
                 ))}
-                {rows.length === 0 ? <tr><td colSpan={4} className="adm-muted">No events match.</td></tr> : null}
+                {rows.length === 0 ? <tr><td colSpan={5} className="adm-muted">No events match.</td></tr> : null}
               </tbody>
             </table>
           </div>
+          {pages > 1 ? (
+            <nav aria-label="Pages" className="adm-inline">
+              {page > 1 ? <Link className="adm-btn" href={pageHref(page - 1)}>Previous</Link> : null}
+              <span className="adm-muted">Page {Math.min(page, pages)} of {pages}</span>
+              {page < pages ? <Link className="adm-btn" href={pageHref(page + 1)}>Next</Link> : null}
+            </nav>
+          ) : null}
         </>
       )}
     </>
