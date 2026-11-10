@@ -1,12 +1,14 @@
 # Status
 
-Updated Nov 10, 2026, 01:30 UTC. The site is live with real data at https://securitythreatpulse.com.
+Updated Nov 10, 2026, 12:30 UTC. The site is live with real data at https://securitythreatpulse.com.
 
 **Now.** Rules v3 is live. Waves 0 to 3 are built and Wave 4 prep is merged; the repo is public and indexing is on. One scheduled run every 30 minutes ingests and then rebuilds events. The outside probe owns every alert issue. A smoke test runs after each production deployment. 29 of 30 sources are current; VulnCheck KEV has no key and is skipped.
 
 **Waiting on the owner.** The real Neon compute number (Usage page in the Neon console, opened with `vercel integration open neon stp-db`). The first local backup (`npm run backup:local` needs `DATABASE_URL` in `.env.local`; `vercel env pull` returns the Neon values blank because they are marked sensitive, so the address has to come from the Vercel Storage page). Turning off Vercel Agent review. MCP registry publish, the CIRCL email, and the ransomware.live and Shadowserver forms.
 
 **Next.** A scheduled backup once the owner picks a place for it. Routine-drafted write-ups and the blind scorer review from Wave 3. More keyless sources and the next rules version from Wave 2.
+
+**Nov 10 daily routine.** No feedback or alert issues open. `/status.json` at 12:24 UTC: ok, last complete run 12:00 UTC, 29 of 30 sources ok (VulnCheck unconfigured), 116 events (78 Act now, 38 Watch, 0 Low). Open Dependabot pull requests are the three held majors (TypeScript 7, ESLint 10, `@types/node` 26), each already marked held. The smoke test passed on the last production deployment (`4a0313a`). The agent test set ran at 03:32 UTC and passed. The data branch's last snapshot is Nov 9 14:05 UTC (22 hours, inside the 36-hour window); the 03:39 run skipped on the 20-hour guard and the 13:23 slot should commit. The freshness probe is still late: scheduled every 30 minutes, it ran at 19:07, 02:01 and 09:40 UTC, so making the repo public did not help. That still meets the Wave 0 gate (an outage caught within 24 hours). No code change today. A faster probe needs an outside pinger with a GitHub token, which is the owner's call.
 
 **Nov 10 session, ingest housekeeping.** Source rows are refreshed in one statement per run (it was 30). A source with no key is skipped before any database write (VulnCheck used to insert and delete a run row every run). Run rows older than 90 days are pruned once a day at 04:00 UTC, keeping any run an observation points at and any run with an archived payload. The footer and the methodology page credit VulnCheck only when its key is set. Older status entries moved to `docs/status-archive.md`.
 
