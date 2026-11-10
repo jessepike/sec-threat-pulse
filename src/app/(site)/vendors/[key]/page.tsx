@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { EventList } from "@/components/EventList";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HomeStrip } from "@/components/StatusStrip";
 import { Eyebrow, LadderKey, VERDICT_STYLE } from "@/components/ui";
 import { getVendor } from "@/lib/data";
+import { canonVendorKey } from "@/lib/data/vendors";
 import { pageMeta } from "@/lib/site";
 
 export const revalidate = 1800;
@@ -27,7 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function VendorPage({ params }: Props) {
   const { key } = await params;
   const data = await getVendor(key);
-  if (!data) notFound();
+  if (!data) {
+    // An address saved before two names became one vendor ("/vendors/netscaler") goes to the vendor's page today.
+    const canon = canonVendorKey(key.toLowerCase());
+    if (canon !== key && (await getVendor(canon))) permanentRedirect(`/vendors/${canon}`);
+    notFound();
+  }
   const { vendor: v, rows, status } = data;
   return (
     <>
