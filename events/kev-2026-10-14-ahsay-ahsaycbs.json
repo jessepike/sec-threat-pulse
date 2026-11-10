@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-14-ahsay-ahsaycbs",
   "title": "AhsayCBS: 2 flaws used in attacks; attackers can get in without a password",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 36 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 84%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 37 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 84%.",
   "tier": "now",
   "rankScore": 4,
   "rankWhy": [
@@ -56,8 +56,8 @@
   "kevDateAdded": "2026-10-14",
   "kevDueDate": "2026-10-17",
   "firstSeenAt": "2026-10-14T00:00:00.000Z",
-  "updatedAt": "2026-11-09T05:37:40.948Z",
-  "newestEvidenceAt": "2026-11-08T07:22:41.075Z",
+  "updatedAt": "2026-11-10T05:30:20.748Z",
+  "newestEvidenceAt": "2026-11-10T09:12:11.816Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 17, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -192,5 +192,5 @@
       }
     }
   ],
-  "evidenceWithheld": 6
+  "evidenceWithheld": 16
 }

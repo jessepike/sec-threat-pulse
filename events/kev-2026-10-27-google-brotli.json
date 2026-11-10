@@ -5,10 +5,11 @@
   "verdict": "act_now",
   "verdictReason": "Attacks are confirmed. The vulnerability is 18 days old, so many systems are likely still unpatched. The severity score is critical (9.2). The exploit prediction score is 83%.",
   "tier": "now",
-  "rankScore": 4,
+  "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 13 days old."
+    "The confirmation is 14 days old.",
+    "12 products are affected."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -39,6 +40,127 @@
       ],
       "vendorKey": "google",
       "productKey": "brotli"
+    },
+    {
+      "kind": "direct",
+      "slug": "nodejs/nodejs",
+      "vendor": "Nodejs",
+      "product": "Nodejs",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "nodejs",
+      "productKey": "nodejs"
+    },
+    {
+      "kind": "direct",
+      "slug": "pythonhyper/brotlicffi",
+      "vendor": "Python-hyper",
+      "product": "Brotlicffi",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "pythonhyper",
+      "productKey": "brotlicffi"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/net",
+      "vendor": "Microsoft",
+      "product": ".NET",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "net"
+    },
+    {
+      "kind": "direct",
+      "slug": "debian/debianlinux",
+      "vendor": "Debian",
+      "product": "Debian Linux",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "debian",
+      "productKey": "debianlinux"
+    },
+    {
+      "kind": "direct",
+      "slug": "istio/istio",
+      "vendor": "Istio",
+      "product": "Istio",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "istio",
+      "productKey": "istio"
+    },
+    {
+      "kind": "direct",
+      "slug": "anthropic/bun",
+      "vendor": "Anthropic",
+      "product": "Bun",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "anthropic",
+      "productKey": "bun"
+    },
+    {
+      "kind": "direct",
+      "slug": "envoyproxy/envoy",
+      "vendor": "Envoyproxy",
+      "product": "Envoy",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "envoyproxy",
+      "productKey": "envoy"
+    },
+    {
+      "kind": "direct",
+      "slug": "tianocore/edk2",
+      "vendor": "Tianocore",
+      "product": "Edk2",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "tianocore",
+      "productKey": "edk2"
+    },
+    {
+      "kind": "direct",
+      "slug": "google/woff2",
+      "vendor": "Google",
+      "product": "Woff2",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "google",
+      "productKey": "woff2"
+    },
+    {
+      "kind": "direct",
+      "slug": "duckdb/duckdb",
+      "vendor": "Duckdb",
+      "product": "Duckdb",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "duckdb",
+      "productKey": "duckdb"
+    },
+    {
+      "kind": "direct",
+      "slug": "clickhouse/clickhouse",
+      "vendor": "Clickhouse",
+      "product": "Clickhouse",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "clickhouse",
+      "productKey": "clickhouse"
     }
   ],
   "category": {
@@ -55,8 +177,8 @@
   "kevDateAdded": "2026-10-27",
   "kevDueDate": "2026-11-10",
   "firstSeenAt": "2026-10-27T00:00:00.000Z",
-  "updatedAt": "2026-11-09T13:37:40.129Z",
-  "newestEvidenceAt": "2026-11-09T08:00:16.000Z",
+  "updatedAt": "2026-11-10T13:30:21.882Z",
+  "newestEvidenceAt": "2026-11-10T12:13:21.186Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 10, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -275,5 +397,5 @@
       }
     }
   ],
-  "evidenceWithheld": 198
+  "evidenceWithheld": 203
 }

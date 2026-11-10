@@ -3,15 +3,16 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-18-linux-kernel",
   "title": "Linux Kernel: 3 memory flaws used in attacks",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 137 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 138 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
   "tier": "now",
-  "rankScore": 3,
+  "rankScore": 4,
   "rankWhy": [
-    "Exploitation is confirmed by an authoritative source."
+    "Exploitation is confirmed by an authoritative source.",
+    "5 products are affected."
   ],
   "rulesVersion": "v3",
   "ladder": {
-    "talk": "none",
+    "talk": "reported",
     "damage": "none",
     "attempts": "confirmed",
     "exposure": "none",
@@ -39,6 +40,50 @@
       ],
       "vendorKey": "linux",
       "productKey": "kernel"
+    },
+    {
+      "kind": "direct",
+      "slug": "linux/linux",
+      "vendor": "Linux",
+      "product": "Linux",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "linux",
+      "productKey": "linux"
+    },
+    {
+      "kind": "direct",
+      "slug": "linux/linuxkernel",
+      "vendor": "Linux",
+      "product": "Linux kernel",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "linux",
+      "productKey": "linuxkernel"
+    },
+    {
+      "kind": "direct",
+      "slug": "siemens/simatics71500cpu15184pndpmfp",
+      "vendor": "Siemens",
+      "product": "Simatic S7-1500 CPU 1518-4 Pn/dp Mfp Firmware",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "siemens",
+      "productKey": "simatics71500cpu15184pndpmfp"
+    },
+    {
+      "kind": "direct",
+      "slug": "siemens/simatics71500cpu1518f4pndpmfp",
+      "vendor": "Siemens",
+      "product": "Simatic S7-1500 CPU 1518f-4 Pn/dp Mfp Firmware",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "siemens",
+      "productKey": "simatics71500cpu1518f4pndpmfp"
     }
   ],
   "category": {
@@ -55,8 +100,8 @@
   "kevDateAdded": "2026-09-18",
   "kevDueDate": "2026-09-21",
   "firstSeenAt": "2026-09-18T00:00:00.000Z",
-  "updatedAt": "2026-11-09T08:52:41.651Z",
-  "newestEvidenceAt": "2026-09-20T06:03:40.000Z",
+  "updatedAt": "2026-11-10T13:30:21.882Z",
+  "newestEvidenceAt": "2026-11-10T10:10:01.886Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 21, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -67,23 +112,23 @@
     "firstReport": {
       "date": "2026-09-18",
       "label": "CISA Known Exploited Vulnerabilities",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-39964"
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-39682"
     },
     "kevListed": {
       "date": "2026-09-18",
       "label": "CISA KEV listing",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-39964"
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-39682"
     },
     "kevDue": {
       "date": "2026-09-21",
       "label": "CISA deadline for US federal agencies",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-39964"
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-39682"
     },
     "daysToFirstReport": 378,
     "daysToKev": 378
   },
   "ladderSources": {
-    "talk": 0,
+    "talk": 1,
     "exposure": 0,
     "attempts": 2,
     "exploited": 2,
@@ -105,6 +150,18 @@
     {
       "rung": "exploited",
       "strength": "confirmed",
+      "title": "Linux Kernel Improper Check for Unusual or Exceptional Conditions Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-39682",
+      "publishedAt": "2026-09-18T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
       "title": "Linux Kernel Race Condition Vulnerability",
       "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-39964",
       "publishedAt": "2026-09-18T00:00:00.000Z",
@@ -119,18 +176,6 @@
       "strength": "confirmed",
       "title": "Linux Kernel Out-of-Bounds Write Vulnerability",
       "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-53266",
-      "publishedAt": "2026-09-18T00:00:00.000Z",
-      "source": {
-        "id": "cisa-kev",
-        "name": "CISA Known Exploited Vulnerabilities",
-        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
-      }
-    },
-    {
-      "rung": "exploited",
-      "strength": "confirmed",
-      "title": "Linux Kernel Improper Check for Unusual or Exceptional Conditions Vulnerability",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-39682",
       "publishedAt": "2026-09-18T00:00:00.000Z",
       "source": {
         "id": "cisa-kev",
@@ -199,5 +244,5 @@
       }
     }
   ],
-  "evidenceWithheld": 0
+  "evidenceWithheld": 4
 }

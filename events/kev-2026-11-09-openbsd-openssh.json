@@ -1,0 +1,191 @@
+{
+  "id": "kev-2026-11-09-openbsd-openssh",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-09-openbsd-openssh",
+  "title": "OpenBSD OpenSSH: attackers can get in without a password",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 4 days old, so many systems are likely still unpatched.",
+  "tier": "now",
+  "rankScore": 5,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The confirmation is 1 day old."
+  ],
+  "rulesVersion": "v3",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
+  "cves": [
+    "CVE-2026-123158"
+  ],
+  "vendor": "OpenBSD",
+  "product": "OpenSSH",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "openbsd/openssh",
+      "vendor": "OpenBSD",
+      "product": "OpenSSH",
+      "evidence": [
+        "kev",
+        "cpe"
+      ],
+      "vendorKey": "openbsd",
+      "productKey": "openssh"
+    }
+  ],
+  "category": {
+    "id": "other",
+    "label": "Other software",
+    "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+    "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+  },
+  "summary": "OpenBSD OpenSSH on Linux contains an unexpected status code or return value vulnerability that could allow for authentication bypass.",
+  "cvss": 8.1,
+  "epss": 0.01014,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-09",
+  "kevDueDate": "2026-11-12",
+  "firstSeenAt": "2026-11-09T00:00:00.000Z",
+  "updatedAt": "2026-11-10T00:00:05.135Z",
+  "newestEvidenceAt": "2026-11-10T10:50:29.702Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 12, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-11-05",
+      "label": "CVE-2026-123158 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-123158"
+    },
+    "firstReport": {
+      "date": "2026-11-09",
+      "label": "CVE List V5 and CISA Vulnrichment",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-123158"
+    },
+    "kevListed": {
+      "date": "2026-11-09",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-123158"
+    },
+    "kevDue": {
+      "date": "2026-11-12",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-123158"
+    },
+    "daysToFirstReport": 4,
+    "daysToKev": 4
+  },
+  "ladderSources": {
+    "talk": 6,
+    "exposure": 0,
+    "attempts": 3,
+    "exploited": 3,
+    "damage": 0
+  },
+  "evidence": [
+    {
+      "rung": "advisory",
+      "strength": "reported",
+      "title": "OpenBSD security advisory (AV26-1130) - Update 1",
+      "url": "https://cyber.gc.ca/en/alerts-advisories/openbsd-security-advisory-av26-1130",
+      "publishedAt": "2026-11-09T18:34:02.000Z",
+      "source": {
+        "id": "advisory-cccs",
+        "name": "Canadian Centre for Cyber Security",
+        "attribution": "Advisory headlines and links from Canadian Centre for Cyber Security"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-123158 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-123158",
+      "publishedAt": "2026-11-09T16:50:17.920Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Hackers exploit SSHole OpenSSH flaw to breach Linux systems",
+      "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-sshole-openssh-flaw-to-breach-linux-systems/",
+      "publishedAt": "2026-11-09T16:04:57.000Z",
+      "source": {
+        "id": "news-bleepingcomputer",
+        "name": "BleepingComputer",
+        "attribution": "Headlines and links from BleepingComputer"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "OpenBSD OpenSSH Unexpected Status Code or Return Value Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-123158",
+      "publishedAt": "2026-11-09T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Scans for Sshole Vulnerability (CVE-2026-123158), (Sun, Nov 8th)",
+      "url": "https://isc.sans.edu/diary/rss/33498",
+      "publishedAt": "2026-11-08T15:44:33.000Z",
+      "source": {
+        "id": "news-sansisc",
+        "name": "SANS Internet Storm Center",
+        "attribution": "Headlines and links from SANS Internet Storm Center"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Hackers Target OpenSSH SSHole Flaw Within Hours of Disclosure, Gain Root on Honeypot",
+      "url": "https://thehackernews.com/2026/11/hackers-exploited-openssh-sshole-flaw.html",
+      "publishedAt": "2026-11-06T15:21:49.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "OpenSSH flaw exploited in the wild just hours after disclosure (CVE-2026-123158)",
+      "url": "https://www.helpnetsecurity.com/2026/11/06/openssh-sshole-cve-2026-123158-exploitation/",
+      "publishedAt": "2026-11-06T12:49:41.000Z",
+      "source": {
+        "id": "news-helpnetsecurity",
+        "name": "Help Net Security",
+        "attribution": "Headlines and links from Help Net Security"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "27 public GitHub repositories claim a proof of concept for CVE-2026-123158",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-123158.json",
+      "publishedAt": "2026-11-05T20:09:29.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    }
+  ],
+  "evidenceWithheld": 44
+}
