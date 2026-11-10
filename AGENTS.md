@@ -71,7 +71,8 @@ docs/                  architecture, source registry, design prototypes
 - Tests: every adapter has a fixture-based test. `npm test` must pass before pushing. After a
   deploy, `npm run smoke` checks the live pages, API, feeds, MCP server and phone layout.
 - Commit as `jesse@keatingpike.com` (Vercel rejects other authors). Conventional commits.
-- Update `status.md` at the end of every session.
+- Update `status.md` at the end of every session. Keep it to the current state and about a week of entries;
+  move older entries to `docs/status-archive.md`.
 - Keep the owner's Claude Doc current as work lands: tick the checkboxes in the decision log, open
   questions, "What exists" and the Build plan backlog, and add new decisions and open questions there.
 - **Owner feedback comes first.** Jesse leaves feedback on the admin Roadmap page

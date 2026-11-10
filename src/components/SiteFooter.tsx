@@ -3,15 +3,18 @@ import { cookies } from "next/headers";
 import { THEME_COOKIE, parseTheme } from "./theme";
 import { ThemeToggle } from "./ThemeToggle";
 import { ExternalLink } from "./ui";
+import { isConfigured } from "@/lib/ingest/registry";
 
 export async function SiteFooter() {
   const theme = parseTheme((await cookies()).get(THEME_COOKIE)?.value);
+  // VulnCheck KEV needs a key. While none is set the site reads no VulnCheck data, so it must not credit any.
+  const vulncheck = isConfigured("vulncheck-kev");
   return (
     <footer className="border-t border-line bg-header">
       <div className="mx-auto flex max-w-[1280px] flex-col gap-8 px-4 py-8 sm:px-6">
         <div className="flex flex-wrap justify-between gap-6">
           <p className="m-0 max-w-[720px] text-sm leading-[1.6] text-muted">
-            Vendor neutral. Built from public sources: CISA KEV, VulnCheck, FIRST EPSS, NVD, CIRCL and researcher
+            Vendor neutral. Built from public sources: CISA KEV, {vulncheck ? "VulnCheck, " : ""}FIRST EPSS, NVD, CIRCL and researcher
             reports. Verdicts follow published rules. We say when evidence is missing.
           </p>
           <ThemeToggle initial={theme} />
@@ -22,7 +25,7 @@ export async function SiteFooter() {
             SOURCE CREDITS
           </h2>
           <ul className="m-0 grid list-none gap-x-8 gap-y-2 p-0 text-[13px] leading-[1.55] text-muted md:grid-cols-2">
-            <li>Exploited-flaw data includes VulnCheck KEV.</li>
+            {vulncheck && <li>Exploited-flaw data includes VulnCheck KEV.</li>}
             <li>
               Breach data from <ExternalLink href="https://haveibeenpwned.com">Have I Been Pwned</ExternalLink>, licensed under CC BY 4.0.
             </li>

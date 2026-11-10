@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ProsePage } from "@/components/prose";
 import { headingId, parseMarkdown, renderBlocks, splitTitle, type Block } from "@/lib/content/markdown";
+import { isConfigured } from "@/lib/ingest/registry";
 import { CURRENT_RULES_VERSION } from "@/lib/ladder/rules";
 import { RULES_CHANGELOG } from "@/lib/ladder/rules/changelog";
 import { pageMeta } from "@/lib/site";
@@ -103,7 +104,7 @@ export default function Methodology() {
 
       <section id="where-the-facts-come-from">
         <h2>Where the facts come from</h2>
-        <p>We read public sources several times a day. They include CISA KEV, VulnCheck KEV, Microsoft&apos;s security update guide, the CVE List, NVD, FIRST EPSS, CIRCL sightings, SEC 8-K filings, Have I Been Pwned and state attorney general breach notices. Each source has its own terms. We follow them.</p>
+        <p>We read public sources several times a day. They include CISA KEV, {isConfigured("vulncheck-kev") ? "VulnCheck KEV, " : ""}Microsoft&apos;s security update guide, the CVE List, NVD, FIRST EPSS, CIRCL sightings, SEC 8-K filings, Have I Been Pwned and state attorney general breach notices. Each source has its own terms. We follow them.</p>
         <p>Every statement on an event page links to its source and shows a date. If we lack evidence, the page says so.</p>
       </section>
       <section id="named-organizations-and-claims">
