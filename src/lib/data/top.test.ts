@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { EMPTY_LADDER } from "@/lib/ladder/types";
 import type { EventRow } from "./types";
-import { topFive, weekLine } from "./top";
+import { changedThisWeek, topFive, weekLine } from "./top";
 
 const row = (id: string, verdict: EventRow["verdict"], tier?: EventRow["tier"]): EventRow => ({
   id, href: `/events/${id}`, title: id, idsLabel: "", exposure: "", question: null, verdict, tier, ladder: EMPTY_LADDER, topConfirmed: null,
@@ -35,5 +35,21 @@ describe("board brief change text", () => {
     const { briefChangeText } = await import("./index");
     expect(briefChangeText({ exposure: "It sits at the edge of your network.", category: { id: "edge", label: "VPN", doThis: "Patch it today." } })).toBe("It sits at the edge of your network. First step: Patch it today.");
     expect(briefChangeText({ exposure: "It holds shared documents." })).toBe("It holds shared documents.");
+  });
+});
+
+describe("changedThisWeek", () => {
+  it("lists marked events that the top list does not already show, up to the cap", () => {
+    const rows = [
+      { ...row("a", "act_now"), mark: "changed" as const },
+      row("b", "act_now"),
+      { ...row("c", "watch"), mark: "new" as const },
+      { ...row("d", "watch"), mark: "changed" as const },
+      { ...row("e", "low"), mark: "new" as const },
+    ];
+    const top = topFive(rows);
+    expect(top.map((t) => t.row.id)).toEqual(["a", "b"]);
+    expect(changedThisWeek(rows, top, 2).map((r) => r.id)).toEqual(["c", "d"]);
+    expect(changedThisWeek([row("x", "watch")], [], 6)).toEqual([]);
   });
 });

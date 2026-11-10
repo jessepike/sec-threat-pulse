@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { EventsGrid } from "@/components/home";
+import { EventList } from "@/components/EventList";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HomeStrip } from "@/components/StatusStrip";
 import { Eyebrow, LadderKey, VERDICT_STYLE } from "@/components/ui";
@@ -34,7 +34,7 @@ export default async function VendorPage({ params }: Props) {
       <SiteHeader active="vendors" strip={<HomeStrip status={status} />} />
       <main id="main" className="mx-auto flex max-w-[1280px] flex-col gap-8 px-4 pb-[72px] pt-10 sm:px-6">
         <div className="flex flex-col gap-3">
-          <Link href="/vendors" className="self-start py-1 font-mono text-[13px] tracking-[0.06em] text-muted no-underline hover:text-fg">← ALL VENDORS</Link>
+          <Link href="/vendors" className="self-start py-3 font-mono text-[13px] tracking-[0.06em] text-muted no-underline hover:text-fg">← ALL VENDORS</Link>
           <Eyebrow>{"// VENDOR"}</Eyebrow>
           <h1 className="m-0 font-display text-[40px] font-bold leading-[1.05] tracking-[-0.03em] sm:text-5xl">{v.name}</h1>
           <div className="flex flex-wrap gap-x-5 gap-y-1 font-mono text-sm tracking-[0.06em]">
@@ -49,7 +49,7 @@ export default async function VendorPage({ params }: Props) {
           <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
             {v.products.map((p) => (
               <li key={p.slug}>
-                <Link href={`/events?product=${encodeURIComponent(p.slug)}`} className="inline-block rounded-[3px] border border-line-strong px-3 py-2 font-mono text-[13px] text-fg no-underline hover:border-accent">
+                <Link href={`/events?product=${encodeURIComponent(p.slug)}`} className="inline-block rounded-[3px] border border-line-strong px-3 py-3 font-mono text-[13px] text-fg no-underline hover:border-accent">
                   {p.label}
                   {p.embedded ? " (ships the component)" : ""} · {p.events}
                 </Link>
@@ -65,7 +65,7 @@ export default async function VendorPage({ params }: Props) {
             </h2>
             <LadderKey />
           </div>
-          <EventsGrid events={rows} label={`${v.name} events with evidence ladder and verdict`} />
+          <EventList events={rows} label={`${v.name} events with evidence ladder and verdict`} />
         </section>
         <p className="m-0 font-mono text-[13px] text-muted">
           AGENTS: <a href={`/api/v1/check-stack?products=${encodeURIComponent(v.key)}`}>/api/v1/check-stack?products={v.key}</a>

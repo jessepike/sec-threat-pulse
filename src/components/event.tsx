@@ -11,7 +11,7 @@ export function EventHero({ e }: { e: EventView }) {
   return (
     <section aria-labelledby="t" className="flex flex-col gap-[18px]">
       <nav aria-label="Breadcrumb" className="font-mono text-xs tracking-[0.08em] text-muted">
-        <Link href="/" className="inline-block py-1 no-underline">THIS WEEK</Link> / <Link href="/events" className="inline-block py-1 no-underline">EVENTS</Link> / <span className="uppercase">{e.title}</span>
+        <Link href="/" className="inline-block py-3 no-underline">THIS WEEK</Link> / <Link href="/events" className="inline-block py-3 no-underline">EVENTS</Link> / <span className="uppercase">{e.title}</span>
       </nav>
       <div className={`hero-card flex flex-wrap gap-8 rounded border border-l-8 border-line p-6 sm:p-9 ${borderTone}`}>
         <div className="flex min-w-0 flex-[999_1_min(100%,560px)] flex-col gap-[18px]">
@@ -85,7 +85,7 @@ export function AffectedProducts({ products }: { products: ProductChip[] }) {
       <div className="flex flex-wrap items-center gap-2">
         <span className="font-mono text-xs tracking-[0.1em] text-muted">AFFECTS</span>
         {direct.map((p) => (
-          <Link key={p.slug} href={`/events?product=${encodeURIComponent(p.slug)}`} className="rounded-sm border border-line-strong bg-surface px-2.5 py-1 font-mono text-[13px] text-fg no-underline hover:border-accent hover:text-accent">
+          <Link key={p.slug} href={`/events?product=${encodeURIComponent(p.slug)}`} className="rounded-sm border border-line-strong bg-surface px-3 py-2.5 font-mono text-[13px] text-fg no-underline hover:border-accent hover:text-accent">
             {p.label}
           </Link>
         ))}
@@ -121,14 +121,14 @@ export function EventClock({ e }: { e: EventView }) {
         <ol role="list" className="m-0 grid list-none grid-cols-1 p-0 sm:grid-cols-2 lg:grid-cols-5">
           {c.points.map((p) => (
             <li key={p.key} className="flex flex-col gap-1.5 border-b border-line-soft p-5 lg:border-b-0 lg:border-r lg:last:border-r-0">
-              <div className="font-mono text-[11px] tracking-[0.1em] text-muted">{p.label.toUpperCase()}</div>
+              <div className="font-mono text-xs tracking-[0.1em] text-muted">{p.label.toUpperCase()}</div>
               <div className={`font-mono text-[22px] font-bold leading-none ${p.date ? "" : "text-faint"}`}>
                 {p.date ? <time dateTime={p.date}>{fmtDayYear(p.date)}</time> : (p.pending ?? "NOT YET")}
               </div>
               {p.source && (
-                <div className="font-mono text-[11px] leading-normal text-faint">
+                <div className="font-mono text-xs leading-normal text-faint">
                   {p.url ? (
-                    <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-faint underline hover:text-accent">
+                    <a href={p.url} target="_blank" rel="noopener noreferrer" className="-my-3 inline-block py-3 text-faint underline hover:text-accent">
                       {p.source}
                     </a>
                   ) : (
@@ -154,14 +154,14 @@ const STATE_LOOK: Record<RungView["state"], { status: string; cls: string }> = {
 const UNTRACKED_LOOK = { status: "□ NOT TRACKED YET", cls: "text-faint" };
 
 function SourceList({ sources }: { sources: SourceRef[] }) {
-  if (sources.length === 0) return <div className="font-mono text-[11px] leading-normal text-faint">SRC: NONE YET</div>;
+  if (sources.length === 0) return <div className="font-mono text-xs leading-normal text-faint">SRC: NONE YET</div>;
   return (
-    <ul className="m-0 flex list-none flex-col gap-1 p-0 font-mono text-[11px] leading-normal text-faint">
+    <ul className="m-0 flex list-none flex-col gap-1 p-0 font-mono text-xs leading-normal text-faint">
       {sources.map((s) => (
         <li key={`${s.label}${s.url ?? ""}`}>
           SRC:{" "}
           {s.url ? (
-            <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-faint underline hover:text-accent">
+            <a href={s.url} target="_blank" rel="noopener noreferrer" className="-my-3 inline-block py-3 text-faint underline hover:text-accent">
               {s.label}
             </a>
           ) : (
@@ -195,7 +195,7 @@ export function FullLadder({ e }: { e: EventView }) {
                 </h3>
                 <Seg state={r.state} large />
                 <div className={`font-mono text-xs font-bold tracking-[0.08em] ${look.cls}`}>{look.status}</div>
-                <div className="font-mono text-[11px] tracking-[0.06em] text-muted">
+                <div className="font-mono text-xs tracking-[0.06em] text-muted">
                   {r.untracked ? (
                     "NO SOURCE FOR THIS STEP YET"
                   ) : (
@@ -388,7 +388,7 @@ export function Sources({ e }: { e: EventView }) {
             <li key={s.label + (s.url ?? "")}>
               [{i + 1}]{" "}
               {s.url ? (
-                <a href={s.url} target="_blank" rel="noopener noreferrer" className="underline">
+                <a href={s.url} target="_blank" rel="noopener noreferrer" className="-my-3 inline-block py-3 underline">
                   {s.label}
                 </a>
               ) : (

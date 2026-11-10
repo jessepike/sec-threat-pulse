@@ -230,6 +230,7 @@ export async function changeMarks(db: Db, ids: string[], now: number = Date.now(
 
 async function summarize(db: Db, recs: Rec[]): Promise<EventSummary[]> {
   const rows = recs.map((r) => r.e);
+  const signalOf = new Map(recs.map((r) => [r.e.id, r.signalAt]));
   const ids = rows.map((r) => r.id);
   const cves = await cvesByEvent(db, ids);
   const narratives = await publishedNarratives(db, ids);
@@ -243,6 +244,8 @@ async function summarize(db: Db, recs: Rec[]): Promise<EventSummary[]> {
     const row = toRow(e, list, narratives.get(e.id));
     const mark = marks.get(e.id);
     if (mark) row.mark = mark;
+    const signal = signalOf.get(e.id);
+    if (signal !== undefined) row.lastSignal = isoDayPT(new Date(signal));
     return { row, summary: e.summary ?? "", updatedAt: e.updatedAt.toISOString(), cvss: scores.length ? Math.max(...scores) : undefined };
   });
 }

@@ -67,17 +67,17 @@ describe("live event lists", () => {
     expect((await dbEventsPage("watch", 1)).total).toBe(2);
   });
 
-  it("caps Watch at 12 and Low at 6 on home, and pages /events 50 at a time", async () => {
+  it("caps Watch at 12 and Low at 6 on home, and pages /events 25 at a time", async () => {
     for (let i = 0; i < 60; i++) await ev(`w${String(i).padStart(2, "0")}`, "watch");
     for (let i = 0; i < 10; i++) await ev(`l${i}`, "low");
     const home = await dbHomeEvents();
     expect(home.items.filter((x) => x.row.verdict === "watch")).toHaveLength(12);
     expect(home.items.filter((x) => x.row.verdict === "low")).toHaveLength(6);
     const p1 = await dbEventsPage("all", 1);
-    const p2 = await dbEventsPage("all", 2);
-    expect(p1.rows).toHaveLength(50);
-    expect(p2.rows).toHaveLength(20);
-    expect(p1.pages).toBe(2);
+    const p3 = await dbEventsPage("all", 3);
+    expect(p1.rows).toHaveLength(25);
+    expect(p3.rows).toHaveLength(20);
+    expect(p1.pages).toBe(3);
   });
 
   it("gives the brief its lead event and recent updates", async () => {

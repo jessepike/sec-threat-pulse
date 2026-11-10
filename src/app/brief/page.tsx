@@ -10,7 +10,7 @@ import { pageMeta } from "@/lib/site";
 export const revalidate = 1800;
 export const metadata: Metadata = pageMeta({ title: "Board brief", description: "A one-page, printable weekly summary for boards and executives.", path: "/brief" });
 
-const LAB = "font-mono text-[11px] font-bold tracking-[0.1em] text-[var(--b-muted)]";
+const LAB = "font-mono text-xs font-bold tracking-[0.1em] text-[var(--b-muted)]";
 
 export default async function BriefPage() {
   const { brief: b, mode } = await getBriefData();
@@ -35,7 +35,7 @@ export default async function BriefPage() {
             <h1 className="m-0 font-mono text-[13px] font-bold tracking-[0.12em]">SECURITY_THREAT_PULSE · BOARD BRIEF</h1>
           </div>
           <div className="flex items-center gap-3 font-mono text-xs tracking-[0.06em] text-[var(--b-muted)]">
-            {mode === "sample" && <span className="border border-[#7a5300] px-1.5 py-0.5 text-[11px] font-bold text-[#7a5300]">SAMPLE DATA</span>}
+            {mode === "sample" && <span className="border border-[#7a5300] px-1.5 py-0.5 text-xs font-bold text-[#7a5300]">SAMPLE DATA</span>}
             WEEK OF {b.weekOf.toUpperCase()}
           </div>
         </header>
@@ -90,7 +90,7 @@ export default async function BriefPage() {
           <div className="overflow-x-auto border border-[var(--b-line)]" tabIndex={0} role="region" aria-label="Our position table">
             <table className="w-full min-w-[460px] border-collapse text-[13px]">
               <thead>
-                <tr className="bg-[var(--b-head)] font-mono text-[11px] tracking-[0.08em] text-[var(--b-ink-2)]">
+                <tr className="bg-[var(--b-head)] font-mono text-xs tracking-[0.08em] text-[var(--b-ink-2)]">
                   <th scope="col" className="w-[40%] px-3.5 py-2 text-left font-bold">ITEM</th>
                   <th scope="col" className="w-[20%] px-3.5 py-2 text-left font-bold">STATUS</th>
                   <th scope="col" className="w-[40%] px-3.5 py-2 text-left font-bold">NOTE</th>
@@ -107,7 +107,7 @@ export default async function BriefPage() {
               </tbody>
             </table>
           </div>
-          <p className="no-print m-0 font-mono text-[11px] text-[var(--b-muted)]">Bracketed fields are for management to fill in before the meeting.</p>
+          <p className="no-print m-0 font-mono text-xs text-[var(--b-muted)]">Bracketed fields are for management to fill in before the meeting.</p>
         </section>
 
         <div className="flex flex-wrap gap-6">

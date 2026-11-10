@@ -105,7 +105,7 @@ export function YourVendors() {
           type="button"
           onClick={() => (open ? setOpen(false) : startChoosing())}
           aria-expanded={open}
-          className="rounded-[3px] border border-line-strong bg-transparent px-4 py-2 font-mono text-xs font-bold tracking-[0.06em] text-fg hover:border-accent"
+          className="rounded-[3px] border border-line-strong bg-transparent px-4 py-3.5 font-mono text-xs font-bold tracking-[0.06em] text-fg hover:border-accent"
         >
           {open ? "DONE" : saved.length ? "CHANGE" : "CHOOSE VENDORS"}
         </button>

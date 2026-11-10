@@ -92,7 +92,7 @@ export default function Methodology() {
             <li key={c.version}>
               <p>
                 <strong className="font-mono">{c.version}</strong> · {fmtDate(c.date)}
-                {c.version === CURRENT_RULES_VERSION ? <span className="ml-2 rounded-sm border border-ok px-1.5 py-0.5 font-mono text-[11px] tracking-[0.08em] text-ok-text">ACTIVE</span> : null}
+                {c.version === CURRENT_RULES_VERSION ? <span className="ml-2 rounded-sm border border-ok px-1.5 py-0.5 font-mono text-xs tracking-[0.08em] text-ok-text">ACTIVE</span> : null}
               </p>
               <p>{c.summary}</p>
               <p className="text-muted">{c.finding}</p>
