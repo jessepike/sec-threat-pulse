@@ -33,9 +33,43 @@ export function titleToken(raw: string): string {
     .join(" ");
 }
 
-/** Vendor display name for a raw vendor token or name. */
+/** Company suffixes that sources add and readers never say: "Zammad GmbH", "Eg Secure Solutions Inc.", "Huawei Technologies Co., Ltd.". */
+const CORP_SUFFIX = /[\s,]+(?:co\.?,?\s*ltd\.?|inc\.?|incorporated|corp\.?|corporation|gmbh|ltd\.?|limited|llc|s\.?a\.?|ag|b\.?v\.?|plc)$/i;
+
+/** The name without a trailing company suffix. A name that is nothing but a suffix is kept. */
+export function stripCorpSuffix(raw: string): string {
+  let t = raw.trim();
+  for (let i = 0; i < 2; i++) {
+    const next = t.replace(CORP_SUFFIX, "").trim();
+    if (!next || next === t) break;
+    t = next;
+  }
+  return t;
+}
+
+/**
+ * Vendor display name for a raw vendor token or name. The table is tried on the name as written,
+ * then without its company suffix, so "Zammad GmbH" and "zammad" are one vendor.
+ */
 export function vendorName(raw: string): string {
-  return vendorNames.get(normKey(raw)) ?? titleToken(raw);
+  const bare = stripCorpSuffix(raw);
+  return vendorNames.get(normKey(raw)) ?? vendorNames.get(normKey(bare)) ?? titleToken(bare);
+}
+
+/**
+ * The product family a reader would name, for vendor pages: "Windows 10 Version 1607" is
+ * "Windows 10", "Gs1900-10hp Firmware" is "Gs1900-10hp", "SIMATIC IoT2050 Advanced (6es7...)" is
+ * "SIMATIC IoT2050 Advanced". Display only; stored products and API output keep the full name.
+ */
+export function productFamily(label: string): string {
+  const t = label
+    .replace(/\s*\([^)]*\)/g, "")
+    .replace(/\s+firmware$/i, "")
+    .replace(/\s+version\s+\S+$/i, "")
+    .replace(/\s+v\d+(?:\.\d+)*$/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return t || label.trim();
 }
 
 export interface ProductInput {
@@ -130,5 +164,11 @@ export function productLabel(p: Pick<AffectedProduct, "vendor" | "product">): st
 export function matchesProductQuery(products: readonly AffectedProduct[], query: string): boolean {
   const q = normKey(query);
   if (!q) return false;
-  return products.some((p) => p.vendorKey === q || p.productKey === q || normKey(p.slug) === q || normKey(productLabel(p)) === q || normKey(p.product) === q);
+  return products.some((p) => {
+    if (p.vendorKey === q || p.productKey === q || normKey(p.slug) === q || normKey(productLabel(p)) === q || normKey(p.product) === q) return true;
+    // Stored products can carry a vendor name from before an alias was added. Vendor pages show the
+    // current name, so the family and the vendor are matched under it too.
+    const vendor = p.vendor ? vendorName(p.vendor) : "";
+    return normKey(vendor) === q || normKey(productFamily(productLabel({ vendor, product: p.product }))) === q;
+  });
 }

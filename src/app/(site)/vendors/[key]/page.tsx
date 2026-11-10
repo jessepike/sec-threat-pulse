@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { EventList } from "@/components/EventList";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HomeStrip } from "@/components/StatusStrip";
 import { Eyebrow, LadderKey, VERDICT_STYLE } from "@/components/ui";
 import { getVendor } from "@/lib/data";
+import { canonVendorKey } from "@/lib/data/vendors";
 import { pageMeta } from "@/lib/site";
 
 export const revalidate = 1800;
@@ -27,7 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function VendorPage({ params }: Props) {
   const { key } = await params;
   const data = await getVendor(key);
-  if (!data) notFound();
+  if (!data) {
+    // An address saved before two names became one vendor ("/vendors/netscaler") goes to the vendor's page today.
+    const canon = canonVendorKey(key.toLowerCase());
+    if (canon !== key && (await getVendor(canon))) permanentRedirect(`/vendors/${canon}`);
+    notFound();
+  }
   const { vendor: v, rows, status } = data;
   return (
     <>
@@ -45,9 +51,9 @@ export default async function VendorPage({ params }: Props) {
         </div>
 
         <section aria-labelledby="prod-h" className="flex flex-col gap-3">
-          <h2 id="prod-h" className="m-0 font-mono text-[13px] font-bold tracking-[0.1em] text-muted">PRODUCTS NAMED · {v.products.length}</h2>
+          <h2 id="prod-h" className="m-0 font-mono text-[13px] font-bold tracking-[0.1em] text-muted">PRODUCTS NAMED · {v.products.length}{v.products.length > 12 ? " · SHOWING THE 12 WITH THE MOST EVENTS" : ""}</h2>
           <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
-            {v.products.map((p) => (
+            {v.products.slice(0, 12).map((p) => (
               <li key={p.slug}>
                 <Link href={`/events?product=${encodeURIComponent(p.slug)}`} className="inline-block rounded-[3px] border border-line-strong px-3 py-3 font-mono text-[13px] text-fg no-underline hover:border-accent">
                   {p.label}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fromCpePairs, matchesProductQuery, productLabel, resolveAffectedProducts, titleToken, vendorName } from "./resolve";
+import { fromCpePairs, matchesProductQuery, productFamily, productLabel, resolveAffectedProducts, stripCorpSuffix, titleToken, vendorName } from "./resolve";
 
 describe("names", () => {
   it("title-cases CPE tokens and keeps written names", () => {
@@ -74,5 +74,39 @@ describe("matchesProductQuery", () => {
     for (const q of ["palo alto networks", "PAN-OS", "panos", "paloaltonetworks/panos", "Palo Alto Networks PAN-OS"]) expect(matchesProductQuery(products, q)).toBe(true);
     expect(matchesProductQuery(products, "fortinet")).toBe(false);
     expect(matchesProductQuery(products, "")).toBe(false);
+  });
+});
+
+describe("vendor aliases and product families", () => {
+  it("merges variant vendor names into one vendor", () => {
+    expect(vendorName("Arista Networks")).toBe("Arista");
+    expect(vendorName("netscaler")).toBe("Citrix");
+    expect(vendorName("Citrix Netscaler")).toBe("Citrix");
+    expect(vendorName("Zammad GmbH")).toBe("Zammad");
+    expect(vendorName("Eg Secure Solutions Inc.")).toBe("EG Secure Solutions");
+    expect(vendorName("Huawei Technologies Co., Ltd.")).toBe("Huawei");
+    expect(vendorName("PHP Group")).toBe("PHP");
+    expect(vendorName("Palo Alto Networks")).toBe("Palo Alto Networks");
+  });
+  it("strips company suffixes and keeps a name that is only a suffix", () => {
+    expect(stripCorpSuffix("Acme Widgets, Inc.")).toBe("Acme Widgets");
+    expect(stripCorpSuffix("Acme Co., Ltd.")).toBe("Acme");
+    expect(stripCorpSuffix("SAP")).toBe("SAP");
+    expect(stripCorpSuffix("AG")).toBe("AG");
+  });
+  it("names the product family", () => {
+    expect(productFamily("Microsoft Windows 10 Version 1607")).toBe("Microsoft Windows 10");
+    expect(productFamily("Zyxel Gs1900-10hp Firmware")).toBe("Zyxel Gs1900-10hp");
+    expect(productFamily("Siemens Simatic Iot2050 Advanced (6es7647-0ba00-1ya2)")).toBe("Siemens Simatic Iot2050 Advanced");
+    expect(productFamily("Linksys E1000 V1")).toBe("Linksys E1000");
+    expect(productFamily("Fortinet FortiOS")).toBe("Fortinet FortiOS");
+  });
+  it("lets the product filter match a family or an alias", () => {
+    const list = resolveAffectedProducts([{ vendor: "microsoft", product: "windows_10_version_1607", evidence: "cpe" }]);
+    expect(matchesProductQuery(list, "Microsoft Windows 10")).toBe(true);
+    // A product stored before the alias existed still matches the family shown under the current name.
+    const stored = [{ vendorKey: "aristanetworks", productKey: "eosversion1", vendor: "Arista Networks", product: "EOS Version 1", slug: "aristanetworks/eosversion1", kind: "direct" as const, evidence: ["cna" as const] }];
+    expect(matchesProductQuery(stored, "Arista EOS")).toBe(true);
+    expect(matchesProductQuery(stored, "arista")).toBe(true);
   });
 });

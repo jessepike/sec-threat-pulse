@@ -12,7 +12,7 @@ import { categorize } from "@/lib/ladder/category";
 import type { ClaimView, ClockPointView, ClockView, CorrectionView, CountsView, EventRow, EventView, ProductChip, RungView, SourceRef, StatusView, TimelineItem, VerdictFilter } from "./types";
 import { computeClock, sourceCounts, type Clock } from "@/lib/ladder/clock";
 import { untrackedNote } from "@/lib/ladder/coverage";
-import { matchesProductQuery, productLabel, resolveAffectedProducts, type AffectedProduct } from "@/lib/products";
+import { matchesProductQuery, normKey, productLabel, resolveAffectedProducts, vendorName, type AffectedProduct } from "@/lib/products";
 import { groupVendors, type VendorItem, type VendorSummary } from "./vendors";
 import { bucketWeeks, chartStart, type WeekCount } from "./weeks";
 
@@ -259,7 +259,15 @@ function countsOf(recs: Rec[]): CountsView {
 function vendorItems(recs: Rec[]): VendorItem[] {
   return recs.map((r) => {
     const list: AffectedProduct[] = r.e.affectedProducts?.length ? r.e.affectedProducts : resolveAffectedProducts([{ vendor: r.e.vendor, product: r.e.product, evidence: "kev" }]);
-    return { id: r.e.id, verdict: r.verdict, products: list.map((p) => ({ vendorKey: p.vendorKey, vendor: p.vendor, slug: p.slug, label: productLabel(p), kind: p.kind })) };
+    // Vendor names are read through the alias table again, so a new alias applies before the next sync rewrites the stored list.
+    return {
+      id: r.e.id,
+      verdict: r.verdict,
+      products: list.map((p) => {
+        const vendor = p.vendor ? vendorName(p.vendor) : p.vendor;
+        return { vendorKey: p.vendor ? normKey(vendor) : p.vendorKey, vendor, slug: p.slug, label: productLabel({ vendor, product: p.product }), kind: p.kind };
+      }),
+    };
   });
 }
 

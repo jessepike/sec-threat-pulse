@@ -1,2 +1,2 @@
 export type { AffectedProduct, ProductEvidence } from "./types";
-export { fromCpePairs, matchesProductQuery, normKey, productLabel, resolveAffectedProducts, titleToken, vendorName } from "./resolve";
+export { fromCpePairs, matchesProductQuery, normKey, productFamily, productLabel, resolveAffectedProducts, stripCorpSuffix, titleToken, vendorName } from "./resolve";
