@@ -44,9 +44,6 @@ export default async function VendorsPage({ searchParams }: Props) {
           </p>
         </div>
         <VendorPicker vendors={slim} initial={stack} />
-        <p className="m-0 font-mono text-[13px] text-muted">
-          AGENTS: <a href={`/api/v1/check-stack?products=${stack.length ? stack.join(",") : "fortinet,ivanti"}`}>/api/v1/check-stack?products={stack.length ? stack.join(",") : "fortinet,ivanti"}</a>
-        </p>
       </main>
     </>
   );

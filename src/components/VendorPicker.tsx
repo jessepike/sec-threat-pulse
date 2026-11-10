@@ -92,6 +92,8 @@ export function VendorPicker({ vendors, initial }: { vendors: PickerVendor[]; in
   }, []);
 
   const chosen = useMemo(() => new Set(stack), [stack]);
+  // The API link checks the list on the page. With nothing chosen it shows an example.
+  const apiList = stack.length ? stack.join(",") : "fortinet,ivanti";
   const update = (next: string[]) => {
     setStack(next);
     save(next);
@@ -179,6 +181,9 @@ export function VendorPicker({ vendors, initial }: { vendors: PickerVendor[]; in
           </ul>
         )}
       </section>
+      <p className="m-0 font-mono text-[13px] text-muted">
+        AGENTS: <a href={`/api/v1/check-stack?products=${apiList}`}>/api/v1/check-stack?products={apiList}</a>
+      </p>
     </div>
   );
 }
