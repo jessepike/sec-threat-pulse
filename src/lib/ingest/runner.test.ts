@@ -3,8 +3,8 @@ import { eq } from "drizzle-orm";
 import { observations, sourceRuns, sources, vulnerabilities } from "@/lib/db/schema";
 import type { AdapterResult, SourceAdapter } from "@/lib/ladder/types";
 import type { Db } from "./db";
-import { mergeVulnerabilityInputs, runDueSources, seedSources, upsertVulnerabilities } from "./runner";
-import { SOURCE_REGISTRY } from "./registry";
+import { isPruneTick, mergeVulnerabilityInputs, pruneSourceRuns, runDueSources, seedSources, upsertVulnerabilities } from "./runner";
+import { SOURCE_REGISTRY, isConfigured } from "./registry";
 import { archiveKey, createR2Archive, signPut } from "./r2";
 import { createTestDb } from "./testdb";
 import { fakeFetch, noSleep } from "./testing";
@@ -103,12 +103,21 @@ describe("runDueSources", () => {
 
   it("treats a skipped adapter as neither success nor error and leaves no run row", async () => {
     const a = mk("vulncheck-kev", async (): Promise<AdapterResult> => ({ observations: [], vulnerabilities: [], skipped: "no token" }));
-    const [s] = await runDueSources(db, opts([a]));
+    const [s] = await runDueSources(db, opts([a], { env: { VULNCHECK_API_TOKEN: "set" } }));
     expect(s).toMatchObject({ status: "skipped", note: "no token" });
     expect(await db.select().from(sourceRuns)).toHaveLength(0);
     const [src] = await db.select().from(sources).where(eq(sources.id, "vulncheck-kev"));
     expect(src.lastError).toBeNull();
     expect(src.lastRunAt).toBeNull();
+  });
+
+  it("skips a source whose key is missing before calling it or writing a run row", async () => {
+    let called = false;
+    const a = mk("vulncheck-kev", async () => ((called = true), { observations: [], vulnerabilities: [] }));
+    const [s] = await runDueSources(db, opts([a]));
+    expect(s).toMatchObject({ status: "skipped", note: "VULNCHECK_API_TOKEN not set" });
+    expect(called).toBe(false);
+    expect(await db.select().from(sourceRuns)).toHaveLength(0);
   });
 
   it("reports sources with no row", async () => {
@@ -209,5 +218,40 @@ describe("r2", () => {
 
   it("builds date partitioned keys", () => {
     expect(archiveKey("hibp", "abcdef0123456789", "application/json", t0)).toBe("raw/hibp/2026/10/24/2026-10-24T12-00-00-000Z-abcdef012345.json");
+  });
+});
+
+describe("pruneSourceRuns", () => {
+  it("removes old run rows and keeps recent ones, ones with observations and ones with an archived payload", async () => {
+    const old = new Date(t0.getTime() - 120 * 86_400_000);
+    const [plain, withObs, archived, recent] = await db
+      .insert(sourceRuns)
+      .values([
+        { sourceId: "cisa-kev", startedAt: old, status: "ok" },
+        { sourceId: "cisa-kev", startedAt: old, status: "ok" },
+        { sourceId: "cisa-kev", startedAt: old, status: "ok", rawObjectKey: "raw/cisa-kev/x.json" },
+        { sourceId: "cisa-kev", startedAt: new Date(t0.getTime() - 10 * 86_400_000), status: "error" },
+      ])
+      .returning({ id: sourceRuns.id });
+    await db.insert(observations).values({ ...obs("kept"), runId: withObs.id });
+    expect(await pruneSourceRuns(db, t0)).toBe(1);
+    const left = (await db.select({ id: sourceRuns.id }).from(sourceRuns)).map((r) => r.id).sort((a, b) => a - b);
+    expect(left).toEqual([withObs.id, archived.id, recent.id]);
+    expect(left).not.toContain(plain.id);
+    expect(await pruneSourceRuns(db, t0)).toBe(0);
+  });
+
+  it("runs on one tick a day", () => {
+    expect(isPruneTick(new Date("2026-11-10T04:00:20Z"))).toBe(true);
+    expect(isPruneTick(new Date("2026-11-10T04:30:20Z"))).toBe(false);
+    expect(isPruneTick(new Date("2026-11-10T16:00:20Z"))).toBe(false);
+  });
+});
+
+describe("isConfigured", () => {
+  it("is false for a keyed source without its key and true for keyless sources", () => {
+    expect(isConfigured("vulncheck-kev", {})).toBe(false);
+    expect(isConfigured("vulncheck-kev", { VULNCHECK_API_TOKEN: "x" })).toBe(true);
+    expect(isConfigured("cisa-kev", {})).toBe(true);
   });
 });

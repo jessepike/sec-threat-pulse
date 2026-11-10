@@ -1,4 +1,4 @@
-import { and, desc, eq, inArray, isNotNull, isNull, or, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, isNotNull, isNull, lt, or, sql } from "drizzle-orm";
 import { observations, sourceRuns, sources, vulnerabilities } from "@/lib/db/schema";
 import type { AdapterResult, ExploitMaturity, SourceAdapter, VulnerabilityInput } from "@/lib/ladder/types";
 import { loadEarlyCandidateCves } from "@/lib/ladder/events-sync";
@@ -162,12 +162,16 @@ export async function insertObservations(db: Db, runId: number | undefined, list
   return inserted;
 }
 
-/** Insert or refresh the `sources` rows from the registry. Keeps cursor, enabled and interval overrides. */
+/**
+ * Insert or refresh the `sources` rows from the registry, in one statement (it runs on every tick).
+ * Keeps cursor, enabled and interval overrides.
+ */
 export async function seedSources(db: Db, defs: SourceDefinition[] = SOURCE_REGISTRY): Promise<number> {
-  for (const d of defs) {
-    await db
-      .insert(sources)
-      .values({
+  if (!defs.length) return 0;
+  await db
+    .insert(sources)
+    .values(
+      defs.map((d) => ({
         id: d.adapter.id,
         name: d.adapter.name,
         category: d.category,
@@ -175,13 +179,49 @@ export async function seedSources(db: Db, defs: SourceDefinition[] = SOURCE_REGI
         termsStatus: d.termsStatus,
         attribution: d.attribution,
         intervalMinutes: d.adapter.intervalMinutes,
-      })
-      .onConflictDoUpdate({
-        target: sources.id,
-        set: { name: d.adapter.name, category: d.category, homepage: d.homepage, termsStatus: d.termsStatus, attribution: d.attribution },
-      });
-  }
+      })),
+    )
+    .onConflictDoUpdate({
+      target: sources.id,
+      set: {
+        name: sql`excluded.name`,
+        category: sql`excluded.category`,
+        homepage: sql`excluded.homepage`,
+        termsStatus: sql`excluded.terms_status`,
+        attribution: sql`excluded.attribution`,
+      },
+    });
   return defs.length;
+}
+
+/** How long a finished run row is kept. Health reads 7 days and the admin scorecard at most 30. */
+export const RUN_RETENTION_DAYS = 90;
+
+/** True on the one scheduled tick a day (04:00 to 04:29 UTC) that prunes old run rows. */
+export const isPruneTick = (now: Date): boolean => now.getUTCHours() === 4 && now.getUTCMinutes() < 30;
+
+/**
+ * Delete run rows older than the retention window. Keeps any run an observation points at (its
+ * evidence trail) and any run that archived a raw payload (the archive dedupe reads those).
+ * Returns the number of rows removed. Never throws.
+ */
+export async function pruneSourceRuns(db: Db, now: Date = new Date(), days = RUN_RETENTION_DAYS): Promise<number> {
+  try {
+    const cutoff = new Date(now.getTime() - days * 86_400_000);
+    const rows = await db
+      .delete(sourceRuns)
+      .where(
+        and(
+          lt(sourceRuns.startedAt, cutoff),
+          isNull(sourceRuns.rawObjectKey),
+          sql`not exists (select 1 from ${observations} where ${observations.runId} = ${sourceRuns.id})`,
+        ),
+      )
+      .returning({ id: sourceRuns.id });
+    return rows.length;
+  } catch {
+    return 0;
+  }
 }
 
 const kevDateExpr = sql`greatest(coalesce(${vulnerabilities.kevCisaDateAdded}, ''), coalesce(${vulnerabilities.kevVulncheckDateAdded}, ''))`;
@@ -239,6 +279,7 @@ export async function runDueSources(db: Db, opts: RunnerOptions = {}): Promise<S
   const archive = opts.archive === undefined ? createR2Archive(env) : opts.archive;
   const rows = new Map((await db.select().from(sources)).map((r) => [r.id, r]));
   const summaries: SourceRunSummary[] = [];
+  const requires = new Map(SOURCE_REGISTRY.map((d) => [d.adapter.id, d.requiresEnv ?? []]));
   let tracked: string[] | undefined;
   let enrich: string[] | undefined;
 
@@ -252,6 +293,12 @@ export async function runDueSources(db: Db, opts: RunnerOptions = {}): Promise<S
     }
     if (!row.enabled && !opts.only) {
       summaries.push({ ...base, status: "disabled" });
+      continue;
+    }
+    // A source with no key is skipped before any database write. It used to insert and delete a run row every tick.
+    const missing = (requires.get(adapter.id) ?? []).filter((k) => !env[k]);
+    if (missing.length) {
+      summaries.push({ ...base, status: "skipped", note: `${missing.join(", ")} not set` });
       continue;
     }
     const intervalMs = (row.intervalMinutes ?? adapter.intervalMinutes) * 60000;
