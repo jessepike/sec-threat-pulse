@@ -27,7 +27,7 @@ export function MarkBadge({ mark }: { mark?: "new" | "changed" }) {
   if (!mark) return null;
   return (
     <span
-      className="inline-block whitespace-nowrap rounded-sm border border-accent px-[7px] py-[3px] font-mono text-[11px] font-bold tracking-[0.08em] text-accent"
+      className="inline-block whitespace-nowrap rounded-sm border border-accent px-[7px] py-[3px] font-mono text-xs font-bold tracking-[0.08em] text-accent"
       title={mark === "new" ? "First appeared in the last 7 days" : "Verdict or evidence ladder changed in the last 7 days"}
     >
       {mark === "new" ? "NEW" : "CHANGED"}
@@ -39,7 +39,7 @@ export function TierBadge({ tier, large = false }: { tier?: "today" | "now" | nu
   if (tier !== "today") return null;
   return (
     <span
-      className={`inline-block whitespace-nowrap rounded-sm border border-crit bg-crit font-mono font-bold text-white ${
+      className={`inline-block whitespace-nowrap rounded-sm border border-crit bg-crit font-mono font-bold text-accent-ink ${
         large ? "px-3 py-2 text-[15px] tracking-[0.1em]" : "px-[9px] py-1.5 text-xs tracking-[0.08em]"
       }`}
       title="Exploitation confirmed in the last two weeks on an internet-facing product, with ransomware use or with public attack tools"
@@ -81,7 +81,7 @@ export function MiniLadder({ ladder, topLabel }: { ladder: Ladder; topLabel?: st
           <Seg key={r} state={ladder[r]} />
         ))}
       </div>
-      {topLabel && <div className="font-mono text-[11px] tracking-[0.06em] text-muted">{topLabel}</div>}
+      {topLabel && <div className="font-mono text-xs tracking-[0.06em] text-muted">{topLabel}</div>}
     </div>
   );
 }

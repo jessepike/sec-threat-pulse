@@ -3,7 +3,7 @@ import type { DataMode, StatusView } from "@/lib/data/types";
 
 export function SampleBadge() {
   return (
-    <span className="rounded-sm border border-warn px-2 py-0.5 text-[11px] font-bold tracking-[0.1em] text-warn-text" title="This page shows made-up sample data, not live results.">
+    <span className="rounded-sm border border-warn px-2 py-0.5 text-xs font-bold tracking-[0.1em] text-warn-text" title="This page shows made-up sample data, not live results.">
       SAMPLE DATA
     </span>
   );

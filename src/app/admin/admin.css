@@ -26,6 +26,7 @@
 .adm h1 { font-size: 22px; font-weight: 600; margin: 0; }
 .adm h2 { font-size: 13px; font-weight: 600; margin: 0 0 10px; color: var(--adm-secondary); text-transform: uppercase; letter-spacing: 0.06em; }
 .adm p { margin: 0 0 8px; }
+.adm-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .adm-muted { color: var(--adm-secondary); }
 .adm-small { font-size: 12px; }
 .adm-mono { font-family: var(--adm-mono); font-size: 12px; }
@@ -39,8 +40,9 @@
 .adm-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--adm-accent); display: inline-block; }
 .adm-nav { display: block; padding: 7px 10px; border-radius: 6px; color: var(--adm-text) !important; }
 .adm-nav:hover { background: var(--adm-border); text-decoration: none !important; }
+.adm-nav[aria-current="page"] { background: var(--adm-border); font-weight: 600; box-shadow: inset 2px 0 0 var(--adm-accent); }
 .adm-user { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--adm-border); }
-.adm-main { padding: 24px 28px 48px; max-width: 1180px; width: 100%; }
+.adm-main { padding: 24px 28px 48px; max-width: 1180px; width: 100%; min-width: 0; }
 
 .adm-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 18px; }
 .adm-card { background: var(--adm-surface); border: 1px solid var(--adm-border); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
@@ -86,8 +88,9 @@
 
 .adm-ladder { display: inline-flex; gap: 3px; }
 .adm-rung { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--adm-border); vertical-align: middle; }
-.adm-rung-confirmed { background: var(--adm-act); border-color: var(--adm-act); }
-.adm-rung-reported { background: var(--adm-watch); border-color: var(--adm-watch); }
+.adm-rung { width: 22px; height: 12px; border-radius: 0; }
+.adm-rung-confirmed { background: var(--adm-accent); border-color: var(--adm-accent); }
+.adm-rung-reported { border-color: var(--adm-accent); background: repeating-linear-gradient(135deg, var(--adm-accent) 0 2px, transparent 2px 5px); }
 .adm-rungs { list-style: none; margin: 0 0 8px; padding: 0; }
 .adm-rungs li { display: flex; gap: 8px; align-items: center; }
 

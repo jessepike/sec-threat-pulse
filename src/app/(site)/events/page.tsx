@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { EventsGrid } from "@/components/home";
+import { EventList } from "@/components/EventList";
 import { YourVendors } from "@/components/YourVendors";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HomeStrip } from "@/components/StatusStrip";
@@ -42,7 +42,7 @@ export default async function EventsIndexPage({ searchParams }: Props) {
           <Eyebrow>{"// ALL EVENTS"}</Eyebrow>
           <h1 className="m-0 font-display text-[40px] font-bold leading-[1.05] tracking-[-0.03em] sm:text-5xl">All events</h1>
           <p className="m-0 max-w-[720px] text-[17px] leading-[1.55] text-fg-2">
-            Every event we track, newest evidence first within each verdict. Early events, which are flaws with exploitation reports and no CISA listing yet, appear here even when the home page leaves them out.
+            Every event we track, in rank order: verdict first, then the strongest and newest evidence. Open an event for what it is and what to do.
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export default async function EventsIndexPage({ searchParams }: Props) {
                 key={f.key}
                 href={eventsHref(f.key, 1, product)}
                 aria-current={filter === f.key ? "page" : undefined}
-                className={`rounded-[3px] border px-4 py-2.5 no-underline ${filter === f.key ? "border-accent bg-surface text-fg" : "border-line-strong text-muted hover:text-fg"}`}
+                className={`rounded-[3px] border px-4 py-3 no-underline ${filter === f.key ? "border-accent bg-surface text-fg" : "border-line-strong text-muted hover:text-fg"}`}
               >
                 {f.label} · {count(f.key)}
               </Link>
@@ -75,7 +75,7 @@ export default async function EventsIndexPage({ searchParams }: Props) {
           <h2 id="list-h" className="m-0 font-mono text-[13px] font-bold tracking-[0.1em] text-muted">
             {total === 0 ? `NO ${filter === "all" ? "" : `${filterLabel} `}EVENTS` : `${filter === "all" ? "ALL" : filterLabel} EVENTS · SHOWING ${from} TO ${to} OF ${total}`}
           </h2>
-          <EventsGrid
+          <EventList
             events={data.rows}
             label={`${filter === "all" ? "All" : filterLabel.charAt(0) + filterLabel.slice(1).toLowerCase()} events with evidence ladder and verdict`}
             empty={product ? "No tracked event names this product." : filter === "all" ? "No events are tracked yet." : "No events have this verdict right now."}

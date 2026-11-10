@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import Link from "next/link";
 import { requireAdmin } from "@/lib/admin/session";
 import { signOutAction } from "../signin/actions";
+import { AdminNav } from "../_components/AdminNav";
 
 const NAV = [
   ["/admin", "Overview"],
@@ -25,13 +25,7 @@ async function Shell({ children }: { children: React.ReactNode }) {
           <span className="adm-dot" />
           STP Admin
         </div>
-        <nav aria-label="Admin">
-          {NAV.map(([href, label]) => (
-            <Link key={href} href={href} className="adm-nav">
-              {label}
-            </Link>
-          ))}
-        </nav>
+        <AdminNav items={NAV} />
         <div className="adm-user">
           <div className="adm-muted">Signed in as</div>
           <div className="adm-mono">{admin.login}</div>

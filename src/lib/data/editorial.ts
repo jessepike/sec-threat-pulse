@@ -1,4 +1,4 @@
-import type { BriefData, DoItem, DriverBar, DriverParagraph, KpiView, NoiseItem, RealItem, SourceLink, StatView } from "./types";
+import type { BriefData, DoItem, DriverBar, DriverParagraph, KpiView, NoiseItem, SourceLink, StatView } from "./types";
 
 /**
  * Hand-written copy that the pipeline does not generate yet. It is shown in sample mode and,
@@ -7,26 +7,15 @@ import type { BriefData, DoItem, DriverBar, DriverParagraph, KpiView, NoiseItem,
 
 export const SAMPLE_WEEK_OF = "Oct 19, 2026";
 
-export const SAMPLE_REAL: RealItem[] = [
-  { title: "PHP2Shell is being tried in the wild", text: "Probed four days before a patch existed. Hits nearly every PHP web server." },
-  { title: "Citrix NetScaler zero-days confirmed", text: "CISA confirms global exploitation. Two flaws each allow remote takeover." },
-  { title: "Remote access keeps getting hit", text: "BeyondTrust, Ivanti and Palo Alto were all added to the exploited list in 10 days." },
-];
-
 export const NOISE: NoiseItem[] = [
   { title: "\"AI set off an exploit wave\"", tag: "DEBUNKED", text: "AI doubled bugs found. Only 1.3% of AI-found bugs were exploited, the same rate as everything else." },
   { title: "\"PHP2Shell is a CVSS 10\"", tag: "OVERSTATED", text: "That score came from the leak. PHP's official score is 9.2. Still critical." },
   { title: "Leak-site victim counts", tag: "UNVERIFIED", text: "Criminal claims, and some are fake. They show activity but prove no breach." },
 ];
 
-export const ACTIONS: DoItem[] = [
-  { lead: "Find every PHP server you own or rent,", text: "including vendor appliances and hosted sites. Patch or take offline." },
-  { lead: "Check this week's exploited list against your edge.", text: "Citrix, BeyondTrust, Ivanti, Palo Alto. Any match is a same-day patch." },
-  { lead: "Look back to Oct 17, the first known attempt.", text: "Review PHP server logs from that date, not from the patch date." },
-];
-
-export const LIVE_ACTIONS: DoItem[] = [
-  { lead: "Pick the vendors you use", text: "in the list below, so you only see what applies to you." },
+/** Three plain steps under the top list. They do not change with the week. */
+export const HOME_STEPS: DoItem[] = [
+  { lead: "Check the vendors you use.", text: "The vendors page lists every product named by a tracked event." },
   { lead: "For each Act now match, patch today.", text: "If you cannot, cut it off from the internet until you can." },
   { lead: "Not the one who patches?", text: "Send the event page to your IT provider or security lead and ask: are we affected, and when will it be fixed?" },
 ];

@@ -14,7 +14,7 @@ async function get(path, init) {
   return { res, text: await res.text() };
 }
 
-for (const path of ["/", "/events", "/events?verdict=act_now", "/vendors", "/brief", "/methodology", "/track-record", "/corrections", "/about"]) {
+for (const path of ["/", "/events", "/events?verdict=act_now", "/vendors", "/brief", "/methodology", "/track-record", "/trends", "/corrections", "/about"]) {
   const { res, text } = await get(path);
   ok(res.status === 200 && text.includes("SECURITY_THREAT_PULSE"), `page ${path} renders`);
 }

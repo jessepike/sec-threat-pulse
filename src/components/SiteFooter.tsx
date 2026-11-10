@@ -1,12 +1,8 @@
 import Link from "next/link";
-import { cookies } from "next/headers";
-import { THEME_COOKIE, parseTheme } from "./theme";
-import { ThemeToggle } from "./ThemeToggle";
 import { ExternalLink } from "./ui";
 import { isConfigured } from "@/lib/ingest/registry";
 
-export async function SiteFooter() {
-  const theme = parseTheme((await cookies()).get(THEME_COOKIE)?.value);
+export function SiteFooter() {
   // VulnCheck KEV needs a key. While none is set the site reads no VulnCheck data, so it must not credit any.
   const vulncheck = isConfigured("vulncheck-kev");
   return (
@@ -17,7 +13,6 @@ export async function SiteFooter() {
             Vendor neutral. Built from public sources: CISA KEV, {vulncheck ? "VulnCheck, " : ""}FIRST EPSS, NVD, CIRCL and researcher
             reports. Verdicts follow published rules. We say when evidence is missing.
           </p>
-          <ThemeToggle initial={theme} />
         </div>
 
         <section aria-labelledby="attr" className="flex flex-col gap-3">
@@ -45,6 +40,7 @@ export async function SiteFooter() {
           <nav aria-label="About this site" className="flex flex-wrap gap-x-5 gap-y-1">
             <Link href="/methodology" className="py-2">METHODOLOGY</Link>
             <Link href="/track-record" className="py-2">TRACK RECORD</Link>
+            <Link href="/trends" className="py-2">TRENDS</Link>
             <Link href="/corrections" className="py-2">CORRECTIONS</Link>
             <Link href="/about" className="py-2">ABOUT</Link>
             <Link href="/terms" className="py-2">TERMS</Link>

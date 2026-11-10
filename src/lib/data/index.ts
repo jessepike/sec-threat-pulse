@@ -1,10 +1,9 @@
 import { unstable_cache } from "next/cache";
 import { RUNGS } from "@/lib/ladder/types";
-import { countVerdicts, dbKevWeeks, dbVendor, dbVendors, dbBriefEvents, dbCorrections, dbEvent, dbEventEntries, dbEventsPage, dbHomeEvents, dbKevCounts, dbStatus, firstSentence } from "./db";
-import { EVENTS_PAGE_SIZE, homeSelection, paginateListed, sortListed, type Listable } from "./listing";
+import { countVerdicts, dbKevWeeks, dbVendor, dbVendors, dbBriefEvents, dbCorrections, dbEvent, dbEventEntries, dbEventsPage, dbHomeEvents, dbKevCounts, dbStatus } from "./db";
+import { EVENTS_PAGE_SIZE, HOME_CHANGED_CAP, homeSelection, paginateListed, sortListed, type Listable } from "./listing";
 import {
-  ACTIONS,
-  LIVE_ACTIONS,
+  HOME_STEPS,
   BRIEF_STATIC,
   LIVE_BRIEF_STATIC,
   DRIVERS,
@@ -15,15 +14,14 @@ import {
   SAMPLE_BRIEF,
   SAMPLE_COUNTS_NOTE,
   SAMPLE_KEV_KPI,
-  SAMPLE_REAL,
   SAMPLE_WEEK_OF,
 } from "./editorial";
-import { fmtDay, weekOfLabel } from "./format";
+import { weekOfLabel } from "./format";
 import { SAMPLE_EVENTS } from "./sample";
-import { topFive, weekLine } from "./top";
+import { changedThisWeek, topFive, weekLine } from "./top";
 import { groupVendors, VENDOR_KEY_RE, type VendorItem, type VendorSummary } from "./vendors";
 import { normKey } from "@/lib/products";
-import type { BriefData, CorrectionView, DataMode, EventRow, EventsIndexData, EventView, HomeData, KpiView, StatusView, VerdictFilter } from "./types";
+import type { BriefData, CorrectionView, DataMode, EventRow, EventsIndexData, EventView, HomeData, KpiView, StatusView, TrendsData, VerdictFilter } from "./types";
 
 export * from "./types";
 export { EVENTS_PAGE_SIZE, parsePage, parseVerdictFilter } from "./listing";
@@ -40,6 +38,15 @@ export function getMode(): DataMode {
 /** Sample NEW and CHANGED marks, so the preview shows both. */
 const SAMPLE_MARKS: Record<string, "new" | "changed"> = { php2shell: "new", "palo-alto-pan-os": "changed" };
 
+/** Newest dated evidence on the attack, exploitation and damage rungs of a sample event. */
+const sampleSignal = (e: EventView): string | undefined =>
+  e.rungs
+    .filter((r) => (r.rung === "attempts" || r.rung === "exploited" || r.rung === "damage") && r.state !== "none")
+    .map((r) => r.newestAt?.slice(0, 10))
+    .filter((x): x is string => !!x)
+    .sort()
+    .at(-1);
+
 const toRow = (e: EventView): EventRow => ({
   ...(SAMPLE_MARKS[e.id] ? { mark: SAMPLE_MARKS[e.id] } : {}),
   id: e.id,
@@ -55,6 +62,7 @@ const toRow = (e: EventView): EventRow => ({
   vendor: e.vendor,
   category: e.category,
   products: e.products,
+  ...(sampleSignal(e) ? { lastSignal: sampleSignal(e) } : {}),
 });
 
 const SAMPLE_STATUS: StatusView = {
@@ -84,6 +92,19 @@ const SAMPLE_KEV_WEEKS = [4, 7, 3, 5, 9, 6, 4, 8, 5, 11, 7, 3].map((count, i) =>
   return { week: d.toISOString().slice(0, 10), count, partial: i === 11 };
 });
 
+/** The live "confirmed exploited" tile. Its numbers come from the CISA KEV rows we hold. */
+function kevTile(kev: { d7: number; d30: number }): KpiView {
+  return {
+    label: "NEW CONFIRMED EXPLOITED · 7D",
+    value: String(kev.d7),
+    delta: `${kev.d30} IN 30 DAYS`,
+    deltaTone: "muted",
+    meaning: "Flaws CISA confirmed are used in real attacks.",
+    source: "CISA KEV",
+    sourceUrl: "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+  };
+}
+
 function sampleHome(): HomeData {
   // Sample dates are fixed, so measure the 30-day Act now window from the newest sample evidence.
   const shown = homeSelection(SAMPLE_LISTED, Math.max(...SAMPLE_LISTED.map((x) => x.evidenceAt))).map((x) => x.view);
@@ -97,34 +118,16 @@ function sampleHome(): HomeData {
     kevWeeks: SAMPLE_KEV_WEEKS,
     counts: countVerdicts(SAMPLE_EVENTS),
     countsNote: SAMPLE_COUNTS_NOTE,
-    kpis: [SAMPLE_KEV_KPI, ...REPORT_KPIS],
-    real: SAMPLE_REAL,
-    noise: NOISE,
-    actions: ACTIONS,
-    events,
-    totalEvents: SAMPLE_EVENTS.length,
-    drivers: DRIVERS,
-    ransomware: RANSOMWARE.filter((r) => !r.needsApproval),
+    kpis: [SAMPLE_KEV_KPI],
+    changed: changedThisWeek(events, top, HOME_CHANGED_CAP),
+    actions: HOME_STEPS,
   };
 }
 
 async function liveHome(): Promise<HomeData> {
-  const [{ counts, items: list }, status, kev, kevWeeks] = await Promise.all([dbHomeEvents(), dbStatus(), dbKevCounts(), dbKevWeeks()]);
+  const [{ counts, items: list, changed }, status, kev, kevWeeks] = await Promise.all([dbHomeEvents(), dbStatus(), dbKevCounts(), dbKevWeeks()]);
   const events = list.map((x) => x.row);
   const top = topFive(events);
-  const realItems = list
-    .filter((x) => x.row.verdict === "act_now")
-    .slice(0, 3)
-    .map((x) => ({ title: x.row.title, text: x.summary ? firstSentence(x.summary, 220) : "No summary written yet." }));
-  const kevKpi: KpiView = {
-    label: "NEW CONFIRMED EXPLOITED · 7D",
-    value: String(kev.d7),
-    delta: `${kev.d30} IN 30 DAYS`,
-    deltaTone: "muted",
-    meaning: "Flaws CISA confirmed are used in real attacks.",
-    source: "CISA KEV",
-    sourceUrl: "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-  };
   return {
     status,
     weekOf: weekOfLabel(new Date()),
@@ -133,20 +136,29 @@ async function liveHome(): Promise<HomeData> {
     kevWeeks,
     counts,
     countsNote: counts.total === 0 ? "No events are tracked yet." : "Counts follow the published verdict rules.",
-    kpis: [kevKpi, ...REPORT_KPIS],
-    real: realItems,
-    noise: NOISE.filter((n) => !n.title.includes("PHP2Shell")),
-    actions: LIVE_ACTIONS,
-    events,
-    totalEvents: counts.total,
-    drivers: DRIVERS,
-    ransomware: RANSOMWARE.filter((r) => !r.needsApproval),
+    kpis: [kevTile(kev)],
+    changed: changedThisWeek(changed.map((x) => x.row), top, HOME_CHANGED_CAP),
+    actions: HOME_STEPS,
   };
 }
 const cachedLiveHome = unstable_cache(liveHome, ["stp-home"], { revalidate: REVALIDATE, tags: ["stp"] });
 
 export async function getHomeData(): Promise<HomeData> {
   return getMode() === "sample" ? sampleHome() : cachedLiveHome();
+}
+
+/** Report figures and context: the /trends page. Nothing here comes from the database. */
+export function getTrendsData(): TrendsData {
+  const sample = getMode() === "sample";
+  const ransomware = RANSOMWARE.filter((r) => !r.needsApproval);
+  const dates = [...REPORT_KPIS.map((k) => k.asOf), ...ransomware.map((r) => r.asOf)].filter((x): x is string => !!x).sort();
+  return {
+    asOf: dates.at(-1) ?? "",
+    kpis: REPORT_KPIS,
+    noise: sample ? NOISE : NOISE.filter((n) => !n.title.includes("PHP2Shell")),
+    drivers: DRIVERS,
+    ransomware,
+  };
 }
 
 const cachedLiveEvent = unstable_cache(async (id: string) => dbEvent(id), ["stp-event"], { revalidate: REVALIDATE, tags: ["stp"] });
@@ -181,13 +193,19 @@ export function briefBottomLine(kev: { d7: number; d30: number }, actNow: number
   return `CISA confirmed ${flaws(kev.d7)} in the last 7 days and ${kev.d30} in the last 30 days. ${actNow === 1 ? "1 event is" : `${actNow} events are`} rated Act now.`;
 }
 
+/** A board reader gets the plain "what it is" line and the first step, never the advisory's own wording. */
+export function briefChangeText(row: Pick<EventRow, "exposure" | "category">): string {
+  const step = row.category?.doThis?.trim();
+  return [row.exposure.trim(), step ? `First step: ${step}` : ""].filter(Boolean).join(" ");
+}
+
 async function liveBrief(): Promise<BriefData> {
   const [{ counts, top, recent }, kev] = await Promise.all([dbBriefEvents(), dbKevCounts()]);
   return {
     weekOf: weekOfLabel(new Date()),
     bottomLine: briefBottomLine(kev, counts.act_now) || LIVE_BOTTOM_LINE,
     counts,
-    changes: recent.map((x) => ({ lead: `${x.row.title}.`, text: x.summary ? firstSentence(x.summary, 220) : `Updated ${fmtDay(x.updatedAt)}.` })),
+    changes: recent.map((x) => ({ lead: `${x.row.title}.`, text: briefChangeText(x.row) })),
     flagship: top ? { title: top.row.title, ladder: top.row.ladder } : null,
     position: LIVE_BRIEF_STATIC.position,
     notConcern: BRIEF_STATIC.notConcern,
@@ -211,7 +229,7 @@ export function parseProductFilter(raw: string | string[] | undefined): string |
   return t && /^[\w .&/+-]+$/.test(t) ? t : undefined;
 }
 
-/** The /events index: filterable by verdict and product, 50 events a page. */
+/** The /events index: filterable by verdict and product, 25 events a page. */
 export async function getEventsIndex(filter: VerdictFilter, page: number, product?: string): Promise<EventsIndexData> {
   const mode = getMode();
   if (mode === "sample") {

@@ -2,6 +2,7 @@ import { getDb } from "@/lib/db/client";
 import { requireAdmin } from "@/lib/admin/session";
 import { listSources } from "@/lib/admin/queries";
 import { runSourceAction, setSourceInterval, toggleSource } from "../../actions";
+import { ConfirmButton } from "../../_components/ConfirmButton";
 import { Flash, NoDb, PageHead, StatusPill, fmt, type SP } from "../../_components/ui";
 
 export const metadata = { title: "Sources" };
@@ -33,7 +34,7 @@ export default async function SourcesPage({ searchParams }: { searchParams: SP }
                 <th>Interval (min)</th>
                 <th>Terms</th>
                 <th>Enabled</th>
-                <th />
+                <th><span className="adm-sr">Run</span></th>
               </tr>
             </thead>
             <tbody>
@@ -59,7 +60,7 @@ export default async function SourcesPage({ searchParams }: { searchParams: SP }
                     <form action={toggleSource}>
                       <input type="hidden" name="id" value={s.id} />
                       <input type="hidden" name="enabled" value={String(!s.enabled)} />
-                      <button className="adm-btn" type="submit">{s.enabled ? "Disable" : "Enable"}</button>
+                      {s.enabled ? <ConfirmButton className="adm-btn" message={`Disable ${s.name}? It stops updating until you enable it again.`}>Disable</ConfirmButton> : <button className="adm-btn" type="submit">Enable</button>}
                     </form>
                   </td>
                   <td>
