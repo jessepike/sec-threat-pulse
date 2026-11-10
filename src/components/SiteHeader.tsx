@@ -29,7 +29,7 @@ export function SiteHeader({ active, strip }: { active: NavKey; strip: ReactNode
           <Logo />
           <span className="font-mono text-[15px] font-bold tracking-[0.12em]">SECURITY_THREAT_PULSE</span>
         </Link>
-        <nav aria-label="Main" className="-mx-2 flex flex-wrap items-center gap-0.5 font-mono text-[13px] tracking-[0.06em]">
+        <nav aria-label="Main" className="-mx-2 flex flex-wrap items-center gap-0.5 max-sm:order-3 max-sm:w-[calc(100%+1rem)] sm:ml-auto font-mono text-[13px] tracking-[0.06em]">
           {NAV.map((n) => (
             <Link
               key={n.key}
@@ -40,8 +40,10 @@ export function SiteHeader({ active, strip }: { active: NavKey; strip: ReactNode
               {n.label}
             </Link>
           ))}
-          <HeaderTheme />
         </nav>
+        <div className="max-sm:order-2 sm:-ml-2">
+          <HeaderTheme />
+        </div>
       </div>
       <div className="border-t border-line-soft">{strip}</div>
     </header>

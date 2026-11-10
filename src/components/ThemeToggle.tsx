@@ -38,9 +38,12 @@ export function ThemeToggle({ initial, compact = false }: { initial: Theme; comp
         onClick={() => pick(other)}
         aria-label={`Switch to the ${other} theme`}
         title={`Switch to the ${other} theme`}
-        className="ml-1 min-h-11 cursor-pointer rounded-sm border border-line-strong bg-transparent px-3 font-mono text-xs tracking-[0.08em] text-muted hover:text-fg"
+        className="min-h-11 min-w-11 cursor-pointer rounded-sm border border-line-strong bg-transparent px-3 font-mono text-xs tracking-[0.08em] text-muted hover:text-fg"
       >
-        <span aria-hidden="true">◐</span>
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" className="inline-block align-[-2px]">
+          <circle cx="7" cy="7" r="6" fill="none" stroke="currentColor" strokeWidth="1.5" />
+          <path d="M7 1a6 6 0 0 1 0 12z" fill="currentColor" />
+        </svg>
         <span className="max-sm:hidden"> {other.toUpperCase()}</span>
       </button>
     );

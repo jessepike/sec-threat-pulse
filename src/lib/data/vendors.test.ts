@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { groupVendors, parseVendorStack, stackTotals, type VendorProductRef } from "./vendors";
+import { groupVendors, parseVendorStack, stackHit, stackHref, stackTotals, type VendorProductRef } from "./vendors";
 
 const p = (vendorKey: string, product: string, kind: "direct" | "embedded" = "direct"): VendorProductRef => ({ vendorKey, vendor: vendorKey.toUpperCase(), slug: `${vendorKey}/${product}`, label: `${vendorKey} ${product}`, kind });
 
@@ -35,5 +35,28 @@ describe("parseVendorStack", () => {
   it("keeps clean vendor keys, once each", () => {
     expect(parseVendorStack("Fortinet, palo-alto,fortinet,<x>")).toEqual(["fortinet", "paloalto"]);
     expect(parseVendorStack(undefined)).toEqual([]);
+  });
+});
+
+describe("product families", () => {
+  const ref = (label: string, slug: string): VendorProductRef => ({ vendorKey: "microsoft", vendor: "Microsoft", slug, label, kind: "direct" });
+  it("rolls versions of one product into one entry and counts each event once", () => {
+    const [v] = groupVendors([
+      { id: "a", verdict: "act_now", products: [ref("Microsoft Windows 10 Version 1607", "microsoft/w1607"), ref("Microsoft Windows 10 Version 1809", "microsoft/w1809")] },
+      { id: "b", verdict: "watch", products: [ref("Microsoft Windows 10 Version 1809", "microsoft/w1809"), ref("Microsoft Exchange Server", "microsoft/exchange")] },
+    ]);
+    expect(v.products).toEqual([
+      { slug: "Microsoft Windows 10", label: "Microsoft Windows 10", events: 2, embedded: false },
+      { slug: "microsoft/exchange", label: "Microsoft Exchange Server", events: 1, embedded: false },
+    ]);
+  });
+});
+
+describe("stack helpers", () => {
+  it("matches a key or the start of a longer key, and builds the address", () => {
+    expect(stackHit("paloalto", "paloaltonetworks")).toBe(true);
+    expect(stackHit("hp", "hpe")).toBe(false);
+    expect(stackHref(["cisco", "ivanti"])).toBe("/vendors?stack=cisco,ivanti");
+    expect(stackHref([])).toBe("/vendors");
   });
 });

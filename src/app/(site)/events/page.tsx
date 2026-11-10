@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EventList } from "@/components/EventList";
-import { YourVendors } from "@/components/YourVendors";
+import { MyVendorsLink } from "@/components/VendorPicker";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HomeStrip } from "@/components/StatusStrip";
 import { Eyebrow, LadderKey } from "@/components/ui";
@@ -69,7 +69,7 @@ export default async function EventsIndexPage({ searchParams }: Props) {
             <Link href={eventsHref(filter, 1)} className="text-muted no-underline hover:text-fg">× CLEAR</Link>
           </div>
         )}
-        <YourVendors />
+        <MyVendorsLink />
 
         <section aria-labelledby="list-h" className="flex flex-col gap-4">
           <h2 id="list-h" className="m-0 font-mono text-[13px] font-bold tracking-[0.1em] text-muted">

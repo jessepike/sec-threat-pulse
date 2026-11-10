@@ -14,7 +14,7 @@ visual language is strong and consistent. The admin console works but reads as a
 ## Public findings
 
 P0 breaks trust or the glance test. P1 costs readers time. P2 is polish. PR is the pull request
-that carries the fix (1 quick fixes, 2 home and lists, 3 vendors and admin inbox).
+that carries the fix (1 quick fixes, 2 home and lists, 3 vendors, 4 admin).
 
 | # | Pri | Finding | Evidence | Fix | PR |
 |---|---|---|---|---|---|
@@ -44,16 +44,16 @@ that carries the fix (1 quick fixes, 2 home and lists, 3 vendors and admin inbox
 
 | # | Pri | Finding | Fix | PR |
 |---|---|---|---|---|
-| A1 | P1 | Overview is not an inbox | "Needs attention" list with links | 3 |
+| A1 | P1 | Overview is not an inbox | "Needs attention" list with links | 4 |
 | A2 | P1 | No active state in the side nav | aria-current and a highlight | 1 |
-| A3 | P1 | Unusable on a phone: nav stacks 520 px, tables overflow | Collapse nav, scroll or card tables | 3 |
-| A4 | P1 | Sources table hides failures | Failing first, relative times, row menu | 3 |
+| A3 | P1 | Unusable on a phone: nav stacks 520 px, tables overflow | Collapse nav, scroll or card tables | 4 |
+| A4 | P1 | Sources table hides failures | Failing first, relative times, row menu | 4 |
 | A5 | P1 | Disable fires on one click | Confirm first | 1 |
 | A6 | P1 | Events list stops at 100, no public link | Paging, TODAY mark, "View" link | 1 |
 | A7 | P1 | Ladder colours differ from the public site | Same solid and hatch in blue | 1 |
-| A8 | P1 | Event editor: long form, dead AI button | Remove the button, fold groups, preview | 3 |
-| A9 | P2 | Scorecard and Roadmap behind the product | Read from live facts and the wave plan | 3 |
-| A10 | P2 | Admin has its own tokens and fonts | Use the site variables | 3 |
+| A8 | P1 | Event editor: long form, dead AI button | Remove the button, fold groups, preview | 4 |
+| A9 | P2 | Scorecard and Roadmap behind the product | Read from live facts and the wave plan | 4 |
+| A10 | P2 | Admin has its own tokens and fonts | Use the site variables | 4 |
 
 ## Accessibility (axe, WCAG 2.2 AA)
 

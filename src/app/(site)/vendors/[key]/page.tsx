@@ -45,9 +45,9 @@ export default async function VendorPage({ params }: Props) {
         </div>
 
         <section aria-labelledby="prod-h" className="flex flex-col gap-3">
-          <h2 id="prod-h" className="m-0 font-mono text-[13px] font-bold tracking-[0.1em] text-muted">PRODUCTS NAMED · {v.products.length}</h2>
+          <h2 id="prod-h" className="m-0 font-mono text-[13px] font-bold tracking-[0.1em] text-muted">PRODUCTS NAMED · {v.products.length}{v.products.length > 12 ? " · SHOWING THE 12 WITH THE MOST EVENTS" : ""}</h2>
           <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
-            {v.products.map((p) => (
+            {v.products.slice(0, 12).map((p) => (
               <li key={p.slug}>
                 <Link href={`/events?product=${encodeURIComponent(p.slug)}`} className="inline-block rounded-[3px] border border-line-strong px-3 py-3 font-mono text-[13px] text-fg no-underline hover:border-accent">
                   {p.label}
