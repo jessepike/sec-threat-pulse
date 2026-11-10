@@ -67,16 +67,16 @@ describe("homeSelection", () => {
 
 describe("paginateListed", () => {
   const all = [...many("a", "act_now", 3), ...many("w", "watch", 120), ...many("l", "low", 4), mk("early-w", "watch", 1, 1)];
-  it("pages 50 at a time and includes early events", () => {
+  it("pages 25 at a time and includes early events", () => {
     const p1 = paginateListed(all, "all", 1);
-    expect(p1.items).toHaveLength(50);
-    expect(p1.pages).toBe(3);
-    expect(paginateListed(all, "all", 3).items.map((x) => x.id)).toContain("early-w");
+    expect(p1.items).toHaveLength(25);
+    expect(p1.pages).toBe(6);
+    expect(paginateListed(all, "all", 5).items.map((x) => x.id)).toContain("early-w");
   });
   it("filters by verdict and clamps the page", () => {
     const r = paginateListed(all, "watch", 99);
     expect(r.total).toBe(121);
-    expect(r.page).toBe(3);
+    expect(r.page).toBe(5);
     expect(r.items.every((x) => x.verdict === "watch")).toBe(true);
     expect(paginateListed(all, "low", 0).page).toBe(1);
   });

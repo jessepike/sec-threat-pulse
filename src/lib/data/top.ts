@@ -45,3 +45,9 @@ export function weekLine(rows: Ranked[], top: unknown[], allActNow: number): str
   if (today) return `${lead} ${today === actNow ? (actNow === 1 ? "It is" : "All are") : `${today} ${today === 1 ? "is" : "are"}`} marked TODAY: ${TODAY_WHY}. ${start}`;
   return `${lead} None is marked TODAY this week. ${start}`;
 }
+
+/** Home page list of events that are new or changed in the last 7 days and are not already in the top list. */
+export function changedThisWeek<T extends { id: string; mark?: "new" | "changed" }>(rows: T[], top: TopItem<{ id: string }>[], cap: number): T[] {
+  const shown = new Set(top.map((t) => t.row.id));
+  return rows.filter((r) => r.mark && !shown.has(r.id)).slice(0, cap);
+}

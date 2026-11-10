@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Logo } from "./SiteHeader";
+import { Logo } from "./Logo";
 
 const BTN_PRIMARY = "rounded-[3px] bg-accent px-5 py-3.5 font-mono text-sm font-bold tracking-[0.06em] text-accent-ink no-underline hover:bg-accent-hover hover:text-accent-ink cursor-pointer border-0";
 const BTN_SECONDARY = "rounded-[3px] border border-line-strong bg-transparent px-5 py-[13px] font-mono text-sm tracking-[0.06em] text-fg no-underline hover:text-fg cursor-pointer";

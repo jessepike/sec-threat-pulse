@@ -1,5 +1,9 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { cookies } from "next/headers";
+import { Logo } from "./Logo";
+import { THEME_COOKIE, parseTheme } from "./theme";
+import { ThemeToggle } from "./ThemeToggle";
 
 const NAV = [
   { key: "week", href: "/", label: "THIS WEEK" },
@@ -11,24 +15,21 @@ const NAV = [
 
 export type NavKey = (typeof NAV)[number]["key"] | "none";
 
-export function Logo({ size = 30 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 28 28" aria-hidden="true">
-      <rect x="0.5" y="0.5" width="27" height="27" rx="4" fill="none" stroke="var(--line-strong)" />
-      <path d="M4 14h5l2.5-6 5 12 2.5-6h5" fill="none" stroke="var(--accent)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
+/** The theme switch reads the saved choice, so it renders on the server with the right state. */
+async function HeaderTheme() {
+  const theme = parseTheme((await cookies()).get(THEME_COOKIE)?.value);
+  return <ThemeToggle initial={theme} compact />;
 }
 
 export function SiteHeader({ active, strip }: { active: NavKey; strip: ReactNode }) {
   return (
     <header className="border-b border-line bg-header">
       <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 sm:px-6">
-        <Link href="/" className="flex items-center gap-3 text-fg no-underline hover:text-fg">
+        <Link href="/" className="flex min-h-11 items-center gap-3 text-fg no-underline hover:text-fg">
           <Logo />
           <span className="font-mono text-[15px] font-bold tracking-[0.12em]">SECURITY_THREAT_PULSE</span>
         </Link>
-        <nav aria-label="Main" className="-mx-2 flex flex-wrap gap-0.5 font-mono text-[13px] tracking-[0.06em]">
+        <nav aria-label="Main" className="-mx-2 flex flex-wrap items-center gap-0.5 font-mono text-[13px] tracking-[0.06em]">
           {NAV.map((n) => (
             <Link
               key={n.key}
@@ -39,6 +40,7 @@ export function SiteHeader({ active, strip }: { active: NavKey; strip: ReactNode
               {n.label}
             </Link>
           ))}
+          <HeaderTheme />
         </nav>
       </div>
       <div className="border-t border-line-soft">{strip}</div>

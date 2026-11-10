@@ -80,6 +80,8 @@ export interface EventRow {
   category?: { id: string; label: string; doThis: string };
   /** Affected products, direct first, then products that ship the component. */
   products?: ProductChip[];
+  /** YYYY-MM-DD of the newest dated report of attacks, exploitation or damage, when there is one. */
+  lastSignal?: string;
   /** NEW: first appeared in the last 7 days. CHANGED: verdict or ladder moved in the last 7 days. */
   mark?: "new" | "changed";
 }
@@ -170,11 +172,6 @@ export interface CountsView {
   total: number;
 }
 
-export interface RealItem {
-  title: string;
-  text: string;
-}
-
 export interface NoiseItem {
   title: string;
   tag: string;
@@ -225,12 +222,17 @@ export interface HomeData {
   counts: CountsView;
   countsNote: string;
   kpis: KpiView[];
-  real: RealItem[];
-  noise: NoiseItem[];
+  /** Events that are new or whose verdict or ladder moved in the last 7 days, outside the top list. */
+  changed: EventRow[];
   actions: DoItem[];
-  events: EventRow[];
-  /** Events tracked in total, so the home table can point to the full list. */
-  totalEvents: number;
+}
+
+/** Figures and context from published reports. They change a few times a year, so they have their own page. */
+export interface TrendsData {
+  /** Publication date of the newest report cited, YYYY-MM-DD. */
+  asOf: string;
+  kpis: KpiView[];
+  noise: NoiseItem[];
   drivers: { paragraphs: DriverParagraph[]; bars: DriverBar[]; barsTitle: string; barsCaption: string; barsSources: SourceLink[] };
   ransomware: StatView[];
 }

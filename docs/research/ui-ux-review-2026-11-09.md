@@ -69,6 +69,10 @@ that carries the fix (1 quick fixes, 2 home and lists, 3 vendors and admin inbox
 Already right: skip link, one focus ring in both themes, aria-current on the nav, the ladder
 announced in words, pattern as well as colour, reduced motion, clean heading order.
 
+## Decisions taken in pull request 2 (Nov 10)
+
+The owner said to go with the review's recommendations. Finding 1: the home table is cut; `/events` holds every event. Finding 3: lists drop the repeated sentence columns and keep the category label, so rank order stays intact. Finding 11: report figures moved to `/trends` with the date of the newest report.
+
 ## Questions for reviewers
 
 1. Is cutting the home table (finding 1) right, or should home keep a short "rest of Act today" list?

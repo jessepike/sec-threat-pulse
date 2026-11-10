@@ -30,7 +30,7 @@ const OUTCOME: Record<Outcome, { label: string; cls: string }> = {
 function Tile({ label, value, detail }: { label: string; value: string; detail: string }) {
   return (
     <div className="flex flex-col gap-2 rounded-sm border border-line bg-surface px-4 py-4">
-      <div className="font-mono text-[11px] tracking-[0.08em] text-faint">{label}</div>
+      <div className="font-mono text-xs tracking-[0.08em] text-faint">{label}</div>
       <div className="font-display text-[32px] font-bold leading-none text-fg">{value}</div>
       <p className="!text-sm !leading-[1.5] text-muted">{detail}</p>
     </div>
@@ -79,12 +79,12 @@ function VersionCard({ v, live }: { v: VersionRow; live: RecordCell | undefined 
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <strong className="font-mono text-base">{v.version}</strong>
         {v.released ? <span className="font-mono text-xs tracking-[0.06em] text-muted">RELEASED {fmtDayYear(v.released)}</span> : null}
-        {v.active ? <span className="rounded-sm border border-ok px-1.5 py-0.5 font-mono text-[11px] tracking-[0.08em] text-ok-text">ACTIVE</span> : null}
+        {v.active ? <span className="rounded-sm border border-ok px-1.5 py-0.5 font-mono text-xs tracking-[0.08em] text-ok-text">ACTIVE</span> : null}
       </div>
       {v.summary ? <p className="!text-sm">{v.summary}</p> : null}
       {b ? (
         <div className="flex flex-col gap-3">
-          <div className="font-mono text-[11px] tracking-[0.08em] text-faint">
+          <div className="font-mono text-xs tracking-[0.08em] text-faint">
             BACKTEST{v.verdictsFrom && b.reportVersion !== v.version ? `, SAME VERDICTS AS ${v.verdictsFrom.toUpperCase()}` : ""} · {fmtDayYear(b.window.from)} TO {fmtDayYear(b.window.to)}
           </div>
           <BacktestLine label={`Early Act now right within ${ACT_NOW_HORIZON_DAYS} days, whole window`} r={b.actNowAll} />
@@ -96,7 +96,7 @@ function VersionCard({ v, live }: { v: VersionRow; live: RecordCell | undefined 
         <p className="!text-sm text-muted">No backtest report for this version.</p>
       )}
       <div className="flex flex-col gap-1 border-t border-line-soft pt-3">
-        <div className="font-mono text-[11px] tracking-[0.08em] text-faint">LIVE</div>
+        <div className="font-mono text-xs tracking-[0.08em] text-faint">LIVE</div>
         <p className="!text-sm">{liveLine(live)}</p>
       </div>
     </li>
@@ -152,7 +152,7 @@ function CallsTable({ data }: { data: TrackRecord }) {
               <span className="font-mono text-xs text-muted">
                 {fmtDayYear(c.calledOn)} · {c.rulesVersion}
               </span>
-              <span className={`inline-block whitespace-nowrap rounded-sm border px-1.5 py-0.5 font-mono text-[11px] font-bold tracking-[0.08em] ${OUTCOME[c.outcome].cls}`}>{OUTCOME[c.outcome].label}</span>
+              <span className={`inline-block whitespace-nowrap rounded-sm border px-1.5 py-0.5 font-mono text-xs font-bold tracking-[0.08em] ${OUTCOME[c.outcome].cls}`}>{OUTCOME[c.outcome].label}</span>
             </div>
             <span className="!text-[15px]">{c.url ? <Link href={c.url.replace(/^https?:\/\/[^/]+/, "")}>{c.title}</Link> : c.title}</span>
             <span className="font-mono text-xs text-muted">
@@ -193,7 +193,7 @@ function CallsTable({ data }: { data: TrackRecord }) {
                   )}
                 </td>
                 <td>
-                  <span className={`inline-block whitespace-nowrap rounded-sm border px-1.5 py-0.5 font-mono text-[11px] font-bold tracking-[0.08em] ${OUTCOME[c.outcome].cls}`}>{OUTCOME[c.outcome].label}</span>
+                  <span className={`inline-block whitespace-nowrap rounded-sm border px-1.5 py-0.5 font-mono text-xs font-bold tracking-[0.08em] ${OUTCOME[c.outcome].cls}`}>{OUTCOME[c.outcome].label}</span>
                   {c.outcome === "pending" && c.settlesOn ? <div className="font-mono text-xs text-muted">settles {fmtDayYear(c.settlesOn)}</div> : null}
                 </td>
               </tr>

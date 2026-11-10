@@ -67,17 +67,33 @@ describe("live event lists", () => {
     expect((await dbEventsPage("watch", 1)).total).toBe(2);
   });
 
-  it("caps Watch at 12 and Low at 6 on home, and pages /events 50 at a time", async () => {
+  it("caps Watch at 12 and Low at 6 on home, and pages /events 25 at a time", async () => {
     for (let i = 0; i < 60; i++) await ev(`w${String(i).padStart(2, "0")}`, "watch");
     for (let i = 0; i < 10; i++) await ev(`l${i}`, "low");
     const home = await dbHomeEvents();
     expect(home.items.filter((x) => x.row.verdict === "watch")).toHaveLength(12);
     expect(home.items.filter((x) => x.row.verdict === "low")).toHaveLength(6);
     const p1 = await dbEventsPage("all", 1);
-    const p2 = await dbEventsPage("all", 2);
-    expect(p1.rows).toHaveLength(50);
-    expect(p2.rows).toHaveLength(20);
-    expect(p1.pages).toBe(2);
+    const p3 = await dbEventsPage("all", 3);
+    expect(p1.rows).toHaveLength(25);
+    expect(p3.rows).toHaveLength(20);
+    expect(p1.pages).toBe(3);
+  });
+
+  it("lists a changed event on home even when the Watch cap leaves it out of the home selection", async () => {
+    for (let i = 0; i < 14; i++) {
+      await ev(`w${String(i).padStart(2, "0")}`, "watch");
+      await obs(`w${String(i).padStart(2, "0")}`, "talk", new Date(NOW - (i + 1) * 3_600_000));
+    }
+    await ev("early-cve-9", "watch");
+    await obs("early-cve-9", "attempts", day(3));
+    const hist = (eventId: string) => current.insert(schema.verdictHistory).values({ eventId, verdict: "watch", ladder: LADDER, rulesVersion: "v2", reason: "r", actor: "rules", changedAt: new Date(NOW - 86_400_000) });
+    await hist("w13");
+    await hist("early-cve-9");
+    const home = await dbHomeEvents();
+    expect(home.items.map((x) => x.row.id)).not.toContain("w13");
+    expect(home.changed.map((x) => x.row.id)).toEqual(["w13"]);
+    expect(home.changed[0].row.mark).toBe("new");
   });
 
   it("gives the brief its lead event and recent updates", async () => {

@@ -1,4 +1,4 @@
-import { Drivers, EventsTable, Hero, KpiStrip, MainShell, Mission, RealNoiseDo, Ransomware } from "@/components/home";
+import { Hero, MainShell, Mission, MoreLinks, Steps } from "@/components/home";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HomeStrip } from "@/components/StatusStrip";
 import { KevWeeks } from "@/components/KevWeeks";
@@ -6,6 +6,10 @@ import { getHomeData } from "@/lib/data";
 
 export const revalidate = 1800;
 
+/**
+ * The home page answers one question: what do I do first. The top list, the counts, what changed
+ * this week and one live chart. Every other event is on /events; report figures are on /trends.
+ */
 export default async function HomePage() {
   const data = await getHomeData();
   return (
@@ -14,12 +18,9 @@ export default async function HomePage() {
       <MainShell>
         <Mission />
         <Hero data={data} />
-        <KpiStrip kpis={data.kpis} />
-        <RealNoiseDo data={data} />
-        <EventsTable events={data.events} total={data.totalEvents} />
+        <Steps steps={data.actions} />
         <KevWeeks weeks={data.kevWeeks} />
-        <Drivers d={data.drivers} />
-        <Ransomware stats={data.ransomware} />
+        <MoreLinks total={data.counts.total} />
       </MainShell>
     </>
   );

@@ -54,7 +54,7 @@ export function KevWeeks({ weeks }: { weeks: Week[] }) {
             );
           })}
         </div>
-        <div className="flex justify-between font-mono text-[11px] tracking-[0.06em] text-muted">
+        <div className="flex justify-between font-mono text-xs tracking-[0.06em] text-muted">
           <span>WEEK OF {short(weeks[0].week).toUpperCase()}</span>
           <span>{last.partial ? "THIS WEEK, SO FAR" : `WEEK OF ${short(last.week).toUpperCase()}`}</span>
         </div>

@@ -6,7 +6,9 @@ import type { VerdictFilter } from "./types";
 export const HOME_ACT_NOW_DAYS = 30;
 export const HOME_WATCH_CAP = 12;
 export const HOME_LOW_CAP = 6;
-export const EVENTS_PAGE_SIZE = 50;
+export const EVENTS_PAGE_SIZE = 25;
+/** Events on the home page's "changed this week" list. */
+export const HOME_CHANGED_CAP = 6;
 /** An early event (id starts with "early-") needs this many reports to reach the home page as Watch. */
 export const EARLY_HOME_MIN_REPORTS = 2;
 
