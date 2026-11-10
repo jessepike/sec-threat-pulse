@@ -4,7 +4,8 @@ import { RUNGS, type ExploitMaturity, type Ladder, type RungState, type Verdict 
 import type { ActTier } from "@/lib/ladder/rules";
 import { RUNG_SHORT, topConfirmed } from "./sample";
 import { firstQuestion, questionLines } from "@/lib/narrative/model";
-import { homeSelection, paginateListed, sortListed, type Listable } from "./listing";
+import { EARLY_HOME_MIN_REPORTS, HOME_CHANGED_CAP, homeSelection, isEarlyEvent, paginateListed, sortListed, type Listable } from "./listing";
+import { TOP_SIZE } from "./top";
 import { fmtDay, fmtDayYear, isoDayPT, joinSentences } from "./format";
 import { productName } from "@/lib/ladder/plain-title";
 import { categorize } from "@/lib/ladder/category";
@@ -287,12 +288,20 @@ export function homeRecs(recs: Rec[]): Rec[] {
   return homeSelection(recs.map(listable)).map((x) => byId.get(x.id)!);
 }
 
-export async function dbHomeEvents(): Promise<{ counts: CountsView; items: EventSummary[] }> {
+export async function dbHomeEvents(): Promise<{ counts: CountsView; items: EventSummary[]; changed: EventSummary[] }> {
   const db = getDb();
-  if (!db) return { counts: countVerdicts([]), items: [] };
+  if (!db) return { counts: countVerdicts([]), items: [], changed: [] };
   const recs = await loadRecords(db);
   const keep = new Set(homeSelection(recs.map(listable)).map((x) => x.id));
-  return { counts: countsOf(recs), items: await summarize(db, recs.filter((r) => keep.has(r.e.id))) };
+  // New or changed events come from every visible event, so the home caps cannot hide a change.
+  // Early Watch events with one report stay off the home page here too. A few extra are read
+  // because the caller drops the ones its top list already shows.
+  const marks = await changeMarks(db, recs.map((r) => r.e.id));
+  const changedRecs = recs
+    .filter((r) => marks.has(r.e.id) && !(r.verdict === "watch" && isEarlyEvent(r.e.id) && r.reports < EARLY_HOME_MIN_REPORTS))
+    .slice(0, HOME_CHANGED_CAP + TOP_SIZE);
+  const [items, changed] = await Promise.all([summarize(db, recs.filter((r) => keep.has(r.e.id))), summarize(db, changedRecs)]);
+  return { counts: countsOf(recs), items, changed };
 }
 
 /** True when the event names this product (slug, vendor, product or label). Older events without the column match on vendor and product. */

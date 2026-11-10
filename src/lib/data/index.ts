@@ -125,7 +125,7 @@ function sampleHome(): HomeData {
 }
 
 async function liveHome(): Promise<HomeData> {
-  const [{ counts, items: list }, status, kev, kevWeeks] = await Promise.all([dbHomeEvents(), dbStatus(), dbKevCounts(), dbKevWeeks()]);
+  const [{ counts, items: list, changed }, status, kev, kevWeeks] = await Promise.all([dbHomeEvents(), dbStatus(), dbKevCounts(), dbKevWeeks()]);
   const events = list.map((x) => x.row);
   const top = topFive(events);
   return {
@@ -137,7 +137,7 @@ async function liveHome(): Promise<HomeData> {
     counts,
     countsNote: counts.total === 0 ? "No events are tracked yet." : "Counts follow the published verdict rules.",
     kpis: [kevTile(kev)],
-    changed: changedThisWeek(events, top, HOME_CHANGED_CAP),
+    changed: changedThisWeek(changed.map((x) => x.row), top, HOME_CHANGED_CAP),
     actions: HOME_STEPS,
   };
 }

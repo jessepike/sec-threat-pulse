@@ -80,6 +80,22 @@ describe("live event lists", () => {
     expect(p1.pages).toBe(3);
   });
 
+  it("lists a changed event on home even when the Watch cap leaves it out of the home selection", async () => {
+    for (let i = 0; i < 14; i++) {
+      await ev(`w${String(i).padStart(2, "0")}`, "watch");
+      await obs(`w${String(i).padStart(2, "0")}`, "talk", new Date(NOW - (i + 1) * 3_600_000));
+    }
+    await ev("early-cve-9", "watch");
+    await obs("early-cve-9", "attempts", day(3));
+    const hist = (eventId: string) => current.insert(schema.verdictHistory).values({ eventId, verdict: "watch", ladder: LADDER, rulesVersion: "v2", reason: "r", actor: "rules", changedAt: new Date(NOW - 86_400_000) });
+    await hist("w13");
+    await hist("early-cve-9");
+    const home = await dbHomeEvents();
+    expect(home.items.map((x) => x.row.id)).not.toContain("w13");
+    expect(home.changed.map((x) => x.row.id)).toEqual(["w13"]);
+    expect(home.changed[0].row.mark).toBe("new");
+  });
+
   it("gives the brief its lead event and recent updates", async () => {
     await ev("lead", "act_now");
     await obs("lead", "talk", day(2));
