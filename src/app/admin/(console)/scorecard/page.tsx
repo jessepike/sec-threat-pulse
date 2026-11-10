@@ -5,6 +5,8 @@ import { requireAdmin } from "@/lib/admin/session";
 import { fmtCell, latestReports, period, pct } from "@/lib/admin/backtest";
 import { freshness, kevCoverage, trust } from "@/lib/admin/scorecard";
 import { CURRENT_RULES_VERSION, getRules } from "@/lib/ladder/rules";
+import { listIssues } from "@/lib/admin/github";
+import { getTrackRecord } from "@/lib/track-record";
 import { Empty, NoDb, PageHead, fmt } from "../../_components/ui";
 
 export const metadata = { title: "Scorecard" };
@@ -41,7 +43,17 @@ export default async function ScorecardPage() {
   await requireAdmin();
   const now = new Date();
   const db = getDb();
-  const [reports, intentLine] = await Promise.all([latestReports(), intentScorecard()]);
+  const token = process.env.GITHUB_TOKEN;
+  const [reports, intentLine, record, issues] = await Promise.all([
+    latestReports(),
+    intentScorecard(),
+    getTrackRecord(now).catch(() => null),
+    token ? listIssues(token) : Promise.resolve(null),
+  ]);
+  // The nightly agent test set keeps one open alert issue while any question fails.
+  const agentAlert = issues && issues.ok ? issues.issues.find((i) => i.labels.includes("alert") && /agent test set/i.test(i.title)) : undefined;
+  const agentStatus: Status = !issues || !issues.ok ? "unknown" : agentAlert ? "below" : "meets";
+  const liveCalls = record?.live.actNow.overall;
   // A version that only adds a tier or a score keeps the verdicts, so its predecessor's backtest report applies.
   const reportVersion = reports[CURRENT_RULES_VERSION] ? CURRENT_RULES_VERSION : (getRules(CURRENT_RULES_VERSION).verdictsFrom ?? CURRENT_RULES_VERSION);
   const report = reports[reportVersion];
@@ -61,7 +73,7 @@ export default async function ScorecardPage() {
       {intentLine ? <p className="adm-muted adm-small">{intentLine}</p> : null}
 
       <section className="adm-card adm-scroll">
-        <table className="adm-table">
+        <table className="adm-table adm-stack">
           <thead>
             <tr>
               <th>Measure</th>
@@ -78,6 +90,11 @@ export default async function ScorecardPage() {
                 <span className="adm-mono">{fmtCell(accuracy)}</span>
                 <div className="adm-muted adm-small">
                   Rules {reportVersion}{reportVersion !== CURRENT_RULES_VERSION ? ` (verdicts of ${CURRENT_RULES_VERSION})` : ""}, whole window, Act now before confirmation, right within 30 days. Held out: <span className="adm-mono">{fmtCell(held?.actNow.preConfirmation)}</span>
+                </div>
+                <div className="adm-muted adm-small">
+                  Live since {record ? record.live.since : "n/a"}:{" "}
+                  {liveCalls ? `${liveCalls.calls} early Act now calls, ${liveCalls.right} right, ${liveCalls.wrong} wrong, ${liveCalls.pending} pending.` : "no live record available."}{" "}
+                  <a href="/track-record" target="_blank" rel="noopener noreferrer">Track record</a>
                 </div>
               </td>
               <td>
@@ -130,7 +147,7 @@ export default async function ScorecardPage() {
             <tr>
               <td>Clarity</td>
               <td>A non-technical reader gets the verdict and action in 30 seconds</td>
-              <td className="adm-muted">Needs reader testing. Planned for the launch gate.</td>
+              <td className="adm-muted">Not measured. Needs a timed test with readers; none has been run.</td>
               <td><Pill s="unknown" /></td>
             </tr>
             <tr>
@@ -153,13 +170,22 @@ export default async function ScorecardPage() {
             <tr>
               <td>Agent readiness</td>
               <td>API, feeds, llms.txt and MCP</td>
-              <td className="adm-muted">Not built. Phase 4.</td>
-              <td><Pill s="unknown" /></td>
+              <td>
+                <span className="adm-mono">Live: API v1 with OpenAPI, feeds, llms.txt, MCP server</span>
+                <div className="adm-muted adm-small">
+                  {agentStatus === "unknown"
+                    ? "The nightly agent test set reports through an alert issue. GITHUB_TOKEN is not set here, so its state is not read."
+                    : agentAlert
+                      ? <>The nightly agent test set is failing: <a href={agentAlert.url} target="_blank" rel="noopener noreferrer">{agentAlert.title}</a></>
+                      : "The nightly agent test set has no open alert, so every question passed on its last run."}
+                </div>
+              </td>
+              <td><Pill s={agentStatus} /></td>
             </tr>
             <tr>
               <td>Running cost</td>
               <td>Under $50 a month</td>
-              <td className="adm-muted">Placeholder. No cost feed is connected yet.</td>
+              <td className="adm-muted">Not measured. No cost feed is connected. The database storage share is on the Overview.</td>
               <td><Pill s="unknown" /></td>
             </tr>
           </tbody>
@@ -172,7 +198,7 @@ export default async function ScorecardPage() {
           <NoDb />
         ) : (
           <div className="adm-card adm-scroll">
-            <table className="adm-table">
+            <table className="adm-table adm-stack">
               <thead>
                 <tr>
                   <th>Source</th>
@@ -191,12 +217,12 @@ export default async function ScorecardPage() {
                       {r.sourceId}
                       {r.enabled ? "" : " (off)"}
                     </td>
-                    <td className="adm-mono">{r.intervalMinutes} min</td>
-                    <td className="adm-mono">{r.okRuns}</td>
-                    <td className="adm-mono">{r.errorRuns}</td>
-                    <td className="adm-mono">{r.runsPerDay.toFixed(1)}</td>
-                    <td className="adm-mono">{fmt(r.lastSuccessAt)}</td>
-                    <td className="adm-mono">{age(r.newestObservationAt, now)} old</td>
+                    <td className="adm-mono" data-label="Interval">{r.intervalMinutes} min</td>
+                    <td className="adm-mono" data-label="OK runs">{r.okRuns}</td>
+                    <td className="adm-mono" data-label="Errors">{r.errorRuns}</td>
+                    <td className="adm-mono" data-label="Runs a day">{r.runsPerDay.toFixed(1)}</td>
+                    <td className="adm-mono" data-label="Last success">{fmt(r.lastSuccessAt)}</td>
+                    <td className="adm-mono" data-label="Newest data">{age(r.newestObservationAt, now)} old</td>
                   </tr>
                 ))}
                 {live.fresh.rows.length === 0 ? (

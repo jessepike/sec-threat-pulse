@@ -35,7 +35,7 @@ export function PageHead({ title, sub, children }: { title: string; sub?: string
         <h1>{title}</h1>
         {sub ? <p className="adm-muted">{sub}</p> : null}
       </div>
-      {children}
+      {children ? <div className="adm-inline">{children}</div> : null}
     </header>
   );
 }
@@ -61,4 +61,37 @@ export function fmt(d: Date | string | null | undefined): string {
 
 export function Empty({ children }: { children: ReactNode }) {
   return <p className="adm-muted adm-empty-row">{children}</p>;
+}
+
+/** "12 min ago", "3 h ago", "5 d ago". Past times only; a time in the future reads "just now". */
+export function ago(d: Date | string | null | undefined, now: Date = new Date()): string {
+  if (!d) return "never";
+  const mins = Math.max(0, Math.round((now.getTime() - new Date(d).getTime()) / 60000));
+  if (mins < 1) return "just now";
+  if (mins < 90) return `${mins} min ago`;
+  if (mins < 2880) return `${Math.round(mins / 60)} h ago`;
+  return `${Math.round(mins / 1440)} d ago`;
+}
+
+/** A relative time with the exact UTC time on hover and for screen readers. */
+export function Ago({ d, now }: { d: Date | string | null | undefined; now?: Date }) {
+  if (!d) return <span className="adm-muted">never</span>;
+  return (
+    <time dateTime={new Date(d).toISOString()} title={fmt(d)} className="adm-nowrap">
+      {ago(d, now)}
+    </time>
+  );
+}
+
+/** A card that folds. The summary line shows what is inside. */
+export function Fold({ title, hint, open, children }: { title: string; hint?: ReactNode; open?: boolean; children: ReactNode }) {
+  return (
+    <details className="adm-card adm-fold" open={open}>
+      <summary>
+        <span>{title}</span>
+        {hint ? <span className="adm-hint adm-muted adm-small">{hint}</span> : null}
+      </summary>
+      {children}
+    </details>
+  );
 }

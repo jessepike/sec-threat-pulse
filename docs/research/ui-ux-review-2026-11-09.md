@@ -69,6 +69,12 @@ that carries the fix (1 quick fixes, 2 home and lists, 3 vendors, 4 admin).
 Already right: skip link, one focus ring in both themes, aria-current on the nav, the ladder
 announced in words, pattern as well as colour, reduced motion, clean heading order.
 
+## Decisions taken in pull request 4 (Nov 10)
+
+- The overview inbox lists health alerts, sources whose last run failed and unpublished write-ups. Open feedback issues stay on the Roadmap page, so the Overview makes no GitHub request.
+- The write-up preview shows the saved draft, built from the public page's own components. It does not show text that is typed and not saved.
+- On a phone, tables that matter (sources, runs, events, audit) become one block per row with labels. Rules, corrections and audit detail scroll sideways inside their card.
+
 ## Decisions taken in pull request 2 (Nov 10)
 
 The owner said to go with the review's recommendations. Finding 1: the home table is cut; `/events` holds every event. Finding 3: lists drop the repeated sentence columns and keep the category label, so rank order stays intact. Finding 11: report figures moved to `/trends` with the date of the newest report.

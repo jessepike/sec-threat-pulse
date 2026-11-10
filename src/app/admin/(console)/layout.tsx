@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { requireAdmin } from "@/lib/admin/session";
 import { signOutAction } from "../signin/actions";
-import { AdminNav } from "../_components/AdminNav";
+import { AdminSide } from "../_components/AdminNav";
 
 const NAV = [
   ["/admin", "Overview"],
@@ -20,22 +20,15 @@ async function Shell({ children }: { children: React.ReactNode }) {
   const admin = await requireAdmin();
   return (
     <div className="adm-shell">
-      <aside className="adm-side">
-        <div className="adm-brand">
-          <span className="adm-dot" />
-          STP Admin
-        </div>
-        <AdminNav items={NAV} />
-        <div className="adm-user">
-          <div className="adm-muted">Signed in as</div>
-          <div className="adm-mono">{admin.login}</div>
-          <form action={signOutAction}>
-            <button className="adm-btn adm-btn-ghost" type="submit">
-              Sign out
-            </button>
-          </form>
-        </div>
-      </aside>
+      <AdminSide items={NAV}>
+        <div className="adm-muted">Signed in as</div>
+        <div className="adm-mono">{admin.login}</div>
+        <form action={signOutAction}>
+          <button className="adm-btn adm-btn-ghost" type="submit">
+            Sign out
+          </button>
+        </form>
+      </AdminSide>
       <main className="adm-main">{children}</main>
     </div>
   );
