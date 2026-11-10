@@ -48,7 +48,7 @@ export default async function EventsPage({ searchParams }: { searchParams: SP })
             <button className="adm-btn" type="submit">Filter</button>
           </form>
           <div className="adm-card adm-scroll" tabIndex={0} role="region" aria-label="Events table">
-            <table className="adm-table">
+            <table className="adm-table adm-stack">
               <thead>
                 <tr><th>Event</th><th>Ladder</th><th>Verdict</th><th>Updated</th><th>Public page</th></tr>
               </thead>
@@ -59,14 +59,14 @@ export default async function EventsPage({ searchParams }: { searchParams: SP })
                       <Link href={`/admin/events/${encodeURIComponent(e.id)}`}>{e.titleOverride ?? e.title}</Link>
                       <div className="adm-mono adm-muted">{e.id}{e.hidden ? " · hidden" : ""}</div>
                     </td>
-                    <td><LadderCells ladder={e.ladder} /></td>
-                    <td>
+                    <td data-label="Ladder"><LadderCells ladder={e.ladder} /></td>
+                    <td data-label="Verdict">
                       <VerdictPill verdict={e.overrideVerdict ?? e.verdict} />
                       {e.tier === "today" && (e.overrideVerdict ?? e.verdict) === "act_now" ? <span className="adm-pill adm-pill-act">Today</span> : null}
                       {e.overrideVerdict ? <span className="adm-muted adm-small"> override</span> : null}
                     </td>
-                    <td className="adm-mono">{fmt(e.updatedAt)}</td>
-                    <td>{e.hidden ? <span className="adm-muted">hidden</span> : <a href={`/events/${encodeURIComponent(e.id)}`} target="_blank" rel="noopener noreferrer">View</a>}</td>
+                    <td className="adm-mono" data-label="Updated">{fmt(e.updatedAt)}</td>
+                    <td data-label="Public page">{e.hidden ? <span className="adm-muted">hidden</span> : <a href={`/events/${encodeURIComponent(e.id)}`} target="_blank" rel="noopener noreferrer">View</a>}</td>
                   </tr>
                 ))}
                 {rows.length === 0 ? <tr><td colSpan={5} className="adm-muted">No events match.</td></tr> : null}

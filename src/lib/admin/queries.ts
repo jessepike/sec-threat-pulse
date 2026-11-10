@@ -2,9 +2,10 @@ import { and, desc, eq, ilike, or, sql } from "drizzle-orm";
 import { schema } from "@/lib/db/client";
 import type { Db } from "./db";
 import type { Db as IngestDb } from "@/lib/ingest/db";
-import { loadDbSizeHealth, loadEventsSyncHealth, loadSourceHealth } from "@/lib/ingest/health";
+import { loadDbSizeHealth, loadEventsSyncHealth, loadEventsSyncRecord, loadSourceHealth } from "@/lib/ingest/health";
+import { sortSources, sourceState } from "./attention";
 
-const { sources, sourceRuns, events, observations, auditLog, corrections, verdictHistory, eventCves } = schema;
+const { sources, sourceRuns, events, observations, auditLog, corrections, verdictHistory, eventCves, eventNarratives } = schema;
 
 export interface AlertRow {
   sourceId: string;
@@ -61,12 +62,26 @@ export async function overviewData(db: Db) {
     .groupBy(sql`coalesce(${events.overrideVerdict}, ${events.verdict})`);
   const [hidden] = await db.select({ n: sql<number>`count(*)::int` }).from(events).where(eq(events.hidden, true));
   const recent = await db.select().from(auditLog).orderBy(desc(auditLog.at)).limit(10);
-  const [alerts, dbBytes] = await Promise.all([openAlerts(db), databaseBytes(db)]);
-  return { lastRun, failing, verdicts, hidden: hidden?.n ?? 0, recent, alerts, dbBytes };
+  const drafts = await db
+    .select({ eventId: events.id, title: sql<string>`coalesce(${events.titleOverride}, ${events.title})` })
+    .from(eventNarratives)
+    .innerJoin(events, eq(events.id, eventNarratives.eventId))
+    .where(and(eq(eventNarratives.status, "draft"), eq(events.hidden, false)))
+    .orderBy(desc(eventNarratives.updatedAt))
+    .limit(10);
+  const [alerts, dbBytes, eventsSync] = await Promise.all([openAlerts(db), databaseBytes(db), loadEventsSyncRecord(db as unknown as IngestDb)]);
+  return { lastRun, failing, verdicts, hidden: hidden?.n ?? 0, recent, alerts, dbBytes, drafts, lastCompleteAt: eventsSync?.lastSuccessAt ?? null };
 }
 
 export async function listSources(db: Db) {
   return db.select().from(sources).orderBy(sources.id);
+}
+
+/** Every source with its state, the ones that need a look first. */
+export async function listSourcesByHealth(db: Db, now = new Date()) {
+  const [rows, health] = await Promise.all([listSources(db), loadSourceHealth(db as unknown as IngestDb, now)]);
+  const byId = new Map(health.map((h) => [h.id, h]));
+  return sortSources(rows.map((s) => ({ ...s, state: sourceState(s, byId.get(s.id)?.state), reason: byId.get(s.id)?.reason ?? "" })));
 }
 
 export async function listRuns(db: Db, f: { sourceId?: string; status?: string }) {

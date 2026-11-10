@@ -48,20 +48,20 @@ export default async function RunsPage({ searchParams }: { searchParams: SP }) {
             </form>
           </div>
           <div className="adm-card adm-scroll" tabIndex={0} role="region" aria-label="Runs table">
-            <table className="adm-table">
+            <table className="adm-table adm-stack">
               <thead>
                 <tr><th>Started</th><th>Source</th><th>Status</th><th>Fetched</th><th>New</th><th>Finished</th><th>Error</th></tr>
               </thead>
               <tbody>
                 {runs.map((r) => (
                   <tr key={r.id}>
-                    <td className="adm-mono">{fmt(r.startedAt)}</td>
-                    <td className="adm-mono">{r.sourceId}</td>
-                    <td><StatusPill status={r.status} /></td>
-                    <td>{r.itemsFetched}</td>
-                    <td>{r.itemsNew}</td>
-                    <td className="adm-mono">{fmt(r.finishedAt)}</td>
-                    <td className="adm-small adm-err">{r.error?.slice(0, 160)}</td>
+                    <td className="adm-mono" data-label="Started">{fmt(r.startedAt)}</td>
+                    <td className="adm-mono" data-label="Source">{r.sourceId}</td>
+                    <td data-label="Status"><StatusPill status={r.status} /></td>
+                    <td data-label="Fetched">{r.itemsFetched}</td>
+                    <td data-label="New">{r.itemsNew}</td>
+                    <td className="adm-mono" data-label="Finished">{fmt(r.finishedAt)}</td>
+                    <td className="adm-small adm-err" data-label="Error">{r.error?.slice(0, 160)}</td>
                   </tr>
                 ))}
                 {runs.length === 0 ? <tr><td colSpan={7} className="adm-muted">No runs match.</td></tr> : null}

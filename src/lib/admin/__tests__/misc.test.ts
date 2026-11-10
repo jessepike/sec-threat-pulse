@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { parseBacklog } from "../backlog";
+import { ownerItems, parseBacklog, sectionLabel } from "../backlog";
 import { parseFlags, parseRecipients } from "../settings";
 import { triggerIngest } from "../ingest-trigger";
 
@@ -32,6 +32,37 @@ describe("parseBacklog", () => {
     expect(p[0].items).toEqual([
       { done: true, text: "Repo" },
       { done: false, text: "Vercel project, Neon database" },
+    ]);
+  });
+  it("reads waves and other checklists, and finds what waits on the owner", () => {
+    const w = parseBacklog(`## Phase 0: Foundations · Gate: live
+
+- [x] Repo
+
+## Research and plan (Nov 7, 2026)
+
+- [x] Value brief
+
+## Wave 0: Durable floor (started Nov 8, 2026) · Gate: 7 days fresh
+
+- [x] Status page
+- [ ] Probe drill (the routine gets 403; owner runs it from the Actions tab)
+
+## Wave 4: Launch (started Nov 8, 2026) · Jesse decides each outward step · Steps in \`docs/launch\`
+
+- [ ] Owner: turn indexing on
+- [ ] More sources
+
+## Notes with no checklist
+
+Text.
+`);
+    expect(w.map(sectionLabel)).toEqual(["Phase 0: Foundations", "Research and plan (Nov 7, 2026)", "Wave 0: Durable floor (started Nov 8, 2026)", "Wave 4: Launch (started Nov 8, 2026)"]);
+    expect(w[2]).toMatchObject({ key: "wave-0", wave: 0, gate: "7 days fresh" });
+    expect(w[3].gate).toBeNull();
+    expect(ownerItems(w)).toEqual([
+      { section: "Wave 0: Durable floor (started Nov 8, 2026)", text: "Probe drill (the routine gets 403; owner runs it from the Actions tab)" },
+      { section: "Wave 4: Launch (started Nov 8, 2026)", text: "Owner: turn indexing on" },
     ]);
   });
   it("reads later phases", () => {
