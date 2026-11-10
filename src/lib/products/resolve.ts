@@ -164,5 +164,11 @@ export function productLabel(p: Pick<AffectedProduct, "vendor" | "product">): st
 export function matchesProductQuery(products: readonly AffectedProduct[], query: string): boolean {
   const q = normKey(query);
   if (!q) return false;
-  return products.some((p) => p.vendorKey === q || p.productKey === q || normKey(p.slug) === q || normKey(productLabel(p)) === q || normKey(p.product) === q || normKey(productFamily(productLabel(p))) === q || normKey(vendorName(p.vendor)) === q);
+  return products.some((p) => {
+    if (p.vendorKey === q || p.productKey === q || normKey(p.slug) === q || normKey(productLabel(p)) === q || normKey(p.product) === q) return true;
+    // Stored products can carry a vendor name from before an alias was added. Vendor pages show the
+    // current name, so the family and the vendor are matched under it too.
+    const vendor = p.vendor ? vendorName(p.vendor) : "";
+    return normKey(vendor) === q || normKey(productFamily(productLabel({ vendor, product: p.product }))) === q;
+  });
 }

@@ -104,5 +104,9 @@ describe("vendor aliases and product families", () => {
   it("lets the product filter match a family or an alias", () => {
     const list = resolveAffectedProducts([{ vendor: "microsoft", product: "windows_10_version_1607", evidence: "cpe" }]);
     expect(matchesProductQuery(list, "Microsoft Windows 10")).toBe(true);
+    // A product stored before the alias existed still matches the family shown under the current name.
+    const stored = [{ vendorKey: "aristanetworks", productKey: "eosversion1", vendor: "Arista Networks", product: "EOS Version 1", slug: "aristanetworks/eosversion1", kind: "direct" as const, evidence: ["cna" as const] }];
+    expect(matchesProductQuery(stored, "Arista EOS")).toBe(true);
+    expect(matchesProductQuery(stored, "arista")).toBe(true);
   });
 });

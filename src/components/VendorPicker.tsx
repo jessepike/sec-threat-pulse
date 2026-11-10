@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { stackHit, stackHref } from "@/lib/data/vendors";
+import { canonVendorKey, stackHit, stackHref } from "@/lib/data/vendors";
 import { VERDICT_STYLE } from "./ui";
 
 /** The last list this browser built, as vendor keys. */
@@ -19,6 +19,8 @@ export interface PickerVendor {
   /** Up to three product names and how many more there are. */
   products: string[];
   more: number;
+  /** Every product family name, lower case, for the filter box. */
+  search: string;
   actNowIds: string[];
   watchIds: string[];
 }
@@ -37,7 +39,7 @@ function readOldNames(): string[] {
   try {
     const raw = window.localStorage.getItem(OLD_KEY);
     const list = raw ? (JSON.parse(raw) as unknown) : [];
-    return Array.isArray(list) ? list.filter((x): x is string => typeof x === "string").map((x) => x.toLowerCase().replace(/[^a-z0-9]+/g, "")) : [];
+    return Array.isArray(list) ? list.filter((x): x is string => typeof x === "string").map(canonVendorKey) : [];
   } catch {
     return [];
   }
@@ -101,7 +103,7 @@ export function VendorPicker({ vendors, initial }: { vendors: PickerVendor[]; in
   const actNow = new Set(mine.flatMap((v) => v.actNowIds)).size;
   const watch = new Set(mine.flatMap((v) => v.watchIds)).size;
   const q = query.trim().toLowerCase();
-  const shown = q ? vendors.filter((v) => v.name.toLowerCase().includes(q) || v.products.some((p) => p.toLowerCase().includes(q))) : vendors;
+  const shown = q ? vendors.filter((v) => v.name.toLowerCase().includes(q) || v.search.includes(q)) : vendors;
 
   return (
     <div className="flex flex-col gap-8">

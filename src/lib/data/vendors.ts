@@ -1,7 +1,7 @@
 // Vendor pages: every vendor named by an event's affected products, with its events and counts. Pure.
 
 import type { Verdict } from "@/lib/ladder/types";
-import { normKey, productFamily } from "@/lib/products";
+import { normKey, productFamily, vendorName } from "@/lib/products";
 
 export interface VendorProductRef {
   vendorKey: string;
@@ -101,8 +101,14 @@ export function stackTotals(vendors: Pick<VendorSummary, "actNowIds" | "watchIds
   return { actNow: new Set(vendors.flatMap((v) => v.actNowIds)).size, watch: new Set(vendors.flatMap((v) => v.watchIds)).size };
 }
 
-/** Parses a "your stack" list from the URL: vendor keys, comma-separated, at most 25. */
+/** The vendor key a name or key resolves to today: "Netscaler" and "citrixnetscaler" are "citrix". */
+export function canonVendorKey(raw: string): string {
+  return normKey(vendorName(raw));
+}
+
+/** Parses a "your stack" list from the URL: vendor keys, comma-separated, at most 25. An old or variant name becomes its current key. */
 export function parseVendorStack(raw: string | string[] | undefined): string[] {
   const v = Array.isArray(raw) ? raw[0] : raw;
-  return [...new Set((v ?? "").toLowerCase().split(",").map((x) => x.trim().replace(/[^a-z0-9]/g, "")).filter((x) => VENDOR_KEY_RE.test(x)))].slice(0, 25);
+  const keys = (v ?? "").toLowerCase().split(",").map((x) => x.trim().replace(/[^a-z0-9]/g, "")).filter((x) => VENDOR_KEY_RE.test(x));
+  return [...new Set(keys.map((k) => (VENDOR_KEY_RE.test(canonVendorKey(k)) ? canonVendorKey(k) : k)))].slice(0, 25);
 }

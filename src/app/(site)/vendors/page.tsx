@@ -28,6 +28,7 @@ export default async function VendorsPage({ searchParams }: Props) {
     total: v.total,
     products: v.products.slice(0, 3).map((p) => p.label),
     more: Math.max(0, v.products.length - 3),
+    search: v.products.map((p) => p.label.toLowerCase()).join("\n"),
     actNowIds: v.actNowIds,
     watchIds: v.watchIds,
   }));

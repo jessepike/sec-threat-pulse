@@ -33,8 +33,9 @@ describe("stackTotals", () => {
 
 describe("parseVendorStack", () => {
   it("keeps clean vendor keys, once each", () => {
-    expect(parseVendorStack("Fortinet, palo-alto,fortinet,<x>")).toEqual(["fortinet", "paloalto"]);
+    expect(parseVendorStack("Fortinet, palo-alto,fortinet,<x>")).toEqual(["fortinet", "paloaltonetworks"]);
     expect(parseVendorStack(undefined)).toEqual([]);
+    expect(parseVendorStack("netscaler,citrix,aristanetworks")).toEqual(["citrix", "arista"]);
   });
 });
 
