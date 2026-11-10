@@ -69,3 +69,8 @@ export const ADAPTERS: SourceAdapter[] = SOURCE_REGISTRY.map((d) => d.adapter);
 export function getDefinition(id: string): SourceDefinition | undefined {
   return SOURCE_REGISTRY.find((d) => d.adapter.id === id);
 }
+
+/** True when every env var a source needs is set. Pages use it so they never credit a source that is not being read. */
+export function isConfigured(id: string, env: Record<string, string | undefined> = process.env): boolean {
+  return (getDefinition(id)?.requiresEnv ?? []).every((k) => !!env[k]);
+}

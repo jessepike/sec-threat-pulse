@@ -1,7 +1,7 @@
 import { revalidateTag } from "next/cache";
 import { getDb } from "@/lib/db/client";
 import { ensureMigrated } from "@/lib/db/migrate";
-import { runDueSources, seedSources, type SourceRunSummary } from "@/lib/ingest/runner";
+import { isPruneTick, pruneSourceRuns, runDueSources, seedSources, type SourceRunSummary } from "@/lib/ingest/runner";
 import { runEventsSync } from "@/lib/ingest/events-run";
 import type { Db } from "@/lib/ingest/db";
 import { checkCronAuth } from "../auth";
@@ -49,6 +49,9 @@ async function handle(req: Request): Promise<Response> {
     ingestError = e instanceof Error ? e.message : String(e);
   }
 
+  // Once a day, drop run rows past the retention window. Same invocation, so no extra database wake.
+  const prunedRuns = isPruneTick(new Date()) ? await pruneSourceRuns(db) : undefined;
+
   const events = withEvents ? await runEventsSync(db) : null;
   // Public pages read through unstable_cache tagged "stp"; expire it so new data shows at once.
   if (events?.ok || sources.some((s) => s.observationsNew > 0)) revalidateTag("stp", { expire: 0 });
@@ -64,6 +67,7 @@ async function handle(req: Request): Promise<Response> {
       failed: sources.filter((s) => s.status === "error").map((s) => ({ sourceId: s.sourceId, error: s.error })),
       newObservations: sources.reduce((n, s) => n + s.observationsNew, 0),
       events,
+      ...(prunedRuns !== undefined ? { prunedRuns } : {}),
       sources,
     },
     { status: ok ? 200 : 500 },
