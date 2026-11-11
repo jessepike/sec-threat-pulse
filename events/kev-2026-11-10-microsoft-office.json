@@ -1,0 +1,285 @@
+{
+  "id": "kev-2026-11-10-microsoft-office",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-10-microsoft-office",
+  "title": "Microsoft Office: security flaw used in attacks",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is new today, so almost nothing is patched yet.",
+  "tier": "now",
+  "rankScore": 6,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The confirmation is 1 day old.",
+    "7 products are affected."
+  ],
+  "rulesVersion": "v3",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
+  "cves": [
+    "CVE-2026-124194"
+  ],
+  "vendor": "Microsoft",
+  "product": "Office",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "microsoft/office",
+      "vendor": "Microsoft",
+      "product": "Office",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "office"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/microsoft365appsforenterprise",
+      "vendor": "Microsoft",
+      "product": "Microsoft 365 Apps For Enterprise",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "microsoft365appsforenterprise"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/microsoftofficeltsc2021",
+      "vendor": "Microsoft",
+      "product": "Microsoft Office Ltsc 2021",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "microsoftofficeltsc2021"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/microsoftofficeltsc2024",
+      "vendor": "Microsoft",
+      "product": "Microsoft Office Ltsc 2024",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "microsoftofficeltsc2024"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/365apps",
+      "vendor": "Microsoft",
+      "product": "365 Apps",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "365apps"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/office2021",
+      "vendor": "Microsoft",
+      "product": "Office 2021",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "office2021"
+    },
+    {
+      "kind": "direct",
+      "slug": "microsoft/office2024",
+      "vendor": "Microsoft",
+      "product": "Office 2024",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "microsoft",
+      "productKey": "office2024"
+    }
+  ],
+  "category": {
+    "id": "other",
+    "label": "Other software",
+    "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+    "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+  },
+  "summary": "Microsoft Office Outlook contains a missing user interaction for potentially unsafe action vulnerability that allows an unauthorized attacker to perform spoofing over a network.",
+  "cvss": 6.5,
+  "epss": null,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-10",
+  "kevDueDate": "2026-11-24",
+  "firstSeenAt": "2026-11-10T00:00:00.000Z",
+  "updatedAt": "2026-11-11T02:30:23.338Z",
+  "newestEvidenceAt": "2026-11-11T12:30:07.523Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 24, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-11-10",
+      "label": "CVE-2026-124194 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-124194"
+    },
+    "exploitCode": {
+      "date": "2026-11-11",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-11-10",
+      "label": "CVE List V5 and CISA Vulnrichment",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-124194"
+    },
+    "kevListed": {
+      "date": "2026-11-10",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-124194"
+    },
+    "kevDue": {
+      "date": "2026-11-24",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-124194"
+    },
+    "daysToFirstReport": 0,
+    "daysToKev": 0
+  },
+  "ladderSources": {
+    "talk": 7,
+    "exposure": 0,
+    "attempts": 4,
+    "exploited": 4,
+    "damage": 0
+  },
+  "evidence": [
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Microsoft November Patch Tuesday: one exploited Outlook bug and 30 wormable flaws",
+      "url": "https://securityaffairs.com/202839/hacking/microsoft-november-patch-tuesday-one-exploited-outlook-bug-and-30-wormable-flaws.html",
+      "publishedAt": "2026-11-11T09:03:48.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-124194",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-124194.json",
+      "publishedAt": "2026-11-11T01:37:03.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "November Patch Tuesday boasts over 1,000 bugs but only one zero-day so far",
+      "url": "https://www.theregister.com/security/2026/11/10/november-patch-tuesday-boasts-over-1000-bugs-but-only-one-zero-day-so-far/5308946",
+      "publishedAt": "2026-11-10T22:37:01.000Z",
+      "source": {
+        "id": "news-theregister",
+        "name": "The Register (security)",
+        "attribution": "Headlines and links from The Register (security)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Microsoft Fixes Nearly 1,100 Security Vulnerabilities",
+      "url": "https://krebsonsecurity.com/2026/11/microsoft-fixes-nearly-1100-security-vulnerabilities/",
+      "publishedAt": "2026-11-10T21:55:03.000Z",
+      "source": {
+        "id": "news-krebs",
+        "name": "Krebs on Security",
+        "attribution": "Headlines and links from Krebs on Security"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Microsoft fixes over 1,000 vulnerabilities in November Patch Tuesday",
+      "url": "https://cyberscoop.com/microsoft-patch-tuesday-november-2026/",
+      "publishedAt": "2026-11-10T21:47:01.000Z",
+      "source": {
+        "id": "news-cyberscoop",
+        "name": "CyberScoop",
+        "attribution": "Headlines and links from CyberScoop"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-124194 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-124194",
+      "publishedAt": "2026-11-10T19:50:07.348Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Exploited Outlook Zero-Day Among 1,094 Flaws Patched by Microsoft",
+      "url": "https://www.securityweek.com/exploited-outlook-zero-day-among-1094-flaws-patched-by-microsoft/",
+      "publishedAt": "2026-11-10T19:19:46.000Z",
+      "source": {
+        "id": "news-securityweek",
+        "name": "SecurityWeek",
+        "attribution": "Headlines and links from SecurityWeek"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Microsoft Patch Tuesday November 2027 , (Tue, Nov 10th)",
+      "url": "https://isc.sans.edu/diary/rss/33508",
+      "publishedAt": "2026-11-10T19:09:32.000Z",
+      "source": {
+        "id": "news-sansisc",
+        "name": "SANS Internet Storm Center",
+        "attribution": "Headlines and links from SANS Internet Storm Center"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Microsoft confirms exploitation: Microsoft Outlook Spoofing Vulnerability",
+      "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-124194",
+      "publishedAt": "2026-11-10T08:00:00.000Z",
+      "source": {
+        "id": "msrc",
+        "name": "Microsoft Security Response Center",
+        "attribution": "Microsoft Security Response Center security update guide"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Microsoft Office Outlook Missing User Interaction for Potentially Unsafe Action Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-124194",
+      "publishedAt": "2026-11-10T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 53
+}

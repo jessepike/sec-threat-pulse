@@ -1,0 +1,225 @@
+{
+  "id": "kev-2026-11-10-barracuda-networks-multiple-products",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-10-barracuda-networks-multiple-products",
+  "title": "Several Barracuda Networks products: attackers can run commands on it",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 8 days old, so many systems are likely still unpatched.",
+  "tier": "now",
+  "rankScore": 6,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The confirmation is 1 day old.",
+    "7 products are affected."
+  ],
+  "rulesVersion": "v3",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
+  "cves": [
+    "CVE-2026-111560"
+  ],
+  "vendor": "Barracuda Networks",
+  "product": "Multiple Products",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "barracudanetworks/multipleproducts",
+      "vendor": "Barracuda Networks",
+      "product": "Multiple Products",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "barracudanetworks",
+      "productKey": "multipleproducts"
+    },
+    {
+      "kind": "direct",
+      "slug": "barracudanetworks/barracudaemailsecuritygatewayesg",
+      "vendor": "Barracuda Networks",
+      "product": "Barracuda Email Security Gateway (esg)",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "barracudanetworks",
+      "productKey": "barracudaemailsecuritygatewayesg"
+    },
+    {
+      "kind": "direct",
+      "slug": "barracudanetworks/barracudaloadbalancerapplicationdeliverycontrolleradc",
+      "vendor": "Barracuda Networks",
+      "product": "Barracuda Load Balancer Application Delivery Controller (adc)",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "barracudanetworks",
+      "productKey": "barracudaloadbalancerapplicationdeliverycontrolleradc"
+    },
+    {
+      "kind": "direct",
+      "slug": "barracudanetworks/barracudawebapplicationfirewallwaf",
+      "vendor": "Barracuda Networks",
+      "product": "Barracuda Web Application Firewall (waf)",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "barracudanetworks",
+      "productKey": "barracudawebapplicationfirewallwaf"
+    },
+    {
+      "kind": "direct",
+      "slug": "barracudanetworks/barracudawebsecuritygatewaywsg",
+      "vendor": "Barracuda Networks",
+      "product": "Barracuda Web Security Gateway (wsg)",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "barracudanetworks",
+      "productKey": "barracudawebsecuritygatewaywsg"
+    },
+    {
+      "kind": "direct",
+      "slug": "barracudanetworks/barracudamessagearchiverbma",
+      "vendor": "Barracuda Networks",
+      "product": "Barracuda Message Archiver (bma)",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "barracudanetworks",
+      "productKey": "barracudamessagearchiverbma"
+    },
+    {
+      "kind": "direct",
+      "slug": "barracudanetworks/barracudawafcontrolcenterwcc",
+      "vendor": "Barracuda Networks",
+      "product": "Barracuda Waf Control Center (wcc)",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "barracudanetworks",
+      "productKey": "barracudawafcontrolcenterwcc"
+    }
+  ],
+  "category": {
+    "id": "other",
+    "label": "Other software",
+    "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+    "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+  },
+  "summary": "Barracuda Networks Email Security Gateway (ESG), Load Balancer, Application Delivery Controller (ADC), Message Archiver (BMA), WAF Control Center (WCC), Web Application Firewall (WAF), and Web Security Gateway (WSG) contain an OS command injection vulnerability.",
+  "cvss": 8.6,
+  "epss": 0.0106,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-10",
+  "kevDueDate": "2026-11-13",
+  "firstSeenAt": "2026-11-10T00:00:00.000Z",
+  "updatedAt": "2026-11-11T07:30:23.092Z",
+  "newestEvidenceAt": "2026-11-11T12:16:13.493Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 13, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-11-02",
+      "label": "CVE-2026-111560 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-111560"
+    },
+    "exploitCode": {
+      "date": "2026-11-11",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-11-10",
+      "label": "CVE List V5 and CISA Vulnrichment",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-111560"
+    },
+    "kevListed": {
+      "date": "2026-11-10",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-111560"
+    },
+    "kevDue": {
+      "date": "2026-11-13",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-111560"
+    },
+    "daysToFirstReport": 8,
+    "daysToKev": 8
+  },
+  "ladderSources": {
+    "talk": 3,
+    "exposure": 0,
+    "attempts": 3,
+    "exploited": 3,
+    "damage": 0
+  },
+  "evidence": [
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-111560 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-111560",
+      "publishedAt": "2026-11-10T19:50:31.991Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Barracuda’s email security gateways bitten by make-me-root vulns",
+      "url": "https://www.theregister.com/security/2026/11/10/barracudas-email-security-gateways-bitten-by-make-me-root-vulns/5308883",
+      "publishedAt": "2026-11-10T18:51:35.000Z",
+      "source": {
+        "id": "news-theregister",
+        "name": "The Register (security)",
+        "attribution": "Headlines and links from The Register (security)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Barracuda Networks Multiple Products OS Command Injection Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-111560",
+      "publishedAt": "2026-11-10T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Security Affairs newsletter Round 603 by Pierluigi Paganini – INTERNATIONAL EDITION",
+      "url": "https://securityaffairs.com/202649/security/security-affairs-newsletter-round-603-by-pierluigi-paganini-international-edition.html",
+      "publishedAt": "2026-11-08T13:48:43.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Two Barracuda ESG Flaws Could Be Combined for Full Root Access; Patches Released",
+      "url": "https://securityaffairs.com/202440/security/two-barracuda-esg-flaws-could-be-combined-for-full-root-access-patches-released.html",
+      "publishedAt": "2026-11-04T21:04:35.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
+      }
+    }
+  ],
+  "evidenceWithheld": 22
+}

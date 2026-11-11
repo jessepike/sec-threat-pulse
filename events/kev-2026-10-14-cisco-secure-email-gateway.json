@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-14-cisco-secure-email-gateway",
   "title": "Cisco Secure Email Gateway: attackers can read or change files",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 26 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 27 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
   "tier": "now",
   "rankScore": 6,
   "rankWhy": [
@@ -66,7 +66,7 @@
   "kevDateAdded": "2026-10-14",
   "kevDueDate": "2026-10-17",
   "firstSeenAt": "2026-10-14T00:00:00.000Z",
-  "updatedAt": "2026-11-09T16:22:40.671Z",
+  "updatedAt": "2026-11-10T16:30:22.669Z",
   "newestEvidenceAt": "2026-11-07T11:13:03.187Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 17, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

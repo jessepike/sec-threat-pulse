@@ -1,0 +1,153 @@
+{
+  "id": "kev-2026-11-10-openwave-messaging-l-webtop-media-transcoder",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-10-openwave-messaging-l-webtop-media-transcoder",
+  "title": "Openwave Messaging Webtop Media Transcoder: security flaw used in attacks",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 25 days old, so many systems are likely still unpatched.",
+  "tier": "now",
+  "rankScore": 6,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The confirmation is 1 day old.",
+    "3 products are affected."
+  ],
+  "rulesVersion": "v3",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
+  "cves": [
+    "CVE-2026-111793"
+  ],
+  "vendor": "Openwave Messaging Limited",
+  "product": "Webtop Media Transcoder",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "openwavemessaging/webtopmediatranscoder",
+      "vendor": "Openwave Messaging",
+      "product": "Webtop Media Transcoder",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "openwavemessaging",
+      "productKey": "webtopmediatranscoder"
+    },
+    {
+      "kind": "direct",
+      "slug": "openwavemessagingireland/webtopmediatranscoder",
+      "vendor": "Openwave Messaging (ireland)",
+      "product": "Webtop Media Transcoder",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "openwavemessagingireland",
+      "productKey": "webtopmediatranscoder"
+    },
+    {
+      "kind": "direct",
+      "slug": "openwave/webtopmediatranscoder",
+      "vendor": "Openwave",
+      "product": "Webtop Media Transcoder",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "openwave",
+      "productKey": "webtopmediatranscoder"
+    }
+  ],
+  "category": {
+    "id": "other",
+    "label": "Other software",
+    "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+    "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+  },
+  "summary": "Openwave Messaging Limited Webtop Media Transcoder contains an incorrect resource transfer between spheres vulnerability that may allow an authenticated user to process and convert unintended document types if bypassing the Webmail experience.",
+  "cvss": 4.3,
+  "epss": 0.00274,
+  "exploitMaturity": "none",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-10",
+  "kevDueDate": "2026-11-24",
+  "firstSeenAt": "2026-11-10T00:00:00.000Z",
+  "updatedAt": "2026-11-11T09:30:30.977Z",
+  "newestEvidenceAt": "2026-11-11T09:01:07.000Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 24, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-10-16",
+      "label": "CVE-2026-111793 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-111793"
+    },
+    "firstReport": {
+      "date": "2026-11-10",
+      "label": "CVE List V5 and CISA Vulnrichment",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-111793"
+    },
+    "kevListed": {
+      "date": "2026-11-10",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-111793"
+    },
+    "kevDue": {
+      "date": "2026-11-24",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-111793"
+    },
+    "daysToFirstReport": 25,
+    "daysToKev": 25
+  },
+  "ladderSources": {
+    "talk": 2,
+    "exposure": 0,
+    "attempts": 3,
+    "exploited": 3,
+    "damage": 0
+  },
+  "evidence": [
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Threat Actors Exploit Openwave, Cisco BroadWorks Vulnerabilities",
+      "url": "https://www.securityweek.com/threat-actors-exploit-openwave-cisco-broadworks-vulnerabilities/",
+      "publishedAt": "2026-11-11T09:01:07.000Z",
+      "source": {
+        "id": "news-securityweek",
+        "name": "SecurityWeek",
+        "attribution": "Headlines and links from SecurityWeek"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-111793 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-111793",
+      "publishedAt": "2026-11-10T19:50:15.242Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Openwave Messaging Limited Webtop Media Transcoder Incorrect Resource Transfer Between Spheres Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-111793",
+      "publishedAt": "2026-11-10T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 11
+}

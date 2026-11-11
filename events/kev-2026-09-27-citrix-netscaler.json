@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-27-citrix-netscaler",
   "title": "Citrix NetScaler: 2 flaws used in attacks; attackers can run commands on it",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 43 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.5). The exploit prediction score is 82%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 44 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.5). The exploit prediction score is 82%.",
   "tier": "now",
   "rankScore": 7,
   "rankWhy": [
@@ -44,24 +44,24 @@
     },
     {
       "kind": "direct",
-      "slug": "citrixnetscaler/adc",
-      "vendor": "Citrix Netscaler",
+      "slug": "citrix/adc",
+      "vendor": "Citrix",
       "product": "ADC",
       "evidence": [
         "cpe"
       ],
-      "vendorKey": "citrixnetscaler",
+      "vendorKey": "citrix",
       "productKey": "adc"
     },
     {
       "kind": "direct",
-      "slug": "citrixnetscaler/gateway",
-      "vendor": "Citrix Netscaler",
+      "slug": "citrix/gateway",
+      "vendor": "Citrix",
       "product": "Gateway",
       "evidence": [
         "cpe"
       ],
-      "vendorKey": "citrixnetscaler",
+      "vendorKey": "citrix",
       "productKey": "gateway"
     }
   ],
@@ -79,7 +79,7 @@
   "kevDateAdded": "2026-09-27",
   "kevDueDate": "2026-09-30",
   "firstSeenAt": "2026-09-27T00:00:00.000Z",
-  "updatedAt": "2026-11-09T16:37:40.135Z",
+  "updatedAt": "2026-11-10T20:00:05.612Z",
   "newestEvidenceAt": "2026-11-04T23:22:01.000Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 30, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

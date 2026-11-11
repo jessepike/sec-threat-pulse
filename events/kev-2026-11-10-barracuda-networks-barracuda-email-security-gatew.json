@@ -1,0 +1,185 @@
+{
+  "id": "kev-2026-11-10-barracuda-networks-barracuda-email-security-gatew",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-10-barracuda-networks-barracuda-email-security-gatew",
+  "title": "Barracuda Networks Barracuda Email Security Gateway (ESG): attackers can get in without a password",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 8 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3).",
+  "tier": "today",
+  "rankScore": 8,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The product faces the internet or gives remote access.",
+    "Ready-made attack tools are public.",
+    "The confirmation is 1 day old."
+  ],
+  "rulesVersion": "v3",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
+  "cves": [
+    "CVE-2026-116606"
+  ],
+  "vendor": "Barracuda Networks",
+  "product": "Barracuda Email Security Gateway (ESG)",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "barracudanetworks/barracudaemailsecuritygatewayesg",
+      "vendor": "Barracuda Networks",
+      "product": "Barracuda Email Security Gateway (ESG)",
+      "evidence": [
+        "kev",
+        "cpe"
+      ],
+      "vendorKey": "barracudanetworks",
+      "productKey": "barracudaemailsecuritygatewayesg"
+    }
+  ],
+  "category": {
+    "id": "edge",
+    "label": "VPN, firewall or gateway",
+    "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+    "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+  },
+  "summary": "Barracuda Networks Email Security Gateway (ESG) contains an authentication bypass using an alternate path or channel that could allow an unauthenticated remote attacker to invoke a configuration-import function and restore a crafted, compatible backup archive, resulting in unauthorized modification of the appliance’s global configuration. This vulnerability can be chained with CVE-2026-111560.",
+  "cvss": 9.3,
+  "epss": 0.01602,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-10",
+  "kevDueDate": "2026-11-13",
+  "firstSeenAt": "2026-11-10T00:00:00.000Z",
+  "updatedAt": "2026-11-11T00:00:06.173Z",
+  "newestEvidenceAt": "2026-11-11T09:25:26.850Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 13, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-11-02",
+      "label": "CVE-2026-116606 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-116606"
+    },
+    "exploitCode": {
+      "date": "2026-11-11",
+      "label": "a source withheld from the API"
+    },
+    "firstReport": {
+      "date": "2026-11-10",
+      "label": "CVE List V5 and CISA Vulnrichment",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-116606"
+    },
+    "kevListed": {
+      "date": "2026-11-10",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-116606"
+    },
+    "kevDue": {
+      "date": "2026-11-13",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-116606"
+    },
+    "daysToFirstReport": 8,
+    "daysToKev": 8
+  },
+  "ladderSources": {
+    "talk": 3,
+    "exposure": 0,
+    "attempts": 3,
+    "exploited": 3,
+    "damage": 0
+  },
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Nuclei scan template: Barracuda Email Security Gateway - Authentication Bypass",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2026/CVE-2026-116606.yaml",
+      "publishedAt": null,
+      "source": {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-116606 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-116606",
+      "publishedAt": "2026-11-10T19:50:39.464Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Barracuda Networks Email Security Gateway (ESG) Authentication Bypass Using an Alternate Path or Channel Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-116606",
+      "publishedAt": "2026-11-10T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "advisory",
+      "strength": "reported",
+      "title": "Barracuda Networks security advisory (AV26-1112) – Update 1",
+      "url": "https://cyber.gc.ca/en/alerts-advisories/barracuda-networks-security-advisory-av26-1112",
+      "publishedAt": "2026-11-09T14:45:19.000Z",
+      "source": {
+        "id": "advisory-cccs",
+        "name": "Canadian Centre for Cyber Security",
+        "attribution": "Advisory headlines and links from Canadian Centre for Cyber Security"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Experts Demonstrate Barracuda Email Security Gateway Chain Enabling Root Access Without Login",
+      "url": "https://thehackernews.com/2026/11/experts-demonstrate-barracuda-email.html",
+      "publishedAt": "2026-11-06T05:39:10.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-116606",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-116606.json",
+      "publishedAt": "2026-11-03T19:20:25.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Barracuda Flaws Could Be Chained to Bypass Authorization and Gain Root Access",
+      "url": "https://thehackernews.com/2026/11/barracuda-flaws-could-be-chained-to.html",
+      "publishedAt": "2026-11-03T15:59:19.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    }
+  ],
+  "evidenceWithheld": 17
+}

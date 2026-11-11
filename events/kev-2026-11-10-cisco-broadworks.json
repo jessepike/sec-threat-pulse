@@ -1,0 +1,186 @@
+{
+  "id": "kev-2026-11-10-cisco-broadworks",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-10-cisco-broadworks",
+  "title": "Cisco BroadWorks: security flaw used in attacks",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 83 days old, so many systems are likely still unpatched.",
+  "tier": "now",
+  "rankScore": 6,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The confirmation is 1 day old.",
+    "6 products are affected."
+  ],
+  "rulesVersion": "v3",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
+  "cves": [
+    "CVE-2026-20320"
+  ],
+  "vendor": "Cisco",
+  "product": "BroadWorks",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "cisco/broadworks",
+      "vendor": "Cisco",
+      "product": "BroadWorks",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "cisco",
+      "productKey": "broadworks"
+    },
+    {
+      "kind": "direct",
+      "slug": "cisco/ciscobroadworks",
+      "vendor": "Cisco",
+      "product": "Cisco Broadworks",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "cisco",
+      "productKey": "ciscobroadworks"
+    },
+    {
+      "kind": "direct",
+      "slug": "cisco/broadworksapplicationdeliveryplatform",
+      "vendor": "Cisco",
+      "product": "Broadworks Application Delivery Platform",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "cisco",
+      "productKey": "broadworksapplicationdeliveryplatform"
+    },
+    {
+      "kind": "direct",
+      "slug": "cisco/broadworksapplicationserver",
+      "vendor": "Cisco",
+      "product": "Broadworks Application Server",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "cisco",
+      "productKey": "broadworksapplicationserver"
+    },
+    {
+      "kind": "direct",
+      "slug": "cisco/broadworksprofileserver",
+      "vendor": "Cisco",
+      "product": "Broadworks Profile Server",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "cisco",
+      "productKey": "broadworksprofileserver"
+    },
+    {
+      "kind": "direct",
+      "slug": "cisco/broadworksxtendedservicesplatform",
+      "vendor": "Cisco",
+      "product": "Broadworks Xtended Services Platform",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "cisco",
+      "productKey": "broadworksxtendedservicesplatform"
+    }
+  ],
+  "category": {
+    "id": "other",
+    "label": "Other software",
+    "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+    "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+  },
+  "summary": "Cisco BroadWorks contains an improper restriction of XML external entity reference vulnerability that could allow an unauthenticated, remote attacker to read sensitive configuration information on an affected system.",
+  "cvss": 7.5,
+  "epss": 0.00385,
+  "exploitMaturity": "none",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-10",
+  "kevDueDate": "2026-11-24",
+  "firstSeenAt": "2026-11-10T00:00:00.000Z",
+  "updatedAt": "2026-11-11T06:30:19.435Z",
+  "newestEvidenceAt": "2026-11-11T10:03:35.928Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 24, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-08-19",
+      "label": "CVE-2026-20320 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-20320"
+    },
+    "firstReport": {
+      "date": "2026-11-10",
+      "label": "CVE List V5 and CISA Vulnrichment",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-20320"
+    },
+    "kevListed": {
+      "date": "2026-11-10",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-20320"
+    },
+    "kevDue": {
+      "date": "2026-11-24",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-20320"
+    },
+    "daysToFirstReport": 83,
+    "daysToKev": 83
+  },
+  "ladderSources": {
+    "talk": 2,
+    "exposure": 0,
+    "attempts": 3,
+    "exploited": 3,
+    "damage": 0
+  },
+  "evidence": [
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Cisco BroadWorks and Openwave Flaws Actively Exploited Despite Available Patches",
+      "url": "https://thehackernews.com/2026/11/cisco-broadworks-and-openwave-flaws.html",
+      "publishedAt": "2026-11-11T06:04:02.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-20320 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-20320",
+      "publishedAt": "2026-11-10T19:50:24.762Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Cisco BroadWorks Improper Restriction of XML External Entity Reference Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-20320",
+      "publishedAt": "2026-11-10T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 18
+}

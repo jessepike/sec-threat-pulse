@@ -48,7 +48,7 @@
   },
   "summary": "Apache Struts contains a command injection vulnerability that could allow remote attackers to execute arbitrary code via method:prefix when Dynamic Method Invocation is enabled.",
   "cvss": 8.1,
-  "epss": 0.96525,
+  "epss": 0.96916,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-10-08",

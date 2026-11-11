@@ -3,12 +3,12 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-09-openbsd-openssh",
   "title": "OpenBSD OpenSSH: attackers can get in without a password",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 4 days old, so many systems are likely still unpatched.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 5 days old, so many systems are likely still unpatched.",
   "tier": "now",
   "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 1 day old."
+    "The confirmation is 2 days old."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -49,14 +49,14 @@
   },
   "summary": "OpenBSD OpenSSH on Linux contains an unexpected status code or return value vulnerability that could allow for authentication bypass.",
   "cvss": 8.1,
-  "epss": 0.01014,
+  "epss": 0.16501,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-11-09",
   "kevDueDate": "2026-11-12",
   "firstSeenAt": "2026-11-09T00:00:00.000Z",
-  "updatedAt": "2026-11-10T00:00:05.135Z",
-  "newestEvidenceAt": "2026-11-10T10:50:29.702Z",
+  "updatedAt": "2026-11-11T00:00:06.173Z",
+  "newestEvidenceAt": "2026-11-11T11:16:35.741Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 12, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -187,5 +187,5 @@
       }
     }
   ],
-  "evidenceWithheld": 44
+  "evidenceWithheld": 59
 }
