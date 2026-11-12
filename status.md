@@ -1,12 +1,14 @@
 # Status
 
-Updated Nov 11, 2026, 12:30 UTC. The site is live with real data at https://securitythreatpulse.com.
+Updated Nov 12, 2026, 12:30 UTC. The site is live with real data at https://securitythreatpulse.com.
 
 **Now.** Rules v3 is live. Waves 0 to 3 are built and Wave 4 prep is merged; the repo is public and indexing is on. One scheduled run every 30 minutes ingests and then rebuilds events. The outside probe owns every alert issue. A smoke test runs after each production deployment. 29 of 30 sources are current; VulnCheck KEV has no key and is skipped.
 
 **Waiting on the owner.** The real Neon compute number (Usage page in the Neon console, opened with `vercel integration open neon stp-db`). The first local backup (`npm run backup:local` needs `DATABASE_URL` in `.env.local`; `vercel env pull` returns the Neon values blank because they are marked sensitive, so the address has to come from the Vercel Storage page). Turning off Vercel Agent review. MCP registry publish, the CIRCL email, and the ransomware.live and Shadowserver forms.
 
 **Next.** A scheduled backup once the owner picks a place for it. Routine-drafted write-ups and the blind scorer review from Wave 3. More keyless sources and the next rules version from Wave 2.
+
+**Nov 12 daily routine.** No feedback or alert issues open. `/status.json` at 12:24 UTC: ok, last complete run 12:00 UTC, 29 of 30 sources ok (VulnCheck unconfigured), 124 events (85 Act now, 39 Watch, 0 Low). Open Dependabot pull requests are still the three held majors (TypeScript 7, ESLint 10, `@types/node` 26). The smoke test passed on the last production deployment (`3c7613e`). The agent test set passed at 12:46, 20:14 and 02:14 UTC. The data branch's last snapshot is Nov 11 12:49 UTC (24 hours, inside the 36-hour window); the 20:15 and 02:20 runs skipped on the 20-hour guard as designed. The freshness probe ran at 17:51, 00:34 and 07:42 UTC, still every 5 to 8 hours against a 30-minute schedule. No code change today.
 
 **Nov 11 daily routine.** No feedback or alert issues open. `/status.json` at 12:24 UTC: ok, last complete run 12:00 UTC, 29 of 30 sources ok (VulnCheck unconfigured), 124 events (85 Act now, 39 Watch, 0 Low). Open Dependabot pull requests are still the three held majors (TypeScript 7, ESLint 10, `@types/node` 26). The smoke test passed on the last production deployment (`5e65e87`). The agent test set passed at 13:32, 20:29 and 01:14 UTC. The data branch's last snapshot is Nov 10 13:37 UTC (23 hours, inside the 36-hour window); the later snapshot runs skipped on the 20-hour guard as designed. The freshness probe ran at 17:18, 22:30, 02:13 and 09:49 UTC, still every 5 to 8 hours against a 30-minute schedule. No code change today.
 
