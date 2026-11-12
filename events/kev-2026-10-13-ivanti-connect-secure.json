@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-13-ivanti-connect-secure",
   "title": "Ivanti Connect Secure: attackers can get in without a password",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 28 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The exploit prediction score is 89%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 29 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The exploit prediction score is 89%.",
   "tier": "now",
   "rankScore": 6,
   "rankWhy": [
@@ -56,7 +56,7 @@
   "kevDateAdded": "2026-10-13",
   "kevDueDate": "2026-10-16",
   "firstSeenAt": "2026-10-13T00:00:00.000Z",
-  "updatedAt": "2026-11-10T16:00:06.550Z",
+  "updatedAt": "2026-11-11T16:00:07.954Z",
   "newestEvidenceAt": "2026-11-03T15:19:11.536Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 16, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

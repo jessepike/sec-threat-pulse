@@ -3,12 +3,12 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-27-adobe-commerce-and-magento",
   "title": "Adobe Commerce and Magento: attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 119 days old, so many systems are likely still unpatched. The severity score is critical (9.3).",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 120 days old, so many systems are likely still unpatched. The severity score is critical (9.3).",
   "tier": "now",
   "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 15 days old.",
+    "The confirmation is 16 days old.",
     "5 products are affected."
   ],
   "rulesVersion": "v3",
@@ -99,7 +99,7 @@
   "kevDateAdded": "2026-10-27",
   "kevDueDate": "2026-11-10",
   "firstSeenAt": "2026-10-27T00:00:00.000Z",
-  "updatedAt": "2026-11-11T00:00:06.173Z",
+  "updatedAt": "2026-11-12T00:00:07.724Z",
   "newestEvidenceAt": "2026-11-09T18:08:20.030Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 10, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

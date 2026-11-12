@@ -3,12 +3,12 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-10-microsoft-office",
   "title": "Microsoft Office: security flaw used in attacks",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is new today, so almost nothing is patched yet.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 1 days old, so many systems are likely still unpatched.",
   "tier": "now",
   "rankScore": 6,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 1 day old.",
+    "The confirmation is 2 days old.",
     "7 products are affected."
   ],
   "rulesVersion": "v3",
@@ -121,8 +121,8 @@
   "kevDateAdded": "2026-11-10",
   "kevDueDate": "2026-11-24",
   "firstSeenAt": "2026-11-10T00:00:00.000Z",
-  "updatedAt": "2026-11-11T02:30:23.338Z",
-  "newestEvidenceAt": "2026-11-11T12:30:07.523Z",
+  "updatedAt": "2026-11-12T00:00:07.724Z",
+  "newestEvidenceAt": "2026-11-12T13:28:25.481Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 24, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -189,6 +189,18 @@
       "strength": "reported",
       "title": "November Patch Tuesday boasts over 1,000 bugs but only one zero-day so far",
       "url": "https://www.theregister.com/security/2026/11/10/november-patch-tuesday-boasts-over-1000-bugs-but-only-one-zero-day-so-far/5308946",
+      "publishedAt": "2026-11-10T22:37:01.000Z",
+      "source": {
+        "id": "news-theregister",
+        "name": "The Register (security)",
+        "attribution": "Headlines and links from The Register (security)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "November Patch Tuesday boasts over 1,000 bugs, one already under attack",
+      "url": "https://www.theregister.com/security/2026/11/10/november-patch-tuesday-boasts-over-1000-bugs-one-already-under-attack/5308946",
       "publishedAt": "2026-11-10T22:37:01.000Z",
       "source": {
         "id": "news-theregister",
@@ -281,5 +293,5 @@
       }
     }
   ],
-  "evidenceWithheld": 53
+  "evidenceWithheld": 78
 }

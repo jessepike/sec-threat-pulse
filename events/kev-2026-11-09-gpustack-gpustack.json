@@ -3,12 +3,12 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-09-gpustack-gpustack",
   "title": "GPUStack: attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 6 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 7 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
   "tier": "now",
   "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 2 days old."
+    "The confirmation is 3 days old."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -55,8 +55,8 @@
   "kevDateAdded": "2026-11-09",
   "kevDueDate": "2026-11-12",
   "firstSeenAt": "2026-11-09T00:00:00.000Z",
-  "updatedAt": "2026-11-11T00:00:06.173Z",
-  "newestEvidenceAt": "2026-11-11T08:19:14.739Z",
+  "updatedAt": "2026-11-12T00:00:07.724Z",
+  "newestEvidenceAt": "2026-11-12T13:07:43.818Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 12, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -83,13 +83,25 @@
     "daysToKev": 5
   },
   "ladderSources": {
-    "talk": 2,
+    "talk": 3,
     "exposure": 0,
     "attempts": 2,
     "exploited": 2,
     "damage": 0
   },
   "evidence": [
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Exploit Attempts for GPUStack Authentication Bypass (CVE-2026-102895), (Thu, Nov 12th)",
+      "url": "https://isc.sans.edu/diary/rss/33514",
+      "publishedAt": "2026-11-12T11:50:03.000Z",
+      "source": {
+        "id": "news-sansisc",
+        "name": "SANS Internet Storm Center",
+        "attribution": "Headlines and links from SANS Internet Storm Center"
+      }
+    },
     {
       "rung": "talk",
       "strength": "reported",
@@ -127,5 +139,5 @@
       }
     }
   ],
-  "evidenceWithheld": 40
+  "evidenceWithheld": 47
 }
