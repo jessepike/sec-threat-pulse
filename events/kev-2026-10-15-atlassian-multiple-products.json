@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-15-atlassian-multiple-products",
   "title": "Several Atlassian products: security flaw used in attacks",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 37 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.3). The exploit prediction score is 100%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 38 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.3). The exploit prediction score is 100%.",
   "tier": "now",
   "rankScore": 5,
   "rankWhy": [
@@ -143,7 +143,7 @@
   "kevDateAdded": "2026-10-15",
   "kevDueDate": "2026-10-18",
   "firstSeenAt": "2026-10-15T00:00:00.000Z",
-  "updatedAt": "2026-11-11T21:30:23.470Z",
+  "updatedAt": "2026-11-12T21:30:26.345Z",
   "newestEvidenceAt": "2026-11-07T05:13:29.454Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 18, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

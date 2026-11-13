@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-24-wso2-multiple-products",
   "title": "Several WSO2 products: attackers can read or change files",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 98 days old, so many systems are likely still unpatched. The severity score is critical (10.0).",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 99 days old, so many systems are likely still unpatched. The severity score is critical (10.0).",
   "tier": "now",
   "rankScore": 4,
   "rankWhy": [
@@ -109,7 +109,7 @@
   "kevDateAdded": "2026-09-24",
   "kevDueDate": "2026-09-27",
   "firstSeenAt": "2026-09-24T00:00:00.000Z",
-  "updatedAt": "2026-11-12T08:00:06.851Z",
+  "updatedAt": "2026-11-13T08:00:06.479Z",
   "newestEvidenceAt": "2026-10-28T01:36:55.113Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 27, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

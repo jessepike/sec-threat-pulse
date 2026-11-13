@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-16-google-pixel",
   "title": "Google Pixel: attackers can gain admin rights",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 57 days old, so many systems are likely still unpatched.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 58 days old, so many systems are likely still unpatched.",
   "tier": "now",
   "rankScore": 3,
   "rankWhy": [
@@ -64,7 +64,7 @@
   "kevDateAdded": "2026-09-16",
   "kevDueDate": "2026-09-19",
   "firstSeenAt": "2026-09-16T00:00:00.000Z",
-  "updatedAt": "2026-11-11T19:00:05.955Z",
+  "updatedAt": "2026-11-12T19:00:10.004Z",
   "newestEvidenceAt": "2026-09-16T00:00:00.000Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 19, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

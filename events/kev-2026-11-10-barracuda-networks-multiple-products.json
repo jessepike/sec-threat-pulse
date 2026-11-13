@@ -3,13 +3,13 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-10-barracuda-networks-multiple-products",
   "title": "Several Barracuda Networks products: attackers can run commands on it",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 10 days old, so many systems are likely still unpatched.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 11 days old, so many systems are likely still unpatched.",
   "tier": "now",
   "rankScore": 6,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 2 days old.",
-    "7 products are affected."
+    "The confirmation is 3 days old.",
+    "12 products are affected."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -105,6 +105,61 @@
       ],
       "vendorKey": "barracudanetworks",
       "productKey": "barracudawafcontrolcenterwcc"
+    },
+    {
+      "kind": "direct",
+      "slug": "barracuda/emailsecuritygateway300",
+      "vendor": "Barracuda",
+      "product": "Email Security Gateway 300 Firmware",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "barracuda",
+      "productKey": "emailsecuritygateway300"
+    },
+    {
+      "kind": "direct",
+      "slug": "barracuda/emailsecuritygateway400",
+      "vendor": "Barracuda",
+      "product": "Email Security Gateway 400 Firmware",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "barracuda",
+      "productKey": "emailsecuritygateway400"
+    },
+    {
+      "kind": "direct",
+      "slug": "barracuda/emailsecuritygateway600",
+      "vendor": "Barracuda",
+      "product": "Email Security Gateway 600 Firmware",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "barracuda",
+      "productKey": "emailsecuritygateway600"
+    },
+    {
+      "kind": "direct",
+      "slug": "barracuda/emailsecuritygateway800",
+      "vendor": "Barracuda",
+      "product": "Email Security Gateway 800 Firmware",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "barracuda",
+      "productKey": "emailsecuritygateway800"
+    },
+    {
+      "kind": "direct",
+      "slug": "barracuda/emailsecuritygateway900",
+      "vendor": "Barracuda",
+      "product": "Email Security Gateway 900 Firmware",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "barracuda",
+      "productKey": "emailsecuritygateway900"
     }
   ],
   "category": {
@@ -115,14 +170,14 @@
   },
   "summary": "Barracuda Networks Email Security Gateway (ESG), Load Balancer, Application Delivery Controller (ADC), Message Archiver (BMA), WAF Control Center (WCC), Web Application Firewall (WAF), and Web Security Gateway (WSG) contain an OS command injection vulnerability.",
   "cvss": 8.6,
-  "epss": 0.0106,
+  "epss": 0.06196,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-11-10",
   "kevDueDate": "2026-11-13",
   "firstSeenAt": "2026-11-10T00:00:00.000Z",
-  "updatedAt": "2026-11-12T13:00:05.477Z",
-  "newestEvidenceAt": "2026-11-12T11:06:54.966Z",
+  "updatedAt": "2026-11-13T13:00:07.763Z",
+  "newestEvidenceAt": "2026-11-13T05:08:27.817Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 13, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -221,5 +276,5 @@
       }
     }
   ],
-  "evidenceWithheld": 30
+  "evidenceWithheld": 34
 }

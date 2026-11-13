@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-14-ahsay-ahsaycbs",
   "title": "AhsayCBS: 2 flaws used in attacks; attackers can get in without a password",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 39 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 84%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 40 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 84%.",
   "tier": "now",
   "rankScore": 4,
   "rankWhy": [
@@ -56,8 +56,8 @@
   "kevDateAdded": "2026-10-14",
   "kevDueDate": "2026-10-17",
   "firstSeenAt": "2026-10-14T00:00:00.000Z",
-  "updatedAt": "2026-11-12T05:30:21.513Z",
-  "newestEvidenceAt": "2026-11-11T07:30:04.036Z",
+  "updatedAt": "2026-11-13T05:30:35.212Z",
+  "newestEvidenceAt": "2026-11-13T03:16:46.845Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 17, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -72,17 +72,17 @@
     "firstReport": {
       "date": "2026-10-14",
       "label": "CISA Known Exploited Vulnerabilities",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-105134"
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-105133"
     },
     "kevListed": {
       "date": "2026-10-14",
       "label": "CISA KEV listing",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-105134"
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-105133"
     },
     "kevDue": {
       "date": "2026-10-17",
       "label": "CISA deadline for US federal agencies",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-105134"
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-105133"
     },
     "daysToFirstReport": 10,
     "daysToKev": 10
@@ -146,8 +146,8 @@
     {
       "rung": "exploited",
       "strength": "confirmed",
-      "title": "Ahsay AhsayCBS Command Injection Vulnerability",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-105134",
+      "title": "Ahsay AhsayCBS Improper Authentication Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-105133",
       "publishedAt": "2026-10-14T00:00:00.000Z",
       "source": {
         "id": "cisa-kev",
@@ -158,8 +158,8 @@
     {
       "rung": "exploited",
       "strength": "confirmed",
-      "title": "Ahsay AhsayCBS Improper Authentication Vulnerability",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-105133",
+      "title": "Ahsay AhsayCBS Command Injection Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-105134",
       "publishedAt": "2026-10-14T00:00:00.000Z",
       "source": {
         "id": "cisa-kev",
@@ -204,5 +204,5 @@
       }
     }
   ],
-  "evidenceWithheld": 21
+  "evidenceWithheld": 23
 }

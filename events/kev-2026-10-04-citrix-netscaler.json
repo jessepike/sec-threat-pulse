@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-04-citrix-netscaler",
   "title": "Citrix NetScaler: attackers can knock it offline",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 39 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 40 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
   "tier": "now",
   "rankScore": 6,
   "rankWhy": [
@@ -77,7 +77,7 @@
   "kevDateAdded": "2026-10-04",
   "kevDueDate": "2026-10-07",
   "firstSeenAt": "2026-10-04T00:00:00.000Z",
-  "updatedAt": "2026-11-12T03:00:04.929Z",
+  "updatedAt": "2026-11-13T03:00:06.654Z",
   "newestEvidenceAt": "2026-11-04T12:39:55.363Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 7, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

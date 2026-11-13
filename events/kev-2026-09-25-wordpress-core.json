@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-25-wordpress-core",
   "title": "WordPress Core: attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 50 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The exploit prediction score is 96%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 51 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The exploit prediction score is 96%.",
   "tier": "now",
   "rankScore": 4,
   "rankWhy": [
@@ -65,7 +65,7 @@
   "kevDateAdded": "2026-09-25",
   "kevDueDate": "2026-09-28",
   "firstSeenAt": "2026-09-25T00:00:00.000Z",
-  "updatedAt": "2026-11-11T17:00:08.296Z",
+  "updatedAt": "2026-11-12T17:00:06.603Z",
   "newestEvidenceAt": "2026-11-10T22:51:26.891Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 28, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

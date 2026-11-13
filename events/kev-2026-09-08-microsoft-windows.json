@@ -46,7 +46,7 @@
   },
   "summary": "Microsoft Windows Update Stack contains a link following vulnerability that allows a local attacker to escalate privileges locally up to SYSTEM.",
   "cvss": 7.8,
-  "epss": 0.00393,
+  "epss": 0.07115,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-09-08",
