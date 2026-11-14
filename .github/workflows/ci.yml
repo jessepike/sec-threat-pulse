@@ -2,6 +2,7 @@ name: CI
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
   push:
     branches: [main]
 
@@ -34,3 +35,25 @@ jobs:
           AUTH_GITHUB_ID: ci-dummy
           AUTH_GITHUB_SECRET: ci-dummy
           ADMIN_GITHUB_LOGINS: ci-dummy
+
+  # Improve loop pull requests (improve/... branches) only: tier, review panel label, rules notice,
+  # owner-only files and the PAUSE switch. See docs/improve/program.md. Other pull requests pass.
+  improve-gate:
+    if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'improve/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+      - run: node scripts/improve/gate.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.head_ref }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}

@@ -20,7 +20,9 @@
     "backtest:dataset": "tsx scripts/backtest/build-dataset.ts",
     "smoke": "node scripts/smoke.mjs",
     "agent-tests": "node scripts/agent-tests.mjs",
-    "backup:local": "node scripts/ops/backup-local.mjs"
+    "backup:local": "node scripts/ops/backup-local.mjs",
+    "scorecard": "tsx scripts/improve/scorecard.ts",
+    "improve:keep": "node scripts/improve/keep.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.3.1",

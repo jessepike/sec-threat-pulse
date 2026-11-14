@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
         with:
-          sparse-checkout: scripts/ops
+          sparse-checkout: scripts
           path: src
       - uses: actions/setup-node@v7.1.0
         with:
@@ -61,6 +61,9 @@ jobs:
           set -eu
           find data -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           node src/scripts/ops/snapshot.mjs data https://securitythreatpulse.com
+      - name: Live scorecard for the improve loop (never blocks the snapshot)
+        if: steps.due.outputs.run == 'true'
+        run: node src/scripts/improve/live-scorecard.mjs data/improve/live.json https://securitythreatpulse.com || echo "Live scorecard failed; the snapshot goes ahead without it."
       - name: Commit and push
         if: steps.due.outputs.run == 'true'
         run: |

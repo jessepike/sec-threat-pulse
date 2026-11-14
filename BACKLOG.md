@@ -103,6 +103,15 @@ Mirror of the owner's planning doc. Gates decide when a phase is done.
 - [x] Pre-flight: full-history secret scan, fixture review, MIT LICENSE, README
 - [ ] Owner makes the repo public in GitHub settings; CodeQL then runs on its own
 
+## Improve loop (Nov 14, 2026) · Gate: four weeks of runs, each kept change holding at its 7 day recheck
+
+- [x] Design doc with research and the risk-tiered model review panel (Claude Doc "STP self-improvement loop: design")
+- [x] Scorecard (`npm run scorecard`), live scorecard on the `data` branch, keep rule, tier check, CI gate, PAUSE switch (`docs/improve/`)
+- [ ] Scheduled routine: Monday, Wednesday, Friday 9:47 AM Pacific
+- [ ] Two dry runs read by the owner
+- [ ] Owner: install Gemini Code Assist as a fourth reviewer (check the free tier first)
+- [ ] Four week review: ledger, kept against discarded, how often each reviewer blocked
+
 ## Later phases
 
 3 News and claims · 4 Machine layer (API v1, Act now RSS, llms.txt and MCP server live Oct 25; agent test set to do) · 5 Audience views · 6 Launch

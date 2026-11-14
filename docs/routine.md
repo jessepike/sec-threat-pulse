@@ -26,7 +26,9 @@ The scheduled task's prompt is one line: read this file and follow it. Change th
    and any bump that fails CI; say why on the pull request.
 6. **Health of the record.** Confirm the nightly snapshot workflow committed to the `data` branch in
    the last 36 hours, the freshness probe ran in the last hour and the agent test set ran last night. If
-   any did not, fix the workflow.
+   any did not, fix the workflow. Also check the improve loop (`docs/improve/program.md`): its last
+   ledger row should be under 4 days old, and `improve/live.json` on the `data` branch under 36 hours.
+   Report a stalled loop; do not run it yourself.
 7. **Ship.** Run `npm test`, `npm run lint`, `npm run typecheck`. For any page change, render at
    1440px and 390px and attach both screenshots to the pull request. Open the pull request, wait for
    checks, merge with squash. The smoke test runs by itself after each production deployment and
@@ -39,7 +41,9 @@ The scheduled task's prompt is one line: read this file and follow it. Change th
 
 ## Rules the routine never breaks
 
-- No new rules version, no change to verdict logic, no edit to `intent.md` without the owner.
+- No new rules version, no change to verdict logic, no edit to `intent.md` without the owner. The
+  improve loop has its own path for a rules version (review panel, held-out win, 48 hour notice).
+- Leave `improve/` branches and their pull requests to the improve loop.
 - No new API keys. No secrets in the repo.
 - Never remove or restore content about a named organization on its own; legal demands go to Jesse.
 - Plain language in anything a reader sees. No em dashes.
