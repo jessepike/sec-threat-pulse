@@ -49,7 +49,7 @@
   },
   "summary": "ConnectWise ScreenConnect contains both an improper privilege management and missing authorization vulnerability that may allow an attacker to transfer and execute files through an active remote session without authorization or host confirmation.",
   "cvss": 9.9,
-  "epss": 0.00924,
+  "epss": 0.01173,
   "exploitMaturity": "none",
   "kevListed": true,
   "kevDateAdded": "2026-09-11",

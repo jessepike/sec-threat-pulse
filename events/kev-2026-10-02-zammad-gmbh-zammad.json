@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-02-zammad-gmbh-zammad",
   "title": "Zammad: 2 flaws used in attacks; attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 43 days old, so many systems are likely still unpatched.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 44 days old, so many systems are likely still unpatched.",
   "tier": "now",
   "rankScore": 3,
   "rankWhy": [
@@ -55,7 +55,7 @@
   "kevDateAdded": "2026-10-02",
   "kevDueDate": "2026-10-05",
   "firstSeenAt": "2026-10-02T00:00:00.000Z",
-  "updatedAt": "2026-11-12T16:30:19.826Z",
+  "updatedAt": "2026-11-13T16:30:25.463Z",
   "newestEvidenceAt": "2026-11-10T06:14:35.819Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 5, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

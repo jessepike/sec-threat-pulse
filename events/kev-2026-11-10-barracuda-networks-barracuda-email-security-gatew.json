@@ -10,7 +10,7 @@
     "Exploitation is confirmed by an authoritative source.",
     "The product faces the internet or gives remote access.",
     "Ready-made attack tools are public.",
-    "The confirmation is 3 days old.",
+    "The confirmation is 4 days old.",
     "6 products are affected."
   ],
   "rulesVersion": "v3",
@@ -107,15 +107,15 @@
   },
   "summary": "Barracuda Networks Email Security Gateway (ESG) contains an authentication bypass using an alternate path or channel that could allow an unauthenticated remote attacker to invoke a configuration-import function and restore a crafted, compatible backup archive, resulting in unauthorized modification of the appliance’s global configuration. This vulnerability can be chained with CVE-2026-111560.",
   "cvss": 9.3,
-  "epss": 0.08934,
+  "epss": 0.10947,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-11-10",
   "kevDueDate": "2026-11-13",
   "firstSeenAt": "2026-11-10T00:00:00.000Z",
-  "updatedAt": "2026-11-13T13:00:07.763Z",
-  "newestEvidenceAt": "2026-11-13T03:55:11.238Z",
-  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 13, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "updatedAt": "2026-11-14T00:00:06.192Z",
+  "newestEvidenceAt": "2026-11-13T17:01:06.173Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 13, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
       "date": "2026-11-02",
@@ -237,5 +237,5 @@
       }
     }
   ],
-  "evidenceWithheld": 32
+  "evidenceWithheld": 33
 }

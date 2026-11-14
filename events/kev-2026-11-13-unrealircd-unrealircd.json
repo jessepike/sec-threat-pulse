@@ -1,0 +1,131 @@
+{
+  "id": "kev-2026-11-13-unrealircd-unrealircd",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-13-unrealircd-unrealircd",
+  "title": "UnrealIRCd: security flaw used in attacks",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 6 days old, so many systems are likely still unpatched.",
+  "tier": "now",
+  "rankScore": 5,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The confirmation is 1 day old."
+  ],
+  "rulesVersion": "v3",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
+  "cves": [
+    "CVE-2026-114713"
+  ],
+  "vendor": "UnrealIRCd",
+  "product": "UnrealIRCd",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "unrealircd/unrealircd",
+      "vendor": "UnrealIRCd",
+      "product": "UnrealIRCd",
+      "evidence": [
+        "kev",
+        "cpe"
+      ],
+      "vendorKey": "unrealircd",
+      "productKey": "unrealircd"
+    }
+  ],
+  "category": {
+    "id": "other",
+    "label": "Other software",
+    "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+    "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+  },
+  "summary": "UnrealIRCd UnrealIRCd contains an improper neutralization of delimiters vulnerability that allows any user on a network with two or more linked servers to inject server-to-server commands that are executed with server authority.",
+  "cvss": 8.6,
+  "epss": 0.00302,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-13",
+  "kevDueDate": "2026-11-16",
+  "firstSeenAt": "2026-11-13T00:00:00.000Z",
+  "updatedAt": "2026-11-14T10:00:06.769Z",
+  "newestEvidenceAt": "2026-11-14T11:00:25.798Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 16, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-11-08",
+      "label": "CVE-2026-114713 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-114713"
+    },
+    "firstReport": {
+      "date": "2026-11-13",
+      "label": "CVE List V5 and CISA Vulnrichment",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-114713"
+    },
+    "kevListed": {
+      "date": "2026-11-13",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-114713"
+    },
+    "kevDue": {
+      "date": "2026-11-16",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-114713"
+    },
+    "daysToFirstReport": 5,
+    "daysToKev": 5
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-114713",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-114713.json",
+      "publishedAt": "2026-11-14T04:30:46.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-114713 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-114713",
+      "publishedAt": "2026-11-13T19:16:29.356Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "UnrealIRCd Improper Neutralization of Delimiters Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-114713",
+      "publishedAt": "2026-11-13T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 23
+}

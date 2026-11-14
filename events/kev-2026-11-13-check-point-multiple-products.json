@@ -1,0 +1,178 @@
+{
+  "id": "kev-2026-11-13-check-point-multiple-products",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-13-check-point-multiple-products",
+  "title": "Several Check Point products: attackers can gain admin rights",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 1 days old, so many systems are likely still unpatched.",
+  "tier": "today",
+  "rankScore": 8,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The product faces the internet or gives remote access.",
+    "The confirmation is 1 day old.",
+    "3 products are affected."
+  ],
+  "rulesVersion": "v3",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
+  "cves": [
+    "CVE-2026-123039"
+  ],
+  "vendor": "Check Point",
+  "product": "Multiple Products",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "checkpoint/multipleproducts",
+      "vendor": "Check Point",
+      "product": "Multiple Products",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "checkpoint",
+      "productKey": "multipleproducts"
+    },
+    {
+      "kind": "direct",
+      "slug": "checkpoint/quantumsecuritygateway",
+      "vendor": "Check Point",
+      "product": "Quantum Security Gateway",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "checkpoint",
+      "productKey": "quantumsecuritygateway"
+    },
+    {
+      "kind": "direct",
+      "slug": "checkpoint/quantumsecuritymanagement",
+      "vendor": "Check Point",
+      "product": "Quantum Security Management",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "checkpoint",
+      "productKey": "quantumsecuritymanagement"
+    }
+  ],
+  "category": {
+    "id": "edge",
+    "label": "VPN, firewall or gateway",
+    "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+    "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+  },
+  "summary": "Check Point Firewall, Multi-Domain Security Management Server, Scalable Platforms, Security Gateway, and Security Management Server contain an incorrect permissions assignment for critical resources vulnerability when the Gaia OS DynamicCLI daemon runs as root and listens on a world-writable local socket without authenticating connecting processes.",
+  "cvss": 7.8,
+  "epss": 0.01274,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-13",
+  "kevDueDate": "2026-11-16",
+  "firstSeenAt": "2026-11-13T00:00:00.000Z",
+  "updatedAt": "2026-11-14T00:00:06.192Z",
+  "newestEvidenceAt": "2026-11-14T10:57:09.810Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 16, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-11-12",
+      "label": "CVE-2026-123039 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-123039"
+    },
+    "firstReport": {
+      "date": "2026-11-13",
+      "label": "CVE List V5 and CISA Vulnrichment",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-123039"
+    },
+    "kevListed": {
+      "date": "2026-11-13",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-123039"
+    },
+    "kevDue": {
+      "date": "2026-11-16",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-123039"
+    },
+    "daysToFirstReport": 1,
+    "daysToKev": 1
+  },
+  "ladderSources": {
+    "talk": 3,
+    "exposure": 0,
+    "attempts": 3,
+    "exploited": 3,
+    "damage": 0
+  },
+  "evidence": [
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-123039 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-123039",
+      "publishedAt": "2026-11-13T19:16:35.345Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "PHP2Shell Exploited in Destructive Check Point Gateway Attacks",
+      "url": "https://www.securityweek.com/php2shell-exploited-in-destructive-check-point-gateway-attacks/",
+      "publishedAt": "2026-11-13T07:39:04.000Z",
+      "source": {
+        "id": "news-securityweek",
+        "name": "SecurityWeek",
+        "attribution": "Headlines and links from SecurityWeek"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-123039",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-123039.json",
+      "publishedAt": "2026-11-13T03:22:26.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Check Point Multiple Products Incorrect Permission Assignment for Critical Resource Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-123039",
+      "publishedAt": "2026-11-13T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "advisory",
+      "strength": "reported",
+      "title": "Check Point security advisory (AV26-1154)",
+      "url": "https://cyber.gc.ca/en/alerts-advisories/check-point-security-advisory-av26-1154",
+      "publishedAt": "2026-11-12T19:08:09.000Z",
+      "source": {
+        "id": "advisory-cccs",
+        "name": "Canadian Centre for Cyber Security",
+        "attribution": "Advisory headlines and links from Canadian Centre for Cyber Security"
+      }
+    }
+  ],
+  "evidenceWithheld": 29
+}

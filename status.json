@@ -1,19 +1,19 @@
 {
   "apiVersion": "1",
-  "generatedAt": "2026-11-13T13:15:57.379Z",
+  "generatedAt": "2026-11-14T12:19:48.681Z",
   "state": "ok",
-  "summary": "Fresh. The last complete run was 16 minutes ago and every source is current.",
-  "lastCompleteAt": "2026-11-13T13:00:08.132Z",
-  "lastAttemptAt": "2026-11-13T13:00:08.132Z",
-  "nextRunDueAt": "2026-11-13T13:30:08.132Z",
+  "summary": "Fresh. The last complete run was 20 minutes ago and every source is current.",
+  "lastCompleteAt": "2026-11-14T12:00:06.819Z",
+  "lastAttemptAt": "2026-11-14T12:00:06.819Z",
+  "nextRunDueAt": "2026-11-14T12:30:06.819Z",
   "rulesVersion": "v3",
   "counts": {
-    "act_now": 85,
+    "act_now": 87,
     "watch": 39,
     "low": 0,
-    "total": 124
+    "total": 126
   },
-  "newestEvidenceAt": "2026-11-13T12:03:45.547Z",
+  "newestEvidenceAt": "2026-11-14T11:04:10.602Z",
   "sources": {
     "total": 30,
     "ok": 29,
@@ -25,196 +25,196 @@
         "id": "advisory-cccs",
         "name": "Canadian Centre for Cyber Security",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T12:30:02.208Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "advisory-cert-eu",
         "name": "CERT-EU",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T12:30:02.208Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "advisory-ncsc-uk",
         "name": "UK NCSC",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T12:30:02.208Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "ca-ag",
         "name": "California Attorney General breach notices",
         "state": "ok",
-        "lastSuccessAt": "2026-11-12T23:30:03.461Z",
+        "lastSuccessAt": "2026-11-13T23:30:02.576Z",
         "reason": ""
       },
       {
         "id": "circl-sightings",
         "name": "CIRCL Vulnerability-Lookup sightings",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T12:30:02.208Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "cisa-kev",
         "name": "CISA Known Exploited Vulnerabilities",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T12:30:02.208Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "cvelist",
         "name": "CVE List V5 and CISA Vulnrichment",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T12:30:02.208Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "epss",
         "name": "FIRST EPSS",
         "state": "ok",
-        "lastSuccessAt": "2026-11-12T23:30:03.461Z",
+        "lastSuccessAt": "2026-11-13T23:30:02.576Z",
         "reason": ""
       },
       {
         "id": "exploitdb",
         "name": "Exploit-DB",
         "state": "ok",
-        "lastSuccessAt": "2026-11-12T23:30:03.461Z",
+        "lastSuccessAt": "2026-11-13T23:30:02.576Z",
         "reason": ""
       },
       {
         "id": "hibp",
         "name": "Have I Been Pwned breaches",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T12:30:02.208Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "metasploit",
         "name": "Metasploit module metadata",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T11:30:02.253Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "msrc",
         "name": "Microsoft Security Response Center",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T11:30:02.253Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "news-bleepingcomputer",
         "name": "BleepingComputer",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "news-cyberscoop",
         "name": "CyberScoop",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "news-cybersecuritydive",
         "name": "Cybersecurity Dive",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "news-darkreading",
         "name": "Dark Reading",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "news-helpnetsecurity",
         "name": "Help Net Security",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "news-krebs",
         "name": "Krebs on Security",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "news-sansisc",
         "name": "SANS Internet Storm Center",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "news-securityaffairs",
         "name": "Security Affairs",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "news-securityweek",
         "name": "SecurityWeek",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "news-thehackernews",
         "name": "The Hacker News",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "news-therecord",
         "name": "The Record",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "news-theregister",
         "name": "The Register (security)",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T13:00:03.457Z",
+        "lastSuccessAt": "2026-11-14T12:00:03.715Z",
         "reason": ""
       },
       {
         "id": "nuclei",
         "name": "nuclei-templates",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T11:30:02.253Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "nvd",
         "name": "NVD API 2.0",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T11:30:02.253Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "poc-github",
         "name": "PoC-in-GitHub",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T11:30:02.253Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
         "id": "sec-8k",
         "name": "SEC EDGAR 8-K Item 1.05",
         "state": "ok",
-        "lastSuccessAt": "2026-11-13T12:30:02.208Z",
+        "lastSuccessAt": "2026-11-14T11:30:03.302Z",
         "reason": ""
       },
       {
@@ -228,14 +228,14 @@
         "id": "wa-ag",
         "name": "Washington Attorney General breach notices",
         "state": "ok",
-        "lastSuccessAt": "2026-11-12T23:30:03.461Z",
+        "lastSuccessAt": "2026-11-13T23:30:02.576Z",
         "reason": ""
       }
     ]
   },
   "eventsSync": {
     "state": "ok",
-    "lastSuccessAt": "2026-11-13T13:00:08.132Z",
+    "lastSuccessAt": "2026-11-14T12:00:06.819Z",
     "reason": ""
   },
   "database": {

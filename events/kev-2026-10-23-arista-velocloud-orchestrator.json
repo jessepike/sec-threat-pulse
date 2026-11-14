@@ -3,13 +3,12 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-23-arista-velocloud-orchestrator",
   "title": "Arista VeloCloud Orchestrator: attackers can read or change its database",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 21 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.4).",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 22 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.4).",
   "tier": "now",
-  "rankScore": 6,
+  "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The product faces the internet or gives remote access.",
-    "The confirmation is 21 days old."
+    "The product faces the internet or gives remote access."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -56,8 +55,8 @@
   "kevDateAdded": "2026-10-23",
   "kevDueDate": "2026-10-26",
   "firstSeenAt": "2026-10-23T00:00:00.000Z",
-  "updatedAt": "2026-11-13T00:00:07.702Z",
-  "newestEvidenceAt": "2026-10-29T18:25:06.802Z",
+  "updatedAt": "2026-11-14T00:00:06.192Z",
+  "newestEvidenceAt": "2026-11-14T07:26:45.626Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 26, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -151,5 +150,5 @@
       }
     }
   ],
-  "evidenceWithheld": 15
+  "evidenceWithheld": 16
 }

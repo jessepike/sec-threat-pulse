@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-20-eg-secure-solutions-siteguard-server-edition",
   "title": "EG Secure Solutions SiteGuard Server Edition: attackers can run commands on it",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 30 days old, so many systems are likely still unpatched.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 31 days old, so many systems are likely still unpatched.",
   "tier": "now",
   "rankScore": 4,
   "rankWhy": [
@@ -109,7 +109,7 @@
   "kevDateAdded": "2026-10-20",
   "kevDueDate": "2026-10-23",
   "firstSeenAt": "2026-10-20T00:00:00.000Z",
-  "updatedAt": "2026-11-13T05:00:05.520Z",
+  "updatedAt": "2026-11-14T05:00:07.714Z",
   "newestEvidenceAt": "2026-11-03T06:18:11.433Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 23, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

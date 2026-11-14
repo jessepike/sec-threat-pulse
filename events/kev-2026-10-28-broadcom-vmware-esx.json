@@ -8,7 +8,7 @@
   "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 16 days old.",
+    "The confirmation is 17 days old.",
     "5 products are affected."
   ],
   "rulesVersion": "v3",
@@ -99,7 +99,7 @@
   "kevDateAdded": "2026-10-28",
   "kevDueDate": "2026-11-11",
   "firstSeenAt": "2026-10-28T00:00:00.000Z",
-  "updatedAt": "2026-11-13T13:00:07.763Z",
+  "updatedAt": "2026-11-14T00:00:06.192Z",
   "newestEvidenceAt": "2026-11-08T11:32:52.982Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 11, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

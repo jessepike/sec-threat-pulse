@@ -3,13 +3,13 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-29-gitlab-community-edition-and-enterpri",
   "title": "GitLab Community Edition and Enterprise Edition: attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 31 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 69%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 32 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 69%.",
   "tier": "now",
   "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
     "Ready-made attack tools are public.",
-    "The confirmation is 15 days old."
+    "The confirmation is 16 days old."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -66,7 +66,7 @@
   "kevDateAdded": "2026-10-29",
   "kevDueDate": "2026-11-01",
   "firstSeenAt": "2026-10-29T00:00:00.000Z",
-  "updatedAt": "2026-11-13T01:30:40.785Z",
+  "updatedAt": "2026-11-14T01:30:32.641Z",
   "newestEvidenceAt": "2026-11-12T20:03:01.968Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 1, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

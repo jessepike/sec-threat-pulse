@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-09-24-adobe-commerce-and-magento",
   "title": "Adobe Commerce and Magento: attackers can gain admin rights",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 93 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.1). The exploit prediction score is 92%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 94 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.1). The exploit prediction score is 92%.",
   "tier": "now",
   "rankScore": 5,
   "rankWhy": [
@@ -88,7 +88,7 @@
   "kevDateAdded": "2026-09-24",
   "kevDueDate": "2026-09-27",
   "firstSeenAt": "2026-09-24T00:00:00.000Z",
-  "updatedAt": "2026-11-12T18:00:09.482Z",
+  "updatedAt": "2026-11-13T18:00:05.249Z",
   "newestEvidenceAt": "2026-10-25T01:02:39.879Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Sep 27, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

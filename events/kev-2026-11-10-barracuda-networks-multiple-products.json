@@ -8,7 +8,7 @@
   "rankScore": 6,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 3 days old.",
+    "The confirmation is 4 days old.",
     "12 products are affected."
   ],
   "rulesVersion": "v3",
@@ -170,15 +170,15 @@
   },
   "summary": "Barracuda Networks Email Security Gateway (ESG), Load Balancer, Application Delivery Controller (ADC), Message Archiver (BMA), WAF Control Center (WCC), Web Application Firewall (WAF), and Web Security Gateway (WSG) contain an OS command injection vulnerability.",
   "cvss": 8.6,
-  "epss": 0.06196,
+  "epss": 0.09082,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-11-10",
   "kevDueDate": "2026-11-13",
   "firstSeenAt": "2026-11-10T00:00:00.000Z",
-  "updatedAt": "2026-11-13T13:00:07.763Z",
+  "updatedAt": "2026-11-14T00:00:06.192Z",
   "newestEvidenceAt": "2026-11-13T05:08:27.817Z",
-  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 13, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 13, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
       "date": "2026-11-02",
