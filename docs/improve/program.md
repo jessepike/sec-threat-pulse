@@ -65,11 +65,15 @@ the ledger holds two `dry` rows.
    - **Rules:** the tier 2 panel, plus a held-out backtest reveal (logged, as `decisions.md`
      requires) that beats the active version with intervals that do not overlap the old figure.
      Then add the `rules-notice` label and tell the owner in one message; it merges after 48
-     hours unless the owner objects.
+     hours unless the owner objects. After 48 hours, remove and add the `panel-approved` label to re-run
+     the check (never remove `rules-notice`: that restarts the clock).
    - **Owner tier:** never on an improve branch.
    Codex findings marked P1 or P2 block until fixed. A reviewer that rejects: fix once and ask
    again; a second reject parks the item for the owner. When every reviewer approves, post one
-   comment listing each reviewer's verdict and add the `panel-approved` label.
+   comment listing each reviewer's verdict and ending with
+   `<!-- improve-panel: sha=<full head sha> tier=<tier> -->`. Then add the `panel-approved` label,
+   which only re-runs the `improve-gate` check; the comment is the approval. Any later commit needs
+   the panel again, a new comment for its sha, and the label removed and added again.
 8. **Merge.** Squash merge once every check is green. The smoke test runs after the deploy and
    opens an alert if it fails; if it does, revert at once.
 9. **Record.** One ledger row (kept, discarded or none, with the metric before and after and each
