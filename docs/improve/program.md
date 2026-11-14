@@ -74,7 +74,10 @@ the ledger holds two `dry` rows.
    `<!-- improve-panel: sha=<full head sha> tier=<tier> -->`. Then add the `panel-approved` label,
    which only re-runs the `improve-gate` check; the comment is the approval. Any later commit needs
    the panel again, a new comment for its sha, and the label removed and added again.
-8. **Merge.** Squash merge once every check is green. The smoke test runs after the deploy and
+8. **Merge.** Right before merging, `git fetch origin main` and stop if `docs/improve/PAUSE` is on
+   it, because a gate that passed earlier does not know about a pause added since. Otherwise
+   remove and add the `panel-approved` label so the gate reads main again, then squash merge once
+   every check is green. The smoke test runs after the deploy and
    opens an alert if it fails; if it does, revert at once.
 9. **Record.** One ledger row (kept, discarded or none, with the metric before and after and each
    reviewer's verdict), one line in `status.md`, ticks in `BACKLOG.md`, one line in `lessons.md`

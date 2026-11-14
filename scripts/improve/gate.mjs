@@ -32,8 +32,6 @@ const fail = (why) => {
   process.exit(1);
 };
 
-if (existsSync("docs/improve/PAUSE")) fail("docs/improve/PAUSE exists: the owner has paused the loop.");
-
 const repo = process.env.GITHUB_REPOSITORY;
 const pr = process.env.PR_NUMBER;
 const token = process.env.GITHUB_TOKEN;
@@ -56,6 +54,13 @@ async function all(path) {
   }
   return out;
 }
+
+// The off switch is read from main as it is now, so a pause added after this branch was cut still counts.
+const pause = await fetch(`https://api.github.com/repos/${repo}/contents/docs/improve/PAUSE?ref=main`, {
+  headers: { authorization: `Bearer ${token}`, accept: "application/vnd.github+json", "user-agent": "SecurityThreatPulse-improve-gate" },
+});
+if (pause.status === 200 || existsSync("docs/improve/PAUSE")) fail("docs/improve/PAUSE exists: the owner has paused the loop.");
+if (pause.status !== 404) fail(`Could not read the pause state from main (HTTP ${pause.status}), so the gate fails closed.`);
 
 // A rename is classified on both sides, so moving a protected file out of its place still counts.
 const files = (await all(`/pulls/${pr}/files`)).flatMap((f) => {
