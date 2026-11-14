@@ -28,6 +28,11 @@ describe("improve keep rule", () => {
     expect(v.regressions.map((r) => r.id)).toEqual(["bt.kevCalledBeforeShare"]);
   });
 
+  it("treats a move of exactly the noise band as noise, in both directions", () => {
+    expect(judge(card({ "bt.earlyActNowRight30": 0.44 }), card({ "bt.earlyActNowRight30": 0.46 }), "bt.earlyActNowRight30").keep).toBe(false);
+    expect(judge(card({ "repo.sources": 30, "bt.earlyActNowRight30": 0.46 }), card({ "repo.sources": 31, "bt.earlyActNowRight30": 0.44 }), "repo.sources").keep).toBe(true);
+  });
+
   it("ignores small moves in other metrics", () => {
     const v = judge(card({ "repo.sources": 30, "bt.earlyActNowRight30": 0.46 }), card({ "repo.sources": 31, "bt.earlyActNowRight30": 0.45 }), "repo.sources");
     expect(v.keep).toBe(true);

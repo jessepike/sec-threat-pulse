@@ -38,7 +38,8 @@ const isNum = (x) => typeof x === "number" && Number.isFinite(x);
 export function gain(id, before, after) {
   const def = METRICS[id];
   if (!def || !isNum(before) || !isNum(after)) return null;
-  return def.better === "up" ? after - before : before - after;
+  // Rounded so a move of exactly the noise band compares as exactly the band (0.46 - 0.44 is not 0.02 in floats).
+  return Number((def.better === "up" ? after - before : before - after).toFixed(6));
 }
 
 /**
