@@ -31,6 +31,7 @@ exploitation, 5 Confirmed damage. Each rung is `confirmed`, `reported` or `none`
 | [docs/research/](docs/research/) | Research findings: leader needs, comparables, site reviews, SMP model |
 | [lessons.md](lessons.md) | Hot buffer of session lessons. Read at start, add one line when you learn something |
 | [docs/routine.md](docs/routine.md) | What the daily scheduled session does, step by step. Change the routine there |
+| [docs/improve/program.md](docs/improve/program.md) | The improve loop: one measured change per run, the scorecard, the review panel, the PAUSE switch |
 
 The owner's canonical planning doc (intent, scorecard, roadmap) lives in a Claude Doc; `intent.md`
 and `BACKLOG.md` mirror it for agents.

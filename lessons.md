@@ -3,6 +3,10 @@
 Hot buffer. One line per insight, newest first. Keep the last 15 or so; promote lasting patterns
 into AGENTS.md or docs and drop them from here. Read at session start.
 
+## 2026-11-14
+
+- A loop that grades its own work needs an instrument it cannot change in the same run. The improve loop's scorecard, keep rule and tier check are tier 2 files, and model reviewers are only independent when they see different inputs: nine same-style judges are worth about two votes.
+
 ## 2026-11-09
 
 - Two crons seven minutes apart never let Neon sleep: its free plan suspends after 5 idle minutes and counts awake time against 100 compute hours a month. Count scheduled database touches per hour, not query cost.
