@@ -49,17 +49,25 @@ export function gain(id, before, after) {
  * @param {{ metrics: Record<string, number | null> }} before
  * @param {{ metrics: Record<string, number | null> }} after
  * @param {string} target  a metric id, or "none"
- * @returns {{ keep: boolean, reasons: string[], target: { id: string, before: number | null, after: number | null, gain: number | null } | null, regressions: { id: string, before: number, after: number, gain: number }[] }}
+ * @returns {{ keep: boolean, reasons: string[], target: { id: string, before: number | null, after: number | null, gain: number | null } | null, regressions: { id: string, before: number, after: number | null, gain: number | null }[] }}
  */
 export function judge(before, after, target) {
   const reasons = [];
   const regressions = [];
   for (const id of Object.keys(METRICS)) {
     if (id === target) continue;
-    const g = gain(id, before.metrics?.[id], after.metrics?.[id]);
+    const b = before.metrics?.[id];
+    const a = after.metrics?.[id];
+    // A guardrail that was measurable and is no longer cannot be shown not to have regressed.
+    if (isNum(b) && !isNum(a)) {
+      reasons.push(`${id} was ${b} and is now missing, so it cannot be shown not to regress`);
+      regressions.push({ id, before: b, after: null, gain: null });
+      continue;
+    }
+    const g = gain(id, b, a);
     if (g !== null && g < -METRICS[id].noise) regressions.push({ id, before: before.metrics[id], after: after.metrics[id], gain: g });
   }
-  for (const r of regressions) reasons.push(`${r.id} got worse: ${r.before} to ${r.after} (noise band ${METRICS[r.id].noise})`);
+  for (const r of regressions) if (r.gain !== null) reasons.push(`${r.id} got worse: ${r.before} to ${r.after} (noise band ${METRICS[r.id].noise})`);
 
   let t = null;
   let targetOk = true;

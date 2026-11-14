@@ -33,6 +33,13 @@ describe("improve keep rule", () => {
     expect(v.keep).toBe(true);
   });
 
+  it("discards when a measurable guardrail disappears, but not when it was never there", () => {
+    const gone = judge(card({ "repo.sources": 30, "bt.earlyActNowRight30": 0.46 }), card({ "repo.sources": 31, "bt.earlyActNowRight30": null }), "repo.sources");
+    expect(gone.keep).toBe(false);
+    expect(gone.regressions.map((r) => r.id)).toEqual(["bt.earlyActNowRight30"]);
+    expect(judge(card({ "repo.sources": 30 }), card({ "repo.sources": 31 }), "repo.sources").keep).toBe(true);
+  });
+
   it("discards when the target is missing on either side or unknown", () => {
     expect(judge(card({}), card({ "repo.sources": 31 }), "repo.sources").keep).toBe(false);
     expect(judge(card({ "repo.sources": 30 }), card({ "repo.sources": 31 }), "made.up").keep).toBe(false);

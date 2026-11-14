@@ -52,7 +52,11 @@ async function all(path) {
   return out;
 }
 
-const files = (await all(`/pulls/${pr}/files`)).map((f) => ({ path: f.filename, status: f.status, additions: f.additions, deletions: f.deletions }));
+// A rename is classified on both sides, so moving a protected file out of its place still counts.
+const files = (await all(`/pulls/${pr}/files`)).flatMap((f) => {
+  const row = { path: f.filename, status: f.status, additions: f.additions, deletions: f.deletions };
+  return f.previous_filename ? [row, { path: f.previous_filename, status: "removed", additions: 0, deletions: 0 }] : [row];
+});
 const { tier, reasons, lines } = classify(files);
 const labels = (await gh(`/issues/${pr}`)).labels.map((l) => l.name);
 summary(`Improve gate: tier **${tier}**, ${files.length} files, ${lines} counted lines.${reasons.length ? "\n\n- " + reasons.join("\n- ") : ""}`);
