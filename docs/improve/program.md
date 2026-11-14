@@ -1,7 +1,7 @@
 # Improve loop
 
-A scheduled Claude Code session runs this on Monday, Wednesday and Friday at 16:00 UTC, after the
-daily routine (`docs/routine.md`). The daily routine keeps the site running. This loop makes it
+A scheduled Claude Code session runs this on Monday, Wednesday and Friday at 9:47 AM Pacific, after
+the daily routine (`docs/routine.md`). The daily routine keeps the site running. This loop makes it
 better: one measured change per run, kept only if the scorecard says it helped. The owner approved
 it on Nov 14, 2026 ("go ahead and build this all the way out"): every change is a pull request
 that merges itself once checks and the review panel pass. Design: the Claude Doc "STP
@@ -15,6 +15,12 @@ only through a tier 2 pull request.
 **Coverage first** (owner, Nov 14). More keyless sources and fewer untracked rungs, judged by
 what they do to accuracy and lead time. Next lanes, in order, once coverage runs dry: accuracy,
 UX, growth. Changing the lane needs the owner.
+
+## Dry runs first
+
+The first two runs are dry runs: they go through step 6, then write what they would ship (item,
+tier, target metric, before and after) as a ledger row marked `dry`, and stop. Real runs start once
+the ledger holds two `dry` rows.
 
 ## Each run
 
