@@ -1,12 +1,14 @@
 # Status
 
-Updated Nov 14, 2026, 12:30 UTC. The site is live with real data at https://securitythreatpulse.com.
+Updated Nov 15, 2026, 12:30 UTC. The site is live with real data at https://securitythreatpulse.com.
 
 **Now.** Rules v3 is live. Waves 0 to 3 are built and Wave 4 prep is merged; the repo is public and indexing is on. One scheduled run every 30 minutes ingests and then rebuilds events. The outside probe owns every alert issue. A smoke test runs after each production deployment. 29 of 30 sources are current; VulnCheck KEV has no key and is skipped.
 
 **Waiting on the owner.** The real Neon compute number (Usage page in the Neon console, opened with `vercel integration open neon stp-db`). The first local backup (`npm run backup:local` needs `DATABASE_URL` in `.env.local`; `vercel env pull` returns the Neon values blank because they are marked sensitive, so the address has to come from the Vercel Storage page). Turning off Vercel Agent review. MCP registry publish, the CIRCL email, and the ransomware.live and Shadowserver forms.
 
 **Next.** A scheduled backup once the owner picks a place for it. Routine-drafted write-ups and the blind scorer review from Wave 3. More keyless sources and the next rules version from Wave 2.
+
+**Nov 15 daily routine.** No feedback or alert issues open. `/status.json` at 12:24 UTC: ok, last complete run 12:00 UTC, 29 of 30 sources ok (VulnCheck unconfigured), 126 events (87 Act now, 39 Watch, 0 Low). Dependabot: merged `@electric-sql/pglite` 0.5.16 (#42); vitest 5.1.0 (#43) conflicted on the lockfile after that merge, so this pull request carries the same bump. ESLint 10 (#44) is a new copy of a held major and stays held with TypeScript 7 (#5) and `@types/node` 26 (#41). The data branch's last snapshot is Nov 14 12:20 UTC (24 hours, inside the 36-hour window); the 18:46 and 01:08 runs skipped on the 20-hour guard. The agent test set passed at 12:15, 18:45 and 01:00 UTC. The freshness probe ran at 19:05, 22:56, 02:35 and 09:52 UTC, still every 3 to 7 hours. Improve loop: only the Nov 14 baseline in the ledger and no `improve/live.json` on the data branch yet; its first nightly write is the next snapshot that passes the guard, and its scheduled routine is not set up yet, so this is not a stall.
 
 **Nov 14 session, improve loop.** The owner approved a second scheduled session that ships one measured improvement per run, Monday, Wednesday and Friday at 9:47 AM Pacific, two dry runs first (`docs/improve/program.md`). Lane: coverage first. `npm run scorecard` scores the active rules on the backtest tuning period and counts sources; the nightly snapshot workflow adds the live half to `improve/live.json` on the `data` branch. Changes merge themselves once checks pass; a review panel of models stands in for the owner, more reviewers as risk rises (`scripts/improve/tier.mjs`, the `improve-gate` CI job). A file named `docs/improve/PAUSE` stops it. Baseline in `docs/improve/ledger.md`.
 
