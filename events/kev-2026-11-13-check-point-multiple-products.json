@@ -3,13 +3,13 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-13-check-point-multiple-products",
   "title": "Several Check Point products: attackers can gain admin rights",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 1 days old, so many systems are likely still unpatched.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 2 days old, so many systems are likely still unpatched.",
   "tier": "today",
   "rankScore": 8,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
     "The product faces the internet or gives remote access.",
-    "The confirmation is 1 day old.",
+    "The confirmation is 2 days old.",
     "3 products are affected."
   ],
   "rulesVersion": "v3",
@@ -72,14 +72,14 @@
   },
   "summary": "Check Point Firewall, Multi-Domain Security Management Server, Scalable Platforms, Security Gateway, and Security Management Server contain an incorrect permissions assignment for critical resources vulnerability when the Gaia OS DynamicCLI daemon runs as root and listens on a world-writable local socket without authenticating connecting processes.",
   "cvss": 7.8,
-  "epss": 0.01274,
+  "epss": 0.02191,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-11-13",
   "kevDueDate": "2026-11-16",
   "firstSeenAt": "2026-11-13T00:00:00.000Z",
-  "updatedAt": "2026-11-14T00:00:06.192Z",
-  "newestEvidenceAt": "2026-11-14T10:57:09.810Z",
+  "updatedAt": "2026-11-15T00:00:08.145Z",
+  "newestEvidenceAt": "2026-11-15T11:15:06.072Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 16, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -174,5 +174,5 @@
       }
     }
   ],
-  "evidenceWithheld": 29
+  "evidenceWithheld": 47
 }

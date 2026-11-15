@@ -1,0 +1,138 @@
+{
+  "at": "2026-11-15T12:51:20.383Z",
+  "base": "https://securitythreatpulse.com",
+  "metrics": {
+    "live.sourcesOk": 29,
+    "live.actNowRate": 1,
+    "live.kevCalledBeforeShare": 0.08,
+    "live.earlyActNowShare": 0,
+    "live.agentTestsPassRate": 1
+  },
+  "detail": {
+    "sources": [
+      {
+        "id": "advisory-cccs",
+        "state": "ok"
+      },
+      {
+        "id": "advisory-cert-eu",
+        "state": "ok"
+      },
+      {
+        "id": "advisory-ncsc-uk",
+        "state": "ok"
+      },
+      {
+        "id": "ca-ag",
+        "state": "ok"
+      },
+      {
+        "id": "circl-sightings",
+        "state": "ok"
+      },
+      {
+        "id": "cisa-kev",
+        "state": "ok"
+      },
+      {
+        "id": "cvelist",
+        "state": "ok"
+      },
+      {
+        "id": "epss",
+        "state": "ok"
+      },
+      {
+        "id": "exploitdb",
+        "state": "ok"
+      },
+      {
+        "id": "hibp",
+        "state": "ok"
+      },
+      {
+        "id": "metasploit",
+        "state": "ok"
+      },
+      {
+        "id": "msrc",
+        "state": "ok"
+      },
+      {
+        "id": "news-bleepingcomputer",
+        "state": "ok"
+      },
+      {
+        "id": "news-cyberscoop",
+        "state": "ok"
+      },
+      {
+        "id": "news-cybersecuritydive",
+        "state": "ok"
+      },
+      {
+        "id": "news-darkreading",
+        "state": "ok"
+      },
+      {
+        "id": "news-helpnetsecurity",
+        "state": "ok"
+      },
+      {
+        "id": "news-krebs",
+        "state": "ok"
+      },
+      {
+        "id": "news-sansisc",
+        "state": "ok"
+      },
+      {
+        "id": "news-securityaffairs",
+        "state": "ok"
+      },
+      {
+        "id": "news-securityweek",
+        "state": "ok"
+      },
+      {
+        "id": "news-thehackernews",
+        "state": "ok"
+      },
+      {
+        "id": "news-therecord",
+        "state": "ok"
+      },
+      {
+        "id": "news-theregister",
+        "state": "ok"
+      },
+      {
+        "id": "nuclei",
+        "state": "ok"
+      },
+      {
+        "id": "nvd",
+        "state": "ok"
+      },
+      {
+        "id": "poc-github",
+        "state": "ok"
+      },
+      {
+        "id": "sec-8k",
+        "state": "ok"
+      },
+      {
+        "id": "vulncheck-kev",
+        "state": "unconfigured"
+      },
+      {
+        "id": "wa-ag",
+        "state": "ok"
+      }
+    ],
+    "actNowEvents": 87,
+    "agentTestsFailed": []
+  },
+  "errors": []
+}

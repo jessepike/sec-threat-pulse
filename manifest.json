@@ -1,95 +1,99 @@
 {
-  "snapshotAt": "2026-11-14T12:19:48.423Z",
-  "day": "2026-11-14",
+  "snapshotAt": "2026-11-15T12:50:56.597Z",
+  "day": "2026-11-15",
   "base": "https://securitythreatpulse.com",
   "events": 126,
   "files": {
     "status.json": {
-      "sha256": "be5d7b89e3dd7076876efad648758033e41276749fc92ecedc9b6bdb9103b2c6",
+      "sha256": "d359a37cf8257ac24559215886dd0e1bfcb464a34942f0561557d05886e58fef",
       "bytes": 6583
     },
     "events.json": {
-      "sha256": "a07c94b39955d22cfb802bb1345a3c4d5b91e168fc0d6b161639afcac23aefe2",
-      "bytes": 330486
+      "sha256": "42fca793025fb2c119486fb448895cf3933d8b16dd236c1f59489c2e02e493cb",
+      "bytes": 333622
     },
     "events/kev-2026-11-10-barracuda-networks-barracuda-email-security-gatew.json": {
-      "sha256": "28b215bd9982072adf52a035f2b6ca5ba4d7e920cab90b698ea5274c6c042b56",
+      "sha256": "346f3bee4cd296f63af0666d426f70d49d70727f292c00a2f590b73e1f9a55a0",
       "bytes": 8766
     },
     "events/kev-2026-11-13-check-point-multiple-products.json": {
-      "sha256": "693e1f7a458a6ba17175e0b631d92582fbba906aeb74efa90474e5d1218bdff6",
-      "bytes": 6322
+      "sha256": "829ca2bc6f7954b60a4143af658464b8f0222e2545c0436bb00f3e34ad8d1491",
+      "bytes": 6323
     },
     "events/kev-2026-11-06-sonicwall-sonicos-sslvpn.json": {
-      "sha256": "bb6972f987b9fa5b62f964d86941a932d7472dbe89cf5036eb6581d0cadc50d6",
+      "sha256": "8fd4894cd9743f40a404c0bd53bbf1ec6acd913a308529a014a620bac6b3e943",
       "bytes": 7504
     },
     "events/kev-2026-09-27-citrix-netscaler.json": {
-      "sha256": "14f8d4590529579758d1c94b531c208388bc82b4921f8bac198d1ab304cd7c04",
+      "sha256": "dc2e6bda2ecb9d2464c559607e1d1549a14ee7777ae4f3c1ff2a0502fd466b99",
       "bytes": 7320
     },
     "events/kev-2026-09-22-check-point-multiple-products.json": {
-      "sha256": "8e2486630e0bbac90ba5db02efb196d91e19456acb477445469ec4077fd30f58",
+      "sha256": "46edbe68493f8648d42b91792b61f402199bfb552cdb6bceffafcd408bc2b3e4",
       "bytes": 7451
     },
     "events/kev-2026-09-16-cisco-identity-services-engine.json": {
-      "sha256": "dfe1f201346d261036a77d26223c88a79f84f1a8d992a7b433f8b429e85afd18",
+      "sha256": "2e1bea77c92d62be7596b9d0adca79860ecc2272c480a09176ce191c0e00c98e",
       "bytes": 5980
     },
+    "events/kev-2026-11-10-barracuda-networks-multiple-products.json": {
+      "sha256": "6b8d93e205c5ad97c443ee77547b5d572e9458ac50ee52335a894f1c52ea6dea",
+      "bytes": 9407
+    },
     "events/kev-2026-11-10-microsoft-office.json": {
-      "sha256": "62153898887e69662c0d47c0a0883609f4fa43305b8bd72db130a43ebd040820",
+      "sha256": "d1d8899a637fe4eab6d4e7936d9d584cec54017b96981b6b0b56e01d81c4c5d6",
       "bytes": 10494
     },
-    "events/kev-2026-10-13-ivanti-connect-secure.json": {
-      "sha256": "0d6e2994eb3e5994b2fa499d86c5ec374d5631b1f61c261ec0fa84b47c982200",
-      "bytes": 6810
+    "events/kev-2026-10-16-beyondtrust-remote-support.json": {
+      "sha256": "c2ca2911a22979b6e17c1d09ce2a8405bd220eb07016192f771a15a8032e11fd",
+      "bytes": 6421
     },
-    "events/kev-2026-11-10-openwave-messaging-l-webtop-media-transcoder.json": {
-      "sha256": "9c59271368163d4616d1d220e0e75f887e42e9e7cc9d09ec7e47b1f93cab9ba4",
-      "bytes": 5312
+    "events/kev-2026-10-14-cisco-secure-email-gateway.json": {
+      "sha256": "1a813a414295289c4d374e9263f9d0335cb6ea17a0b63af534c0ff16eed4b86d",
+      "bytes": 5932
     },
     "events/kev-2026-11-10-cisco-broadworks.json": {
-      "sha256": "4c637bd543449f941cf621c08298d8cdb7c4a7e775ffb5e32fdf504219c6e9e7",
+      "sha256": "fbc27f4a464464794e105055846caf6a33bd7fee0ce28234eb0150d4f82b24ca",
       "bytes": 6364
     },
-    "events/kev-2026-11-10-barracuda-networks-multiple-products.json": {
-      "sha256": "5712982164e53d76eb9168bd260c9161f29b7bdcc85d8bb6f6bc160a078a209f",
-      "bytes": 9407
+    "events/early-cve-2026-109618.json": {
+      "sha256": "2e3f1fecd14593ed9e7db500a67d903d95276de279bb17a42f9bdc5d30ad623a",
+      "bytes": 22831
+    },
+    "events/kev-2026-10-14-palo-alto-networks-pan-os.json": {
+      "sha256": "19cbdde10453597e4dc97c9c078ef383a6e79a4a2a599240950dd606901b77f9",
+      "bytes": 5954
+    },
+    "events/kev-2026-10-13-ivanti-connect-secure.json": {
+      "sha256": "6cb845f0e39606fc6eddb6602b3a577e768dc8703ec557f033b2345fbc5d7bc7",
+      "bytes": 6810
+    },
+    "events/kev-2026-10-30-ivanti-connect-secure.json": {
+      "sha256": "dcb1b44c2b2e543950c71ba4cf75a73626716e856bfa29b8913c538d3ae3d1f8",
+      "bytes": 6843
+    },
+    "events/kev-2026-11-10-openwave-messaging-l-webtop-media-transcoder.json": {
+      "sha256": "4aa9b7a6aea88de59c65dd0fe7a015906c240ee3397b77047742781d88039501",
+      "bytes": 5312
     },
     "events/kev-2026-10-08-proftpd-proftpd.json": {
       "sha256": "d5226eaf930dd6ee91ae3d1bbde12dd6e28c72bafd6360be79026c1a67f4708f",
       "bytes": 7282
     },
-    "events/kev-2026-10-30-ivanti-connect-secure.json": {
-      "sha256": "82a175a39d9237c7da113c50970e585a32514eee2969bfe771ffff4e4084a204",
-      "bytes": 6843
-    },
-    "events/kev-2026-10-14-cisco-secure-email-gateway.json": {
-      "sha256": "699c8591987b47e7db85f11613daf00df0d97ac8ab41121e45a6e12b640ed5e8",
-      "bytes": 5932
-    },
     "events/kev-2026-09-14-cisco-secure-email-gateway.json": {
       "sha256": "bd7c0e012df660a9dbe01f4c870760de4d56c81daffa8f4cd8e8be1fce33aaa9",
       "bytes": 5494
     },
-    "events/kev-2026-10-16-beyondtrust-remote-support.json": {
-      "sha256": "d8fab4834000f8f32c6aeb6201f3fef9e7d294e8fc03b2d48497858400e689ef",
-      "bytes": 6421
-    },
     "events/early-cve-2026-76418.json": {
-      "sha256": "7276cb8741639a80732b9fdea2fb81223d95bf77d2b6b8799051705b1b17606e",
+      "sha256": "25fc92f5ba7bc42b392a2aada2dc420f46f3a8c7d53ff559900b6f4663f63fbe",
       "bytes": 6743
     },
     "events/kev-2026-10-16-fortinet-multiple-products.json": {
-      "sha256": "f1b17098cb665059e8904fab820659163d4dd44c7123c3dae861b5a622597ddc",
+      "sha256": "9712cfc562a519b3d6bf0504b9adfc02e728e8bab02650432ed47fa8f7bf1a48",
       "bytes": 5166
     },
-    "events/kev-2026-10-14-palo-alto-networks-pan-os.json": {
-      "sha256": "19a11f99bd02e675e3e40b0374548e8251fca369743f854889b485a109c3d65a",
-      "bytes": 5954
-    },
     "events/kev-2026-10-04-citrix-netscaler.json": {
-      "sha256": "f0eca5d8d0a6c7c3969376df870610e214fb9fd4f624a62e3d000ddfc923c377",
+      "sha256": "30fb169e2a7788c7dff553f9c9686e3354208278cad3361854a46a068c1658a7",
       "bytes": 4660
     },
     "events/kev-2026-09-09-cisco-secure-firewall-management-cen.json": {
@@ -97,71 +101,67 @@
       "bytes": 6514
     },
     "events/kev-2026-11-13-unrealircd-unrealircd.json": {
-      "sha256": "8226c36b159346e7d38f51434a0dafc2fe6cd3331527c66a406a26f7f0193f94",
-      "bytes": 4455
+      "sha256": "3941a884e29e4b10808aacde03d036ec7eb2b7ec0c372b1fac90f44d09b4b8fa",
+      "bytes": 5027
     },
-    "events/early-cve-2026-109618.json": {
-      "sha256": "f85e293f52d0ec50d101744860b859bfb15df7f6200b09f9f7a1665e94245b1b",
-      "bytes": 20141
+    "events/kev-2026-11-09-signalwire-freeswitch.json": {
+      "sha256": "70d073e4a5b5f263894a3cd187ba58753f9794b0949a79670f2ea8b8d2a853cb",
+      "bytes": 5034
     },
-    "events/kev-2026-10-23-arista-velocloud-orchestrator.json": {
-      "sha256": "bf51901271e9c0ca7a5d690b21fe417200c0fc372dccf6a764d9db02ff5ac2b5",
-      "bytes": 5800
+    "events/kev-2026-10-15-atlassian-multiple-products.json": {
+      "sha256": "ad69e8abeec5f80ed163eccbafa22806e92fd8e88a215378a62beede791ddb50",
+      "bytes": 8115
+    },
+    "events/kev-2026-10-29-gitlab-community-edition-and-enterpri.json": {
+      "sha256": "37d3f51de947e162e1f1c4a3b8bcc6f554b39c2b3ad657365983c6532e6592d7",
+      "bytes": 8198
     },
     "events/early-cve-2026-125350.json": {
-      "sha256": "aea43dc2e707b61c7cda34a08b9e19380e7b9e50751b166f5c0d029401bee47f",
+      "sha256": "06d1625ec02cd7470d78524c49ae25cb898f52b8bef5bdc26b3d3fc1fc31b6d5",
       "bytes": 6390
     },
-    "events/kev-2026-10-27-google-brotli.json": {
-      "sha256": "81a87c23bea83ade88cab5b2fc27b64f0a6589ece676ae3734d163ac1bf703ab",
-      "bytes": 13257
+    "events/kev-2026-11-09-gpustack-gpustack.json": {
+      "sha256": "d8513282534274e2de9efc4367b9b723ba02e7fa96afd7551531acb648495769",
+      "bytes": 5591
     },
     "events/kev-2026-11-09-openbsd-openssh.json": {
-      "sha256": "4191be7417a321c8441f9668cd69b63d6313c8f4b8aa33c7305e31159d763ec7",
+      "sha256": "70290c5aab5d3c1aad344f3bca17911301fa10d78f49b409eb9f211945a31c18",
       "bytes": 6815
     },
     "events/early-cve-2026-123218.json": {
-      "sha256": "c570c785a92ce0670df2e76874056822177a2131e58d28f2ce231c75a318a4bf",
+      "sha256": "d5d74489a0d1ae492b646073abdbb3bcedaa7294975b83bff3a21f3c699505d5",
       "bytes": 4866
     },
-    "events/kev-2026-11-09-signalwire-freeswitch.json": {
-      "sha256": "e3a041228b8c2cd7609db33e1741d64ff17d824125b98e1f3c48a6cce32e28e1",
-      "bytes": 4930
+    "events/kev-2026-10-27-google-brotli.json": {
+      "sha256": "08d0461ff9e21c3ffe9e4ca899740e903b717ee82acd63daee49714fccfd511b",
+      "bytes": 13257
     },
-    "events/kev-2026-11-09-gpustack-gpustack.json": {
-      "sha256": "3ece6f72a2d156794e79674ffae24808c013f92f12440dbc07f42e54f7c93606",
-      "bytes": 5136
-    },
-    "events/kev-2026-10-29-gitlab-community-edition-and-enterpri.json": {
-      "sha256": "da06891acd40c62d6ea727e18d39005ed50f24702de11d80903ad9c7f7f1dc05",
-      "bytes": 8198
+    "events/kev-2026-10-23-arista-velocloud-orchestrator.json": {
+      "sha256": "4dcf857b0e4295da101d96eba51553502a1500beb3b5e37d82a41800782a7599",
+      "bytes": 5800
     },
     "events/kev-2026-10-27-adobe-commerce-and-magento.json": {
-      "sha256": "70dd160be625f593d219acb05c30bec023ed8b1d2b9fe118756bda8d26f97005",
+      "sha256": "026fb5f51aaa0559cbb057945edc3b81ca9a4f437dbc78756f5494ae809fad84",
       "bytes": 6719
     },
     "events/kev-2026-09-30-cisco-catalyst-sd-wan-manager.json": {
-      "sha256": "66ba1557fcaf98c9b350729c028836e1e54cc9b86615f246c44a5ed1e945c5aa",
+      "sha256": "246f6d03efe0034371d4e7d3dba05b34738a4734a3ce8e50a8e32e564b373952",
       "bytes": 5112
     },
     "events/kev-2026-10-28-broadcom-vmware-esx.json": {
-      "sha256": "f43114e97ed132d0462ea267893ab0ce85d7013a76e72994e98f7b2c7c3ac48a",
+      "sha256": "5e1c83215201218ed04819f4d6a2731c8a6024b420bedb9000212c7e75b3be92",
       "bytes": 7445
-    },
-    "events/kev-2026-10-15-atlassian-multiple-products.json": {
-      "sha256": "1f51da3a71a49b0a5fce9bfd496947c96331cda86e096fc464113997d43708d0",
-      "bytes": 8114
     },
     "events/kev-2026-09-11-connectwise-screenconnect.json": {
       "sha256": "ac77d37bb4e29518785417c2693c739c6332bf1008be13158812ba7b414b2f40",
       "bytes": 4267
     },
     "events/kev-2026-10-28-linux-kernel.json": {
-      "sha256": "32fad232899fb69637293f9b42b3667466dc474d33141271c29e6afeabf965cf",
+      "sha256": "c9a8d2f7cf10c083f600c2a77a944865c92a1b9060a49bc1a65e03e95a4e6c41",
       "bytes": 5872
     },
     "events/kev-2026-10-01-fortinet-fortimail.json": {
-      "sha256": "c9971b0822216a1ed2d70b4cba3b8066ba7b733888fad679535136892179c829",
+      "sha256": "eab9eb2942fd3528feac5f7c4cdc4a6f418f8e22a4c6036dc6ae45388237c355",
       "bytes": 4719
     },
     "events/kev-2026-09-09-citrix-netscaler.json": {
@@ -169,51 +169,55 @@
       "bytes": 4774
     },
     "events/kev-2026-09-24-adobe-commerce-and-magento.json": {
-      "sha256": "9b91e647e2008362e3247b0d8c02e4c283bd253a9314f2a84d493e78a996511d",
+      "sha256": "7f2132381177d122e06a8ff6884a9f70b0f481b86c67cdc8fb21ecfb9de6d817",
       "bytes": 5964
     },
     "events/kev-2026-09-22-f5-big-ip-apm.json": {
-      "sha256": "0d74d23943187a743bd94f2eb6caba77b0563ab4df0af9204fab33e870f3c3a2",
+      "sha256": "0ec3134f61bdc61eedb5df37818512a3bee0db3c1eb1a0cce55cff141555e695",
       "bytes": 4916
     },
     "events/kev-2026-09-22-arista-velocloud-orchestrator.json": {
-      "sha256": "ff8cea983900e3db91c572349b2985f7598dbf3bca13d1fe08614e233ac34d22",
+      "sha256": "0e2e645f607421b07ff856f7643b6d311aef4092ff0a5fd498cfcfe83b3e4286",
       "bytes": 4687
     },
     "events/kev-2026-09-09-fortinet-multiple-products.json": {
       "sha256": "70bc741e41df24dab35515d2d30fba4a6e73f64f3f1ff596832451ed1cbe8045",
       "bytes": 4120
     },
+    "events/kev-2026-10-14-ahsay-ahsaycbs.json": {
+      "sha256": "4d140e7ebbc05a079671167ee1e678750937d8c2f84c2df9f711f7fbd8a1d437",
+      "bytes": 7499
+    },
     "events/kev-2026-10-13-microsoft-windows.json": {
-      "sha256": "dce64298bfce275d7896cc12456200e17edb91a30df2e74a322859da402d0bf4",
+      "sha256": "d690c1427dc7e6d66d8c8e54fa46162296e989f45ea2b23aa387631e789b2bfb",
       "bytes": 8325
     },
+    "events/kev-2026-10-20-eg-secure-solutions-siteguard-server-edition.json": {
+      "sha256": "083d7259f2bcd997688d532b2c0d33dd5b5e734bfaec73fc302f878816ce3f17",
+      "bytes": 6480
+    },
     "events/kev-2026-09-25-wordpress-core.json": {
-      "sha256": "8ba8c07f9957dff8eefdfc364b52e825fb1fe0d6756b5d45212c37109f752d4e",
+      "sha256": "a356619d2c741abf7287a75555fbe984b66535ddad577f78bb8eda0024b1298b",
       "bytes": 5728
     },
     "events/kev-2026-09-29-apple-multiple-products.json": {
-      "sha256": "b4fb5329ac32fe310c4cce847ece017ebfee72e5696969be696879445ae4faec",
+      "sha256": "2e879183d424df178eea7beda4380c0a8434b32e5f40bb654f2d565f1778a3c1",
       "bytes": 5714
     },
-    "events/kev-2026-10-14-ahsay-ahsaycbs.json": {
-      "sha256": "817cf35392f1ce664c2458f9c304e85fed39894fbec94b6a0093c2ab73fc79dd",
-      "bytes": 7499
-    },
     "events/kev-2026-10-20-plex-media-server.json": {
-      "sha256": "089c8e47a480d9b2329762ebd91416ee40ef6598197daea63035b367e7013ba3",
+      "sha256": "03016f49e39ec160a428f84c201ae5717c2758c9c9cbc9d74c9e080b550c684d",
       "bytes": 11057
     },
     "events/kev-2026-11-03-wordpress-wordpress-core.json": {
-      "sha256": "8660430d03e3c44529a7c7166facf68baa1aff2220679955a9858501c099cb11",
+      "sha256": "bc1a1d46b6d3476a38bb9a72046c1932a7462b7a5bc065418930ca6fa2c37dba",
       "bytes": 6385
     },
     "events/kev-2026-09-21-zyxel-gs1900-series-switches.json": {
-      "sha256": "b7d2ed207caa2bb15a1ee21ac37994ecb9e9d21dc7e38c92fc79248f4b035184",
+      "sha256": "cf416e9c4841afa169ab0e17196c1f6a72d35a1d8ff2871f01b5539558300353",
       "bytes": 7132
     },
     "events/kev-2026-09-18-linux-kernel.json": {
-      "sha256": "32f00017c3a080a5a4ff95da8bda68b646a56c605031a372c7eb2d939f819a31",
+      "sha256": "73f7a3bd726d3510f09a0d470c598a7797ce351ad523545ce63f8b2c7ae26d4f",
       "bytes": 8430
     },
     "events/kev-2026-09-11-jfrog-artifactory.json": {
@@ -221,23 +225,19 @@
       "bytes": 6047
     },
     "events/kev-2026-10-23-collabora-collabora-online-built-in-code.json": {
-      "sha256": "3fcc8c4daa2e31fd6329e0b7acd251ada329368358e41ccb77a9549ef09c690b",
+      "sha256": "815189884a3089b65797f9b80e6fd0a625de0df3daa0f16af3657256986924b8",
       "bytes": 6236
     },
     "events/kev-2026-09-25-microsoft-sharepoint.json": {
-      "sha256": "f55aecb7616992c82a0fdf5e8d3a66e173aba7c8dfa8a9822fca84b937cfbf26",
+      "sha256": "a520ab151363cde0477ad56abd628d0230fad412958da9ef2a954fcff1d26a1e",
       "bytes": 5424
-    },
-    "events/kev-2026-10-20-eg-secure-solutions-siteguard-server-edition.json": {
-      "sha256": "f5e8dcbf71f7b4ebbaaf932c882049513148fa0cc07f01f71425fa589af52ec0",
-      "bytes": 6480
     },
     "events/kev-2026-09-11-gitlab-community-edition-and-enterpri.json": {
       "sha256": "c94bedc917c2ff81f01120f37718d5eb313ea6c02e23ec33adcdafa7f0e6ea52",
       "bytes": 5605
     },
     "events/kev-2026-09-24-wso2-multiple-products.json": {
-      "sha256": "cb23f97078791c15026138ce2d4971cfd086fa9e8ca9eb15ffbfb42e41823816",
+      "sha256": "87202ee3f5e47d5cfe7b7a2aa75ca100ccbe1f0adf8ef06754c71b014d0c068e",
       "bytes": 5771
     },
     "events/kev-2026-10-08-apache-struts.json": {
@@ -245,11 +245,11 @@
       "bytes": 5481
     },
     "events/kev-2026-09-16-acronis-backup.json": {
-      "sha256": "bba25c57a8fc4a7cda367eabdee1f19f697feb78f994f54d5d42ec1c38a5e552",
+      "sha256": "c36959fa447e437822c96a38e42da360225a7047ad2cc815e78aefe3b4ec7721",
       "bytes": 4804
     },
     "events/kev-2026-10-02-zammad-gmbh-zammad.json": {
-      "sha256": "c469cc8bf3640f1aa5c79b10d77f28f1f8d5943d9eb03f347a0ce8c8e03a9026",
+      "sha256": "0d9473c3f6e2cccb6afc4d99fe6927dd0d176e98598ed2a5a56d55ae615db22e",
       "bytes": 5310
     },
     "events/kev-2026-10-08-onlyoffice-docs.json": {
@@ -265,11 +265,11 @@
       "bytes": 4492
     },
     "events/kev-2026-09-25-mikrotik-routeros.json": {
-      "sha256": "b2f907d59f2f5aa4b80ba851b5491e22ee511e999c7443a64d149eabf812184b",
+      "sha256": "e17f514e652c9b35272d54a5397fececd9e90e10c9e3e83c3dfd3f0a1d41f9af",
       "bytes": 4512
     },
     "events/kev-2026-10-20-siemens-software-center.json": {
-      "sha256": "fb82b05c6c639a573ca94e5a3dc2d752fd88c98751454341d0615f1697b2fef0",
+      "sha256": "62e1d39abc3638fec545de3293d02adb72993f5977745fc1890df96f2e1ca540",
       "bytes": 5309
     },
     "events/kev-2026-09-10-mikrotik-routeros.json": {
@@ -277,7 +277,7 @@
       "bytes": 6036
     },
     "events/kev-2026-09-16-google-pixel.json": {
-      "sha256": "994ffa4d566fd4f1ded9d74731784cfc562b329d1726021c2fc857bfa609fe32",
+      "sha256": "40eb0ef2956d1a79ca777039c47ef97ba506d7c8248041b36e4a9b1b9ae56ecb",
       "bytes": 4083
     },
     "events/kev-2026-09-08-adobe-commerce-and-magento.json": {
@@ -289,7 +289,7 @@
       "bytes": 5473
     },
     "events/kev-2026-09-08-microsoft-windows.json": {
-      "sha256": "894a93a267daeac0ec8dd1dad47ebac35e69c9406db7fa30b0a150171bbd2a73",
+      "sha256": "cdfd5884823f1f99835bad74e1777cb821480dfad1af924d536bb0f2e44df565",
       "bytes": 5655
     },
     "events/kev-2026-09-04-google-chromium-v8.json": {
@@ -361,15 +361,15 @@
       "bytes": 5301
     },
     "events/early-cve-2026-118207.json": {
-      "sha256": "f58602d4179ca797994c6a16f2391e6a3def7203227b8fb723765aca651d0606",
+      "sha256": "7232153e94bcbed0dc379f6e3107ce2a09a498ec9570d7d89bd969c13d2cf3e5",
       "bytes": 3026
     },
     "events/kev-2026-11-04-apple-multiple-products.json": {
-      "sha256": "211b58714bb720247f9c7edf2cb90c06cf84ecd3807f4de76ebe2dfbff62b90a",
+      "sha256": "0f2796bbf0984ebede31b1170f711f38a2bd9d9677132f26635c8aa60e1964ef",
       "bytes": 6255
     },
     "events/early-cve-2026-107441.json": {
-      "sha256": "c2b09a1fb820a8ee799a66a4ba537809eab8b2f17d23adb605c1d65755b3f47a",
+      "sha256": "645a47c9169b367f01f435594630d7e3189260baf3edcb0acea9157f92735102",
       "bytes": 6221
     },
     "events/early-cve-2022-21894.json": {
@@ -377,19 +377,19 @@
       "bytes": 6305
     },
     "events/early-cve-2026-58115.json": {
-      "sha256": "06e8a11e14f3ba38c3d6fbdaf13e06d7f8d181f53b087aa2159eb64ce7989dc9",
+      "sha256": "da7353335bd702cf5923ac118d7e6ee181443517054b86a1d58ca3038f7463ec",
       "bytes": 6369
     },
     "events/early-cve-2026-40217.json": {
-      "sha256": "9105d05bceb4d138a693a9b6500543b204f3c42c602c0914e9925bed8a751f64",
+      "sha256": "d57591a876dd5833a1864a24f2e6ad7154a8e008d439deb8ab8eff35f2c3cb8c",
       "bytes": 3576
     },
     "events/early-cve-2026-42589.json": {
-      "sha256": "5e097978f6023d351820f8703982b981e7372dcac377279c3b5e0c6cf86883bd",
+      "sha256": "f2ea6db52011b64d276eb325e2c95eae616000dccb412d1909ebfb354d8efacc",
       "bytes": 4022
     },
     "events/early-cve-2025-2611.json": {
-      "sha256": "7b1a9fa2ed454eeafdfc6a33a00fb6260793a829be77c4a1116b46c1125e2533",
+      "sha256": "a4bb9824509067930904690a63608e8b1c7c844fee94f8cf261740e0f0caf2a1",
       "bytes": 3473
     },
     "events/early-cve-2026-2699.json": {
@@ -413,23 +413,23 @@
       "bytes": 4619
     },
     "events/early-cve-2026-98432.json": {
-      "sha256": "31f29550f3badd984616d5effa45461a9367fa0331a59452be578ff3774f5858",
+      "sha256": "0d45b86f659d0261192cb081e867884713f5ae8839a1fc9b25564533a8e2adda",
       "bytes": 5149
     },
     "events/early-cve-2026-110264.json": {
-      "sha256": "ad3d8d0dc79ea7b37f6bab265fae2b55cd191513fd4ad82beb6a361334e464a5",
+      "sha256": "54f7cb0a3c3fd8608250e0e155d2a2e8594fb46a8cabb0632d0384ac730f905f",
       "bytes": 3658
     },
     "events/early-cve-2025-5054.json": {
-      "sha256": "63baab7e543b3e1dee953fdaf037d7f6113f6ae68aeae2a1c644f9f5d36c8514",
+      "sha256": "4b316e700c08728dc1d843e3412c12eff157c519b1ed3e6b6ab900b1613a362a",
       "bytes": 3377
     },
     "events/early-cve-2022-2588.json": {
-      "sha256": "daae768e0bf54a47cf8c15c3262693e8fccb98e21ee70f2744c99cdb73772f73",
+      "sha256": "709e6a9ba575fa90af9747ef885f1a9240a5aef6edef940247452d668a1ceb14",
       "bytes": 3130
     },
     "events/early-cve-2026-49950.json": {
-      "sha256": "f8032256d844022d5b9cfb58f65d91f7a7478df9f0c32aa5158a87a8c00d68ee",
+      "sha256": "a4f503cf5971d0625139ae904a491e8af2665895d678909083ec776ff1767f6a",
       "bytes": 2373
     },
     "events/early-cve-2024-7339.json": {
@@ -440,13 +440,13 @@
       "sha256": "55309b214120d300c549a08ed1aacacb06bf436b41497304a6aa734dbc69d68e",
       "bytes": 6076
     },
+    "events/early-cve-2025-29927.json": {
+      "sha256": "def701ede607d8e1fac8bc2c91a10be2d823bf8abd696eb72d60cdbeb4ff4bdd",
+      "bytes": 3700
+    },
     "events/early-cve-2023-38646.json": {
       "sha256": "7c904cfa7b2388f19340b20194ba8fe6bf5f1d5bdef68cde0a07cd7918a10ec9",
       "bytes": 3576
-    },
-    "events/early-cve-2025-29927.json": {
-      "sha256": "53dc082d343ba74822b4bd81a0690a892036d31b0beb5a31e262491963d4d155",
-      "bytes": 3700
     },
     "events/early-cve-2024-3721.json": {
       "sha256": "58afaec1fe42aab4206f46e15cb4b15f89ce5d2cbbaa6becfda4803e3df064c8",
@@ -521,7 +521,7 @@
       "bytes": 734
     },
     "README.md": {
-      "sha256": "5f8254d4fe4383348c861ec881394b29b48c205044d1f6c5c0e4abd8539c63e7",
+      "sha256": "b117fe2509baca4b178e03463f58cd7e0b1dbe193a6ccb5d3744b1d2c69567dc",
       "bytes": 823
     }
   }

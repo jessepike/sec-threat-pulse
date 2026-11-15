@@ -1,5 +1,5 @@
 {
-  "snapshotAt": "2026-11-14T12:19:48.423Z",
+  "snapshotAt": "2026-11-15T12:50:56.597Z",
   "apiVersion": "1",
   "rulesVersion": "v3",
   "total": 126,
@@ -28,14 +28,14 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-11-10-barracuda-networks-barracuda-email-security-gatew",
       "title": "Barracuda Networks Barracuda Email Security Gateway (ESG): attackers can get in without a password",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 11 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3).",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 12 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3).",
       "tier": "today",
       "rankScore": 9,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
         "The product faces the internet or gives remote access.",
         "Ready-made attack tools are public.",
-        "The confirmation is 4 days old.",
+        "The confirmation is 5 days old.",
         "6 products are affected."
       ],
       "rulesVersion": "v3",
@@ -138,21 +138,21 @@
       "kevDateAdded": "2026-11-10",
       "kevDueDate": "2026-11-13",
       "firstSeenAt": "2026-11-10T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-13T17:01:06.173Z"
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-15T11:35:03.367Z"
     },
     {
       "id": "kev-2026-11-13-check-point-multiple-products",
       "url": "https://securitythreatpulse.com/events/kev-2026-11-13-check-point-multiple-products",
       "title": "Several Check Point products: attackers can gain admin rights",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 1 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 2 days old, so many systems are likely still unpatched.",
       "tier": "today",
       "rankScore": 8,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
         "The product faces the internet or gives remote access.",
-        "The confirmation is 1 day old.",
+        "The confirmation is 2 days old.",
         "3 products are affected."
       ],
       "rulesVersion": "v3",
@@ -215,27 +215,27 @@
       },
       "summary": "Check Point Firewall, Multi-Domain Security Management Server, Scalable Platforms, Security Gateway, and Security Management Server contain an incorrect permissions assignment for critical resources vulnerability when the Gaia OS DynamicCLI daemon runs as root and listens on a world-writable local socket without authenticating connecting processes.",
       "cvss": 7.8,
-      "epss": 0.01274,
+      "epss": 0.02191,
       "exploitMaturity": "poc",
       "kevListed": true,
       "kevDateAdded": "2026-11-13",
       "kevDueDate": "2026-11-16",
       "firstSeenAt": "2026-11-13T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-14T10:57:09.810Z"
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-15T11:15:06.072Z"
     },
     {
       "id": "kev-2026-11-06-sonicwall-sonicos-sslvpn",
       "url": "https://securitythreatpulse.com/events/kev-2026-11-06-sonicwall-sonicos-sslvpn",
       "title": "SonicWall SonicOS SSLVPN: security flaw used in attacks",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 7 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 8 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
       "tier": "today",
       "rankScore": 6,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
         "The product faces the internet or gives remote access.",
-        "The confirmation is 8 days old."
+        "The confirmation is 9 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -292,7 +292,7 @@
       "kevDateAdded": "2026-11-06",
       "kevDueDate": "2026-11-20",
       "firstSeenAt": "2026-11-06T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-13T08:12:16.130Z"
     },
     {
@@ -300,7 +300,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-27-citrix-netscaler",
       "title": "Citrix NetScaler: 2 flaws used in attacks; attackers can run commands on it",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 47 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.5). The exploit prediction score is 82%.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 48 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.5). The exploit prediction score is 82%.",
       "tier": "now",
       "rankScore": 7,
       "rankWhy": [
@@ -376,7 +376,7 @@
       "kevDateAdded": "2026-09-27",
       "kevDueDate": "2026-09-30",
       "firstSeenAt": "2026-09-27T00:00:00.000Z",
-      "updatedAt": "2026-11-13T16:30:25.463Z",
+      "updatedAt": "2026-11-14T16:30:21.664Z",
       "newestEvidenceAt": "2026-11-04T23:22:01.000Z"
     },
     {
@@ -384,7 +384,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-22-check-point-multiple-products",
       "title": "Several Check Point products: 2 flaws used in attacks; attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 52 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.8). The exploit prediction score is 92%.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 53 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.8). The exploit prediction score is 92%.",
       "tier": "now",
       "rankScore": 7,
       "rankWhy": [
@@ -460,7 +460,7 @@
       "kevDateAdded": "2026-09-22",
       "kevDueDate": "2026-09-25",
       "firstSeenAt": "2026-09-22T00:00:00.000Z",
-      "updatedAt": "2026-11-13T13:00:07.763Z",
+      "updatedAt": "2026-11-14T13:00:07.262Z",
       "newestEvidenceAt": "2026-11-02T23:21:20.073Z"
     },
     {
@@ -468,7 +468,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-16-cisco-identity-services-engine",
       "title": "Cisco Identity Services Engine: security flaw used in attacks",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 58 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 76%.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 59 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 76%.",
       "tier": "now",
       "rankScore": 7,
       "rankWhy": [
@@ -543,404 +543,20 @@
       "kevDateAdded": "2026-09-16",
       "kevDueDate": "2026-09-19",
       "firstSeenAt": "2026-09-16T00:00:00.000Z",
-      "updatedAt": "2026-11-13T20:30:23.001Z",
+      "updatedAt": "2026-11-14T20:30:21.332Z",
       "newestEvidenceAt": "2026-11-02T14:03:09.701Z"
-    },
-    {
-      "id": "kev-2026-11-10-microsoft-office",
-      "url": "https://securitythreatpulse.com/events/kev-2026-11-10-microsoft-office",
-      "title": "Microsoft Office: security flaw used in attacks",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 3 days old, so many systems are likely still unpatched.",
-      "tier": "now",
-      "rankScore": 6,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 4 days old.",
-        "7 products are affected."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-124194"
-      ],
-      "vendor": "Microsoft",
-      "product": "Office",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "microsoft/office",
-          "vendor": "Microsoft",
-          "product": "Office",
-          "evidence": [
-            "kev"
-          ],
-          "vendorKey": "microsoft",
-          "productKey": "office"
-        },
-        {
-          "kind": "direct",
-          "slug": "microsoft/microsoft365appsforenterprise",
-          "vendor": "Microsoft",
-          "product": "Microsoft 365 Apps For Enterprise",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "microsoft",
-          "productKey": "microsoft365appsforenterprise"
-        },
-        {
-          "kind": "direct",
-          "slug": "microsoft/microsoftofficeltsc2021",
-          "vendor": "Microsoft",
-          "product": "Microsoft Office Ltsc 2021",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "microsoft",
-          "productKey": "microsoftofficeltsc2021"
-        },
-        {
-          "kind": "direct",
-          "slug": "microsoft/microsoftofficeltsc2024",
-          "vendor": "Microsoft",
-          "product": "Microsoft Office Ltsc 2024",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "microsoft",
-          "productKey": "microsoftofficeltsc2024"
-        },
-        {
-          "kind": "direct",
-          "slug": "microsoft/365apps",
-          "vendor": "Microsoft",
-          "product": "365 Apps",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "microsoft",
-          "productKey": "365apps"
-        },
-        {
-          "kind": "direct",
-          "slug": "microsoft/office2021",
-          "vendor": "Microsoft",
-          "product": "Office 2021",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "microsoft",
-          "productKey": "office2021"
-        },
-        {
-          "kind": "direct",
-          "slug": "microsoft/office2024",
-          "vendor": "Microsoft",
-          "product": "Office 2024",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "microsoft",
-          "productKey": "office2024"
-        }
-      ],
-      "category": {
-        "id": "other",
-        "label": "Other software",
-        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
-        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
-      },
-      "summary": "Microsoft Office Outlook contains a missing user interaction for potentially unsafe action vulnerability that allows an unauthorized attacker to perform spoofing over a network.",
-      "cvss": 6.5,
-      "epss": 0.0162,
-      "exploitMaturity": "poc",
-      "kevListed": true,
-      "kevDateAdded": "2026-11-10",
-      "kevDueDate": "2026-11-24",
-      "firstSeenAt": "2026-11-10T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-14T08:00:06.410Z"
-    },
-    {
-      "id": "kev-2026-10-13-ivanti-connect-secure",
-      "url": "https://securitythreatpulse.com/events/kev-2026-10-13-ivanti-connect-secure",
-      "title": "Ivanti Connect Secure: attackers can get in without a password",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 31 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The exploit prediction score is 89%.",
-      "tier": "now",
-      "rankScore": 6,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "The product faces the internet or gives remote access.",
-        "Ready-made attack tools are public."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-104935"
-      ],
-      "vendor": "Ivanti",
-      "product": "Connect Secure",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "ivanti/connectsecure",
-          "vendor": "Ivanti",
-          "product": "Connect Secure",
-          "evidence": [
-            "kev",
-            "cpe"
-          ],
-          "vendorKey": "ivanti",
-          "productKey": "connectsecure"
-        }
-      ],
-      "category": {
-        "id": "edge",
-        "label": "VPN, firewall or gateway",
-        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
-        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
-      },
-      "summary": "Ivanti Connect Secure contains an authentication bypass by spoofing vulnerability that allows a remote unauthenticated attacker to execute arbitrary commands.",
-      "cvss": 8.6,
-      "epss": 0.88936,
-      "exploitMaturity": "weaponized",
-      "kevListed": true,
-      "kevDateAdded": "2026-10-13",
-      "kevDueDate": "2026-10-16",
-      "firstSeenAt": "2026-10-13T00:00:00.000Z",
-      "updatedAt": "2026-11-13T16:00:07.708Z",
-      "newestEvidenceAt": "2026-11-13T23:00:07.956Z"
-    },
-    {
-      "id": "kev-2026-11-10-openwave-messaging-l-webtop-media-transcoder",
-      "url": "https://securitythreatpulse.com/events/kev-2026-11-10-openwave-messaging-l-webtop-media-transcoder",
-      "title": "Openwave Messaging Webtop Media Transcoder: security flaw used in attacks",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 28 days old, so many systems are likely still unpatched.",
-      "tier": "now",
-      "rankScore": 6,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 4 days old.",
-        "3 products are affected."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-111793"
-      ],
-      "vendor": "Openwave Messaging Limited",
-      "product": "Webtop Media Transcoder",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "openwavemessaging/webtopmediatranscoder",
-          "vendor": "Openwave Messaging",
-          "product": "Webtop Media Transcoder",
-          "evidence": [
-            "kev"
-          ],
-          "vendorKey": "openwavemessaging",
-          "productKey": "webtopmediatranscoder"
-        },
-        {
-          "kind": "direct",
-          "slug": "openwavemessagingireland/webtopmediatranscoder",
-          "vendor": "Openwave Messaging (ireland)",
-          "product": "Webtop Media Transcoder",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "openwavemessagingireland",
-          "productKey": "webtopmediatranscoder"
-        },
-        {
-          "kind": "direct",
-          "slug": "openwave/webtopmediatranscoder",
-          "vendor": "Openwave",
-          "product": "Webtop Media Transcoder",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "openwave",
-          "productKey": "webtopmediatranscoder"
-        }
-      ],
-      "category": {
-        "id": "other",
-        "label": "Other software",
-        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
-        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
-      },
-      "summary": "Openwave Messaging Limited Webtop Media Transcoder contains an incorrect resource transfer between spheres vulnerability that may allow an authenticated user to process and convert unintended document types if bypassing the Webmail experience.",
-      "cvss": 4.3,
-      "epss": 0.00638,
-      "exploitMaturity": "none",
-      "kevListed": true,
-      "kevDateAdded": "2026-11-10",
-      "kevDueDate": "2026-11-24",
-      "firstSeenAt": "2026-11-10T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-13T13:00:17.091Z"
-    },
-    {
-      "id": "kev-2026-11-10-cisco-broadworks",
-      "url": "https://securitythreatpulse.com/events/kev-2026-11-10-cisco-broadworks",
-      "title": "Cisco BroadWorks: security flaw used in attacks",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 86 days old, so many systems are likely still unpatched.",
-      "tier": "now",
-      "rankScore": 6,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 4 days old.",
-        "6 products are affected."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-20320"
-      ],
-      "vendor": "Cisco",
-      "product": "BroadWorks",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "cisco/broadworks",
-          "vendor": "Cisco",
-          "product": "BroadWorks",
-          "evidence": [
-            "kev"
-          ],
-          "vendorKey": "cisco",
-          "productKey": "broadworks"
-        },
-        {
-          "kind": "direct",
-          "slug": "cisco/ciscobroadworks",
-          "vendor": "Cisco",
-          "product": "Cisco Broadworks",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "cisco",
-          "productKey": "ciscobroadworks"
-        },
-        {
-          "kind": "direct",
-          "slug": "cisco/broadworksapplicationdeliveryplatform",
-          "vendor": "Cisco",
-          "product": "Broadworks Application Delivery Platform",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "cisco",
-          "productKey": "broadworksapplicationdeliveryplatform"
-        },
-        {
-          "kind": "direct",
-          "slug": "cisco/broadworksapplicationserver",
-          "vendor": "Cisco",
-          "product": "Broadworks Application Server",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "cisco",
-          "productKey": "broadworksapplicationserver"
-        },
-        {
-          "kind": "direct",
-          "slug": "cisco/broadworksprofileserver",
-          "vendor": "Cisco",
-          "product": "Broadworks Profile Server",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "cisco",
-          "productKey": "broadworksprofileserver"
-        },
-        {
-          "kind": "direct",
-          "slug": "cisco/broadworksxtendedservicesplatform",
-          "vendor": "Cisco",
-          "product": "Broadworks Xtended Services Platform",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "cisco",
-          "productKey": "broadworksxtendedservicesplatform"
-        }
-      ],
-      "category": {
-        "id": "other",
-        "label": "Other software",
-        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
-        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
-      },
-      "summary": "Cisco BroadWorks contains an improper restriction of XML external entity reference vulnerability that could allow an unauthenticated, remote attacker to read sensitive configuration information on an affected system.",
-      "cvss": 7.5,
-      "epss": 0.00976,
-      "exploitMaturity": "none",
-      "kevListed": true,
-      "kevDateAdded": "2026-11-10",
-      "kevDueDate": "2026-11-24",
-      "firstSeenAt": "2026-11-10T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-13T12:48:53.213Z"
     },
     {
       "id": "kev-2026-11-10-barracuda-networks-multiple-products",
       "url": "https://securitythreatpulse.com/events/kev-2026-11-10-barracuda-networks-multiple-products",
       "title": "Several Barracuda Networks products: attackers can run commands on it",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 11 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 12 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 6,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 4 days old.",
+        "The confirmation is 5 days old.",
         "12 products are affected."
       ],
       "rulesVersion": "v3",
@@ -1108,81 +724,21 @@
       "kevDateAdded": "2026-11-10",
       "kevDueDate": "2026-11-13",
       "firstSeenAt": "2026-11-10T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-13T05:08:27.817Z"
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-15T11:35:04.889Z"
     },
     {
-      "id": "kev-2026-10-08-proftpd-proftpd",
-      "url": "https://securitythreatpulse.com/events/kev-2026-10-08-proftpd-proftpd",
-      "title": "ProFTPD: attackers can gain admin rights",
+      "id": "kev-2026-11-10-microsoft-office",
+      "url": "https://securitythreatpulse.com/events/kev-2026-11-10-microsoft-office",
+      "title": "Microsoft Office: security flaw used in attacks",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 99%.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 4 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 6,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
-        "The product faces the internet or gives remote access.",
-        "Ready-made attack tools are public."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "reported",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2015-3306"
-      ],
-      "vendor": "ProFTPD",
-      "product": "ProFTPD",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "proftpd/proftpd",
-          "vendor": "ProFTPD",
-          "product": "ProFTPD",
-          "evidence": [
-            "kev"
-          ],
-          "vendorKey": "proftpd",
-          "productKey": "proftpd"
-        }
-      ],
-      "category": {
-        "id": "file-transfer",
-        "label": "File transfer",
-        "why": "It holds files you swap with customers and partners, a common target for bulk data theft.",
-        "doThis": "Patch it today and check it for files or accounts you do not recognize."
-      },
-      "summary": "ProFTPD contains an improper access control vulnerability that could allow remote attackers to read and write to arbitrary files via the site cpfr and site cpto commands.",
-      "cvss": 10,
-      "epss": 0.99497,
-      "exploitMaturity": "weaponized",
-      "kevListed": true,
-      "kevDateAdded": "2026-10-08",
-      "kevDueDate": "2026-10-11",
-      "firstSeenAt": "2026-10-08T00:00:00.000Z",
-      "updatedAt": "2026-11-08T16:37:40.566Z",
-      "newestEvidenceAt": "2026-11-09T19:59:41.489Z"
-    },
-    {
-      "id": "kev-2026-10-30-ivanti-connect-secure",
-      "url": "https://securitythreatpulse.com/events/kev-2026-10-30-ivanti-connect-secure",
-      "title": "Ivanti Connect Secure: 2 flaws used in attacks; attackers can get in without a password",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 10 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
-      "tier": "now",
-      "rankScore": 6,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "The product faces the internet or gives remote access.",
-        "The confirmation is 15 days old."
+        "The confirmation is 5 days old.",
+        "7 products are affected."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -1197,48 +753,173 @@
         "damage"
       ],
       "cves": [
-        "CVE-2026-111357",
-        "CVE-2026-118527"
+        "CVE-2026-124194"
       ],
-      "vendor": "Ivanti",
-      "product": "Connect Secure",
+      "vendor": "Microsoft",
+      "product": "Office",
       "affectedProducts": [
         {
           "kind": "direct",
-          "slug": "ivanti/connectsecure",
-          "vendor": "Ivanti",
-          "product": "Connect Secure",
+          "slug": "microsoft/office",
+          "vendor": "Microsoft",
+          "product": "Office",
+          "evidence": [
+            "kev"
+          ],
+          "vendorKey": "microsoft",
+          "productKey": "office"
+        },
+        {
+          "kind": "direct",
+          "slug": "microsoft/microsoft365appsforenterprise",
+          "vendor": "Microsoft",
+          "product": "Microsoft 365 Apps For Enterprise",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "microsoft",
+          "productKey": "microsoft365appsforenterprise"
+        },
+        {
+          "kind": "direct",
+          "slug": "microsoft/microsoftofficeltsc2021",
+          "vendor": "Microsoft",
+          "product": "Microsoft Office Ltsc 2021",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "microsoft",
+          "productKey": "microsoftofficeltsc2021"
+        },
+        {
+          "kind": "direct",
+          "slug": "microsoft/microsoftofficeltsc2024",
+          "vendor": "Microsoft",
+          "product": "Microsoft Office Ltsc 2024",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "microsoft",
+          "productKey": "microsoftofficeltsc2024"
+        },
+        {
+          "kind": "direct",
+          "slug": "microsoft/365apps",
+          "vendor": "Microsoft",
+          "product": "365 Apps",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "microsoft",
+          "productKey": "365apps"
+        },
+        {
+          "kind": "direct",
+          "slug": "microsoft/office2021",
+          "vendor": "Microsoft",
+          "product": "Office 2021",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "microsoft",
+          "productKey": "office2021"
+        },
+        {
+          "kind": "direct",
+          "slug": "microsoft/office2024",
+          "vendor": "Microsoft",
+          "product": "Office 2024",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "microsoft",
+          "productKey": "office2024"
+        }
+      ],
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Microsoft Office Outlook contains a missing user interaction for potentially unsafe action vulnerability that allows an unauthorized attacker to perform spoofing over a network.",
+      "cvss": 6.5,
+      "epss": 0.0162,
+      "exploitMaturity": "poc",
+      "kevListed": true,
+      "kevDateAdded": "2026-11-10",
+      "kevDueDate": "2026-11-24",
+      "firstSeenAt": "2026-11-10T00:00:00.000Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-15T11:00:07.975Z"
+    },
+    {
+      "id": "kev-2026-10-16-beyondtrust-remote-support",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-16-beyondtrust-remote-support",
+      "title": "BeyondTrust Remote Support: attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 30 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3). The exploit prediction score is 79%.",
+      "tier": "now",
+      "rankScore": 6,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "The product faces the internet or gives remote access.",
+        "Ready-made attack tools are public."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-102764"
+      ],
+      "vendor": "BeyondTrust",
+      "product": "Remote Support",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "beyondtrust/remotesupport",
+          "vendor": "BeyondTrust",
+          "product": "Remote Support",
           "evidence": [
             "kev",
             "cpe"
           ],
-          "vendorKey": "ivanti",
-          "productKey": "connectsecure"
+          "vendorKey": "beyondtrust",
+          "productKey": "remotesupport"
         }
       ],
       "category": {
-        "id": "edge",
-        "label": "VPN, firewall or gateway",
-        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
-        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+        "id": "remote-it",
+        "label": "Remote support or IT management",
+        "why": "It controls many computers at once, so one break-in can reach all of them.",
+        "doThis": "Patch it today, or ask your IT provider if they run it for you."
       },
-      "summary": "Ivanti Connect Secure contains a missing authentication for critical function vulnerability that could allow a local authenticated attacker to escalate their privileges. This vulnerability can be chained with CVE-2026-104935 and CVE-2026-118527.",
-      "cvss": 7,
-      "epss": 0.00822,
-      "exploitMaturity": "none",
+      "summary": "BeyondTrust Remote Support contains an authentication bypass by spoofing vulnerability that could allow a remote attacker to perform file operations on the appliance.",
+      "cvss": 9.3,
+      "epss": 0.79485,
+      "exploitMaturity": "weaponized",
       "kevListed": true,
-      "kevDateAdded": "2026-10-30",
-      "kevDueDate": "2026-11-02",
-      "firstSeenAt": "2026-10-30T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-08T13:00:20.484Z"
+      "kevDateAdded": "2026-10-16",
+      "kevDueDate": "2026-10-19",
+      "firstSeenAt": "2026-10-16T00:00:00.000Z",
+      "updatedAt": "2026-11-14T21:00:10.654Z",
+      "newestEvidenceAt": "2026-11-15T09:10:57.055Z"
     },
     {
       "id": "kev-2026-10-14-cisco-secure-email-gateway",
       "url": "https://securitythreatpulse.com/events/kev-2026-10-14-cisco-secure-email-gateway",
       "title": "Cisco Secure Email Gateway: attackers can read or change files",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 30 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 31 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
       "tier": "now",
       "rankScore": 6,
       "rankWhy": [
@@ -1301,8 +982,655 @@
       "kevDateAdded": "2026-10-14",
       "kevDueDate": "2026-10-17",
       "firstSeenAt": "2026-10-14T00:00:00.000Z",
-      "updatedAt": "2026-11-13T16:30:25.463Z",
-      "newestEvidenceAt": "2026-11-07T11:13:03.187Z"
+      "updatedAt": "2026-11-14T16:30:21.664Z",
+      "newestEvidenceAt": "2026-11-15T08:43:24.195Z"
+    },
+    {
+      "id": "kev-2026-11-10-cisco-broadworks",
+      "url": "https://securitythreatpulse.com/events/kev-2026-11-10-cisco-broadworks",
+      "title": "Cisco BroadWorks: security flaw used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 87 days old, so many systems are likely still unpatched.",
+      "tier": "now",
+      "rankScore": 6,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "The confirmation is 5 days old.",
+        "6 products are affected."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-20320"
+      ],
+      "vendor": "Cisco",
+      "product": "BroadWorks",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "cisco/broadworks",
+          "vendor": "Cisco",
+          "product": "BroadWorks",
+          "evidence": [
+            "kev"
+          ],
+          "vendorKey": "cisco",
+          "productKey": "broadworks"
+        },
+        {
+          "kind": "direct",
+          "slug": "cisco/ciscobroadworks",
+          "vendor": "Cisco",
+          "product": "Cisco Broadworks",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "cisco",
+          "productKey": "ciscobroadworks"
+        },
+        {
+          "kind": "direct",
+          "slug": "cisco/broadworksapplicationdeliveryplatform",
+          "vendor": "Cisco",
+          "product": "Broadworks Application Delivery Platform",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "cisco",
+          "productKey": "broadworksapplicationdeliveryplatform"
+        },
+        {
+          "kind": "direct",
+          "slug": "cisco/broadworksapplicationserver",
+          "vendor": "Cisco",
+          "product": "Broadworks Application Server",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "cisco",
+          "productKey": "broadworksapplicationserver"
+        },
+        {
+          "kind": "direct",
+          "slug": "cisco/broadworksprofileserver",
+          "vendor": "Cisco",
+          "product": "Broadworks Profile Server",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "cisco",
+          "productKey": "broadworksprofileserver"
+        },
+        {
+          "kind": "direct",
+          "slug": "cisco/broadworksxtendedservicesplatform",
+          "vendor": "Cisco",
+          "product": "Broadworks Xtended Services Platform",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "cisco",
+          "productKey": "broadworksxtendedservicesplatform"
+        }
+      ],
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Cisco BroadWorks contains an improper restriction of XML external entity reference vulnerability that could allow an unauthenticated, remote attacker to read sensitive configuration information on an affected system.",
+      "cvss": 7.5,
+      "epss": 0.00976,
+      "exploitMaturity": "none",
+      "kevListed": true,
+      "kevDateAdded": "2026-11-10",
+      "kevDueDate": "2026-11-24",
+      "firstSeenAt": "2026-11-10T00:00:00.000Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-15T07:40:38.755Z"
+    },
+    {
+      "id": "early-cve-2026-109618",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-109618",
+      "title": "PHP: 2 flaws used in attacks; attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 24 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.2). The exploit prediction score is 100%.",
+      "tier": "now",
+      "rankScore": 6,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "Ready-made attack tools are public.",
+        "The confirmation is 20 days old.",
+        "11 products are affected."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-109618",
+        "CVE-2026-109619"
+      ],
+      "vendor": "PHP Group",
+      "product": "PHP",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "php/php",
+          "vendor": "PHP",
+          "product": "PHP",
+          "evidence": [
+            "kev",
+            "cpe"
+          ],
+          "vendorKey": "php",
+          "productKey": "php"
+        },
+        {
+          "kind": "direct",
+          "slug": "siemens/ruggedcomape1808",
+          "vendor": "Siemens",
+          "product": "Ruggedcom Ape1808 Firmware",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "siemens",
+          "productKey": "ruggedcomape1808"
+        },
+        {
+          "kind": "direct",
+          "slug": "paloaltonetworks/panos",
+          "vendor": "Palo Alto Networks",
+          "product": "PAN-OS",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "paloaltonetworks",
+          "productKey": "panos"
+        },
+        {
+          "kind": "direct",
+          "slug": "paloaltonetworks/panoramavirtualappliance",
+          "vendor": "Palo Alto Networks",
+          "product": "Panorama Virtual Appliance",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "paloaltonetworks",
+          "productKey": "panoramavirtualappliance"
+        },
+        {
+          "kind": "direct",
+          "slug": "siemens/blueplanet360nx3m6wmodiisx",
+          "vendor": "Siemens",
+          "product": "Blueplanet 360 Nx3 M6 Wm Od Iisx Firmware",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "siemens",
+          "productKey": "blueplanet360nx3m6wmodiisx"
+        },
+        {
+          "kind": "direct",
+          "slug": "siemens/blueplanet360nx3m6wmodiisxs",
+          "vendor": "Siemens",
+          "product": "Blueplanet 360 Nx3 M6 Wm Od Iisx-s Firmware",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "siemens",
+          "productKey": "blueplanet360nx3m6wmodiisxs"
+        },
+        {
+          "kind": "direct",
+          "slug": "siemens/energyengage",
+          "vendor": "Siemens",
+          "product": "Energy Engage",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "siemens",
+          "productKey": "energyengage"
+        },
+        {
+          "kind": "direct",
+          "slug": "siemens/spectrumpower4",
+          "vendor": "Siemens",
+          "product": "Spectrum Power 4",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "siemens",
+          "productKey": "spectrumpower4"
+        },
+        {
+          "kind": "direct",
+          "slug": "siemens/spectrumpower7",
+          "vendor": "Siemens",
+          "product": "Spectrum Power 7",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "siemens",
+          "productKey": "spectrumpower7"
+        },
+        {
+          "kind": "direct",
+          "slug": "siemens/spectrumpowertg",
+          "vendor": "Siemens",
+          "product": "Spectrum Power Tg",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "siemens",
+          "productKey": "spectrumpowertg"
+        },
+        {
+          "kind": "direct",
+          "slug": "siemens/amists",
+          "vendor": "Siemens",
+          "product": "Amis Ts",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "siemens",
+          "productKey": "amists"
+        }
+      ],
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "PHP uses longjmp() for out-of-memory (OOM) errors to exit the current context and abort handling of the request. Some contexts may not properly account for this scenario and leave request memory in an uninitialized state before performing an allocation. The subsequent request cleanup procedure may read or branch on this memory.",
+      "cvss": 9.2,
+      "epss": 0.99999,
+      "exploitMaturity": "weaponized",
+      "kevListed": true,
+      "kevDateAdded": "2026-10-26",
+      "kevDueDate": "2026-10-29",
+      "firstSeenAt": "2026-10-21T23:00:53.000Z",
+      "updatedAt": "2026-11-15T01:30:33.659Z",
+      "newestEvidenceAt": "2026-11-15T07:16:25.478Z"
+    },
+    {
+      "id": "kev-2026-10-14-palo-alto-networks-pan-os",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-14-palo-alto-networks-pan-os",
+      "title": "Palo Alto Networks PAN-OS: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 31 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+      "tier": "now",
+      "rankScore": 6,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "The product faces the internet or gives remote access.",
+        "4 products are affected."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-0322"
+      ],
+      "vendor": "Palo Alto Networks",
+      "product": "PAN-OS",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "paloaltonetworks/panos",
+          "vendor": "Palo Alto Networks",
+          "product": "PAN-OS",
+          "evidence": [
+            "kev",
+            "cpe"
+          ],
+          "vendorKey": "paloaltonetworks",
+          "productKey": "panos"
+        },
+        {
+          "kind": "direct",
+          "slug": "paloaltonetworks/cloudngfw",
+          "vendor": "Palo Alto Networks",
+          "product": "Cloud Ngfw",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "paloaltonetworks",
+          "productKey": "cloudngfw"
+        },
+        {
+          "kind": "direct",
+          "slug": "paloaltonetworks/prismaaccess",
+          "vendor": "Palo Alto Networks",
+          "product": "Prisma Access",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "paloaltonetworks",
+          "productKey": "prismaaccess"
+        },
+        {
+          "kind": "direct",
+          "slug": "siemens/ruggedcomape1808",
+          "vendor": "Siemens",
+          "product": "Ruggedcom Ape1808 Firmware",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "siemens",
+          "productKey": "ruggedcomape1808"
+        }
+      ],
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Palo Alto Networks PAN-OS contains a code injection vulnerability that could allow an authenticated attacker with network access to execute arbitrary code with root privileges on the firewall.",
+      "cvss": 8.6,
+      "epss": 0.02147,
+      "exploitMaturity": "poc",
+      "kevListed": true,
+      "kevDateAdded": "2026-10-14",
+      "kevDueDate": "2026-10-17",
+      "firstSeenAt": "2026-10-14T00:00:00.000Z",
+      "updatedAt": "2026-11-14T17:30:33.240Z",
+      "newestEvidenceAt": "2026-11-15T04:45:40.715Z"
+    },
+    {
+      "id": "kev-2026-10-13-ivanti-connect-secure",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-13-ivanti-connect-secure",
+      "title": "Ivanti Connect Secure: attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 32 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The exploit prediction score is 89%.",
+      "tier": "now",
+      "rankScore": 6,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "The product faces the internet or gives remote access.",
+        "Ready-made attack tools are public."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-104935"
+      ],
+      "vendor": "Ivanti",
+      "product": "Connect Secure",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "ivanti/connectsecure",
+          "vendor": "Ivanti",
+          "product": "Connect Secure",
+          "evidence": [
+            "kev",
+            "cpe"
+          ],
+          "vendorKey": "ivanti",
+          "productKey": "connectsecure"
+        }
+      ],
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Ivanti Connect Secure contains an authentication bypass by spoofing vulnerability that allows a remote unauthenticated attacker to execute arbitrary commands.",
+      "cvss": 8.6,
+      "epss": 0.88936,
+      "exploitMaturity": "weaponized",
+      "kevListed": true,
+      "kevDateAdded": "2026-10-13",
+      "kevDueDate": "2026-10-16",
+      "firstSeenAt": "2026-10-13T00:00:00.000Z",
+      "updatedAt": "2026-11-14T16:00:06.726Z",
+      "newestEvidenceAt": "2026-11-15T04:18:17.538Z"
+    },
+    {
+      "id": "kev-2026-10-30-ivanti-connect-secure",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-30-ivanti-connect-secure",
+      "title": "Ivanti Connect Secure: 2 flaws used in attacks; attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 11 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+      "tier": "now",
+      "rankScore": 6,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "The product faces the internet or gives remote access.",
+        "The confirmation is 16 days old."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-111357",
+        "CVE-2026-118527"
+      ],
+      "vendor": "Ivanti",
+      "product": "Connect Secure",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "ivanti/connectsecure",
+          "vendor": "Ivanti",
+          "product": "Connect Secure",
+          "evidence": [
+            "kev",
+            "cpe"
+          ],
+          "vendorKey": "ivanti",
+          "productKey": "connectsecure"
+        }
+      ],
+      "category": {
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+      },
+      "summary": "Ivanti Connect Secure contains a missing authentication for critical function vulnerability that could allow a local authenticated attacker to escalate their privileges. This vulnerability can be chained with CVE-2026-104935 and CVE-2026-118527.",
+      "cvss": 7,
+      "epss": 0.00822,
+      "exploitMaturity": "none",
+      "kevListed": true,
+      "kevDateAdded": "2026-10-30",
+      "kevDueDate": "2026-11-02",
+      "firstSeenAt": "2026-10-30T00:00:00.000Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-14T22:14:25.357Z"
+    },
+    {
+      "id": "kev-2026-11-10-openwave-messaging-l-webtop-media-transcoder",
+      "url": "https://securitythreatpulse.com/events/kev-2026-11-10-openwave-messaging-l-webtop-media-transcoder",
+      "title": "Openwave Messaging Webtop Media Transcoder: security flaw used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 29 days old, so many systems are likely still unpatched.",
+      "tier": "now",
+      "rankScore": 6,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "The confirmation is 5 days old.",
+        "3 products are affected."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-111793"
+      ],
+      "vendor": "Openwave Messaging Limited",
+      "product": "Webtop Media Transcoder",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "openwavemessaging/webtopmediatranscoder",
+          "vendor": "Openwave Messaging",
+          "product": "Webtop Media Transcoder",
+          "evidence": [
+            "kev"
+          ],
+          "vendorKey": "openwavemessaging",
+          "productKey": "webtopmediatranscoder"
+        },
+        {
+          "kind": "direct",
+          "slug": "openwavemessagingireland/webtopmediatranscoder",
+          "vendor": "Openwave Messaging (ireland)",
+          "product": "Webtop Media Transcoder",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "openwavemessagingireland",
+          "productKey": "webtopmediatranscoder"
+        },
+        {
+          "kind": "direct",
+          "slug": "openwave/webtopmediatranscoder",
+          "vendor": "Openwave",
+          "product": "Webtop Media Transcoder",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "openwave",
+          "productKey": "webtopmediatranscoder"
+        }
+      ],
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Openwave Messaging Limited Webtop Media Transcoder contains an incorrect resource transfer between spheres vulnerability that may allow an authenticated user to process and convert unintended document types if bypassing the Webmail experience.",
+      "cvss": 4.3,
+      "epss": 0.00638,
+      "exploitMaturity": "none",
+      "kevListed": true,
+      "kevDateAdded": "2026-11-10",
+      "kevDueDate": "2026-11-24",
+      "firstSeenAt": "2026-11-10T00:00:00.000Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-14T14:31:08.688Z"
+    },
+    {
+      "id": "kev-2026-10-08-proftpd-proftpd",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-08-proftpd-proftpd",
+      "title": "ProFTPD: attackers can gain admin rights",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 99%.",
+      "tier": "now",
+      "rankScore": 6,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "The product faces the internet or gives remote access.",
+        "Ready-made attack tools are public."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "reported",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2015-3306"
+      ],
+      "vendor": "ProFTPD",
+      "product": "ProFTPD",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "proftpd/proftpd",
+          "vendor": "ProFTPD",
+          "product": "ProFTPD",
+          "evidence": [
+            "kev"
+          ],
+          "vendorKey": "proftpd",
+          "productKey": "proftpd"
+        }
+      ],
+      "category": {
+        "id": "file-transfer",
+        "label": "File transfer",
+        "why": "It holds files you swap with customers and partners, a common target for bulk data theft.",
+        "doThis": "Patch it today and check it for files or accounts you do not recognize."
+      },
+      "summary": "ProFTPD contains an improper access control vulnerability that could allow remote attackers to read and write to arbitrary files via the site cpfr and site cpto commands.",
+      "cvss": 10,
+      "epss": 0.99497,
+      "exploitMaturity": "weaponized",
+      "kevListed": true,
+      "kevDateAdded": "2026-10-08",
+      "kevDueDate": "2026-10-11",
+      "firstSeenAt": "2026-10-08T00:00:00.000Z",
+      "updatedAt": "2026-11-08T16:37:40.566Z",
+      "newestEvidenceAt": "2026-11-09T19:59:41.489Z"
     },
     {
       "id": "kev-2026-09-14-cisco-secure-email-gateway",
@@ -1376,78 +1704,17 @@
       "newestEvidenceAt": "2026-11-06T15:30:56.822Z"
     },
     {
-      "id": "kev-2026-10-16-beyondtrust-remote-support",
-      "url": "https://securitythreatpulse.com/events/kev-2026-10-16-beyondtrust-remote-support",
-      "title": "BeyondTrust Remote Support: attackers can get in without a password",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 29 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3). The exploit prediction score is 79%.",
-      "tier": "now",
-      "rankScore": 6,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "The product faces the internet or gives remote access.",
-        "Ready-made attack tools are public."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-102764"
-      ],
-      "vendor": "BeyondTrust",
-      "product": "Remote Support",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "beyondtrust/remotesupport",
-          "vendor": "BeyondTrust",
-          "product": "Remote Support",
-          "evidence": [
-            "kev",
-            "cpe"
-          ],
-          "vendorKey": "beyondtrust",
-          "productKey": "remotesupport"
-        }
-      ],
-      "category": {
-        "id": "remote-it",
-        "label": "Remote support or IT management",
-        "why": "It controls many computers at once, so one break-in can reach all of them.",
-        "doThis": "Patch it today, or ask your IT provider if they run it for you."
-      },
-      "summary": "BeyondTrust Remote Support contains an authentication bypass by spoofing vulnerability that could allow a remote attacker to perform file operations on the appliance.",
-      "cvss": 9.3,
-      "epss": 0.79485,
-      "exploitMaturity": "weaponized",
-      "kevListed": true,
-      "kevDateAdded": "2026-10-16",
-      "kevDueDate": "2026-10-19",
-      "firstSeenAt": "2026-10-16T00:00:00.000Z",
-      "updatedAt": "2026-11-13T21:00:04.639Z",
-      "newestEvidenceAt": "2026-11-06T06:06:15.657Z"
-    },
-    {
       "id": "early-cve-2026-76418",
       "url": "https://securitythreatpulse.com/events/early-cve-2026-76418",
       "title": "Cisco Secure Firewall Adaptive Security Appliance (ASA) Software: attackers can knock it offline",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 16 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 17 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
       "tier": "now",
       "rankScore": 6,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
         "The product faces the internet or gives remote access.",
-        "The confirmation is 16 days old."
+        "The confirmation is 17 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -1505,7 +1772,7 @@
       "kevDateAdded": "2026-10-29",
       "kevDueDate": "2026-11-01",
       "firstSeenAt": "2026-10-29T12:54:01.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-06T04:48:11.072Z"
     },
     {
@@ -1513,7 +1780,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-10-16-fortinet-multiple-products",
       "title": "Several Fortinet products: attackers can read or change files",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 213 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 214 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 6,
       "rankWhy": [
@@ -1609,109 +1876,15 @@
       "kevDateAdded": "2026-10-16",
       "kevDueDate": "2026-10-19",
       "firstSeenAt": "2026-10-16T00:00:00.000Z",
-      "updatedAt": "2026-11-13T16:00:07.708Z",
+      "updatedAt": "2026-11-14T16:00:06.726Z",
       "newestEvidenceAt": "2026-11-05T10:56:45.699Z"
-    },
-    {
-      "id": "kev-2026-10-14-palo-alto-networks-pan-os",
-      "url": "https://securitythreatpulse.com/events/kev-2026-10-14-palo-alto-networks-pan-os",
-      "title": "Palo Alto Networks PAN-OS: attackers can run their own code",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 30 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
-      "tier": "now",
-      "rankScore": 6,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "The product faces the internet or gives remote access.",
-        "4 products are affected."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-0322"
-      ],
-      "vendor": "Palo Alto Networks",
-      "product": "PAN-OS",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "paloaltonetworks/panos",
-          "vendor": "Palo Alto Networks",
-          "product": "PAN-OS",
-          "evidence": [
-            "kev",
-            "cpe"
-          ],
-          "vendorKey": "paloaltonetworks",
-          "productKey": "panos"
-        },
-        {
-          "kind": "direct",
-          "slug": "paloaltonetworks/cloudngfw",
-          "vendor": "Palo Alto Networks",
-          "product": "Cloud Ngfw",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "paloaltonetworks",
-          "productKey": "cloudngfw"
-        },
-        {
-          "kind": "direct",
-          "slug": "paloaltonetworks/prismaaccess",
-          "vendor": "Palo Alto Networks",
-          "product": "Prisma Access",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "paloaltonetworks",
-          "productKey": "prismaaccess"
-        },
-        {
-          "kind": "direct",
-          "slug": "siemens/ruggedcomape1808",
-          "vendor": "Siemens",
-          "product": "Ruggedcom Ape1808 Firmware",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "siemens",
-          "productKey": "ruggedcomape1808"
-        }
-      ],
-      "category": {
-        "id": "edge",
-        "label": "VPN, firewall or gateway",
-        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
-        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
-      },
-      "summary": "Palo Alto Networks PAN-OS contains a code injection vulnerability that could allow an authenticated attacker with network access to execute arbitrary code with root privileges on the firewall.",
-      "cvss": 8.6,
-      "epss": 0.02147,
-      "exploitMaturity": "poc",
-      "kevListed": true,
-      "kevDateAdded": "2026-10-14",
-      "kevDueDate": "2026-10-17",
-      "firstSeenAt": "2026-10-14T00:00:00.000Z",
-      "updatedAt": "2026-11-13T17:31:16.415Z",
-      "newestEvidenceAt": "2026-11-05T10:06:28.744Z"
     },
     {
       "id": "kev-2026-10-04-citrix-netscaler",
       "url": "https://securitythreatpulse.com/events/kev-2026-10-04-citrix-netscaler",
       "title": "Citrix NetScaler: attackers can knock it offline",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 41 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 42 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
       "tier": "now",
       "rankScore": 6,
       "rankWhy": [
@@ -1785,7 +1958,7 @@
       "kevDateAdded": "2026-10-04",
       "kevDueDate": "2026-10-07",
       "firstSeenAt": "2026-10-04T00:00:00.000Z",
-      "updatedAt": "2026-11-14T03:00:08.666Z",
+      "updatedAt": "2026-11-15T03:00:05.961Z",
       "newestEvidenceAt": "2026-11-04T12:39:55.363Z"
     },
     {
@@ -1853,12 +2026,12 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-11-13-unrealircd-unrealircd",
       "title": "UnrealIRCd: security flaw used in attacks",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 6 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 7 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 1 day old."
+        "The confirmation is 2 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -1899,27 +2072,87 @@
       },
       "summary": "UnrealIRCd UnrealIRCd contains an improper neutralization of delimiters vulnerability that allows any user on a network with two or more linked servers to inject server-to-server commands that are executed with server authority.",
       "cvss": 8.6,
-      "epss": 0.00302,
+      "epss": 0.00508,
       "exploitMaturity": "poc",
       "kevListed": true,
       "kevDateAdded": "2026-11-13",
       "kevDueDate": "2026-11-16",
       "firstSeenAt": "2026-11-13T00:00:00.000Z",
-      "updatedAt": "2026-11-14T10:00:06.769Z",
-      "newestEvidenceAt": "2026-11-14T11:00:25.798Z"
+      "updatedAt": "2026-11-15T03:00:05.961Z",
+      "newestEvidenceAt": "2026-11-15T10:03:25.762Z"
     },
     {
-      "id": "early-cve-2026-109618",
-      "url": "https://securitythreatpulse.com/events/early-cve-2026-109618",
-      "title": "PHP: 2 flaws used in attacks; attackers can run their own code",
+      "id": "kev-2026-11-09-signalwire-freeswitch",
+      "url": "https://securitythreatpulse.com/events/kev-2026-11-09-signalwire-freeswitch",
+      "title": "SignalWire FreeSwitch: attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 23 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.2). The exploit prediction score is 100%.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 9 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
+      "tier": "now",
+      "rankScore": 5,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "The confirmation is 6 days old."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-116779"
+      ],
+      "vendor": "SignalWire",
+      "product": "FreeSwitch",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "signalwire/freeswitch",
+          "vendor": "SignalWire",
+          "product": "FreeSwitch",
+          "evidence": [
+            "kev",
+            "cpe"
+          ],
+          "vendorKey": "signalwire",
+          "productKey": "freeswitch"
+        }
+      ],
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "SignalWire FreeSwitch contains a code injection vulnerability that permits configuration and credential disclosure, arbitrary call control, and command execution.",
+      "cvss": 9.8,
+      "epss": 0.02473,
+      "exploitMaturity": "poc",
+      "kevListed": true,
+      "kevDateAdded": "2026-11-09",
+      "kevDueDate": "2026-11-12",
+      "firstSeenAt": "2026-11-09T00:00:00.000Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-15T09:55:01.000Z"
+    },
+    {
+      "id": "kev-2026-10-15-atlassian-multiple-products",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-15-atlassian-multiple-products",
+      "title": "Several Atlassian products: security flaw used in attacks",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 40 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.3). The exploit prediction score is 100%.",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
         "Ready-made attack tools are public.",
-        "The confirmation is 19 days old."
+        "9 products are affected."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -1934,53 +2167,140 @@
         "damage"
       ],
       "cves": [
-        "CVE-2026-109618",
-        "CVE-2026-109619"
+        "CVE-2026-21589"
       ],
-      "vendor": "PHP Group",
-      "product": "PHP",
+      "vendor": "Atlassian",
+      "product": "Multiple Products",
       "affectedProducts": [
         {
           "kind": "direct",
-          "slug": "php/php",
-          "vendor": "PHP",
-          "product": "PHP",
+          "slug": "atlassian/multipleproducts",
+          "vendor": "Atlassian",
+          "product": "Multiple Products",
           "evidence": [
-            "kev",
+            "kev"
+          ],
+          "vendorKey": "atlassian",
+          "productKey": "multipleproducts"
+        },
+        {
+          "kind": "direct",
+          "slug": "atlassian/bamboodatacenter",
+          "vendor": "Atlassian",
+          "product": "Bamboo Data Center",
+          "evidence": [
             "cpe"
           ],
-          "vendorKey": "php",
-          "productKey": "php"
+          "vendorKey": "atlassian",
+          "productKey": "bamboodatacenter"
+        },
+        {
+          "kind": "direct",
+          "slug": "atlassian/bitbucketdatacenter",
+          "vendor": "Atlassian",
+          "product": "Bitbucket Data Center",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "atlassian",
+          "productKey": "bitbucketdatacenter"
+        },
+        {
+          "kind": "direct",
+          "slug": "atlassian/confluencedatacenter",
+          "vendor": "Atlassian",
+          "product": "Confluence Data Center",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "atlassian",
+          "productKey": "confluencedatacenter"
+        },
+        {
+          "kind": "direct",
+          "slug": "atlassian/crowddatacenter",
+          "vendor": "Atlassian",
+          "product": "Crowd Data Center",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "atlassian",
+          "productKey": "crowddatacenter"
+        },
+        {
+          "kind": "direct",
+          "slug": "atlassian/crucibledatacenter",
+          "vendor": "Atlassian",
+          "product": "Crucible Data Center",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "atlassian",
+          "productKey": "crucibledatacenter"
+        },
+        {
+          "kind": "direct",
+          "slug": "atlassian/fisheyedatacenter",
+          "vendor": "Atlassian",
+          "product": "Fisheye Data Center",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "atlassian",
+          "productKey": "fisheyedatacenter"
+        },
+        {
+          "kind": "direct",
+          "slug": "atlassian/jiraservicemanagementdatacenter",
+          "vendor": "Atlassian",
+          "product": "Jira Service Management Data Center",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "atlassian",
+          "productKey": "jiraservicemanagementdatacenter"
+        },
+        {
+          "kind": "direct",
+          "slug": "atlassian/jirasoftwaredatacenter",
+          "vendor": "Atlassian",
+          "product": "Jira Software Data Center",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "atlassian",
+          "productKey": "jirasoftwaredatacenter"
         }
       ],
       "category": {
-        "id": "website",
-        "label": "Website or online store",
-        "why": "It runs public websites, online stores or the software behind them.",
-        "doThis": "Ask whoever runs your website or store to update it."
+        "id": "collaboration",
+        "label": "Documents and collaboration",
+        "why": "It holds shared documents and internal pages.",
+        "doThis": "Patch it, or ask your provider whether they have."
       },
-      "summary": "PHP uses longjmp() for out-of-memory (OOM) errors to exit the current context and abort handling of the request. Some contexts may not properly account for this scenario and leave request memory in an uninitialized state before performing an allocation. The subsequent request cleanup procedure may read or branch on this memory.",
-      "cvss": 9.2,
-      "epss": 0.99999,
+      "summary": "Multiple Atlassian products (Bitbucket Data Center ,Confluence Data Center, Jira Service Management Data Center, Jira Software Data Center, Bamboo Data Center, Crowd Data Center, Crucible and Fisheye) contain a files or directories accessible to external parties vulnerability which could allow an unauthenticated attacker to access specific files within the web application root directory in…",
+      "cvss": 9.3,
+      "epss": 0.99664,
       "exploitMaturity": "weaponized",
       "kevListed": true,
-      "kevDateAdded": "2026-10-26",
-      "kevDueDate": "2026-10-29",
-      "firstSeenAt": "2026-10-21T23:00:53.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-14T10:35:34.765Z"
+      "kevDateAdded": "2026-10-15",
+      "kevDueDate": "2026-10-18",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "updatedAt": "2026-11-14T21:30:24.258Z",
+      "newestEvidenceAt": "2026-11-15T09:11:56.581Z"
     },
     {
-      "id": "kev-2026-10-23-arista-velocloud-orchestrator",
-      "url": "https://securitythreatpulse.com/events/kev-2026-10-23-arista-velocloud-orchestrator",
-      "title": "Arista VeloCloud Orchestrator: attackers can read or change its database",
+      "id": "kev-2026-10-29-gitlab-community-edition-and-enterpri",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-29-gitlab-community-edition-and-enterpri",
+      "title": "GitLab Community Edition and Enterprise Edition: attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 22 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.4).",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 33 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 69%.",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
-        "The product faces the internet or gives remote access."
+        "Ready-made attack tools are public.",
+        "The confirmation is 17 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -1995,52 +2315,62 @@
         "damage"
       ],
       "cves": [
-        "CVE-2026-114625"
+        "CVE-2026-97229"
       ],
-      "vendor": "Arista",
-      "product": "VeloCloud Orchestrator",
+      "vendor": "GitLab",
+      "product": "Community Edition and Enterprise Edition",
       "affectedProducts": [
         {
           "kind": "direct",
-          "slug": "arista/velocloudorchestrator",
-          "vendor": "Arista",
-          "product": "VeloCloud Orchestrator",
+          "slug": "gitlab/communityeditionandenterpriseedition",
+          "vendor": "GitLab",
+          "product": "Community Edition and Enterprise Edition",
           "evidence": [
-            "kev",
+            "kev"
+          ],
+          "vendorKey": "gitlab",
+          "productKey": "communityeditionandenterpriseedition"
+        },
+        {
+          "kind": "direct",
+          "slug": "gitlab/gitlab",
+          "vendor": "GitLab",
+          "product": "GitLab",
+          "evidence": [
             "cpe"
           ],
-          "vendorKey": "arista",
-          "productKey": "velocloudorchestrator"
+          "vendorKey": "gitlab",
+          "productKey": "gitlab"
         }
       ],
       "category": {
-        "id": "edge",
-        "label": "VPN, firewall or gateway",
-        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
-        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
+        "id": "developer",
+        "label": "Developer tools",
+        "why": "It holds source code and the keys used to build and ship software.",
+        "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
       },
-      "summary": "Arista VeloCloud Orchestrator on-prem contains a SQL injection vulnerability that may allow a remote attacker to access privileged internal functionality and impact the VCO host. Successful exploitation may compromise the confidentiality, integrity, and availability of the orchestrator and data managed by the orchestrator.",
-      "cvss": 9.4,
-      "epss": 0.01025,
-      "exploitMaturity": "poc",
+      "summary": "GitLab Community Edition and Enterprise Edition contain a integer overflow or wraparound vulnerability that could allow an unauthenticated user to execute arbitrary code on the GitLab server via a specially crafted regular expression in a CI/CD configuration, due to insufficient regular expression validation.",
+      "cvss": 10,
+      "epss": 0.69289,
+      "exploitMaturity": "weaponized",
       "kevListed": true,
-      "kevDateAdded": "2026-10-23",
-      "kevDueDate": "2026-10-26",
-      "firstSeenAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-14T07:26:45.626Z"
+      "kevDateAdded": "2026-10-29",
+      "kevDueDate": "2026-11-01",
+      "firstSeenAt": "2026-10-29T00:00:00.000Z",
+      "updatedAt": "2026-11-15T01:30:33.659Z",
+      "newestEvidenceAt": "2026-11-15T01:00:07.000Z"
     },
     {
       "id": "early-cve-2026-125350",
       "url": "https://securitythreatpulse.com/events/early-cve-2026-125350",
       "title": "Google Chrome: attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 3 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 4 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 4 days old."
+        "The confirmation is 5 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -2087,20 +2417,200 @@
       "kevDateAdded": "2026-11-10",
       "kevDueDate": "2026-11-24",
       "firstSeenAt": "2026-11-10T07:04:20.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-14T05:40:24.712Z"
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-14T23:48:27.856Z"
+    },
+    {
+      "id": "kev-2026-11-09-gpustack-gpustack",
+      "url": "https://securitythreatpulse.com/events/kev-2026-11-09-gpustack-gpustack",
+      "title": "GPUStack: attackers can run their own code",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 10 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
+      "tier": "now",
+      "rankScore": 5,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "The confirmation is 6 days old."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-102895"
+      ],
+      "vendor": "GPUStack",
+      "product": "GPUStack",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "gpustack/gpustack",
+          "vendor": "GPUStack",
+          "product": "GPUStack",
+          "evidence": [
+            "kev",
+            "cpe"
+          ],
+          "vendorKey": "gpustack",
+          "productKey": "gpustack"
+        }
+      ],
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "GPUStack contains an improper authentication vulnerability which could allow unauthenticated administrative access, including user and model changes, persistent administrator API-key creation, disclosure of worker and cloud-provider secrets, and code execution through POST /v2/inference-backends/from-yaml.",
+      "cvss": 9.8,
+      "epss": 0.00517,
+      "exploitMaturity": "poc",
+      "kevListed": true,
+      "kevDateAdded": "2026-11-09",
+      "kevDueDate": "2026-11-12",
+      "firstSeenAt": "2026-11-09T00:00:00.000Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-14T17:53:35.369Z"
+    },
+    {
+      "id": "kev-2026-11-09-openbsd-openssh",
+      "url": "https://securitythreatpulse.com/events/kev-2026-11-09-openbsd-openssh",
+      "title": "OpenBSD OpenSSH: attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 9 days old, so many systems are likely still unpatched.",
+      "tier": "now",
+      "rankScore": 5,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "The confirmation is 6 days old."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-123158"
+      ],
+      "vendor": "OpenBSD",
+      "product": "OpenSSH",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "openbsd/openssh",
+          "vendor": "OpenBSD",
+          "product": "OpenSSH",
+          "evidence": [
+            "kev",
+            "cpe"
+          ],
+          "vendorKey": "openbsd",
+          "productKey": "openssh"
+        }
+      ],
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "OpenBSD OpenSSH on Linux contains an unexpected status code or return value vulnerability that could allow for authentication bypass.",
+      "cvss": 8.1,
+      "epss": 0.189,
+      "exploitMaturity": "poc",
+      "kevListed": true,
+      "kevDateAdded": "2026-11-09",
+      "kevDueDate": "2026-11-12",
+      "firstSeenAt": "2026-11-09T00:00:00.000Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-14T17:00:26.738Z"
+    },
+    {
+      "id": "early-cve-2026-123218",
+      "url": "https://securitythreatpulse.com/events/early-cve-2026-123218",
+      "title": "IBM Aspera Faspex: attackers can gain admin rights",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 8 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
+      "tier": "now",
+      "rankScore": 5,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "The confirmation is 6 days old."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-123218"
+      ],
+      "vendor": "IBM",
+      "product": "Aspera Faspex",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "ibm/asperafaspex",
+          "vendor": "IBM",
+          "product": "Aspera Faspex",
+          "evidence": [
+            "kev",
+            "cpe"
+          ],
+          "vendorKey": "ibm",
+          "productKey": "asperafaspex"
+        }
+      ],
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "IBM Aspera Faspex 5.0.0 through 5.0.19 could allow an authorized user to craft a specific message to bypass user authorization and gain full administrative privileges.",
+      "cvss": 9.8,
+      "epss": 0.00535,
+      "exploitMaturity": "poc",
+      "kevListed": true,
+      "kevDateAdded": "2026-11-09",
+      "kevDueDate": "2026-11-12",
+      "firstSeenAt": "2026-11-09T00:00:00.000Z",
+      "updatedAt": "2026-11-15T04:00:05.877Z",
+      "newestEvidenceAt": "2026-11-14T16:59:49.908Z"
     },
     {
       "id": "kev-2026-10-27-google-brotli",
       "url": "https://securitythreatpulse.com/events/kev-2026-10-27-google-brotli",
       "title": "Google Brotli: attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 22 days old, so many systems are likely still unpatched. The severity score is critical (9.2). The exploit prediction score is 83%.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 23 days old, so many systems are likely still unpatched. The severity score is critical (9.2). The exploit prediction score is 83%.",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 18 days old.",
+        "The confirmation is 19 days old.",
         "12 products are affected."
       ],
       "rulesVersion": "v3",
@@ -2269,20 +2779,20 @@
       "kevDateAdded": "2026-10-27",
       "kevDueDate": "2026-11-10",
       "firstSeenAt": "2026-10-27T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-14T05:29:02.000Z"
+      "updatedAt": "2026-11-15T00:00:08.145Z",
+      "newestEvidenceAt": "2026-11-14T11:44:16.212Z"
     },
     {
-      "id": "kev-2026-11-09-openbsd-openssh",
-      "url": "https://securitythreatpulse.com/events/kev-2026-11-09-openbsd-openssh",
-      "title": "OpenBSD OpenSSH: attackers can get in without a password",
+      "id": "kev-2026-10-23-arista-velocloud-orchestrator",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-23-arista-velocloud-orchestrator",
+      "title": "Arista VeloCloud Orchestrator: attackers can read or change its database",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 8 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 23 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.4).",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 5 days old."
+        "The product faces the internet or gives remote access."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -2297,303 +2807,52 @@
         "damage"
       ],
       "cves": [
-        "CVE-2026-123158"
+        "CVE-2026-114625"
       ],
-      "vendor": "OpenBSD",
-      "product": "OpenSSH",
+      "vendor": "Arista",
+      "product": "VeloCloud Orchestrator",
       "affectedProducts": [
         {
           "kind": "direct",
-          "slug": "openbsd/openssh",
-          "vendor": "OpenBSD",
-          "product": "OpenSSH",
+          "slug": "arista/velocloudorchestrator",
+          "vendor": "Arista",
+          "product": "VeloCloud Orchestrator",
           "evidence": [
             "kev",
             "cpe"
           ],
-          "vendorKey": "openbsd",
-          "productKey": "openssh"
+          "vendorKey": "arista",
+          "productKey": "velocloudorchestrator"
         }
       ],
       "category": {
-        "id": "other",
-        "label": "Other software",
-        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
-        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+        "id": "edge",
+        "label": "VPN, firewall or gateway",
+        "why": "It sits at the edge of your network and faces the internet, so attackers can reach it directly.",
+        "doThis": "If you have it, patch it today. If you cannot, block access to it from the internet until you can."
       },
-      "summary": "OpenBSD OpenSSH on Linux contains an unexpected status code or return value vulnerability that could allow for authentication bypass.",
-      "cvss": 8.1,
-      "epss": 0.189,
+      "summary": "Arista VeloCloud Orchestrator on-prem contains a SQL injection vulnerability that may allow a remote attacker to access privileged internal functionality and impact the VCO host. Successful exploitation may compromise the confidentiality, integrity, and availability of the orchestrator and data managed by the orchestrator.",
+      "cvss": 9.4,
+      "epss": 0.01025,
       "exploitMaturity": "poc",
       "kevListed": true,
-      "kevDateAdded": "2026-11-09",
-      "kevDueDate": "2026-11-12",
-      "firstSeenAt": "2026-11-09T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-14T04:20:16.316Z"
-    },
-    {
-      "id": "early-cve-2026-123218",
-      "url": "https://securitythreatpulse.com/events/early-cve-2026-123218",
-      "title": "IBM Aspera Faspex: attackers can gain admin rights",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 7 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
-      "tier": "now",
-      "rankScore": 5,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 5 days old."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-123218"
-      ],
-      "vendor": "IBM",
-      "product": "Aspera Faspex",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "ibm/asperafaspex",
-          "vendor": "IBM",
-          "product": "Aspera Faspex",
-          "evidence": [
-            "kev",
-            "cpe"
-          ],
-          "vendorKey": "ibm",
-          "productKey": "asperafaspex"
-        }
-      ],
-      "category": {
-        "id": "other",
-        "label": "Other software",
-        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
-        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
-      },
-      "summary": "IBM Aspera Faspex 5.0.0 through 5.0.19 could allow an authorized user to craft a specific message to bypass user authorization and gain full administrative privileges.",
-      "cvss": 9.8,
-      "epss": 0.00535,
-      "exploitMaturity": "poc",
-      "kevListed": true,
-      "kevDateAdded": "2026-11-09",
-      "kevDueDate": "2026-11-12",
-      "firstSeenAt": "2026-11-09T00:00:00.000Z",
-      "updatedAt": "2026-11-14T04:00:05.840Z",
-      "newestEvidenceAt": "2026-11-13T22:54:49.855Z"
-    },
-    {
-      "id": "kev-2026-11-09-signalwire-freeswitch",
-      "url": "https://securitythreatpulse.com/events/kev-2026-11-09-signalwire-freeswitch",
-      "title": "SignalWire FreeSwitch: attackers can run their own code",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 8 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
-      "tier": "now",
-      "rankScore": 5,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 5 days old."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-116779"
-      ],
-      "vendor": "SignalWire",
-      "product": "FreeSwitch",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "signalwire/freeswitch",
-          "vendor": "SignalWire",
-          "product": "FreeSwitch",
-          "evidence": [
-            "kev",
-            "cpe"
-          ],
-          "vendorKey": "signalwire",
-          "productKey": "freeswitch"
-        }
-      ],
-      "category": {
-        "id": "other",
-        "label": "Other software",
-        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
-        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
-      },
-      "summary": "SignalWire FreeSwitch contains a code injection vulnerability that permits configuration and credential disclosure, arbitrary call control, and command execution.",
-      "cvss": 9.8,
-      "epss": 0.02473,
-      "exploitMaturity": "poc",
-      "kevListed": true,
-      "kevDateAdded": "2026-11-09",
-      "kevDueDate": "2026-11-12",
-      "firstSeenAt": "2026-11-09T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-13T17:32:04.575Z"
-    },
-    {
-      "id": "kev-2026-11-09-gpustack-gpustack",
-      "url": "https://securitythreatpulse.com/events/kev-2026-11-09-gpustack-gpustack",
-      "title": "GPUStack: attackers can run their own code",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 9 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
-      "tier": "now",
-      "rankScore": 5,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 5 days old."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-102895"
-      ],
-      "vendor": "GPUStack",
-      "product": "GPUStack",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "gpustack/gpustack",
-          "vendor": "GPUStack",
-          "product": "GPUStack",
-          "evidence": [
-            "kev",
-            "cpe"
-          ],
-          "vendorKey": "gpustack",
-          "productKey": "gpustack"
-        }
-      ],
-      "category": {
-        "id": "other",
-        "label": "Other software",
-        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
-        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
-      },
-      "summary": "GPUStack contains an improper authentication vulnerability which could allow unauthenticated administrative access, including user and model changes, persistent administrator API-key creation, disclosure of worker and cloud-provider secrets, and code execution through POST /v2/inference-backends/from-yaml.",
-      "cvss": 9.8,
-      "epss": 0.00517,
-      "exploitMaturity": "none",
-      "kevListed": true,
-      "kevDateAdded": "2026-11-09",
-      "kevDueDate": "2026-11-12",
-      "firstSeenAt": "2026-11-09T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-13T17:31:57.585Z"
-    },
-    {
-      "id": "kev-2026-10-29-gitlab-community-edition-and-enterpri",
-      "url": "https://securitythreatpulse.com/events/kev-2026-10-29-gitlab-community-edition-and-enterpri",
-      "title": "GitLab Community Edition and Enterprise Edition: attackers can run their own code",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 32 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 69%.",
-      "tier": "now",
-      "rankScore": 5,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "Ready-made attack tools are public.",
-        "The confirmation is 16 days old."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-97229"
-      ],
-      "vendor": "GitLab",
-      "product": "Community Edition and Enterprise Edition",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "gitlab/communityeditionandenterpriseedition",
-          "vendor": "GitLab",
-          "product": "Community Edition and Enterprise Edition",
-          "evidence": [
-            "kev"
-          ],
-          "vendorKey": "gitlab",
-          "productKey": "communityeditionandenterpriseedition"
-        },
-        {
-          "kind": "direct",
-          "slug": "gitlab/gitlab",
-          "vendor": "GitLab",
-          "product": "GitLab",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "gitlab",
-          "productKey": "gitlab"
-        }
-      ],
-      "category": {
-        "id": "developer",
-        "label": "Developer tools",
-        "why": "It holds source code and the keys used to build and ship software.",
-        "doThis": "Patch it. If it faced the internet, change the keys and passwords stored in it."
-      },
-      "summary": "GitLab Community Edition and Enterprise Edition contain a integer overflow or wraparound vulnerability that could allow an unauthenticated user to execute arbitrary code on the GitLab server via a specially crafted regular expression in a CI/CD configuration, due to insufficient regular expression validation.",
-      "cvss": 10,
-      "epss": 0.69289,
-      "exploitMaturity": "weaponized",
-      "kevListed": true,
-      "kevDateAdded": "2026-10-29",
-      "kevDueDate": "2026-11-01",
-      "firstSeenAt": "2026-10-29T00:00:00.000Z",
-      "updatedAt": "2026-11-14T01:30:32.641Z",
-      "newestEvidenceAt": "2026-11-12T20:03:01.968Z"
+      "kevDateAdded": "2026-10-23",
+      "kevDueDate": "2026-10-26",
+      "firstSeenAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-11-14T21:00:10.654Z",
+      "newestEvidenceAt": "2026-11-14T07:26:45.626Z"
     },
     {
       "id": "kev-2026-10-27-adobe-commerce-and-magento",
       "url": "https://securitythreatpulse.com/events/kev-2026-10-27-adobe-commerce-and-magento",
       "title": "Adobe Commerce and Magento: attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 122 days old, so many systems are likely still unpatched. The severity score is critical (9.3).",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 123 days old, so many systems are likely still unpatched. The severity score is critical (9.3).",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 18 days old.",
+        "The confirmation is 19 days old.",
         "5 products are affected."
       ],
       "rulesVersion": "v3",
@@ -2684,7 +2943,7 @@
       "kevDateAdded": "2026-10-27",
       "kevDueDate": "2026-11-10",
       "firstSeenAt": "2026-10-27T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-09T18:08:20.030Z"
     },
     {
@@ -2692,7 +2951,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-30-cisco-catalyst-sd-wan-manager",
       "title": "Cisco Catalyst SD-WAN Manager: security flaw used in attacks",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 44 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 45 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
@@ -2754,7 +3013,7 @@
       "kevDateAdded": "2026-09-30",
       "kevDueDate": "2026-10-03",
       "firstSeenAt": "2026-09-30T00:00:00.000Z",
-      "updatedAt": "2026-11-13T13:30:32.692Z",
+      "updatedAt": "2026-11-14T13:30:30.791Z",
       "newestEvidenceAt": "2026-11-08T13:00:26.001Z"
     },
     {
@@ -2762,12 +3021,12 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-10-28-broadcom-vmware-esx",
       "title": "Broadcom VMware ESX: security flaw used in attacks",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 106 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 107 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 17 days old.",
+        "The confirmation is 18 days old.",
         "5 products are affected."
       ],
       "rulesVersion": "v3",
@@ -2858,156 +3117,8 @@
       "kevDateAdded": "2026-10-28",
       "kevDueDate": "2026-11-11",
       "firstSeenAt": "2026-10-28T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-08T11:32:52.982Z"
-    },
-    {
-      "id": "kev-2026-10-15-atlassian-multiple-products",
-      "url": "https://securitythreatpulse.com/events/kev-2026-10-15-atlassian-multiple-products",
-      "title": "Several Atlassian products: security flaw used in attacks",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 39 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.3). The exploit prediction score is 100%.",
-      "tier": "now",
-      "rankScore": 5,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "Ready-made attack tools are public.",
-        "9 products are affected."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-21589"
-      ],
-      "vendor": "Atlassian",
-      "product": "Multiple Products",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "atlassian/multipleproducts",
-          "vendor": "Atlassian",
-          "product": "Multiple Products",
-          "evidence": [
-            "kev"
-          ],
-          "vendorKey": "atlassian",
-          "productKey": "multipleproducts"
-        },
-        {
-          "kind": "direct",
-          "slug": "atlassian/bamboodatacenter",
-          "vendor": "Atlassian",
-          "product": "Bamboo Data Center",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "atlassian",
-          "productKey": "bamboodatacenter"
-        },
-        {
-          "kind": "direct",
-          "slug": "atlassian/bitbucketdatacenter",
-          "vendor": "Atlassian",
-          "product": "Bitbucket Data Center",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "atlassian",
-          "productKey": "bitbucketdatacenter"
-        },
-        {
-          "kind": "direct",
-          "slug": "atlassian/confluencedatacenter",
-          "vendor": "Atlassian",
-          "product": "Confluence Data Center",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "atlassian",
-          "productKey": "confluencedatacenter"
-        },
-        {
-          "kind": "direct",
-          "slug": "atlassian/crowddatacenter",
-          "vendor": "Atlassian",
-          "product": "Crowd Data Center",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "atlassian",
-          "productKey": "crowddatacenter"
-        },
-        {
-          "kind": "direct",
-          "slug": "atlassian/crucibledatacenter",
-          "vendor": "Atlassian",
-          "product": "Crucible Data Center",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "atlassian",
-          "productKey": "crucibledatacenter"
-        },
-        {
-          "kind": "direct",
-          "slug": "atlassian/fisheyedatacenter",
-          "vendor": "Atlassian",
-          "product": "Fisheye Data Center",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "atlassian",
-          "productKey": "fisheyedatacenter"
-        },
-        {
-          "kind": "direct",
-          "slug": "atlassian/jiraservicemanagementdatacenter",
-          "vendor": "Atlassian",
-          "product": "Jira Service Management Data Center",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "atlassian",
-          "productKey": "jiraservicemanagementdatacenter"
-        },
-        {
-          "kind": "direct",
-          "slug": "atlassian/jirasoftwaredatacenter",
-          "vendor": "Atlassian",
-          "product": "Jira Software Data Center",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "atlassian",
-          "productKey": "jirasoftwaredatacenter"
-        }
-      ],
-      "category": {
-        "id": "collaboration",
-        "label": "Documents and collaboration",
-        "why": "It holds shared documents and internal pages.",
-        "doThis": "Patch it, or ask your provider whether they have."
-      },
-      "summary": "Multiple Atlassian products (Bitbucket Data Center ,Confluence Data Center, Jira Service Management Data Center, Jira Software Data Center, Bamboo Data Center, Crowd Data Center, Crucible and Fisheye) contain a files or directories accessible to external parties vulnerability which could allow an unauthenticated attacker to access specific files within the web application root directory in…",
-      "cvss": 9.3,
-      "epss": 0.99664,
-      "exploitMaturity": "weaponized",
-      "kevListed": true,
-      "kevDateAdded": "2026-10-15",
-      "kevDueDate": "2026-10-18",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "updatedAt": "2026-11-13T21:30:41.204Z",
-      "newestEvidenceAt": "2026-11-07T05:13:29.454Z"
     },
     {
       "id": "kev-2026-09-11-connectwise-screenconnect",
@@ -3074,13 +3185,13 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-10-28-linux-kernel",
       "title": "Linux Kernel: security flaw used in attacks",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 175 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 176 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
         "Ready-made attack tools are public.",
-        "The confirmation is 17 days old."
+        "The confirmation is 18 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -3137,7 +3248,7 @@
       "kevDateAdded": "2026-10-28",
       "kevDueDate": "2026-10-31",
       "firstSeenAt": "2026-10-28T00:00:00.000Z",
-      "updatedAt": "2026-11-14T12:00:06.415Z",
+      "updatedAt": "2026-11-15T12:00:06.413Z",
       "newestEvidenceAt": "2026-11-05T07:02:33.622Z"
     },
     {
@@ -3145,7 +3256,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-10-01-fortinet-fortimail",
       "title": "Fortinet FortiMail: attackers can read or change files",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 43 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 44 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
@@ -3197,7 +3308,7 @@
       "kevDateAdded": "2026-10-01",
       "kevDueDate": "2026-10-04",
       "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "updatedAt": "2026-11-13T19:30:25.461Z",
+      "updatedAt": "2026-11-14T19:30:32.728Z",
       "newestEvidenceAt": "2026-11-04T13:44:26.692Z"
     },
     {
@@ -3264,7 +3375,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-24-adobe-commerce-and-magento",
       "title": "Adobe Commerce and Magento: attackers can gain admin rights",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 94 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.1). The exploit prediction score is 92%.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 95 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.1). The exploit prediction score is 92%.",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
@@ -3349,7 +3460,7 @@
       "kevDateAdded": "2026-09-24",
       "kevDueDate": "2026-09-27",
       "firstSeenAt": "2026-09-24T00:00:00.000Z",
-      "updatedAt": "2026-11-13T18:00:05.249Z",
+      "updatedAt": "2026-11-14T18:00:05.876Z",
       "newestEvidenceAt": "2026-10-25T01:02:39.879Z"
     },
     {
@@ -3357,7 +3468,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-22-f5-big-ip-apm",
       "title": "F5 BIG-IP APM: attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 52 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3).",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 53 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3).",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
@@ -3419,7 +3530,7 @@
       "kevDateAdded": "2026-09-22",
       "kevDueDate": "2026-09-25",
       "firstSeenAt": "2026-09-22T00:00:00.000Z",
-      "updatedAt": "2026-11-13T14:30:23.818Z",
+      "updatedAt": "2026-11-14T14:30:21.758Z",
       "newestEvidenceAt": "2026-09-24T16:48:59.969Z"
     },
     {
@@ -3427,7 +3538,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-22-arista-velocloud-orchestrator",
       "title": "Arista VeloCloud Orchestrator: security flaw used in attacks",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 53 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.5).",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 54 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.5).",
       "tier": "now",
       "rankScore": 5,
       "rankWhy": [
@@ -3489,7 +3600,7 @@
       "kevDateAdded": "2026-09-22",
       "kevDueDate": "2026-09-25",
       "firstSeenAt": "2026-09-22T00:00:00.000Z",
-      "updatedAt": "2026-11-14T08:00:05.780Z",
+      "updatedAt": "2026-11-15T08:00:05.175Z",
       "newestEvidenceAt": "2026-09-22T07:37:24.300Z"
     },
     {
@@ -3552,11 +3663,72 @@
       "newestEvidenceAt": "2026-09-09T00:00:00.000Z"
     },
     {
+      "id": "kev-2026-10-14-ahsay-ahsaycbs",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-14-ahsay-ahsaycbs",
+      "title": "AhsayCBS: 2 flaws used in attacks; attackers can get in without a password",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 42 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 84%.",
+      "tier": "now",
+      "rankScore": 4,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "Ready-made attack tools are public."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-105133",
+        "CVE-2026-105134"
+      ],
+      "vendor": "Ahsay",
+      "product": "AhsayCBS",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "ahsay/ahsaycbs",
+          "vendor": "Ahsay",
+          "product": "AhsayCBS",
+          "evidence": [
+            "kev",
+            "cpe"
+          ],
+          "vendorKey": "ahsay",
+          "productKey": "ahsaycbs"
+        }
+      ],
+      "category": {
+        "id": "server-backup",
+        "label": "Servers and backups",
+        "why": "It runs or protects many systems at once, including your backups.",
+        "doThis": "Patch it and keep its admin access off the internet."
+      },
+      "summary": "Ahsay AhsayCBS contains an improper authentication vulnerability that could allow a remote attacker to bypass authentication via manipulation of the random parameter in the API component’s checkSysPwd function. This vulnerability can be chained with CVE-2026-105134.",
+      "cvss": 10,
+      "epss": 0.84478,
+      "exploitMaturity": "weaponized",
+      "kevListed": true,
+      "kevDateAdded": "2026-10-14",
+      "kevDueDate": "2026-10-17",
+      "firstSeenAt": "2026-10-14T00:00:00.000Z",
+      "updatedAt": "2026-11-15T05:30:41.481Z",
+      "newestEvidenceAt": "2026-11-15T08:48:21.343Z"
+    },
+    {
       "id": "kev-2026-10-13-microsoft-windows",
       "url": "https://securitythreatpulse.com/events/kev-2026-10-13-microsoft-windows",
       "title": "Microsoft Windows: attackers can run commands on it",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 32 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 33 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 4,
       "rankWhy": [
@@ -3728,15 +3900,129 @@
       "kevDateAdded": "2026-10-13",
       "kevDueDate": "2026-10-16",
       "firstSeenAt": "2026-10-13T00:00:00.000Z",
-      "updatedAt": "2026-11-14T08:31:24.489Z",
-      "newestEvidenceAt": "2026-11-14T11:04:10.602Z"
+      "updatedAt": "2026-11-15T08:30:28.317Z",
+      "newestEvidenceAt": "2026-11-15T03:27:39.484Z"
+    },
+    {
+      "id": "kev-2026-10-20-eg-secure-solutions-siteguard-server-edition",
+      "url": "https://securitythreatpulse.com/events/kev-2026-10-20-eg-secure-solutions-siteguard-server-edition",
+      "title": "EG Secure Solutions SiteGuard Server Edition: attackers can run commands on it",
+      "verdict": "act_now",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 32 days old, so many systems are likely still unpatched.",
+      "tier": "now",
+      "rankScore": 4,
+      "rankWhy": [
+        "Exploitation is confirmed by an authoritative source.",
+        "6 products are affected."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "confirmed",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "confirmed"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2026-106931"
+      ],
+      "vendor": "EG Secure Solutions",
+      "product": "SiteGuard Server Edition",
+      "affectedProducts": [
+        {
+          "kind": "direct",
+          "slug": "egsecuresolutions/siteguardserveredition",
+          "vendor": "EG Secure Solutions",
+          "product": "SiteGuard Server Edition",
+          "evidence": [
+            "kev"
+          ],
+          "vendorKey": "egsecuresolutions",
+          "productKey": "siteguardserveredition"
+        },
+        {
+          "kind": "direct",
+          "slug": "egsecuresolutions/siteguardservereditionforapachehttpd",
+          "vendor": "EG Secure Solutions",
+          "product": "Siteguard Server Edition For Apache Httpd",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "egsecuresolutions",
+          "productKey": "siteguardservereditionforapachehttpd"
+        },
+        {
+          "kind": "direct",
+          "slug": "egsecuresolutions/siteguardservereditionfornginx",
+          "vendor": "EG Secure Solutions",
+          "product": "Siteguard Server Edition For Nginx",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "egsecuresolutions",
+          "productKey": "siteguardservereditionfornginx"
+        },
+        {
+          "kind": "direct",
+          "slug": "egsecuresolutions/siteguardservereditionforiis",
+          "vendor": "EG Secure Solutions",
+          "product": "Siteguard Server Edition For Iis",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "egsecuresolutions",
+          "productKey": "siteguardservereditionforiis"
+        },
+        {
+          "kind": "direct",
+          "slug": "egsecuresolutions/siteguardservereditionforapachehttpdonfreebsd",
+          "vendor": "EG Secure Solutions",
+          "product": "Siteguard Server Edition For Apache Httpd On Freebsd",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "egsecuresolutions",
+          "productKey": "siteguardservereditionforapachehttpdonfreebsd"
+        },
+        {
+          "kind": "direct",
+          "slug": "egsecuresolutions/siteguardservereditionfornginxonfreebsd",
+          "vendor": "EG Secure Solutions",
+          "product": "Siteguard Server Edition For Nginx On Freebsd",
+          "evidence": [
+            "cpe"
+          ],
+          "vendorKey": "egsecuresolutions",
+          "productKey": "siteguardservereditionfornginxonfreebsd"
+        }
+      ],
+      "category": {
+        "id": "website",
+        "label": "Website or online store",
+        "why": "It runs public websites, online stores or the software behind them.",
+        "doThis": "Ask whoever runs your website or store to update it."
+      },
+      "summary": "EG Secure Solutions SiteGuard Server Edition contains an OS command injection vulnerability which may allow an attacker to execute arbitrary OS commands with root or SYSTEM privileges on the system running the affected product.",
+      "cvss": 8.5,
+      "epss": 0.02528,
+      "exploitMaturity": "none",
+      "kevListed": true,
+      "kevDateAdded": "2026-10-20",
+      "kevDueDate": "2026-10-23",
+      "firstSeenAt": "2026-10-20T00:00:00.000Z",
+      "updatedAt": "2026-11-15T05:00:08.023Z",
+      "newestEvidenceAt": "2026-11-15T00:57:22.624Z"
     },
     {
       "id": "kev-2026-09-25-wordpress-core",
       "url": "https://securitythreatpulse.com/events/kev-2026-09-25-wordpress-core",
       "title": "WordPress Core: attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 52 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The exploit prediction score is 96%.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 53 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The exploit prediction score is 96%.",
       "tier": "now",
       "rankScore": 4,
       "rankWhy": [
@@ -3798,7 +4084,7 @@
       "kevDateAdded": "2026-09-25",
       "kevDueDate": "2026-09-28",
       "firstSeenAt": "2026-09-25T00:00:00.000Z",
-      "updatedAt": "2026-11-13T17:00:06.386Z",
+      "updatedAt": "2026-11-14T17:00:07.435Z",
       "newestEvidenceAt": "2026-11-14T09:00:03.357Z"
     },
     {
@@ -3806,7 +4092,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-29-apple-multiple-products",
       "title": "Several Apple products: attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 46 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 47 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 4,
       "rankWhy": [
@@ -3879,76 +4165,15 @@
       "kevDateAdded": "2026-09-29",
       "kevDueDate": "2026-10-13",
       "firstSeenAt": "2026-09-29T00:00:00.000Z",
-      "updatedAt": "2026-11-13T19:30:25.461Z",
+      "updatedAt": "2026-11-14T19:30:32.728Z",
       "newestEvidenceAt": "2026-11-14T05:29:02.000Z"
-    },
-    {
-      "id": "kev-2026-10-14-ahsay-ahsaycbs",
-      "url": "https://securitythreatpulse.com/events/kev-2026-10-14-ahsay-ahsaycbs",
-      "title": "AhsayCBS: 2 flaws used in attacks; attackers can get in without a password",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 41 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (10.0). The exploit prediction score is 84%.",
-      "tier": "now",
-      "rankScore": 4,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "Ready-made attack tools are public."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-105133",
-        "CVE-2026-105134"
-      ],
-      "vendor": "Ahsay",
-      "product": "AhsayCBS",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "ahsay/ahsaycbs",
-          "vendor": "Ahsay",
-          "product": "AhsayCBS",
-          "evidence": [
-            "kev",
-            "cpe"
-          ],
-          "vendorKey": "ahsay",
-          "productKey": "ahsaycbs"
-        }
-      ],
-      "category": {
-        "id": "server-backup",
-        "label": "Servers and backups",
-        "why": "It runs or protects many systems at once, including your backups.",
-        "doThis": "Patch it and keep its admin access off the internet."
-      },
-      "summary": "Ahsay AhsayCBS contains an improper authentication vulnerability that could allow a remote attacker to bypass authentication via manipulation of the random parameter in the API component’s checkSysPwd function. This vulnerability can be chained with CVE-2026-105134.",
-      "cvss": 10,
-      "epss": 0.84478,
-      "exploitMaturity": "weaponized",
-      "kevListed": true,
-      "kevDateAdded": "2026-10-14",
-      "kevDueDate": "2026-10-17",
-      "firstSeenAt": "2026-10-14T00:00:00.000Z",
-      "updatedAt": "2026-11-14T05:30:32.245Z",
-      "newestEvidenceAt": "2026-11-14T02:43:57.449Z"
     },
     {
       "id": "kev-2026-10-20-plex-media-server",
       "url": "https://securitythreatpulse.com/events/kev-2026-10-20-plex-media-server",
       "title": "Plex Media Server: 4 flaws used in attacks; attackers can reach systems behind it",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 51 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 52 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
       "tier": "now",
       "rankScore": 4,
       "rankWhy": [
@@ -3997,13 +4222,13 @@
       },
       "summary": "Plex Media Server contains a server-side request forgery (SSRF) vulnerability which could allow an attacker using any X-Plex-Token value to include a full URL in the 'protocol' parameter and force the Plex server to POST to the attacker's chosen destination. This vulnerability can be chained with CVE-2026-96654, CVE-2026-96655, and CVE-2026-96656.",
       "cvss": 8.6,
-      "epss": 0.11886,
+      "epss": 0.19767,
       "exploitMaturity": "weaponized",
       "kevListed": true,
       "kevDateAdded": "2026-10-20",
       "kevDueDate": "2026-10-23",
       "firstSeenAt": "2026-10-20T00:00:00.000Z",
-      "updatedAt": "2026-11-13T16:30:25.463Z",
+      "updatedAt": "2026-11-14T16:30:21.664Z",
       "newestEvidenceAt": "2026-11-14T01:39:26.000Z"
     },
     {
@@ -4011,12 +4236,12 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-11-03-wordpress-wordpress-core",
       "title": "WordPress Core: attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 14 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 15 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 4,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 11 days old."
+        "The confirmation is 12 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -4073,7 +4298,7 @@
       "kevDateAdded": "2026-11-03",
       "kevDueDate": "2026-11-06",
       "firstSeenAt": "2026-11-03T00:00:00.000Z",
-      "updatedAt": "2026-11-14T06:00:06.142Z",
+      "updatedAt": "2026-11-15T06:00:08.090Z",
       "newestEvidenceAt": "2026-11-13T15:16:05.616Z"
     },
     {
@@ -4081,7 +4306,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-21-zyxel-gs1900-series-switches",
       "title": "Zyxel GS1900 Series Switches: a memory flaw attackers can abuse",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 151 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 152 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 4,
       "rankWhy": [
@@ -4242,7 +4467,7 @@
       "kevDateAdded": "2026-09-21",
       "kevDueDate": "2026-09-24",
       "firstSeenAt": "2026-09-21T00:00:00.000Z",
-      "updatedAt": "2026-11-14T02:30:22.676Z",
+      "updatedAt": "2026-11-15T02:30:21.162Z",
       "newestEvidenceAt": "2026-11-13T02:34:04.457Z"
     },
     {
@@ -4250,7 +4475,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-18-linux-kernel",
       "title": "Linux Kernel: 3 memory flaws used in attacks",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 142 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 143 days old, so many systems are likely still unpatched. The severity score is critical (9.8).",
       "tier": "now",
       "rankScore": 4,
       "rankWhy": [
@@ -4347,7 +4572,7 @@
       "kevDateAdded": "2026-09-18",
       "kevDueDate": "2026-09-21",
       "firstSeenAt": "2026-09-18T00:00:00.000Z",
-      "updatedAt": "2026-11-14T09:00:06.339Z",
+      "updatedAt": "2026-11-15T09:00:07.407Z",
       "newestEvidenceAt": "2026-11-10T10:10:01.886Z"
     },
     {
@@ -4416,7 +4641,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-10-23-collabora-collabora-online-built-in-code",
       "title": "Collabora Online, Built-in CODE Server: attackers can run commands on it",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 31 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.2). The exploit prediction score is 73%.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 32 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.2). The exploit prediction score is 73%.",
       "tier": "now",
       "rankScore": 4,
       "rankWhy": [
@@ -4468,7 +4693,7 @@
       "kevDateAdded": "2026-10-23",
       "kevDueDate": "2026-10-26",
       "firstSeenAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-11-14T02:30:22.676Z",
+      "updatedAt": "2026-11-15T02:30:21.162Z",
       "newestEvidenceAt": "2026-11-05T17:47:13.081Z"
     },
     {
@@ -4476,7 +4701,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-25-microsoft-sharepoint",
       "title": "Microsoft SharePoint: attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 94 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 95 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 4,
       "rankWhy": [
@@ -4560,122 +4785,8 @@
       "kevDateAdded": "2026-09-25",
       "kevDueDate": "2026-09-28",
       "firstSeenAt": "2026-09-25T00:00:00.000Z",
-      "updatedAt": "2026-11-13T17:31:16.415Z",
+      "updatedAt": "2026-11-14T17:30:33.240Z",
       "newestEvidenceAt": "2026-11-05T10:06:28.695Z"
-    },
-    {
-      "id": "kev-2026-10-20-eg-secure-solutions-siteguard-server-edition",
-      "url": "https://securitythreatpulse.com/events/kev-2026-10-20-eg-secure-solutions-siteguard-server-edition",
-      "title": "EG Secure Solutions SiteGuard Server Edition: attackers can run commands on it",
-      "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 31 days old, so many systems are likely still unpatched.",
-      "tier": "now",
-      "rankScore": 4,
-      "rankWhy": [
-        "Exploitation is confirmed by an authoritative source.",
-        "6 products are affected."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "confirmed",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "confirmed"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2026-106931"
-      ],
-      "vendor": "EG Secure Solutions",
-      "product": "SiteGuard Server Edition",
-      "affectedProducts": [
-        {
-          "kind": "direct",
-          "slug": "egsecuresolutions/siteguardserveredition",
-          "vendor": "EG Secure Solutions",
-          "product": "SiteGuard Server Edition",
-          "evidence": [
-            "kev"
-          ],
-          "vendorKey": "egsecuresolutions",
-          "productKey": "siteguardserveredition"
-        },
-        {
-          "kind": "direct",
-          "slug": "egsecuresolutions/siteguardservereditionforapachehttpd",
-          "vendor": "EG Secure Solutions",
-          "product": "Siteguard Server Edition For Apache Httpd",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "egsecuresolutions",
-          "productKey": "siteguardservereditionforapachehttpd"
-        },
-        {
-          "kind": "direct",
-          "slug": "egsecuresolutions/siteguardservereditionfornginx",
-          "vendor": "EG Secure Solutions",
-          "product": "Siteguard Server Edition For Nginx",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "egsecuresolutions",
-          "productKey": "siteguardservereditionfornginx"
-        },
-        {
-          "kind": "direct",
-          "slug": "egsecuresolutions/siteguardservereditionforiis",
-          "vendor": "EG Secure Solutions",
-          "product": "Siteguard Server Edition For Iis",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "egsecuresolutions",
-          "productKey": "siteguardservereditionforiis"
-        },
-        {
-          "kind": "direct",
-          "slug": "egsecuresolutions/siteguardservereditionforapachehttpdonfreebsd",
-          "vendor": "EG Secure Solutions",
-          "product": "Siteguard Server Edition For Apache Httpd On Freebsd",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "egsecuresolutions",
-          "productKey": "siteguardservereditionforapachehttpdonfreebsd"
-        },
-        {
-          "kind": "direct",
-          "slug": "egsecuresolutions/siteguardservereditionfornginxonfreebsd",
-          "vendor": "EG Secure Solutions",
-          "product": "Siteguard Server Edition For Nginx On Freebsd",
-          "evidence": [
-            "cpe"
-          ],
-          "vendorKey": "egsecuresolutions",
-          "productKey": "siteguardservereditionfornginxonfreebsd"
-        }
-      ],
-      "category": {
-        "id": "website",
-        "label": "Website or online store",
-        "why": "It runs public websites, online stores or the software behind them.",
-        "doThis": "Ask whoever runs your website or store to update it."
-      },
-      "summary": "EG Secure Solutions SiteGuard Server Edition contains an OS command injection vulnerability which may allow an attacker to execute arbitrary OS commands with root or SYSTEM privileges on the system running the affected product.",
-      "cvss": 8.5,
-      "epss": 0.02528,
-      "exploitMaturity": "none",
-      "kevListed": true,
-      "kevDateAdded": "2026-10-20",
-      "kevDueDate": "2026-10-23",
-      "firstSeenAt": "2026-10-20T00:00:00.000Z",
-      "updatedAt": "2026-11-14T05:00:07.714Z",
-      "newestEvidenceAt": "2026-11-03T06:18:11.433Z"
     },
     {
       "id": "kev-2026-09-11-gitlab-community-edition-and-enterpri",
@@ -4752,7 +4863,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-24-wso2-multiple-products",
       "title": "Several WSO2 products: attackers can read or change files",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 100 days old, so many systems are likely still unpatched. The severity score is critical (10.0).",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 101 days old, so many systems are likely still unpatched. The severity score is critical (10.0).",
       "tier": "now",
       "rankScore": 4,
       "rankWhy": [
@@ -4858,7 +4969,7 @@
       "kevDateAdded": "2026-09-24",
       "kevDueDate": "2026-09-27",
       "firstSeenAt": "2026-09-24T00:00:00.000Z",
-      "updatedAt": "2026-11-14T08:00:05.780Z",
+      "updatedAt": "2026-11-15T08:00:05.175Z",
       "newestEvidenceAt": "2026-10-28T01:36:55.113Z"
     },
     {
@@ -4925,7 +5036,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-16-acronis-backup",
       "title": "Acronis Backup: attackers can gain admin rights",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 57 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 58 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 4,
       "rankWhy": [
@@ -5009,7 +5120,7 @@
       "kevDateAdded": "2026-09-16",
       "kevDueDate": "2026-09-19",
       "firstSeenAt": "2026-09-16T00:00:00.000Z",
-      "updatedAt": "2026-11-13T23:00:11.129Z",
+      "updatedAt": "2026-11-14T23:00:05.077Z",
       "newestEvidenceAt": "2026-09-17T22:57:18.089Z"
     },
     {
@@ -5017,7 +5128,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-10-02-zammad-gmbh-zammad",
       "title": "Zammad: 2 flaws used in attacks; attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 44 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 45 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 3,
       "rankWhy": [
@@ -5069,7 +5180,7 @@
       "kevDateAdded": "2026-10-02",
       "kevDueDate": "2026-10-05",
       "firstSeenAt": "2026-10-02T00:00:00.000Z",
-      "updatedAt": "2026-11-13T16:30:25.463Z",
+      "updatedAt": "2026-11-14T16:30:21.664Z",
       "newestEvidenceAt": "2026-11-10T06:14:35.819Z"
     },
     {
@@ -5251,7 +5362,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-25-mikrotik-routeros",
       "title": "MikroTik RouterOS: security flaw used in attacks",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 69 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 70 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 3,
       "rankWhy": [
@@ -5302,7 +5413,7 @@
       "kevDateAdded": "2026-09-25",
       "kevDueDate": "2026-09-28",
       "firstSeenAt": "2026-09-25T00:00:00.000Z",
-      "updatedAt": "2026-11-13T20:30:23.001Z",
+      "updatedAt": "2026-11-14T20:30:21.332Z",
       "newestEvidenceAt": "2026-10-25T01:27:17.427Z"
     },
     {
@@ -5310,7 +5421,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-10-20-siemens-software-center",
       "title": "Siemens Software Center: attackers can run their own code",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 29 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 30 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 3,
       "rankWhy": [
@@ -5371,7 +5482,7 @@
       "kevDateAdded": "2026-10-20",
       "kevDueDate": "2026-11-03",
       "firstSeenAt": "2026-10-20T00:00:00.000Z",
-      "updatedAt": "2026-11-13T14:30:23.818Z",
+      "updatedAt": "2026-11-14T14:30:21.758Z",
       "newestEvidenceAt": "2026-10-21T22:56:17.000Z"
     },
     {
@@ -5439,7 +5550,7 @@
       "url": "https://securitythreatpulse.com/events/kev-2026-09-16-google-pixel",
       "title": "Google Pixel: attackers can gain admin rights",
       "verdict": "act_now",
-      "verdictReason": "Attacks are confirmed. The vulnerability is 59 days old, so many systems are likely still unpatched.",
+      "verdictReason": "Attacks are confirmed. The vulnerability is 60 days old, so many systems are likely still unpatched.",
       "tier": "now",
       "rankScore": 3,
       "rankWhy": [
@@ -5500,7 +5611,7 @@
       "kevDateAdded": "2026-09-16",
       "kevDueDate": "2026-09-19",
       "firstSeenAt": "2026-09-16T00:00:00.000Z",
-      "updatedAt": "2026-11-13T19:00:04.678Z",
+      "updatedAt": "2026-11-14T19:00:05.928Z",
       "newestEvidenceAt": "2026-09-16T00:00:00.000Z"
     },
     {
@@ -6632,13 +6743,13 @@
       "url": "https://securitythreatpulse.com/events/early-cve-2026-118207",
       "title": "Microsoft Exchange Server Subscription Edition RTM: attackers can run their own code",
       "verdict": "watch",
-      "verdictReason": "One source reports attacks and the vulnerability is 3 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
+      "verdictReason": "One source reports attacks and the vulnerability is 4 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
       "tier": null,
       "rankScore": 5,
       "rankWhy": [
         "Exploitation is reported.",
         "The product faces the internet or gives remote access.",
-        "The first report is 3 days old."
+        "The first report is 4 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -6685,7 +6796,7 @@
       "kevDateAdded": null,
       "kevDueDate": null,
       "firstSeenAt": "2026-11-11T03:38:18.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-12T14:55:00.000Z"
     },
     {
@@ -6698,7 +6809,7 @@
       "rankScore": 5,
       "rankWhy": [
         "Exploitation is confirmed by an authoritative source.",
-        "The confirmation is 10 days old.",
+        "The confirmation is 11 days old.",
         "6 products are affected."
       ],
       "rulesVersion": "v3",
@@ -6800,7 +6911,7 @@
       "kevDateAdded": "2026-11-04",
       "kevDueDate": "2026-11-18",
       "firstSeenAt": "2026-11-04T00:00:00.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-09T08:15:24.195Z"
     },
     {
@@ -6808,12 +6919,12 @@
       "url": "https://securitythreatpulse.com/events/early-cve-2026-107441",
       "title": "Zyxel GS1900-24E firmware: a memory flaw attackers can abuse",
       "verdict": "watch",
-      "verdictReason": "One source reports attacks and the vulnerability is 11 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
+      "verdictReason": "One source reports attacks and the vulnerability is 12 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
       "tier": null,
       "rankScore": 4,
       "rankWhy": [
         "Exploitation is reported.",
-        "The first report is 6 days old.",
+        "The first report is 7 days old.",
         "10 products are affected."
       ],
       "rulesVersion": "v3",
@@ -6960,7 +7071,7 @@
       "kevDateAdded": null,
       "kevDueDate": null,
       "firstSeenAt": "2026-11-08T18:27:10.000Z",
-      "updatedAt": "2026-11-14T02:00:08.435Z",
+      "updatedAt": "2026-11-15T02:00:07.009Z",
       "newestEvidenceAt": "2026-11-13T02:34:03.829Z"
     },
     {
@@ -7154,7 +7265,7 @@
       "rankScore": 3,
       "rankWhy": [
         "Exploitation is reported.",
-        "The first report is 11 days old.",
+        "The first report is 12 days old.",
         "5 products are affected."
       ],
       "rulesVersion": "v3",
@@ -7245,7 +7356,7 @@
       "kevDateAdded": null,
       "kevDueDate": null,
       "firstSeenAt": "2026-11-03T08:09:54.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-09T11:53:28.323Z"
     },
     {
@@ -7259,7 +7370,7 @@
       "rankWhy": [
         "Exploitation is reported.",
         "Ready-made attack tools are public.",
-        "The first report is 8 days old."
+        "The first report is 9 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -7306,7 +7417,7 @@
       "kevDateAdded": null,
       "kevDueDate": null,
       "firstSeenAt": "2026-11-06T05:13:29.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-08T05:30:58.032Z"
     },
     {
@@ -7320,7 +7431,7 @@
       "rankWhy": [
         "Exploitation is reported.",
         "Ready-made attack tools are public.",
-        "The first report is 10 days old."
+        "The first report is 11 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -7378,7 +7489,7 @@
       "kevDateAdded": null,
       "kevDueDate": null,
       "firstSeenAt": "2026-11-04T16:07:28.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-05T05:30:59.371Z"
     },
     {
@@ -7392,7 +7503,7 @@
       "rankWhy": [
         "Exploitation is reported.",
         "Ready-made attack tools are public.",
-        "The first report is 10 days old."
+        "The first report is 11 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -7439,7 +7550,7 @@
       "kevDateAdded": null,
       "kevDueDate": null,
       "firstSeenAt": "2026-11-04T14:05:23.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-05T05:30:59.334Z"
     },
     {
@@ -7745,12 +7856,12 @@
       "url": "https://securitythreatpulse.com/events/early-cve-2026-98432",
       "title": "Linux: a memory flaw attackers can abuse",
       "verdict": "watch",
-      "verdictReason": "One source reports attacks and the vulnerability is 29 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
+      "verdictReason": "One source reports attacks and the vulnerability is 31 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
       "tier": null,
       "rankScore": 2,
       "rankWhy": [
         "Exploitation is reported.",
-        "The first report is 12 days old."
+        "The first report is 13 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -7808,20 +7919,20 @@
       "kevDateAdded": null,
       "kevDueDate": null,
       "firstSeenAt": "2026-11-02T04:04:19.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
-      "newestEvidenceAt": "2026-11-14T07:58:19.880Z"
+      "updatedAt": "2026-11-15T12:30:17.543Z",
+      "newestEvidenceAt": "2026-11-15T08:23:16.247Z"
     },
     {
       "id": "early-cve-2026-110264",
       "url": "https://securitythreatpulse.com/events/early-cve-2026-110264",
       "title": "GitLab: attackers can run their own code",
       "verdict": "watch",
-      "verdictReason": "One source reports attacks and the vulnerability is 23 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
+      "verdictReason": "One source reports attacks and the vulnerability is 24 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
       "tier": null,
       "rankScore": 2,
       "rankWhy": [
         "Exploitation is reported.",
-        "The first report is 12 days old."
+        "The first report is 13 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -7868,7 +7979,7 @@
       "kevDateAdded": null,
       "kevDueDate": null,
       "firstSeenAt": "2026-11-02T18:00:07.000Z",
-      "updatedAt": "2026-11-14T01:00:04.604Z",
+      "updatedAt": "2026-11-15T01:00:07.134Z",
       "newestEvidenceAt": "2026-11-11T14:07:31.000Z"
     },
     {
@@ -7881,7 +7992,7 @@
       "rankScore": 2,
       "rankWhy": [
         "Exploitation is reported.",
-        "The first report is 10 days old."
+        "The first report is 11 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -7928,7 +8039,7 @@
       "kevDateAdded": null,
       "kevDueDate": null,
       "firstSeenAt": "2026-11-04T19:58:47.740Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-04T19:58:47.740Z"
     },
     {
@@ -7941,7 +8052,7 @@
       "rankScore": 2,
       "rankWhy": [
         "Exploitation is reported.",
-        "The first report is 10 days old."
+        "The first report is 11 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -7988,7 +8099,7 @@
       "kevDateAdded": null,
       "kevDueDate": null,
       "firstSeenAt": "2026-11-04T19:57:18.462Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-04T19:57:18.462Z"
     },
     {
@@ -7996,12 +8107,12 @@
       "url": "https://securitythreatpulse.com/events/early-cve-2026-49950",
       "title": "Xorbitsai Xoscar: attackers can run their own code",
       "verdict": "watch",
-      "verdictReason": "One source reports attacks and the vulnerability is 31 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
+      "verdictReason": "One source reports attacks and the vulnerability is 32 days old. In our backtest a single early report was confirmed within 30 days about one time in twenty, so we wait for a second report or for attack attempts to be seen.",
       "tier": null,
       "rankScore": 2,
       "rankWhy": [
         "Exploitation is reported.",
-        "The first report is 10 days old."
+        "The first report is 11 days old."
       ],
       "rulesVersion": "v3",
       "ladder": {
@@ -8048,7 +8159,7 @@
       "kevDateAdded": null,
       "kevDueDate": null,
       "firstSeenAt": "2026-11-04T16:07:28.000Z",
-      "updatedAt": "2026-11-14T00:00:06.192Z",
+      "updatedAt": "2026-11-15T00:00:08.145Z",
       "newestEvidenceAt": "2026-11-04T16:07:28.000Z"
     },
     {
@@ -8315,52 +8426,6 @@
       "newestEvidenceAt": "2026-10-23T00:00:00.000Z"
     },
     {
-      "id": "early-cve-2023-38646",
-      "url": "https://securitythreatpulse.com/events/early-cve-2023-38646",
-      "title": "CVE-2023-38646: attackers can run commands on it",
-      "verdict": "watch",
-      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
-      "tier": null,
-      "rankScore": 1,
-      "rankWhy": [
-        "Ready-made attack tools are public."
-      ],
-      "rulesVersion": "v3",
-      "ladder": {
-        "talk": "none",
-        "damage": "none",
-        "attempts": "confirmed",
-        "exposure": "none",
-        "exploited": "none"
-      },
-      "untrackedRungs": [
-        "exposure",
-        "damage"
-      ],
-      "cves": [
-        "CVE-2023-38646"
-      ],
-      "vendor": null,
-      "product": null,
-      "affectedProducts": [],
-      "category": {
-        "id": "other",
-        "label": "Other software",
-        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
-        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
-      },
-      "summary": "Metabase open source before 0.46.6.1 and Metabase Enterprise before 1.46.6.1 allow attackers to execute arbitrary commands on the server, at the server's privilege level. Authentication is not required for exploitation. The other fixed versions are 0.45.4.1, 1.45.4.1, 0.44.7.1, 1.44.7.1, 0.43.7.2, and 1.43.7.2.",
-      "cvss": null,
-      "epss": 0.99478,
-      "exploitMaturity": "weaponized",
-      "kevListed": false,
-      "kevDateAdded": null,
-      "kevDueDate": null,
-      "firstSeenAt": "2026-10-22T00:00:00.000Z",
-      "updatedAt": "2026-11-13T00:00:07.702Z",
-      "newestEvidenceAt": "2026-11-13T19:00:10.000Z"
-    },
-    {
       "id": "early-cve-2025-29927",
       "url": "https://securitythreatpulse.com/events/early-cve-2025-29927",
       "title": "Vercel Next.js: attackers can gain admin rights",
@@ -8417,7 +8482,53 @@
       "kevDueDate": null,
       "firstSeenAt": "2026-10-22T00:00:00.000Z",
       "updatedAt": "2026-11-13T00:00:07.702Z",
-      "newestEvidenceAt": "2026-11-12T06:03:30.000Z"
+      "newestEvidenceAt": "2026-11-15T02:47:04.617Z"
+    },
+    {
+      "id": "early-cve-2023-38646",
+      "url": "https://securitythreatpulse.com/events/early-cve-2023-38646",
+      "title": "CVE-2023-38646: attackers can run commands on it",
+      "verdict": "watch",
+      "verdictReason": "Attack attempts are confirmed, with no confirmed exploitation yet.",
+      "tier": null,
+      "rankScore": 1,
+      "rankWhy": [
+        "Ready-made attack tools are public."
+      ],
+      "rulesVersion": "v3",
+      "ladder": {
+        "talk": "none",
+        "damage": "none",
+        "attempts": "confirmed",
+        "exposure": "none",
+        "exploited": "none"
+      },
+      "untrackedRungs": [
+        "exposure",
+        "damage"
+      ],
+      "cves": [
+        "CVE-2023-38646"
+      ],
+      "vendor": null,
+      "product": null,
+      "affectedProducts": [],
+      "category": {
+        "id": "other",
+        "label": "Other software",
+        "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+        "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+      },
+      "summary": "Metabase open source before 0.46.6.1 and Metabase Enterprise before 1.46.6.1 allow attackers to execute arbitrary commands on the server, at the server's privilege level. Authentication is not required for exploitation. The other fixed versions are 0.45.4.1, 1.45.4.1, 0.44.7.1, 1.44.7.1, 0.43.7.2, and 1.43.7.2.",
+      "cvss": null,
+      "epss": 0.99478,
+      "exploitMaturity": "weaponized",
+      "kevListed": false,
+      "kevDateAdded": null,
+      "kevDueDate": null,
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:07.702Z",
+      "newestEvidenceAt": "2026-11-13T19:00:10.000Z"
     },
     {
       "id": "early-cve-2024-3721",

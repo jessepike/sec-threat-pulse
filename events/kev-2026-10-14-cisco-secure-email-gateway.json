@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-14-cisco-secure-email-gateway",
   "title": "Cisco Secure Email Gateway: attackers can read or change files",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 30 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 31 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
   "tier": "now",
   "rankScore": 6,
   "rankWhy": [
@@ -66,8 +66,8 @@
   "kevDateAdded": "2026-10-14",
   "kevDueDate": "2026-10-17",
   "firstSeenAt": "2026-10-14T00:00:00.000Z",
-  "updatedAt": "2026-11-13T16:30:25.463Z",
-  "newestEvidenceAt": "2026-11-07T11:13:03.187Z",
+  "updatedAt": "2026-11-14T16:30:21.664Z",
+  "newestEvidenceAt": "2026-11-15T08:43:24.195Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 17, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -138,18 +138,6 @@
       }
     },
     {
-      "rung": "exploited",
-      "strength": "confirmed",
-      "title": "Cisco Secure Email Gateway Relative Path Traversal Vulnerability",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-76519",
-      "publishedAt": "2026-10-14T00:00:00.000Z",
-      "source": {
-        "id": "cisa-kev",
-        "name": "CISA Known Exploited Vulnerabilities",
-        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
-      }
-    },
-    {
       "rung": "exploit_available",
       "strength": "confirmed",
       "title": "Metasploit exploit module: Cisco Secure Email Gateway AMP Arbitrary File Write RCE",
@@ -160,7 +148,19 @@
         "name": "Metasploit module metadata",
         "attribution": "Metasploit Framework module metadata (BSD-3-Clause, Rapid7)"
       }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Cisco Secure Email Gateway Relative Path Traversal Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-76519",
+      "publishedAt": "2026-10-14T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
     }
   ],
-  "evidenceWithheld": 2
+  "evidenceWithheld": 6
 }
