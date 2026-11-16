@@ -3,6 +3,10 @@
 Hot buffer. One line per insight, newest first. Keep the last 15 or so; promote lasting patterns
 into AGENTS.md or docs and drop them from here. Read at session start.
 
+## 2026-11-16
+
+- The cloud container's proxy refuses cisa.gov and ENISA, but raw.githubusercontent.com and partial git clones of public repos work. Prefer sources that publish to GitHub (CISA's CSAF repo) when the fixture has to be recorded from the container.
+
 ## 2026-11-14
 
 - A loop that grades its own work needs an instrument it cannot change in the same run. The improve loop's scorecard, keep rule and tier check are tier 2 files, and model reviewers are only independent when they see different inputs: nine same-style judges are worth about two votes.
