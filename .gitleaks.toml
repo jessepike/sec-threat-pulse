@@ -1,0 +1,19 @@
+# Gitleaks config. Keeps the default rules and adds one narrow exception.
+#
+# The nightly snapshot on the `data` branch (events.json, events/*.json) stores each affected
+# product as a normalized "productKey", such as a Siemens part number squashed to lowercase.
+# Those strings have enough entropy to trip the generic-api-key rule. They are product names
+# from public CVE and KEV data, not credentials. The exception applies only to that rule, only
+# to those snapshot files, and only when the flagged line is a "productKey" field.
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+  [[rules.allowlists]]
+  description = "Normalized product names in the public data snapshot"
+  condition = "AND"
+  paths = ['''^events\.json$''', '''^events/[^/]+\.json$''']
+  regexTarget = "line"
+  regexes = ['''^\s*"productKey":\s*"[a-z0-9]+",?\s*$''']
