@@ -22,3 +22,13 @@ and on `--target none`; no backtest metric moved. Why this over ENISA EUVD and v
 public domain, needs no terms check, and GitHub is reachable from both Vercel and the build
 container, while cisa.gov and ENISA are refused by the container's proxy, so no fixture could be
 recorded for them. The build is saved as a patch for the first real run.
+
+Nov 18 dry run 2. Gates clear (no PAUSE, no alert issue, no open improve pull request); live
+scorecard from the Nov 18 14:20 UTC snapshot, no kept rows to recheck. Pick: CISA ICS advisories
+again. Nothing else in the coverage lane comes close: it is built, keyless and public domain, while
+ENISA EUVD and the vendor PSIRT feeds still cannot be reached from the build container for a
+fixture. Would ship: the Nov 16 build, unchanged. The saved patch applies cleanly to main at
+`924c224`; tests 465 of 465, lint and typecheck clean; `keep.mjs` KEEP on `repo.keylessSources`
+(29 to 30) and on `--target none`; tier 2 (`src/lib/ingest/registry.ts`, `docs/source-registry.md`).
+CISA's `changes.csv` still has the same two-column format and listed 11 new advisories on Nov 17.
+Real runs start next run with this item.
