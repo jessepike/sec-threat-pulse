@@ -1,10 +1,10 @@
 {
-  "at": "2026-11-17T14:42:01.023Z",
+  "at": "2026-11-18T14:20:52.648Z",
   "base": "https://securitythreatpulse.com",
   "metrics": {
     "live.sourcesOk": 29,
     "live.actNowRate": 1,
-    "live.kevCalledBeforeShare": 0.08,
+    "live.kevCalledBeforeShare": 0.0769,
     "live.earlyActNowShare": 0,
     "live.agentTestsPassRate": 1
   },
@@ -131,7 +131,7 @@
         "state": "ok"
       }
     ],
-    "actNowEvents": 87,
+    "actNowEvents": 88,
     "agentTestsFailed": []
   },
   "errors": []

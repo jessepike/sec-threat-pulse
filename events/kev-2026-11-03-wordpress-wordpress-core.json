@@ -3,12 +3,12 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-03-wordpress-wordpress-core",
   "title": "WordPress Core: attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 17 days old, so many systems are likely still unpatched.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 18 days old, so many systems are likely still unpatched.",
   "tier": "now",
   "rankScore": 4,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 14 days old."
+    "The confirmation is 15 days old."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -59,13 +59,13 @@
   },
   "summary": "WordPress WordPress Core contains a time-of-check time-of-use (TOCTOU) race condition vulnerability that could allow unauthenticated attackers to execute code on the server during the upgrade window. This is due to predictable, web-accessible staging paths used during full-package core upgrades.",
   "cvss": 8.1,
-  "epss": 0.01199,
+  "epss": 0.01586,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-11-03",
   "kevDueDate": "2026-11-06",
   "firstSeenAt": "2026-11-03T00:00:00.000Z",
-  "updatedAt": "2026-11-17T06:00:05.633Z",
+  "updatedAt": "2026-11-18T06:00:04.622Z",
   "newestEvidenceAt": "2026-11-13T15:16:05.616Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 6, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

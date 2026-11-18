@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-16-beyondtrust-remote-support",
   "title": "BeyondTrust Remote Support: attackers can get in without a password",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 32 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3). The exploit prediction score is 79%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 33 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3). The exploit prediction score is 79%.",
   "tier": "now",
   "rankScore": 6,
   "rankWhy": [
@@ -56,8 +56,8 @@
   "kevDateAdded": "2026-10-16",
   "kevDueDate": "2026-10-19",
   "firstSeenAt": "2026-10-16T00:00:00.000Z",
-  "updatedAt": "2026-11-16T21:00:06.895Z",
-  "newestEvidenceAt": "2026-11-16T06:10:38.000Z",
+  "updatedAt": "2026-11-17T21:00:06.998Z",
+  "newestEvidenceAt": "2026-11-18T12:56:48.119Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 19, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -166,7 +166,19 @@
         "name": "CVE List V5 and CISA Vulnrichment",
         "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
       }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Metasploit exploit module: BeyondTrust Remote Support MRS Origin Validation File Upload",
+      "url": "https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/linux/http/beyondtrust_rs_mrs_file_upload.rb",
+      "publishedAt": "2026-10-15T00:00:00.000Z",
+      "source": {
+        "id": "metasploit",
+        "name": "Metasploit module metadata",
+        "attribution": "Metasploit Framework module metadata (BSD-3-Clause, Rapid7)"
+      }
     }
   ],
-  "evidenceWithheld": 25
+  "evidenceWithheld": 26
 }
