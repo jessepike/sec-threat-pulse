@@ -1,12 +1,14 @@
 # Status
 
-Updated Nov 18, 2026, 12:40 UTC. The site is live with real data at https://securitythreatpulse.com.
+Updated Nov 18, 2026, 17:55 UTC. The site is live with real data at https://securitythreatpulse.com.
 
 **Now.** Rules v3 is live. Waves 0 to 3 are built and Wave 4 prep is merged; the repo is public and indexing is on. One scheduled run every 30 minutes ingests and then rebuilds events. The outside probe owns every alert issue. A smoke test runs after each production deployment. 29 of 30 sources are current; VulnCheck KEV has no key and is skipped.
 
 **Waiting on the owner.** The real Neon compute number (Usage page in the Neon console, opened with `vercel integration open neon stp-db`). The first local backup (`npm run backup:local` needs `DATABASE_URL` in `.env.local`; `vercel env pull` returns the Neon values blank because they are marked sensitive, so the address has to come from the Vercel Storage page). Turning off Vercel Agent review. MCP registry publish, the CIRCL email, and the ransomware.live and Shadowserver forms.
 
 **Next.** A scheduled backup once the owner picks a place for it. Routine-drafted write-ups and the blind scorer review from Wave 3. More keyless sources and the next rules version from Wave 2.
+
+**Nov 18 improve loop, dry run 2 of 2.** Gates clear. CISA ICS advisories is still the top coverage item; the saved build applies cleanly to current main, tests (465), lint and typecheck pass, and the keep rule says KEEP (`repo.keylessSources` 29 to 30). Not shipped. Dry runs are done: the next run is the first real one and ships this item through the tier 2 panel.
 
 **Nov 18 daily routine.** No feedback or alert issues open. `/status.json` at 12:24 UTC: ok, last complete run 12:00 UTC, 29 of 30 sources ok (VulnCheck unconfigured), 127 events (88 Act now, 39 Watch, 0 Low). Dependabot: merged tailwindcss 4.3.5 (#52), `@modelcontextprotocol/server` 2.4.0 (#53) and mcp-handler 2.4.0 (#55), all green; tests (460), lint and typecheck pass on the combined main. ESLint 10.15 (#54) is a new copy of the held major and stays held with `@types/node` 26 (#41); the TypeScript 7 pull request is gone since #51 told Dependabot to skip TypeScript majors. The data branch's last snapshot is Nov 17 14:42 UTC (22 hours, inside the 36-hour window); the 21:49 and 02:58 runs skipped on the 20-hour guard. The agent test set passed at 14:32, 21:49 and 02:52 UTC. The freshness probe ran at 20:49, 02:51 and 11:30 UTC. Improve loop: last ledger row is the Nov 16 dry run (2 days old) and `improve/live.json` was written Nov 17 14:42 UTC; not stalled. No code change today. Nov 11 and Nov 12 entries moved to the archive.
 
