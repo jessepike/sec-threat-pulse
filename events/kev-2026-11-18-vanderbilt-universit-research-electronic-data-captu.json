@@ -1,0 +1,154 @@
+{
+  "id": "kev-2026-11-18-vanderbilt-universit-research-electronic-data-captu",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-18-vanderbilt-universit-research-electronic-data-captu",
+  "title": "Vanderbilt University Research Electronic Data Capture (REDCap): attackers can run their own code",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 60 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.8).",
+  "tier": "today",
+  "rankScore": 6,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "Ready-made attack tools are public.",
+    "The confirmation is 1 day old."
+  ],
+  "rulesVersion": "v3",
+  "ladder": {
+    "talk": "reported",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
+  "cves": [
+    "CVE-2026-90817"
+  ],
+  "vendor": "Vanderbilt University",
+  "product": "Research Electronic Data Capture (REDCap)",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "vanderbiltuniversity/researchelectronicdatacaptureredcap",
+      "vendor": "Vanderbilt University",
+      "product": "Research Electronic Data Capture (REDCap)",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "vanderbiltuniversity",
+      "productKey": "researchelectronicdatacaptureredcap"
+    },
+    {
+      "kind": "direct",
+      "slug": "vanderbiltuniversity/redcap",
+      "vendor": "Vanderbilt University",
+      "product": "Redcap",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "vanderbiltuniversity",
+      "productKey": "redcap"
+    }
+  ],
+  "category": {
+    "id": "other",
+    "label": "Other software",
+    "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+    "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+  },
+  "summary": "Vanderbilt University Research Electronic Data Capture (REDCap) contains a code injection vulnerability which could allow an unauthenticated attacker to execute arbitrary code on the server.",
+  "cvss": 9.8,
+  "epss": 0.03749,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-18",
+  "kevDueDate": "2026-11-21",
+  "firstSeenAt": "2026-11-18T00:00:00.000Z",
+  "updatedAt": "2026-11-19T12:30:28.710Z",
+  "newestEvidenceAt": "2026-11-19T06:31:21.345Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 21, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-09-20",
+      "label": "CVE-2026-90817 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-90817"
+    },
+    "firstReport": {
+      "date": "2026-11-18",
+      "label": "CVE List V5 and CISA Vulnrichment",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-90817"
+    },
+    "kevListed": {
+      "date": "2026-11-18",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-90817"
+    },
+    "kevDue": {
+      "date": "2026-11-21",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-90817"
+    },
+    "daysToFirstReport": 59,
+    "daysToKev": 59
+  },
+  "ladderSources": {
+    "talk": 1,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Nuclei scan template: REDCap >= 13.3.0 - Unauthenticated Remote Code Execution via Survey Passthru",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2026/CVE-2026-90817.yaml",
+      "publishedAt": null,
+      "source": {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-90817 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-90817",
+      "publishedAt": "2026-11-18T20:42:19.220Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Vanderbilt University Research Electronic Data Capture (REDCap) Code Injection Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-90817",
+      "publishedAt": "2026-11-18T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "6 public GitHub repositories claim a proof of concept for CVE-2026-90817",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-90817.json",
+      "publishedAt": "2026-09-21T04:05:26.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    }
+  ],
+  "evidenceWithheld": 14
+}
