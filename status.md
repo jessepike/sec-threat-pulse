@@ -1,12 +1,14 @@
 # Status
 
-Updated Nov 18, 2026, 17:55 UTC. The site is live with real data at https://securitythreatpulse.com.
+Updated Nov 19, 2026, 12:30 UTC. The site is live with real data at https://securitythreatpulse.com.
 
 **Now.** Rules v3 is live. Waves 0 to 3 are built and Wave 4 prep is merged; the repo is public and indexing is on. One scheduled run every 30 minutes ingests and then rebuilds events. The outside probe owns every alert issue. A smoke test runs after each production deployment. 29 of 30 sources are current; VulnCheck KEV has no key and is skipped.
 
 **Waiting on the owner.** The real Neon compute number (Usage page in the Neon console, opened with `vercel integration open neon stp-db`). The first local backup (`npm run backup:local` needs `DATABASE_URL` in `.env.local`; `vercel env pull` returns the Neon values blank because they are marked sensitive, so the address has to come from the Vercel Storage page). Turning off Vercel Agent review. MCP registry publish, the CIRCL email, and the ransomware.live and Shadowserver forms.
 
 **Next.** A scheduled backup once the owner picks a place for it. Routine-drafted write-ups and the blind scorer review from Wave 3. More keyless sources and the next rules version from Wave 2.
+
+**Nov 19 daily routine.** No feedback or alert issues open. `/status.json` at 12:24 UTC: ok, last complete run 12:00 UTC, 29 of 30 sources ok (VulnCheck unconfigured), 131 events (92 Act now, 39 Watch, 0 Low). Open Dependabot pull requests are the two held majors (ESLint 10.15 #54, `@types/node` 26 #41). The smoke test passed on the last production deployment (`507808e`). The data branch's last snapshot is Nov 18 14:20 UTC (22 hours, inside the 36-hour window); the 21:28 and 02:41 runs skipped on the 20-hour guard. The agent test set passed at 14:08, 21:28 and 02:32 UTC. The freshness probe ran at 19:33, 01:27 and 09:27 UTC. Improve loop: last ledger row is the Nov 18 dry run (1 day old) and `improve/live.json` was written Nov 18 14:20 UTC; not stalled. No code change today.
 
 **Nov 18 improve loop, dry run 2 of 2.** Gates clear. CISA ICS advisories is still the top coverage item; the saved build applies cleanly to current main, tests (465), lint and typecheck pass, and the keep rule says KEEP (`repo.keylessSources` 29 to 30). Not shipped. Dry runs are done: the next run is the first real one and ships this item through the tier 2 panel.
 
