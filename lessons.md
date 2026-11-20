@@ -3,6 +3,10 @@
 Hot buffer. One line per insight, newest first. Keep the last 15 or so; promote lasting patterns
 into AGENTS.md or docs and drop them from here. Read at session start.
 
+## 2026-11-20
+
+- A guard step that only reports `failure` stays silent when setup breaks first: the smoke step was `skipped` after the runner's apt mirrors timed out, so a deploy went unchecked with no alert. Treat "skipped after a failed setup" as a failure.
+
 ## 2026-11-16
 
 - The cloud container's proxy refuses cisa.gov and ENISA, but raw.githubusercontent.com and partial git clones of public repos work. Prefer sources that publish to GitHub (CISA's CSAF repo) when the fixture has to be recorded from the container.
