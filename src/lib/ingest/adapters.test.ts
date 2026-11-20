@@ -26,7 +26,7 @@ const unique = (xs: string[]) => new Set(xs).size === xs.length;
 describe("registry", () => {
   it("has one definition per P1 source with metadata", () => {
     const ids = SOURCE_REGISTRY.map((d) => d.adapter.id);
-    expect(ids).toEqual(["cisa-kev", "vulncheck-kev", "msrc", "nvd", "cvelist", "epss", "circl-sightings", "metasploit", "nuclei", "poc-github", "exploitdb", "sec-8k", "hibp", "wa-ag", "ca-ag", ...NEWS_FEEDS.map((f) => f.id), ...ADVISORY_FEEDS.map((f) => f.id)]);
+    expect(ids).toEqual(["cisa-kev", "vulncheck-kev", "msrc", "nvd", "cvelist", "epss", "circl-sightings", "metasploit", "nuclei", "poc-github", "exploitdb", "sec-8k", "hibp", "wa-ag", "ca-ag", ...NEWS_FEEDS.map((f) => f.id), ...ADVISORY_FEEDS.map((f) => f.id), "cisa-ics"]);
     for (const d of SOURCE_REGISTRY) {
       expect(d.homepage).toMatch(/^https:/);
       expect(d.attribution).toBeTruthy();

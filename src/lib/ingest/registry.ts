@@ -14,6 +14,7 @@ import { sec8kAdapter } from "./adapters/sec-8k";
 import { hibpAdapter } from "./adapters/hibp";
 import { waAgAdapter } from "./adapters/wa-ag";
 import { caAgAdapter } from "./adapters/ca-ag";
+import { cisaIcsAdapter } from "./adapters/cisa-ics";
 import { ADVISORY_FEEDS, FEED_HOMEPAGES, NEWS_FEEDS, makeFeedAdapter } from "./adapters/feeds";
 
 export type TermsStatus = "open" | "attribution" | "approval_needed" | "blocked" | "unclear";
@@ -62,6 +63,7 @@ export const SOURCE_REGISTRY: SourceDefinition[] = [
     termsStatus: "attribution" as const,
     attribution: `Advisory headlines and links from ${f.name}`,
   })),
+  { adapter: cisaIcsAdapter, category: "advisory", homepage: "https://www.cisa.gov/news-events/cybersecurity-advisories/ics-advisories", termsStatus: "open", attribution: "CISA ICS advisories (CSAF, github.com/cisagov/CSAF)" },
 ];
 
 export const ADAPTERS: SourceAdapter[] = SOURCE_REGISTRY.map((d) => d.adapter);
