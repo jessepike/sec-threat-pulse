@@ -3,12 +3,12 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-10-microsoft-office",
   "title": "Microsoft Office: security flaw used in attacks",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 8 days old, so many systems are likely still unpatched.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 9 days old, so many systems are likely still unpatched.",
   "tier": "now",
   "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 9 days old.",
+    "The confirmation is 10 days old.",
     "7 products are affected."
   ],
   "rulesVersion": "v3",
@@ -121,7 +121,7 @@
   "kevDateAdded": "2026-11-10",
   "kevDueDate": "2026-11-24",
   "firstSeenAt": "2026-11-10T00:00:00.000Z",
-  "updatedAt": "2026-11-19T00:00:07.678Z",
+  "updatedAt": "2026-11-20T00:00:12.327Z",
   "newestEvidenceAt": "2026-11-17T20:51:05.932Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 24, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
