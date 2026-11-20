@@ -5,6 +5,7 @@ into AGENTS.md or docs and drop them from here. Read at session start.
 
 ## 2026-11-20
 
+- An adapter that loops over many documents must catch per document: one bad file otherwise fails every run and freezes the cursor. And `onConflictDoNothing` on the dedupe key drops revisions, so key multi-CVE documents per CVE. Both were caught by the improve panel, not by tests.
 - A guard step that only reports `failure` stays silent when setup breaks first: the smoke step was `skipped` after the runner's apt mirrors timed out, so a deploy went unchecked with no alert. Treat "skipped after a failed setup" as a failure.
 
 ## 2026-11-16

@@ -6,7 +6,7 @@ its own and parks what needs the owner. Lane, then the metric it should move.
 ## Coverage (active lane)
 
 - ENISA EUVD as a keyless source: EU vulnerability records and its exploited list. `repo.keylessSources`, then `live.sourcesOk`; check its reuse terms first. The cloud container cannot reach euvdservices.enisa.europa.eu (proxy 403, Nov 16), so a fixture has to come another way.
-- CISA ICS advisories as a keyless source: industrial products leaders buy. `repo.keylessSources`, `live.earlyActNowShare`. Built in dry run 1 (Nov 16) from CISA's CSAF repository on GitHub, rechecked against main in dry run 2 (Nov 18); ship it in the first real run from `/mnt/project-files/improve/2026-11-16-cisa-ics-advisories.patch`.
+- `cisa-ics` follow-ups (shipped Nov 20, #60): a document that keeps failing with nothing else new fails the run every 3 hours until it leaves the 30 day window (consider skipping a document after N failures); an event that groups several CVEs from one advisory lists the advisory once per CVE (collapse by URL in the evidence list).
 - Vendor PSIRT feeds for the most bought vendors (Cisco, Fortinet, Palo Alto Networks, Ivanti), the MSRC pattern: vendor confirmed exploitation as a second exploitation report. `live.earlyActNowShare`, later `bt.kevCalledBeforeShare` once the dataset is rebuilt with them.
 - A second exploitation report source so two independent reports can confirm without KEV (BACKLOG Phase 2). `live.earlyActNowShare`.
 
