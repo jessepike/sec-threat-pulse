@@ -36,10 +36,20 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - name: Install dependencies and the browser for the phone layout checks
+      - name: Install dependencies
+        run: npm ci
+      # The runner's apt mirrors can be down (Nov 19: every font package timed out), which used to
+      # fail this step, skip the smoke test and open no alert. Retry, then fall back to the browser
+      # alone: the runner image already carries the libraries Chromium needs.
+      - name: Install the browser for the phone layout checks
         run: |
-          npm ci
-          npx playwright install --with-deps chromium
+          for attempt in 1 2; do
+            if npx playwright install --with-deps chromium; then exit 0; fi
+            echo "::warning::Browser install with system packages failed (attempt $attempt)"
+            sleep 20
+          done
+          echo "::warning::Installing the browser without system packages"
+          npx playwright install chromium
       - name: Give the new deployment a minute to take traffic
         run: sleep 45
       - name: Run the smoke test
@@ -54,6 +64,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OUTCOME: ${{ steps.smoke.outcome }}
+          JOB_STATUS: ${{ job.status }}
           SHA: ${{ github.event.sha || github.event.client_payload.git.sha || github.event.deployment.sha || github.sha }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
@@ -65,6 +76,12 @@ jobs:
               gh issue close "$open" --repo "$GITHUB_REPOSITORY" --comment "Recovered: the smoke test passed on $SHA. Closing."
             fi
             exit 0
+          fi
+          # A setup step that failed skips the smoke test. That is not a pass: say so.
+          if [ "$OUTCOME" = "skipped" ] && [ "$JOB_STATUS" = "failure" ]; then
+            OUTCOME=failure
+            echo "Setup failed before the smoke test ran." > smoke.log
+            echo "FAIL setup: the smoke test could not run (see the run log)" >> smoke.log
           fi
           if [ "$OUTCOME" != "failure" ]; then exit 0; fi
           {
