@@ -1,0 +1,114 @@
+{
+ "document": {
+  "title": "Siemens RUGGEDCOM APE1808",
+  "category": "csaf_security_advisory",
+  "csaf_version": "2.0",
+  "publisher": {
+   "category": "other",
+   "contact_details": "central@cisa.dhs.gov",
+   "name": "CISA",
+   "namespace": "https://www.cisa.gov/"
+  },
+  "references": [
+   {
+    "category": "self",
+    "summary": "SSA-566512: PHP2Shell Vulnerabilities in Palo Alto Networks PAN-OS on RUGGEDCOM APE1808 Devices - CSAF Version",
+    "url": "https://cert-portal.siemens.com/productcert/csaf/ssa-566512.json"
+   },
+   {
+    "category": "self",
+    "summary": "SSA-566512: PHP2Shell Vulnerabilities in Palo Alto Networks PAN-OS on RUGGEDCOM APE1808 Devices - HTML Version",
+    "url": "https://cert-portal.siemens.com/productcert/html/ssa-566512.html"
+   },
+   {
+    "category": "self",
+    "summary": "ICS Advisory ICSA-26-316-05 JSON",
+    "url": "https://raw.githubusercontent.com/cisagov/CSAF/develop/csaf_files/OT/white/2026/icsa-26-316-05.json"
+   },
+   {
+    "category": "self",
+    "summary": "ICS Advisory ICSA-26-316-05 - Web Version",
+    "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-05"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/news-events/ics-alerts/ics-alert-10-301-01"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/resources-tools/resources/ics-recommended-practices"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/topics/industrial-control-systems"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/sites/default/files/recommended_practices/NCCIC_ICS-CERT_Defense_in_Depth_2016_S508C.pdf"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/sites/default/files/publications/Cybersecurity_Best_Practices_for_Industrial_Control_Systems.pdf"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/news-events/news/targeted-cyber-intrusion-detection-and-mitigation-strategies-update-b"
+   }
+  ],
+  "tracking": {
+   "id": "ICSA-26-316-05",
+   "initial_release_date": "2026-10-23T00:00:00.000000Z",
+   "current_release_date": "2026-11-12T07:00:00.000000Z",
+   "status": "final",
+   "version": "4"
+  }
+ },
+ "product_tree": {
+  "branches": [
+   {
+    "branches": [
+     {
+      "branches": [
+       {
+        "category": "product_version_range",
+        "name": "vers:all/*",
+        "product": {
+         "name": "RUGGEDCOM APE1808 with Palo Alto Networks PAN-OS (10.2 All, 11.1 All, 11.2 All, 12.1 All, 12.2 All)",
+         "product_id": "CSAFPID-0001"
+        }
+       }
+      ],
+      "category": "product_name",
+      "name": "RUGGEDCOM APE1808"
+     }
+    ],
+    "category": "vendor",
+    "name": "Siemens"
+   }
+  ]
+ },
+ "vulnerabilities": [
+  {
+   "cve": "CVE-2026-109618",
+   "title": "CVE-2026-109618",
+   "cwe": {
+    "id": "CWE-416",
+    "name": "Use After Free"
+   }
+  },
+  {
+   "cve": "CVE-2026-109619",
+   "title": "CVE-2026-109619",
+   "cwe": {
+    "id": "CWE-416",
+    "name": "Use After Free"
+   }
+  }
+ ]
+}

@@ -51,13 +51,23 @@ If-Modified-Since are sent. Terms: headlines and links with credit by linking to
 | `advisory-ncsc-uk` | UK NCSC | `https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml` | 60 min |
 | `advisory-cert-eu` | CERT-EU | `https://cert.europa.eu/publications/security-advisories-rss` | 60 min |
 | `advisory-cccs` | Canadian Centre for Cyber Security | `https://www.cyber.gc.ca/api/cccs/rss/v1/get?feed=alerts_advisories&lang=en` (Atom) | 60 min |
+| `cisa-ics` | CISA ICS advisories (industrial and medical) | `https://raw.githubusercontent.com/cisagov/CSAF/develop/csaf_files/OT/white/changes.csv`, then each changed CSAF file | 180 min |
+
+`cisa-ics` (added Nov 20, 2026) reads CISA's own CSAF repository, not a feed: `changes.csv` lists
+every document with its last change. Documents changed in the last 30 days are read, at most 25 a
+run, and each one that names CVEs becomes one `advisory` observation per CVE linking to CISA's
+page, so a revision that adds a CVE adds its evidence. Documents with more than 50 CVEs (vendor
+roll-ups) are counted and skipped. A document that fails to load is retried next run without
+holding up the others. No vulnerability facts are written, since
+CISA republishes vendor advisories that cover other vendors' code. Terms: US government work, public
+domain; credited as "CISA ICS advisories".
 
 Notes: the NCSC feed mixes blogs and guidance with advisories; only CVE-bearing items pass. Feeds
 list only the latest 5 to 50 items, so the interval matters.
 
 ## P1 if capacity
 
-`euvd`, `ghsa`, `cisa-csaf`. (`msrc` is live, see P1.)
+`euvd`, `ghsa`. (`msrc` and `cisa-ics` are live.)
 
 ## Not used yet
 

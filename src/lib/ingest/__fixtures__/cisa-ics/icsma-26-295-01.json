@@ -1,0 +1,136 @@
+{
+ "document": {
+  "title": "InterSystems Corporation InterSystems IRIS for Health",
+  "category": "csaf_security_advisory",
+  "csaf_version": "2.0",
+  "publisher": {
+   "category": "coordinator",
+   "contact_details": "central@cisa.dhs.gov",
+   "name": "CISA",
+   "namespace": "https://www.cisa.gov/"
+  },
+  "references": [
+   {
+    "category": "self",
+    "summary": "ICS Advisory ICSMA-26-295-01 JSON",
+    "url": "https://raw.githubusercontent.com/cisagov/CSAF/develop/csaf_files/OT/white/2026/icsma-26-295-01.json"
+   },
+   {
+    "category": "self",
+    "summary": "ICSA Advisory ICSMA-26-295-01 - Web Version",
+    "url": "https://www.cisa.gov/news-events/ics-medical-advisories/icsma-26-295-01"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/uscert/ics/alerts/ICS-ALERT-10-301-01"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/resources-tools/resources/ics-recommended-practices"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/sites/default/files/publications/Cybersecurity_Best_Practices_for_Industrial_Control_Systems.pdf"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/topics/industrial-control-systems"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/uscert/sites/default/files/publications/emailscams0905.pdf"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/uscert/ncas/tips/ST04-014"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/news-events/ics-alerts/ics-alert-10-301-01"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/sites/default/files/recommended_practices/NCCIC_ICS-CERT_Defense_in_Depth_2016_S508C.pdf"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/news-events/news/targeted-cyber-intrusion-detection-and-mitigation-strategies-update-b"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/secure-our-world/teach-employees-avoid-phishing"
+   },
+   {
+    "category": "external",
+    "summary": "Recommended Practices",
+    "url": "https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks"
+   }
+  ],
+  "tracking": {
+   "id": "ICSMA-26-295-01",
+   "initial_release_date": "2026-10-22T06:00:00.000000Z",
+   "current_release_date": "2026-10-22T06:00:00.000000Z",
+   "status": "final",
+   "version": "1"
+  }
+ },
+ "product_tree": {
+  "branches": [
+   {
+    "branches": [
+     {
+      "branches": [
+       {
+        "category": "product_version",
+        "name": "2026.2.0.221",
+        "product": {
+         "name": "InterSystems Corporation InterSystems IRIS for Health: 2026.2.0.221",
+         "product_id": "CSAFPID-0001"
+        }
+       },
+       {
+        "category": "product_version",
+        "name": "2026.1.0.235",
+        "product": {
+         "name": "InterSystems Corporation InterSystems IRIS for Health: 2026.1.0.235",
+         "product_id": "CSAFPID-0002"
+        }
+       },
+       {
+        "category": "product_version",
+        "name": "2025.3.0.226",
+        "product": {
+         "name": "InterSystems Corporation InterSystems IRIS for Health: 2025.3.0.226",
+         "product_id": "CSAFPID-0003"
+        }
+       }
+      ],
+      "category": "product_name",
+      "name": "InterSystems IRIS for Health"
+     }
+    ],
+    "category": "vendor",
+    "name": "InterSystems Corporation"
+   }
+  ]
+ },
+ "vulnerabilities": [
+  {
+   "cve": "CVE-2026-111594",
+   "cwe": {
+    "id": "CWE-319",
+    "name": "Cleartext Transmission of Sensitive Information"
+   }
+  }
+ ]
+}
