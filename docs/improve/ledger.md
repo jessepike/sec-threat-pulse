@@ -5,6 +5,8 @@ Reviewers: C = Codex, S = Claude on sonnet, O = Claude on opus (adversarial), G 
 
 | Date | Item | Target metric | Before | After | Result | Reviewers | PR |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-20 | CISA ICS advisories as a keyless source (`cisa-ics`), tier 2 | repo.keylessSources (live.sourcesOk at the 7 day recheck, Nov 27) | 29 | 30 | kept | C a (after a P2 fix), S r then a, O a | #60 |
+| 2026-11-18 | CISA ICS advisories, rechecked against main | repo.keylessSources | 29 | 30 | dry: would keep | not run (dry) | |
 | 2026-11-16 | CISA ICS advisories as a keyless source (`cisa-ics`), tier 2 | repo.keylessSources (live.sourcesOk at the 7 day recheck) | 29 | 30 | dry: would keep | not run (dry) | |
 | 2026-11-14 | Baseline scorecard (the loop's build, not a run) | none | | | baseline | | |
 
@@ -32,3 +34,14 @@ fixture. Would ship: the Nov 16 build, unchanged. The saved patch applies cleanl
 (29 to 30) and on `--target none`; tier 2 (`src/lib/ingest/registry.ts`, `docs/source-registry.md`).
 CISA's `changes.csv` still has the same two-column format and listed 11 new advisories on Nov 17.
 Real runs start next run with this item.
+
+Nov 20, first real run. Gates clear; live scorecard from the Nov 20 14:10 UTC snapshot; no kept rows
+to recheck. Shipped CISA ICS advisories (#60, squash `16ded3b`). The panel changed the build twice:
+Codex (P2) found that a revised advisory reused its dedupe key, so CVEs it added were dropped, and the
+sonnet reviewer rejected because one failing document failed the whole run and froze the cursor.
+Fixed: one observation per CVE (`cisa-ics:<advisory>:<cve>`), and per-document failure handling
+(a failed document is retried next run without the ETag, a 404 is marked read, the run fails only
+when every document fails). Tests 468 of 468, lint and typecheck clean, `keep.mjs` KEEP on
+`repo.keylessSources` (29 to 30) and `--target none`; no backtest or live metric moved. The opus
+reviewer reran everything and read 87 live documents (248 observations, 0 failures, 304 on rerun).
+Recheck `live.sourcesOk` (29 now, expect 30) on Nov 27.
