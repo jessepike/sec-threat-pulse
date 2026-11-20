@@ -55,8 +55,10 @@ If-Modified-Since are sent. Terms: headlines and links with credit by linking to
 
 `cisa-ics` (added Nov 20, 2026) reads CISA's own CSAF repository, not a feed: `changes.csv` lists
 every document with its last change. Documents changed in the last 30 days are read, at most 25 a
-run, and each one that names CVEs becomes one `advisory` observation linking to CISA's page. Vendor
-roll-ups with more than 50 CVEs are counted and skipped. No vulnerability facts are written, since
+run, and each one that names CVEs becomes one `advisory` observation per CVE linking to CISA's
+page, so a revision that adds a CVE adds its evidence. Documents with more than 50 CVEs (vendor
+roll-ups) are counted and skipped. A document that fails to load is retried next run without
+holding up the others. No vulnerability facts are written, since
 CISA republishes vendor advisories that cover other vendors' code. Terms: US government work, public
 domain; credited as "CISA ICS advisories".
 

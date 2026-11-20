@@ -14,28 +14,35 @@ const routes = (changes = fixture("cisa-ics/changes.csv")) =>
   ]);
 
 describe("cisa-ics", () => {
-  it("reads advisories changed in the last 30 days and turns each into one advisory observation", async () => {
+  it("reads advisories changed in the last 30 days and turns each into one advisory observation per CVE", async () => {
     const ff = routes();
     const r = await cisaIcsAdapter.run(ctx(ff.fetch));
     expect(ff.calls[0].url).toBe("https://raw.githubusercontent.com/cisagov/CSAF/develop/csaf_files/OT/white/changes.csv");
     // The July document is outside the window and is never fetched.
     expect(ff.calls.map((c) => c.url.split("/").pop())).toEqual(["changes.csv", ...docs.map((d) => `${d}.json`)]);
-    expect(r.observations.map((o) => o.dedupeKey)).toEqual(["cisa-ics:ICSA-26-316-05", "cisa-ics:ICSA-26-307-01", "cisa-ics:ICSMA-26-295-01"]);
-    expect(r.observations[1]).toMatchObject({
+    expect(r.observations.map((o) => o.dedupeKey)).toEqual([
+      "cisa-ics:ICSA-26-316-05:CVE-2026-109618",
+      "cisa-ics:ICSA-26-316-05:CVE-2026-109619",
+      "cisa-ics:ICSA-26-307-01:CVE-2026-63017",
+      "cisa-ics:ICSA-26-307-01:CVE-2026-63774",
+      "cisa-ics:ICSMA-26-295-01:CVE-2026-111594",
+    ]);
+    expect(r.observations[2]).toMatchObject({
       sourceId: "cisa-ics",
       kind: "advisory",
       strength: "reported",
-      cveIds: ["CVE-2026-63017", "CVE-2026-63774"],
+      cveIds: ["CVE-2026-63017"],
       vendor: "Subnet Solutions",
       url: "https://www.cisa.gov/news-events/ics-advisories/icsa-26-307-01",
       publishedAt: "2026-11-03T06:00:00.000Z",
     });
-    expect(r.observations[1].title).toMatch(/^CISA ICS advisory ICSA-26-307-01: /);
-    expect(r.observations[2].url).toBe("https://www.cisa.gov/news-events/ics-medical-advisories/icsma-26-295-01");
+    expect(r.observations[3].cveIds).toEqual(["CVE-2026-63774"]);
+    expect(r.observations[2].title).toMatch(/^CISA ICS advisory ICSA-26-307-01: /);
+    expect(r.observations[4].url).toBe("https://www.cisa.gov/news-events/ics-medical-advisories/icsma-26-295-01");
     // A republished vendor advisory links to CISA's page, not the vendor's.
     expect(r.observations[0].url).toBe("https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-05");
     expect(r.vulnerabilities).toEqual([]);
-    expect(r.stats).toMatchObject({ documents: 4, withCve: 3, rollup: 1, waiting: 0 });
+    expect(r.stats).toMatchObject({ documents: 4, withCve: 3, rollup: 1, waiting: 0, failed: 0 });
     expect(JSON.parse(r.cursor!)).toMatchObject({ e: '"v1"', seen: { "2026/icsa-26-295-11.json": "2026-10-22T06:00:00.000000Z" } });
   });
 
@@ -53,7 +60,50 @@ describe("cisa-ics", () => {
     const ff = routes(moved);
     const r = await cisaIcsAdapter.run(ctx(ff.fetch, { cursor: first.cursor }));
     expect(ff.calls.map((c) => c.url.split("/").pop())).toEqual(["changes.csv", "icsa-26-307-01.json"]);
-    expect(r.observations.map((o) => o.dedupeKey)).toEqual(["cisa-ics:ICSA-26-307-01"]);
+    expect(r.observations.map((o) => o.dedupeKey)).toEqual(["cisa-ics:ICSA-26-307-01:CVE-2026-63017", "cisa-ics:ICSA-26-307-01:CVE-2026-63774"]);
+  });
+
+  it("gives a CVE added by a revision its own key, so the runner stores its evidence", () => {
+    const doc = JSON.parse(fixture("cisa-ics/icsa-26-307-01.json"));
+    const before = parseCsafAdvisory(doc, "2026/icsa-26-307-01.json");
+    doc.vulnerabilities.push({ cve: "CVE-2026-70001" });
+    const after = parseCsafAdvisory(doc, "2026/icsa-26-307-01.json");
+    const keys = (p: typeof before) => ("observations" in p ? p.observations.map((o) => o.dedupeKey) : []);
+    expect(keys(after).filter((k) => !keys(before).includes(k))).toEqual(["cisa-ics:ICSA-26-307-01:CVE-2026-70001"]);
+  });
+
+  it("keeps the good documents when one fails, and retries the failed one next run without the ETag", async () => {
+    const ff = fakeFetch([
+      ["/changes.csv", { body: fixture("cisa-ics/changes.csv"), headers: { etag: '"v1"' } }],
+      ["/2026/icsa-26-307-01.json", "{not json"],
+      ...docs.filter((d) => d !== "icsa-26-307-01").map((d) => [`/2026/${d}.json`, fixture(`cisa-ics/${d}.json`)] as [string, string]),
+    ]);
+    const r = await cisaIcsAdapter.run(ctx(ff.fetch));
+    expect(r.stats).toMatchObject({ failed: 1, withCve: 2 });
+    expect(r.observations.map((o) => o.dedupeKey).some((k) => k.includes("ICSA-26-307-01"))).toBe(false);
+    const cur = JSON.parse(r.cursor!);
+    expect(cur.e).toBeUndefined();
+    expect(cur.seen["2026/icsa-26-307-01.json"]).toBeUndefined();
+    const again = routes();
+    const r2 = await cisaIcsAdapter.run(ctx(again.fetch, { cursor: r.cursor }));
+    expect(again.calls.map((c) => c.url.split("/").pop())).toEqual(["changes.csv", "icsa-26-307-01.json"]);
+    expect(r2.observations).toHaveLength(2);
+  });
+
+  it("marks a removed document as read, and fails the run only when every document fails", async () => {
+    const gone = fakeFetch([
+      ["/changes.csv", fixture("cisa-ics/changes.csv")],
+      ["/2026/icsa-26-316-05.json", { status: 404, body: "404: Not Found" }],
+      ...docs.filter((d) => d !== "icsa-26-316-05").map((d) => [`/2026/${d}.json`, fixture(`cisa-ics/${d}.json`)] as [string, string]),
+    ]);
+    const r = await cisaIcsAdapter.run(ctx(gone.fetch));
+    expect(r.stats).toMatchObject({ gone: 1, failed: 0 });
+    expect(JSON.parse(r.cursor!).seen["2026/icsa-26-316-05.json"]).toBeDefined();
+    const down = fakeFetch([
+      ["/changes.csv", fixture("cisa-ics/changes.csv")],
+      [/\/2026\//, { status: 403, body: "forbidden" }],
+    ]);
+    await expect(cisaIcsAdapter.run(ctx(down.fetch))).rejects.toThrow(/every document fetch failed/);
   });
 
   it("caps documents per run and leaves the rest, without the ETag, for the next run", async () => {

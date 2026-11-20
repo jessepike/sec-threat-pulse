@@ -1,12 +1,12 @@
 import type { AdapterResult, ObservationInput, SourceAdapter } from "@/lib/ladder/types";
-import { getJson, httpGet } from "../http";
+import { httpGet } from "../http";
 import { isCveId, parseCsv, truncate } from "../util";
 
 // CISA ICS advisories (industrial and medical products), as CSAF 2.0 documents in CISA's own
 // public repository (github.com/cisagov/CSAF). US government work, no key. The OT folder's
 // changes.csv lists every document path with its last change, newest first. Each advisory that
-// names CVEs becomes one observation: kind `advisory`, strength `reported`, like the other
-// government advisories. We store the advisory id, title, vendor, product, CVE ids and the link
+// names CVEs becomes one observation per CVE: kind `advisory`, strength `reported`, like the other
+// government advisories. Keyed per CVE so a revision that adds a CVE adds its evidence. We store the advisory id, title, vendor, product, CVE ids and the link
 // to CISA's page; no advisory text. No vulnerability facts are written: republished vendor
 // advisories (Siemens shipping Palo Alto Networks code) would put the wrong vendor on the CVE.
 
@@ -62,9 +62,9 @@ function advisoryUrl(doc: CsafDocument, path: string): string {
 
 export type CsafParse =
   | { skip: "no-cve" | "rollup" | "no-id"; cves: number }
-  | { observation: ObservationInput };
+  | { observations: ObservationInput[] };
 
-/** One CSAF document to one observation. Pure: no network. */
+/** One CSAF document to one observation per CVE. Pure: no network. */
 export function parseCsafAdvisory(doc: CsafDocument, path: string): CsafParse {
   const id = doc.document?.tracking?.id?.trim().toUpperCase();
   const cves = [...new Set((doc.vulnerabilities ?? []).map((v) => v.cve?.trim().toUpperCase() ?? "").filter(isCveId))];
@@ -76,19 +76,19 @@ export function parseCsafAdvisory(doc: CsafDocument, path: string): CsafParse {
   const title = doc.document?.title?.trim() || product || id;
   const publishedAt = iso(doc.document?.tracking?.initial_release_date) ?? iso(doc.document?.tracking?.current_release_date);
   return {
-    observation: {
+    observations: cves.map((cve) => ({
       sourceId: "cisa-ics",
-      dedupeKey: `cisa-ics:${id}`,
-      kind: "advisory",
-      strength: "reported",
-      cveIds: cves,
+      dedupeKey: `cisa-ics:${id}:${cve}`,
+      kind: "advisory" as const,
+      strength: "reported" as const,
+      cveIds: [cve],
       vendor,
       product,
       title: truncate(`CISA ICS advisory ${id}: ${title}`, 300),
       url: advisoryUrl(doc, path),
       publishedAt,
-      metadata: { advisory: id, path, revisedAt: iso(doc.document?.tracking?.current_release_date) },
-    },
+      metadata: { advisory: id, path, revisedAt: iso(doc.document?.tracking?.current_release_date), advisoryCves: cves.length },
+    })),
   };
 }
 
@@ -133,21 +133,39 @@ export const cisaIcsAdapter: SourceAdapter = {
     const next: Record<string, string> = {};
     for (const r of recent) if (seen[r.path] === r.changedAt) next[r.path] = r.changedAt;
     const out: AdapterResult = { observations: [], vulnerabilities: [] };
-    const stats = { documents: batch.length, waiting: todo.length - batch.length, withCve: 0, noCve: 0, rollup: 0 };
+    const stats = { documents: batch.length, waiting: todo.length - batch.length, withCve: 0, noCve: 0, noId: 0, rollup: 0, gone: 0, failed: 0 };
+    let lastError: unknown;
     for (const r of batch) {
-      const { data } = await getJson<CsafDocument>(ctx.fetch, `${CISA_ICS_BASE}${r.path}`, { sleep: ctx.sleep, headers: { Accept: "application/json" } });
-      const parsed = parseCsafAdvisory(data ?? {}, r.path);
+      // One bad document must not stop the others: a failed one stays out of the cursor and is retried next run.
+      let doc: CsafDocument;
+      try {
+        const d = await httpGet(ctx.fetch, `${CISA_ICS_BASE}${r.path}`, { sleep: ctx.sleep, allowStatus: [404], headers: { Accept: "application/json" } });
+        if (d.status === 404) {
+          // Removed from the repository: nothing to read, do not ask again for this change.
+          next[r.path] = r.changedAt;
+          stats.gone++;
+          continue;
+        }
+        doc = JSON.parse(d.body) as CsafDocument;
+      } catch (e) {
+        stats.failed++;
+        lastError = e;
+        continue;
+      }
+      const parsed = parseCsafAdvisory(doc ?? {}, r.path);
       next[r.path] = r.changedAt;
       if ("skip" in parsed) {
-        if (parsed.skip === "rollup") stats.rollup++;
-        else stats.noCve++;
+        stats[parsed.skip === "rollup" ? "rollup" : parsed.skip === "no-id" ? "noId" : "noCve"]++;
         continue;
       }
       stats.withCve++;
-      out.observations.push(parsed.observation);
+      out.observations.push(...parsed.observations);
     }
-    // Keep the ETag only once every recent document is read, so a capped run is not skipped as unchanged next time.
-    const cursor: Cursor = { seen: next, ...(stats.waiting === 0 && res.etag ? { e: res.etag } : {}) };
+    if (batch.length > 0 && stats.failed === batch.length) {
+      throw new Error(`CISA ICS: every document fetch failed (${stats.failed}): ${lastError instanceof Error ? lastError.message : String(lastError)}`);
+    }
+    // Keep the ETag only once every recent document is read, so a capped or partly failed run is not skipped as unchanged next time.
+    const cursor: Cursor = { seen: next, ...(stats.waiting === 0 && stats.failed === 0 && res.etag ? { e: res.etag } : {}) };
     return { ...out, cursor: JSON.stringify(cursor), stats };
   },
 };
