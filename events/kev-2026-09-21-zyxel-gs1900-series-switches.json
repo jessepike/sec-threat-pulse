@@ -192,25 +192,13 @@
     "daysToKev": 97
   },
   "ladderSources": {
-    "talk": 2,
+    "talk": 1,
     "exposure": 0,
     "attempts": 2,
     "exploited": 2,
     "damage": 0
   },
   "evidence": [
-    {
-      "rung": "talk",
-      "strength": "reported",
-      "title": "Patched Zyxel GS1900 switches remained open to in-the-wild exploit (CVE-2026-107441)",
-      "url": "https://www.helpnetsecurity.com/2026/11/05/zyxel-cve-2026-107441-exploit/",
-      "publishedAt": "2026-11-05T12:06:32.000Z",
-      "source": {
-        "id": "news-helpnetsecurity",
-        "name": "Help Net Security",
-        "attribution": "Headlines and links from Help Net Security"
-      }
-    },
     {
       "rung": "exploited",
       "strength": "confirmed",

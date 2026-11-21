@@ -3,12 +3,12 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-10-openwave-messaging-l-webtop-media-transcoder",
   "title": "Openwave Messaging Webtop Media Transcoder: security flaw used in attacks",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 34 days old, so many systems are likely still unpatched.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 35 days old, so many systems are likely still unpatched.",
   "tier": "now",
   "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 10 days old.",
+    "The confirmation is 11 days old.",
     "3 products are affected."
   ],
   "rulesVersion": "v3",
@@ -77,7 +77,7 @@
   "kevDateAdded": "2026-11-10",
   "kevDueDate": "2026-11-24",
   "firstSeenAt": "2026-11-10T00:00:00.000Z",
-  "updatedAt": "2026-11-20T00:00:12.327Z",
+  "updatedAt": "2026-11-21T00:00:04.092Z",
   "newestEvidenceAt": "2026-11-18T04:44:54.631Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 24, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {

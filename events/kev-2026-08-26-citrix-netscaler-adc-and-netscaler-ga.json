@@ -45,7 +45,7 @@
   },
   "summary": "Citrix NetScaler ADC and NetScaler Gateway contain an improper restriction of operations within the bounds of a memory buffer vulnerability which could lead to denial of service.",
   "cvss": 8.8,
-  "epss": 0.01011,
+  "epss": 0.03579,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-08-26",

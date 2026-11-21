@@ -3,12 +3,12 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-17-perforce-puppet-enterprise",
   "title": "Perforce Puppet Enterprise: attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 16 days old, so many systems are likely still unpatched. The severity score is critical (9.4).",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 17 days old, so many systems are likely still unpatched. The severity score is critical (9.4).",
   "tier": "now",
   "rankScore": 6,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 3 days old.",
+    "The confirmation is 4 days old.",
     "3 products are affected."
   ],
   "rulesVersion": "v3",
@@ -78,8 +78,8 @@
   "kevDateAdded": "2026-11-17",
   "kevDueDate": "2026-12-01",
   "firstSeenAt": "2026-11-17T00:00:00.000Z",
-  "updatedAt": "2026-11-20T00:00:12.327Z",
-  "newestEvidenceAt": "2026-11-20T09:28:04.159Z",
+  "updatedAt": "2026-11-21T00:00:04.092Z",
+  "newestEvidenceAt": "2026-11-20T13:26:32.685Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Dec 1, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -198,5 +198,5 @@
       }
     }
   ],
-  "evidenceWithheld": 64
+  "evidenceWithheld": 65
 }

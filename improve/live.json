@@ -1,10 +1,10 @@
 {
-  "at": "2026-11-20T14:10:53.917Z",
+  "at": "2026-11-21T13:36:26.311Z",
   "base": "https://securitythreatpulse.com",
   "metrics": {
-    "live.sourcesOk": 29,
+    "live.sourcesOk": 30,
     "live.actNowRate": 1,
-    "live.kevCalledBeforeShare": 0.0667,
+    "live.kevCalledBeforeShare": 0.0588,
     "live.earlyActNowShare": 0,
     "live.agentTestsPassRate": 1
   },
@@ -28,6 +28,10 @@
       },
       {
         "id": "circl-sightings",
+        "state": "ok"
+      },
+      {
+        "id": "cisa-ics",
         "state": "ok"
       },
       {
@@ -131,7 +135,7 @@
         "state": "ok"
       }
     ],
-    "actNowEvents": 92,
+    "actNowEvents": 95,
     "agentTestsFailed": []
   },
   "errors": []
