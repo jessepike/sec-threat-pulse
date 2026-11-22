@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-16-beyondtrust-remote-support",
   "title": "BeyondTrust Remote Support: attackers can get in without a password",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 36 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3). The exploit prediction score is 51%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 37 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3). The exploit prediction score is 56%.",
   "tier": "now",
   "rankScore": 6,
   "rankWhy": [
@@ -50,14 +50,14 @@
   },
   "summary": "BeyondTrust Remote Support contains an authentication bypass by spoofing vulnerability that could allow a remote attacker to perform file operations on the appliance.",
   "cvss": 9.3,
-  "epss": 0.50694,
+  "epss": 0.55639,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-10-16",
   "kevDueDate": "2026-10-19",
   "firstSeenAt": "2026-10-16T00:00:00.000Z",
-  "updatedAt": "2026-11-20T21:00:05.846Z",
-  "newestEvidenceAt": "2026-11-20T07:34:15.732Z",
+  "updatedAt": "2026-11-21T23:30:59.126Z",
+  "newestEvidenceAt": "2026-11-21T16:09:38.000Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 19, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -88,7 +88,7 @@
     "daysToKev": 1
   },
   "ladderSources": {
-    "talk": 2,
+    "talk": 3,
     "exposure": 0,
     "attempts": 3,
     "exploited": 3,
@@ -105,6 +105,18 @@
         "id": "nuclei",
         "name": "nuclei-templates",
         "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "U.S. CISA adds Cisco Expressway, SAP NetWeaver, Broadcom VMware vCenter, and Apache Roller flaws to its Known Exploited Vulnerabilities catalog",
+      "url": "https://securityaffairs.com/203639/security/u-s-cisa-adds-cisco-expressway-sap-netweaver-broadcom-vmware-vcenter-and-apache-roller-flaws-to-its-known-exploited-vulnerabilities-catalog.html",
+      "publishedAt": "2026-11-21T16:09:38.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
       }
     },
     {

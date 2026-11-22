@@ -8,7 +8,7 @@
   "rankScore": 6,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 1 day old.",
+    "The confirmation is 2 days old.",
     "3 products are affected."
   ],
   "rulesVersion": "v3",
@@ -71,14 +71,14 @@
   },
   "summary": "SAP NetWeaver Enterprise Portal contains an improper neutralization of special elements in data query logic vulnerability that allows an unauthenticated attacker to disclose or modify server information via injected JNDI environment properties or a URL used during JNDI lookup operations.",
   "cvss": 6.5,
-  "epss": 0.00276,
+  "epss": 0.00714,
   "exploitMaturity": "none",
   "kevListed": true,
   "kevDateAdded": "2026-11-20",
   "kevDueDate": "2026-11-23",
   "firstSeenAt": "2026-11-20T00:00:00.000Z",
-  "updatedAt": "2026-11-21T00:00:04.092Z",
-  "newestEvidenceAt": "2026-11-21T13:00:19.593Z",
+  "updatedAt": "2026-11-22T00:00:05.072Z",
+  "newestEvidenceAt": "2026-11-22T10:14:40.286Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 23, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -149,5 +149,5 @@
       }
     }
   ],
-  "evidenceWithheld": 20
+  "evidenceWithheld": 28
 }

@@ -45,7 +45,7 @@
   },
   "summary": "Kestra OSS contains an OS command injection vulnerability that could allow an unauthenticated remote attacker to create and execute arbitrary workflows without credentials.",
   "cvss": 10,
-  "epss": 0.02095,
+  "epss": 0.20409,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-09-02",
