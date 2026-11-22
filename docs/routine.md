@@ -10,7 +10,8 @@ The scheduled task's prompt is one line: read this file and follow it. Change th
 ## Each run
 
 1. **Orient.** Read `AGENTS.md`, `status.md`, `lessons.md` and `BACKLOG.md`. Start the branch
-   `routine/<YYYY-MM-DD>` from `origin/main`.
+   `routine/<YYYY-MM-DD>` from `origin/main`. If an earlier `routine/*` pull request is still open, merge it
+   first when green, or carry its changes on today's branch and close it.
 2. **Owner feedback first.** List open issues labeled `feedback`. For each: make the small, clear
    change, reply on the issue with the commit and page, close it. Anything large or ambiguous gets a
    recommendation and stays open.

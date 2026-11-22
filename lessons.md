@@ -3,6 +3,10 @@
 Hot buffer. One line per insight, newest first. Keep the last 15 or so; promote lasting patterns
 into AGENTS.md or docs and drop them from here. Read at session start.
 
+## 2026-11-22
+
+- A green routine pull request can be left open when the session ends before the merge (#62, Nov 21). Check for an open `routine/*` pull request at the start of each run and carry it forward.
+
 ## 2026-11-20
 
 - An adapter that loops over many documents must catch per document: one bad file otherwise fails every run and freezes the cursor. And `onConflictDoNothing` on the dedupe key drops revisions, so key multi-CVE documents per CVE. Both were caught by the improve panel, not by tests.
