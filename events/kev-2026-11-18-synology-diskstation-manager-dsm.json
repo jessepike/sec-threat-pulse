@@ -3,12 +3,13 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-18-synology-diskstation-manager-dsm",
   "title": "Synology DiskStation Manager (DSM): attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The severity score is critical (9.8).",
-  "tier": "now",
-  "rankScore": 6,
+  "verdictReason": "Attacks are confirmed. Ransomware groups are known to use it. The severity score is critical (9.8).",
+  "tier": "today",
+  "rankScore": 8,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 4 days old.",
+    "Ransomware groups are known to use it.",
+    "The confirmation is 5 days old.",
     "4 products are affected."
   ],
   "rulesVersion": "v3",
@@ -89,8 +90,8 @@
   "kevDateAdded": "2026-11-18",
   "kevDueDate": "2026-11-21",
   "firstSeenAt": "2026-11-18T00:00:00.000Z",
-  "updatedAt": "2026-11-22T00:00:05.072Z",
-  "newestEvidenceAt": "2026-11-20T15:54:29.958Z",
+  "updatedAt": "2026-11-23T13:30:24.621Z",
+  "newestEvidenceAt": "2026-11-23T14:55:06.352Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 21, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -185,5 +186,5 @@
       }
     }
   ],
-  "evidenceWithheld": 43
+  "evidenceWithheld": 45
 }

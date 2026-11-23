@@ -3,14 +3,14 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-10-barracuda-networks-barracuda-email-security-gatew",
   "title": "Barracuda Networks Barracuda Email Security Gateway (ESG): attackers can get in without a password",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 20 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3). The exploit prediction score is 75%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 21 days old, so many systems are likely still unpatched. Ready-made attack tools are public. It affects a product that faces the internet or gives remote access. The severity score is critical (9.3). The exploit prediction score is 75%.",
   "tier": "today",
   "rankScore": 8,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
     "The product faces the internet or gives remote access.",
     "Ready-made attack tools are public.",
-    "The confirmation is 12 days old.",
+    "The confirmation is 13 days old.",
     "6 products are affected."
   ],
   "rulesVersion": "v3",
@@ -113,8 +113,8 @@
   "kevDateAdded": "2026-11-10",
   "kevDueDate": "2026-11-13",
   "firstSeenAt": "2026-11-10T00:00:00.000Z",
-  "updatedAt": "2026-11-22T13:00:05.026Z",
-  "newestEvidenceAt": "2026-11-15T15:30:35.000Z",
+  "updatedAt": "2026-11-23T13:00:05.772Z",
+  "newestEvidenceAt": "2026-11-22T19:25:03.315Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 13, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -237,5 +237,5 @@
       }
     }
   ],
-  "evidenceWithheld": 35
+  "evidenceWithheld": 36
 }

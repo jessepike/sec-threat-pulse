@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-27-google-brotli",
   "title": "Google Brotli: attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 30 days old, so many systems are likely still unpatched. The severity score is critical (9.2). The exploit prediction score is 100%.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 32 days old, so many systems are likely still unpatched. The severity score is critical (9.2). The exploit prediction score is 100%.",
   "tier": "now",
   "rankScore": 4,
   "rankWhy": [
@@ -176,8 +176,8 @@
   "kevDateAdded": "2026-10-27",
   "kevDueDate": "2026-11-10",
   "firstSeenAt": "2026-10-27T00:00:00.000Z",
-  "updatedAt": "2026-11-21T23:30:59.126Z",
-  "newestEvidenceAt": "2026-11-22T07:26:55.000Z",
+  "updatedAt": "2026-11-23T14:00:09.135Z",
+  "newestEvidenceAt": "2026-11-22T22:43:14.379Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 10, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -218,8 +218,8 @@
     {
       "rung": "advisory",
       "strength": "reported",
-      "title": "CISA ICS advisory ICSA-26-321-04: Siemens Industrial Software Products",
-      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-321-04",
+      "title": "CISA ICS advisory ICSA-26-321-03: Siemens Industrial Automation Software Products",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-321-03",
       "publishedAt": "2026-11-10T00:00:00.000Z",
       "source": {
         "id": "cisa-ics",
@@ -230,8 +230,8 @@
     {
       "rung": "advisory",
       "strength": "reported",
-      "title": "CISA ICS advisory ICSA-26-321-03: Siemens Industrial Automation Software Products",
-      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-321-03",
+      "title": "CISA ICS advisory ICSA-26-321-04: Siemens Industrial Software Products",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-321-04",
       "publishedAt": "2026-11-10T00:00:00.000Z",
       "source": {
         "id": "cisa-ics",
@@ -266,8 +266,8 @@
     {
       "rung": "advisory",
       "strength": "reported",
-      "title": "CISA ICS advisory ICSA-26-316-03: Siemens Industrial Edge Management",
-      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-03",
+      "title": "CISA ICS advisory ICSA-26-316-02: Siemens Desigo, Gridscale",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-02",
       "publishedAt": "2026-10-30T00:00:00.000Z",
       "source": {
         "id": "cisa-ics",
@@ -278,8 +278,8 @@
     {
       "rung": "advisory",
       "strength": "reported",
-      "title": "CISA ICS advisory ICSA-26-316-02: Siemens Desigo, Gridscale",
-      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-02",
+      "title": "CISA ICS advisory ICSA-26-316-03: Siemens Industrial Edge Management",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-03",
       "publishedAt": "2026-10-30T00:00:00.000Z",
       "source": {
         "id": "cisa-ics",
@@ -456,5 +456,5 @@
       }
     }
   ],
-  "evidenceWithheld": 245
+  "evidenceWithheld": 247
 }
