@@ -5,6 +5,7 @@ Reviewers: C = Codex, S = Claude on sonnet, O = Claude on opus (adversarial), G 
 
 | Date | Item | Target metric | Before | After | Result | Reviewers | PR |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-23 | None: nothing in the coverage lane scored above 0.5 | none | | | none | not run (no change) | |
 | 2026-11-20 | CISA ICS advisories as a keyless source (`cisa-ics`), tier 2 | repo.keylessSources (live.sourcesOk at the 7 day recheck, Nov 27) | 29 | 30 | kept | C a (after a P2 fix), S r then a, O a | #60 |
 | 2026-11-18 | CISA ICS advisories, rechecked against main | repo.keylessSources | 29 | 30 | dry: would keep | not run (dry) | |
 | 2026-11-16 | CISA ICS advisories as a keyless source (`cisa-ics`), tier 2 | repo.keylessSources (live.sourcesOk at the 7 day recheck) | 29 | 30 | dry: would keep | not run (dry) | |
@@ -45,3 +46,14 @@ when every document fails). Tests 468 of 468, lint and typecheck clean, `keep.mj
 `repo.keylessSources` (29 to 30) and `--target none`; no backtest or live metric moved. The opus
 reviewer reran everything and read 87 live documents (248 observations, 0 failures, 304 on rerun).
 Recheck `live.sourcesOk` (29 now, expect 30) on Nov 27.
+
+Nov 23, run 2. Gates clear (no PAUSE, no alert issue, no open improve pull request); live scorecard
+from the Nov 23 16:13 UTC snapshot. `live.sourcesOk` is already 30, so the Nov 20 gain holds ahead
+of its Nov 27 recheck. No kept rows are 6 to 8 days old. Nothing shipped, because no candidate
+scored above 0.5. ENISA EUVD and the Palo Alto Networks, Fortinet and Cisco advisory feeds are
+still refused by the build container's network (rechecked today, along with cisa.gov), so no
+fixture test can be written for them; this blocks every keyless source not hosted on GitHub. The
+`cisa-ics` stuck document guard scores about 0.2: all 68 documents changed in the last 30 days
+parse cleanly today, so the failure it guards against has not happened. Collapsing a repeated
+advisory in the evidence list (31 of those 68 documents name more than one CVE) is UX lane work
+and moves no coverage metric. Both stay in `ideas.md`.
