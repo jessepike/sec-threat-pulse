@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-30-ivanti-connect-secure",
   "title": "Ivanti Connect Secure: 2 flaws used in attacks; attackers can get in without a password",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 20 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 21 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
   "tier": "now",
   "rankScore": 5,
   "rankWhy": [
@@ -51,19 +51,23 @@
   "summary": "Ivanti Connect Secure contains a missing authentication for critical function vulnerability that could allow a local authenticated attacker to escalate their privileges. This vulnerability can be chained with CVE-2026-104935 and CVE-2026-118527.",
   "cvss": 7,
   "epss": 0.00991,
-  "exploitMaturity": "none",
+  "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-10-30",
   "kevDueDate": "2026-11-02",
   "firstSeenAt": "2026-10-30T00:00:00.000Z",
-  "updatedAt": "2026-11-23T15:00:06.889Z",
-  "newestEvidenceAt": "2026-11-14T22:14:25.357Z",
+  "updatedAt": "2026-11-24T15:00:06.988Z",
+  "newestEvidenceAt": "2026-11-24T02:24:15.015Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 2, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
       "date": "2026-10-15",
       "label": "CVE-2026-111357 published",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-111357"
+    },
+    "exploitCode": {
+      "date": "2026-11-24",
+      "label": "a source withheld from the API"
     },
     "firstReport": {
       "date": "2026-10-30",
@@ -91,6 +95,30 @@
     "damage": 0
   },
   "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-118527",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-118527.json",
+      "publishedAt": "2026-11-24T00:41:13.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-111357",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-111357.json",
+      "publishedAt": "2026-11-24T00:41:03.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
     {
       "rung": "exploited",
       "strength": "confirmed",
@@ -176,5 +204,5 @@
       }
     }
   ],
-  "evidenceWithheld": 89
+  "evidenceWithheld": 92
 }

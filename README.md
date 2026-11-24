@@ -1,6 +1,6 @@
 # Security Threat Pulse: data snapshot
 
-Taken 2026-11-23T16:13:22.067Z from https://securitythreatpulse.com. Rebuilt every night by `.github/workflows/snapshot.yml` on the `main` branch.
+Taken 2026-11-24T16:00:21.471Z from https://securitythreatpulse.com. Rebuilt every night by `.github/workflows/snapshot.yml` on the `main` branch.
 
 - `events.json`: every visible event as the API lists it (137 events), with the rules version and the license.
 - `events/<id>.json`: one file per event with its dated, linked evidence, as `/api/v1/events/<id>` serves it.

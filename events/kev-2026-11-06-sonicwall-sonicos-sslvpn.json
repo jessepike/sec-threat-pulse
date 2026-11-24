@@ -3,13 +3,13 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-06-sonicwall-sonicos-sslvpn",
   "title": "SonicWall SonicOS SSLVPN: security flaw used in attacks",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 16 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 17 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access.",
   "tier": "now",
   "rankScore": 6,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
     "The product faces the internet or gives remote access.",
-    "The confirmation is 17 days old."
+    "The confirmation is 18 days old."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -66,8 +66,8 @@
   "kevDateAdded": "2026-11-06",
   "kevDueDate": "2026-11-20",
   "firstSeenAt": "2026-11-06T00:00:00.000Z",
-  "updatedAt": "2026-11-23T00:00:05.517Z",
-  "newestEvidenceAt": "2026-11-21T13:53:18.321Z",
+  "updatedAt": "2026-11-24T00:00:07.506Z",
+  "newestEvidenceAt": "2026-11-24T13:10:30.911Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 20, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -198,5 +198,5 @@
       }
     }
   ],
-  "evidenceWithheld": 118
+  "evidenceWithheld": 120
 }

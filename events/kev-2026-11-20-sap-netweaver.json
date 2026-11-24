@@ -8,7 +8,7 @@
   "rankScore": 6,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 3 days old.",
+    "The confirmation is 4 days old.",
     "3 products are affected."
   ],
   "rulesVersion": "v3",
@@ -71,20 +71,24 @@
   },
   "summary": "SAP NetWeaver Enterprise Portal contains an improper neutralization of special elements in data query logic vulnerability that allows an unauthenticated attacker to disclose or modify server information via injected JNDI environment properties or a URL used during JNDI lookup operations.",
   "cvss": 6.5,
-  "epss": 0.00714,
-  "exploitMaturity": "none",
+  "epss": 0.00902,
+  "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-11-20",
   "kevDueDate": "2026-11-23",
   "firstSeenAt": "2026-11-20T00:00:00.000Z",
-  "updatedAt": "2026-11-23T00:00:05.517Z",
-  "newestEvidenceAt": "2026-11-23T08:07:28.785Z",
-  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 23, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "updatedAt": "2026-11-24T02:30:23.854Z",
+  "newestEvidenceAt": "2026-11-24T09:18:02.276Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 23, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
       "date": "2025-11-11",
       "label": "CVE-2025-42884 published",
       "url": "https://www.cve.org/CVERecord?id=CVE-2025-42884"
+    },
+    "exploitCode": {
+      "date": "2026-11-24",
+      "label": "a source withheld from the API"
     },
     "firstReport": {
       "date": "2026-11-20",
@@ -112,6 +116,18 @@
     "damage": 0
   },
   "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2025-42884",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2025/CVE-2025-42884.json",
+      "publishedAt": "2026-11-24T00:10:39.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
     {
       "rung": "advisory",
       "strength": "reported",
@@ -149,5 +165,5 @@
       }
     }
   ],
-  "evidenceWithheld": 33
+  "evidenceWithheld": 39
 }
