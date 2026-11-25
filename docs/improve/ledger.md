@@ -5,6 +5,7 @@ Reviewers: C = Codex, S = Claude on sonnet, O = Claude on opus (adversarial), G 
 
 | Date | Item | Target metric | Before | After | Result | Reviewers | PR |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-25 | None: nothing in the coverage lane scored above 0.5 | none | | | none | not run (no change) | |
 | 2026-11-23 | None: nothing in the coverage lane scored above 0.5 | none | | | none | not run (no change) | |
 | 2026-11-20 | CISA ICS advisories as a keyless source (`cisa-ics`), tier 2 | repo.keylessSources (live.sourcesOk at the 7 day recheck, Nov 27) | 29 | 30 | kept | C a (after a P2 fix), S r then a, O a | #60 |
 | 2026-11-18 | CISA ICS advisories, rechecked against main | repo.keylessSources | 29 | 30 | dry: would keep | not run (dry) | |
@@ -57,3 +58,16 @@ fixture test can be written for them; this blocks every keyless source not hoste
 parse cleanly today, so the failure it guards against has not happened. Collapsing a repeated
 advisory in the evidence list (31 of those 68 documents name more than one CVE) is UX lane work
 and moves no coverage metric. Both stay in `ideas.md`.
+
+Nov 25, run 3. Gates clear (no PAUSE, no alert issue, no open improve pull request); live scorecard
+from the Nov 25 15:49 UTC snapshot, unchanged from Nov 23 (`live.sourcesOk` 30, `repo.keylessSources`
+30, `live.earlyActNowShare` 0). No kept rows are 6 to 8 days old; the CISA ICS recheck is Nov 27.
+Nothing shipped. The hosts parked for the owner (ENISA, Palo Alto Networks, Fortinet, Cisco,
+cisa.gov) and two new ones tried today (MSRC's API, Ivanti) are still refused by the build
+container. Google Project Zero's in-the-wild list (a Google Sheet) and inthewild.io are refused too.
+New candidate found: GitHub security advisories through OSV's public bucket on Google Cloud Storage,
+which the container can reach. Each ecosystem's `modified_id.csv` is sorted newest first and
+answers a Range request, so one small read lists the latest records, and each record
+(`<ecosystem>/<id>.json`) names its CVE aliases. It scores about 0.4: it would add one keyless source
+(30 to 31) and an independent Talk source for open source CVEs, but no verdict rule reads Talk,
+so it moves no accuracy or lead time metric. Parked in `ideas.md` as build ready.
