@@ -3,12 +3,13 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-13-unrealircd-unrealircd",
   "title": "UnrealIRCd: security flaw used in attacks",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 16 days old, so many systems are likely still unpatched.",
-  "tier": "now",
-  "rankScore": 4,
+  "verdictReason": "Attacks are confirmed. The vulnerability is 17 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
+  "tier": "today",
+  "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 11 days old."
+    "Ready-made attack tools are public.",
+    "The confirmation is 12 days old."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -49,14 +50,14 @@
   },
   "summary": "UnrealIRCd UnrealIRCd contains an improper neutralization of delimiters vulnerability that allows any user on a network with two or more linked servers to inject server-to-server commands that are executed with server authority.",
   "cvss": 8.6,
-  "epss": 0.01148,
-  "exploitMaturity": "poc",
+  "epss": 0.01351,
+  "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-11-13",
   "kevDueDate": "2026-11-16",
   "firstSeenAt": "2026-11-13T00:00:00.000Z",
-  "updatedAt": "2026-11-24T03:00:05.988Z",
-  "newestEvidenceAt": "2026-11-23T11:40:21.507Z",
+  "updatedAt": "2026-11-25T05:30:31.725Z",
+  "newestEvidenceAt": "2026-11-25T14:14:47.273Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 16, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -94,6 +95,18 @@
     "damage": 0
   },
   "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Nuclei scan template: UnrealIRCd - Command Injection",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/blob/main/network/cves/2026/CVE-2026-114713.yaml",
+      "publishedAt": null,
+      "source": {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
     {
       "rung": "talk",
       "strength": "reported",
@@ -155,5 +168,5 @@
       }
     }
   ],
-  "evidenceWithheld": 85
+  "evidenceWithheld": 86
 }

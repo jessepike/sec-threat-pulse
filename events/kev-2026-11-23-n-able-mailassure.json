@@ -1,0 +1,168 @@
+{
+  "id": "kev-2026-11-23-n-able-mailassure",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-23-n-able-mailassure",
+  "title": "N-able MailAssure: attackers can reach systems behind it",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 2 days old, so many systems are likely still unpatched. The severity score is critical (9.3).",
+  "tier": "today",
+  "rankScore": 7,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "The product faces the internet or gives remote access.",
+    "The confirmation is 2 days old."
+  ],
+  "rulesVersion": "v3",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
+  "cves": [
+    "CVE-2026-134624"
+  ],
+  "vendor": "N-able",
+  "product": "MailAssure",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "nable/mailassure",
+      "vendor": "N-able",
+      "product": "MailAssure",
+      "evidence": [
+        "kev",
+        "cpe"
+      ],
+      "vendorKey": "nable",
+      "productKey": "mailassure"
+    }
+  ],
+  "category": {
+    "id": "remote-it",
+    "label": "Remote support or IT management",
+    "why": "It controls many computers at once, so one break-in can reach all of them.",
+    "doThis": "Patch it today, or ask your IT provider if they run it for you."
+  },
+  "summary": "N-able MailAssure (SpamExperts) contains a server-side request forgery vulnerability in the LDAP synchronization connection check that allows an authenticated API user to connect to arbitrary internal hosts and ports, determine which are reachable, and send crafted data to internal services.",
+  "cvss": 9.3,
+  "epss": 0.00617,
+  "exploitMaturity": "poc",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-23",
+  "kevDueDate": "2026-11-26",
+  "firstSeenAt": "2026-11-23T00:00:00.000Z",
+  "updatedAt": "2026-11-25T00:00:05.483Z",
+  "newestEvidenceAt": "2026-11-25T12:40:01.000Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 26, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-11-22",
+      "label": "CVE-2026-134624 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-134624"
+    },
+    "firstReport": {
+      "date": "2026-11-23",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-134624"
+    },
+    "kevListed": {
+      "date": "2026-11-23",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-134624"
+    },
+    "kevDue": {
+      "date": "2026-11-26",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-134624"
+    },
+    "daysToFirstReport": 1,
+    "daysToKev": 1
+  },
+  "ladderSources": {
+    "talk": 3,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "1 public GitHub repository claims a proof of concept for CVE-2026-134624",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-134624.json",
+      "publishedAt": "2026-11-24T15:35:03.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Hackers Exploit N-able MailAssure Flaw While AI Agents Exploit MONAI Label Zero-Day",
+      "url": "https://thehackernews.com/2026/11/hackers-exploit-n-able-mailassure-flaw.html",
+      "publishedAt": "2026-11-24T06:02:45.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-134624 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-134624",
+      "publishedAt": "2026-11-24T04:55:22.187Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "advisory",
+      "strength": "reported",
+      "title": "N-able security advisory (AV26-1191) - Update 1",
+      "url": "https://cyber.gc.ca/en/alerts-advisories/n-able-security-advisory-av26-1191",
+      "publishedAt": "2026-11-23T14:51:33.000Z",
+      "source": {
+        "id": "advisory-cccs",
+        "name": "Canadian Centre for Cyber Security",
+        "attribution": "Advisory headlines and links from Canadian Centre for Cyber Security"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "N-able Discloses Critical Mail Assure Vulnerability Found During Breach Investigation",
+      "url": "https://thehackernews.com/2026/11/n-able-discloses-critical-mail-assure.html",
+      "publishedAt": "2026-11-23T12:28:09.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "N-able MailAssure (SpamExperts) Server-Side Request Forgery (SSRF) Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-134624",
+      "publishedAt": "2026-11-23T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 3
+}

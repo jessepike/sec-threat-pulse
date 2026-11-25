@@ -57,7 +57,7 @@
   "kevDueDate": "2026-10-16",
   "firstSeenAt": "2026-10-13T00:00:00.000Z",
   "updatedAt": "2026-11-24T16:00:04.946Z",
-  "newestEvidenceAt": "2026-11-24T06:02:30.162Z",
+  "newestEvidenceAt": "2026-11-25T06:03:00.772Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 16, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -180,5 +180,5 @@
       }
     }
   ],
-  "evidenceWithheld": 44
+  "evidenceWithheld": 46
 }

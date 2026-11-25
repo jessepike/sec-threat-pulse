@@ -1,0 +1,166 @@
+{
+  "id": "kev-2026-11-23-project-monai-monai-label",
+  "url": "https://securitythreatpulse.com/events/kev-2026-11-23-project-monai-monai-label",
+  "title": "Project MONAI MONAI Label: attackers can read or change files",
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 4 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.8).",
+  "tier": "today",
+  "rankScore": 6,
+  "rankWhy": [
+    "Exploitation is confirmed by an authoritative source.",
+    "Ready-made attack tools are public.",
+    "The confirmation is 2 days old."
+  ],
+  "rulesVersion": "v3",
+  "ladder": {
+    "talk": "confirmed",
+    "damage": "none",
+    "attempts": "confirmed",
+    "exposure": "none",
+    "exploited": "confirmed"
+  },
+  "untrackedRungs": [
+    "exposure",
+    "damage"
+  ],
+  "cves": [
+    "CVE-2026-133968"
+  ],
+  "vendor": "Project MONAI",
+  "product": "MONAI Label",
+  "affectedProducts": [
+    {
+      "kind": "direct",
+      "slug": "projectmonai/monailabel",
+      "vendor": "Project MONAI",
+      "product": "MONAI Label",
+      "evidence": [
+        "kev"
+      ],
+      "vendorKey": "projectmonai",
+      "productKey": "monailabel"
+    },
+    {
+      "kind": "direct",
+      "slug": "projectmonia/monailabel",
+      "vendor": "Project-monia",
+      "product": "Monai Label",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "projectmonia",
+      "productKey": "monailabel"
+    }
+  ],
+  "category": {
+    "id": "other",
+    "label": "Other software",
+    "why": "Software we have not put in a category yet. Your IT team or provider will know whether you run it.",
+    "doThis": "Find out if you use it. If you do, apply the vendor's fix."
+  },
+  "summary": "Project MONAI MONAI Label contains a path traversal vulnerability that allows an unauthenticated remote attacker to write arbitrary files outside the intended datastore directory, potentially resulting in remote code execution.",
+  "cvss": 9.8,
+  "epss": 0.49795,
+  "exploitMaturity": "weaponized",
+  "kevListed": true,
+  "kevDateAdded": "2026-11-23",
+  "kevDueDate": "2026-11-26",
+  "firstSeenAt": "2026-11-23T00:00:00.000Z",
+  "updatedAt": "2026-11-25T00:00:05.483Z",
+  "newestEvidenceAt": "2026-11-25T13:00:18.045Z",
+  "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 26, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
+  "clock": {
+    "disclosed": {
+      "date": "2026-11-20",
+      "label": "CVE-2026-133968 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-133968"
+    },
+    "firstReport": {
+      "date": "2026-11-23",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-133968"
+    },
+    "kevListed": {
+      "date": "2026-11-23",
+      "label": "CISA KEV listing",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-133968"
+    },
+    "kevDue": {
+      "date": "2026-11-26",
+      "label": "CISA deadline for US federal agencies",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-133968"
+    },
+    "daysToFirstReport": 3,
+    "daysToKev": 3
+  },
+  "ladderSources": {
+    "talk": 2,
+    "exposure": 0,
+    "attempts": 2,
+    "exploited": 2,
+    "damage": 0
+  },
+  "evidence": [
+    {
+      "rung": "exploit_available",
+      "strength": "confirmed",
+      "title": "Nuclei scan template: monailabel - Directory Traversal",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2026/CVE-2026-133968.yaml",
+      "publishedAt": null,
+      "source": {
+        "id": "nuclei",
+        "name": "nuclei-templates",
+        "attribution": "nuclei-templates (MIT, ProjectDiscovery)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "U.S. CISA adds N-able MailAssure and Project MONAI flaws to its Known Exploited Vulnerabilities catalog",
+      "url": "https://securityaffairs.com/203882/hacking/u-s-cisa-adds-n-able-mailassure-and-project-monai-flaws-to-its-known-exploited-vulnerabilities-catalog.html",
+      "publishedAt": "2026-11-24T12:48:09.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-133968 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-133968",
+      "publishedAt": "2026-11-24T04:55:23.445Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "exploit_available",
+      "strength": "claimed",
+      "title": "3 public GitHub repositories claim a proof of concept for CVE-2026-133968",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2026/CVE-2026-133968.json",
+      "publishedAt": "2026-11-23T22:48:47.000Z",
+      "source": {
+        "id": "poc-github",
+        "name": "PoC-in-GitHub",
+        "attribution": "PoC-in-GitHub (CC0, nomi-sec)"
+      }
+    },
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "Project MONAI MONAI Label Path Traversal Vulnerability",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-133968",
+      "publishedAt": "2026-11-23T00:00:00.000Z",
+      "source": {
+        "id": "cisa-kev",
+        "name": "CISA Known Exploited Vulnerabilities",
+        "attribution": "CISA Known Exploited Vulnerabilities Catalog (CC0)"
+      }
+    }
+  ],
+  "evidenceWithheld": 10
+}
