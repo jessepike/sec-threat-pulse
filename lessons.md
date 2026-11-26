@@ -3,6 +3,10 @@
 Hot buffer. One line per insight, newest first. Keep the last 15 or so; promote lasting patterns
 into AGENTS.md or docs and drop them from here. Read at session start.
 
+## 2026-11-26
+
+- Input filters copied from one regex (`[\w .&/+-]`) quietly refuse real vendor names from KEV such as "Hewlett Packard Enterprise (HPE)". When a filter takes names the site itself prints, test it against the names in the data.
+
 ## 2026-11-22
 
 - A green routine pull request can be left open when the session ends before the merge (#62, Nov 21). Check for an open `routine/*` pull request at the start of each run and carry it forward.

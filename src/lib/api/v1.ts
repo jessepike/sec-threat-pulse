@@ -288,7 +288,7 @@ export interface ApiStackHit {
 export function parseStack(raw: string | null): string[] | null {
   const items = (raw ?? "").split(/[,\n]/).map((x) => x.trim()).filter(Boolean);
   if (!items.length || items.length > STACK_MAX_PRODUCTS) return null;
-  if (items.some((x) => x.length < 2 || x.length > 80 || !/^[\w .&/+-]+$/.test(x))) return null;
+  if (items.some((x) => x.length < 2 || x.length > 80 || !/^[\w .&/+()-]+$/.test(x))) return null;
   return [...new Set(items.map((x) => x.toLowerCase()))];
 }
 

@@ -226,7 +226,7 @@ const cachedLiveEventsPage = unstable_cache(async (filter: VerdictFilter, page: 
 export function parseProductFilter(raw: string | string[] | undefined): string | undefined {
   const v = Array.isArray(raw) ? raw[0] : raw;
   const t = v?.trim().slice(0, 80);
-  return t && /^[\w .&/+-]+$/.test(t) ? t : undefined;
+  return t && /^[\w .&/+()-]+$/.test(t) ? t : undefined;
 }
 
 /** The /events index: filterable by verdict and product, 25 events a page. */
