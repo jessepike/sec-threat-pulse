@@ -2,13 +2,13 @@
   "id": "kev-2026-11-24-drupal-core",
   "url": "https://securitythreatpulse.com/events/kev-2026-11-24-drupal-core",
   "title": "Drupal Core: attackers can run their own code",
-  "verdict": "watch",
-  "verdictReason": "Attacks are confirmed, but the vulnerability is more than a year old and we see no ransomware use, public attack tools, internet-facing product, critical severity or high prediction score. Check whether it applies to you.",
-  "tier": null,
+  "verdict": "act_now",
+  "verdictReason": "Attacks are confirmed. The vulnerability is new today, so almost nothing is patched yet.",
+  "tier": "now",
   "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 1 day old."
+    "The confirmation is 2 days old."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -38,6 +38,17 @@
       ],
       "vendorKey": "drupal",
       "productKey": "core"
+    },
+    {
+      "kind": "direct",
+      "slug": "drupal/drupalcore",
+      "vendor": "Drupal",
+      "product": "Drupal Core",
+      "evidence": [
+        "cpe"
+      ],
+      "vendorKey": "drupal",
+      "productKey": "drupalcore"
     }
   ],
   "category": {
@@ -54,10 +65,15 @@
   "kevDateAdded": "2026-11-24",
   "kevDueDate": "2026-11-27",
   "firstSeenAt": "2026-11-24T00:00:00.000Z",
-  "updatedAt": "2026-11-25T00:00:05.483Z",
-  "newestEvidenceAt": "2026-11-25T15:08:16.043Z",
+  "updatedAt": "2026-11-26T01:30:26.101Z",
+  "newestEvidenceAt": "2026-11-26T14:06:52.052Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 27, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
+    "disclosed": {
+      "date": "2026-11-26",
+      "label": "CVE-2026-132165 published",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-132165"
+    },
     "firstReport": {
       "date": "2026-11-24",
       "label": "CISA Known Exploited Vulnerabilities",
@@ -72,16 +88,30 @@
       "date": "2026-11-27",
       "label": "CISA deadline for US federal agencies",
       "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-132165"
-    }
+    },
+    "daysToFirstReport": -2,
+    "daysToKev": -2
   },
   "ladderSources": {
     "talk": 4,
     "exposure": 0,
-    "attempts": 1,
-    "exploited": 1,
+    "attempts": 2,
+    "exploited": 2,
     "damage": 0
   },
   "evidence": [
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Drupal Warns of New Highly Critical Site Takeover Vulnerability Under Active Exploitation",
+      "url": "https://thehackernews.com/2026/11/drupal-warns-of-new-highly-critical.html",
+      "publishedAt": "2026-11-26T07:02:34.000Z",
+      "source": {
+        "id": "news-thehackernews",
+        "name": "The Hacker News",
+        "attribution": "Headlines and links from The Hacker News"
+      }
+    },
     {
       "rung": "talk",
       "strength": "reported",
@@ -143,5 +173,5 @@
       }
     }
   ],
-  "evidenceWithheld": 43
+  "evidenceWithheld": 68
 }

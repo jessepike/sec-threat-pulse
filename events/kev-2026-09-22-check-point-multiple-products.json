@@ -73,7 +73,7 @@
   },
   "summary": "Check Point Security Gateway and Check Point Spark Firewall using Site to Site VPN or Remote Access VPN contain an improper certificate validation vulnerability which could allow an unauthenticated remote attacker to execute arbitrary code on the Gateway.",
   "cvss": 9.8,
-  "epss": 0.91605,
+  "epss": 0.20905,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-09-22",

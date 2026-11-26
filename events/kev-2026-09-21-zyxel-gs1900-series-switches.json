@@ -158,7 +158,7 @@
   },
   "summary": "Zyxel GS1900 series switches contain a stack-based buffer overflow vulnerability in the CGI program which could allow a LAN-based, unauthenticated attacker to exploit the flaw and potentially execute OS commands via a crafted HTTP request.",
   "cvss": 8.8,
-  "epss": 0.02836,
+  "epss": 0.01286,
   "exploitMaturity": "none",
   "kevListed": true,
   "kevDateAdded": "2026-09-21",

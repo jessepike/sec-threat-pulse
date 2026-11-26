@@ -59,7 +59,7 @@
   },
   "summary": "F5 BIG-IP APM contains a heap-based buffer overflow vulnerability when access policy and an OAuth profile are configured on a virtual server. This vulnerability could allow an unauthenticated attacker to perform remote code execution.",
   "cvss": 9.3,
-  "epss": 0.2655,
+  "epss": 0.01293,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-09-22",

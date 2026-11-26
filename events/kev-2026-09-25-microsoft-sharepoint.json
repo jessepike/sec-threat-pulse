@@ -81,7 +81,7 @@
   },
   "summary": "Microsoft SharePoint contains a code injection vulnerability which could allow an authorized attacker to execute code over a network.",
   "cvss": 8.8,
-  "epss": 0.09852,
+  "epss": 0.02543,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-09-25",

@@ -59,7 +59,7 @@
   },
   "summary": "WordPress Core contains a remote file inclusion vulnerability which could allow an unauthenticated attacker to make page-template resolution include a chosen readable local `.php` file outside the active theme directories, leading to remote code execution.",
   "cvss": 8.1,
-  "epss": 0.95769,
+  "epss": 0.2674,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-09-25",

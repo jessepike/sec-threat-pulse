@@ -59,7 +59,7 @@
   },
   "summary": "Arista VeloCloud Orchestrator (VCO) on-prem contains an improper input validation vulnerability that may allow a remote attacker to access privileged internal functionality and impact the VCO host. Successful exploitation may compromise the confidentiality, integrity, and availability of the orchestrator and data managed by the orchestrator.",
   "cvss": 9.5,
-  "epss": 0.01384,
+  "epss": 0.00895,
   "exploitMaturity": "none",
   "kevListed": true,
   "kevDateAdded": "2026-09-22",

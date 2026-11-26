@@ -104,7 +104,7 @@
   },
   "summary": "WSO2 API Control Plane, API Manager, Traffic Manager & Universal Gateway contain a path traversal vulnerability that could allow for unrestricted file upload and lead to remote code execution.",
   "cvss": 10,
-  "epss": 0.7884,
+  "epss": 0.06097,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-09-24",

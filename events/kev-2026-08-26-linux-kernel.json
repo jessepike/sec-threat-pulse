@@ -46,7 +46,7 @@
   },
   "summary": "Linux Kernel contains an out-of-bounds memory write vulnerability which could allow a local user to gain privileged access or cause a denial of service on the system.",
   "cvss": 7.8,
-  "epss": 0.08859,
+  "epss": 0.05171,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-08-26",

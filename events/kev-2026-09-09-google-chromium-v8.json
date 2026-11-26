@@ -47,7 +47,7 @@
   },
   "summary": "Google Chromium V8 contains an out of bounds write vulnerability that allows a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. This vulnerability could affect multiple web browsers that utilize Chromium, including, but not limited to, Google Chrome, Microsoft Edge, and Opera.",
   "cvss": 8.8,
-  "epss": 0.03507,
+  "epss": 0.00974,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-09-09",

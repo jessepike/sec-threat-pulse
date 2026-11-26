@@ -3,13 +3,13 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-23-project-monai-monai-label",
   "title": "Project MONAI MONAI Label: attackers can read or change files",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 4 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.8).",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 5 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.8).",
   "tier": "today",
   "rankScore": 6,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
     "Ready-made attack tools are public.",
-    "The confirmation is 2 days old."
+    "The confirmation is 3 days old."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -60,14 +60,14 @@
   },
   "summary": "Project MONAI MONAI Label contains a path traversal vulnerability that allows an unauthenticated remote attacker to write arbitrary files outside the intended datastore directory, potentially resulting in remote code execution.",
   "cvss": 9.8,
-  "epss": 0.49795,
+  "epss": 0.27157,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-11-23",
   "kevDueDate": "2026-11-26",
   "firstSeenAt": "2026-11-23T00:00:00.000Z",
-  "updatedAt": "2026-11-25T00:00:05.483Z",
-  "newestEvidenceAt": "2026-11-25T13:00:18.045Z",
+  "updatedAt": "2026-11-26T00:00:06.220Z",
+  "newestEvidenceAt": "2026-11-26T05:13:39.150Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 26, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -162,5 +162,5 @@
       }
     }
   ],
-  "evidenceWithheld": 10
+  "evidenceWithheld": 11
 }

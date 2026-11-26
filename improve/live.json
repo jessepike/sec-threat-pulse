@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-25T15:49:37.359Z",
+  "at": "2026-11-26T15:29:22.326Z",
   "base": "https://securitythreatpulse.com",
   "metrics": {
     "live.sourcesOk": 30,
@@ -135,7 +135,7 @@
         "state": "ok"
       }
     ],
-    "actNowEvents": 100,
+    "actNowEvents": 101,
     "agentTestsFailed": []
   },
   "errors": []

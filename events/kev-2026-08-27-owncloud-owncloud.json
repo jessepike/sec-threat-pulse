@@ -45,7 +45,7 @@
   },
   "summary": "ownCloud contains an improper authentication vulnerability that allows an attacker to access, modify, or delete any file without authentication if the username of a victim is known, and the victim has no signing-key configured.",
   "cvss": 9.8,
-  "epss": 0.46828,
+  "epss": 0.3598,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-08-27",

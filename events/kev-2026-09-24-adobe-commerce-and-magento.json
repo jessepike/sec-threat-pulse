@@ -82,7 +82,7 @@
   },
   "summary": "Adobe Commerce and Magento contains an incorrect authorization vulnerability that could allow an attacker to leverage this vulnerability to gain elevated access to sensitive resources without any user interaction.",
   "cvss": 9.1,
-  "epss": 0.91677,
+  "epss": 0.24011,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-09-24",

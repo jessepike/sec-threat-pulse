@@ -46,7 +46,7 @@
   },
   "summary": "PaperCut NG/MF contains a missing authentication for critical function vulnerability which allows an unauthenticated remote attacker to modify certain system configurations. This vulnerability can be chained with CVE-2026-82078.",
   "cvss": 9.4,
-  "epss": 0.84289,
+  "epss": 0.04186,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-08-31",

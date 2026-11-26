@@ -94,7 +94,7 @@
   },
   "summary": "Linux Kernel contains an improper check for unusual or exceptional conditions vulnerability in the TLS receive path which allows a zero-length record retrieved from the rx_list to bypass the intended recvmsg() record-type handling, potentially causing subsequent TLS records to be processed using incorrect zero-copy and queuing assumptions.",
   "cvss": 9.8,
-  "epss": 0.03312,
+  "epss": 0.02067,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-09-18",

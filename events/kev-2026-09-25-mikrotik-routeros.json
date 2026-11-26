@@ -48,7 +48,7 @@
   },
   "summary": "Mikrotik RouterOS contains an improper enforcement of behavioral workflow vulnerability that could allow an unauthenticated client to open a session channel and send an exec request. This vulnerability can be chained to achieve unauthenticated exploitation of CVE-2026-86060.",
   "cvss": 6.9,
-  "epss": 0.02277,
+  "epss": 0.06471,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-09-25",

@@ -45,7 +45,7 @@
   },
   "summary": "N-able N-central contains a static code injection vulnerability that could allow for pre-authentication remote code execution.",
   "cvss": 10,
-  "epss": 0.15385,
+  "epss": 0.03906,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-09-08",

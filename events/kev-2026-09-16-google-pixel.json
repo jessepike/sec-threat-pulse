@@ -58,7 +58,7 @@
   },
   "summary": "Google Pixel devices contain an improper authorization vulnerability in the cellular modem. A logic error may allow an attacker to bypass permission checks and escalate privileges.",
   "cvss": 8.8,
-  "epss": 0.00625,
+  "epss": 0.00308,
   "exploitMaturity": "none",
   "kevListed": true,
   "kevDateAdded": "2026-09-16",

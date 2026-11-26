@@ -48,7 +48,7 @@
   },
   "summary": "Fortinet FortiOS, FortiSwitchManager, and FortiSASE contain a heap-based buffer overflow vulnerability that allows an attacker to execute unauthorized code or commands via specially crafted packets.",
   "cvss": 7.4,
-  "epss": 0.03742,
+  "epss": 0.02298,
   "exploitMaturity": "none",
   "kevListed": true,
   "kevDateAdded": "2026-09-09",

@@ -3,12 +3,12 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-24-optimizely-web-experimentation",
   "title": "Optimizely Web Experimentation: security flaw used in attacks",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 6 days old, so many systems are likely still unpatched.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 7 days old, so many systems are likely still unpatched.",
   "tier": "now",
   "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 1 day old."
+    "The confirmation is 2 days old."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -49,14 +49,14 @@
   },
   "summary": "Optimizely Web Experimentation contains an external control of critical state data vulnerability in its account signup flow that could allow an attacker to impersonate existing customer users and modify Project JavaScript.",
   "cvss": 7.1,
-  "epss": 0.00411,
+  "epss": 0.00784,
   "exploitMaturity": "none",
   "kevListed": true,
   "kevDateAdded": "2026-11-24",
   "kevDueDate": "2026-11-27",
   "firstSeenAt": "2026-11-24T00:00:00.000Z",
-  "updatedAt": "2026-11-25T07:30:29.964Z",
-  "newestEvidenceAt": "2026-11-25T13:00:04.294Z",
+  "updatedAt": "2026-11-26T00:00:06.220Z",
+  "newestEvidenceAt": "2026-11-26T09:59:53.344Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 27, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -115,5 +115,5 @@
       }
     }
   ],
-  "evidenceWithheld": 32
+  "evidenceWithheld": 38
 }

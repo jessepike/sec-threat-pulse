@@ -45,7 +45,7 @@
   },
   "summary": "Adobe Commerce and Magento Open Source contain an improper neutralization of special elements used in a template engine vulnerability that could allow an attacker to execute arbitrary code.",
   "cvss": 10,
-  "epss": 0.99376,
+  "epss": 0.34741,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-09-08",

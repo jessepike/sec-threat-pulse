@@ -47,7 +47,7 @@
   },
   "summary": "Strapi contains a cleartext storage of sensitive information vulnerability that could allow attackers with access to the admin panel to discover sensitive user details via the query filter. The impacted product(s) could be end-of-life (EoL) and/or end-of-service (EoS). Users are advised to discontinue use and/or transition to a supported version.",
   "cvss": 7.2,
-  "epss": 0.04114,
+  "epss": 0.0385,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-10-08",

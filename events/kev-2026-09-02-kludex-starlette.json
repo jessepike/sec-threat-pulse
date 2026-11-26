@@ -45,7 +45,7 @@
   },
   "summary": "Kludex Starlette contains a HTTP request/response smuggling vulnerability that could allow attackers to inject paths into the host part, prepending the actual path leading to issues such as authentication bypass when the authentication depends on the reconstructed URL’s path. This vulnerability could be chaned with CVE-2026-42271.",
   "cvss": 6.5,
-  "epss": 0.70288,
+  "epss": 0.07056,
   "exploitMaturity": "weaponized",
   "kevListed": true,
   "kevDateAdded": "2026-09-02",
