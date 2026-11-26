@@ -56,6 +56,14 @@ describe("check stack", () => {
     expect(parseStack("a")).toBeNull();
     expect(parseStack("x<script>")).toBeNull();
     expect(parseStack(Array.from({ length: 26 }, (_, i) => `v${i}`).join(","))).toBeNull();
+    expect(parseStack("Hewlett Packard Enterprise (HPE)")).toEqual(["hewlett packard enterprise (hpe)"]);
+  });
+
+  it("finds an event by a vendor name with parentheses, as the API lists it", async () => {
+    await ev("h1", "act_now", { vendor: "Hewlett Packard Enterprise (HPE)", product: "OneView" });
+    const q = parseStack("Hewlett Packard Enterprise (HPE)")!;
+    const r = (await apiCheckStack(q))!;
+    expect(r.results[0].events.map((e) => e.id)).toEqual(["h1"]);
   });
 
   it("returns Act now and Watch events per product, skipping Low", async () => {
