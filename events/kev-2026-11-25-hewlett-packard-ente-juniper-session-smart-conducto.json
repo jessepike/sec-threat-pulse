@@ -3,13 +3,13 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-25-hewlett-packard-ente-juniper-session-smart-conducto",
   "title": "Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router: attackers can run commands on it",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 28 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 29 days old, so many systems are likely still unpatched. It affects a product that faces the internet or gives remote access. The severity score is critical (9.8).",
   "tier": "today",
   "rankScore": 7,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
     "The product faces the internet or gives remote access.",
-    "The confirmation is 1 day old."
+    "The confirmation is 2 days old."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -60,14 +60,14 @@
   },
   "summary": "Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router contain an OS command injection vulnerability that could allow a remote attacker to execute arbitrary commands as root via a specially crafted salt minion ID.",
   "cvss": 9.8,
-  "epss": 0.0086,
+  "epss": 0.01535,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-11-25",
   "kevDueDate": "2026-11-28",
   "firstSeenAt": "2026-11-25T00:00:00.000Z",
-  "updatedAt": "2026-11-26T00:00:06.220Z",
-  "newestEvidenceAt": "2026-11-26T14:07:09.664Z",
+  "updatedAt": "2026-11-27T00:00:08.997Z",
+  "newestEvidenceAt": "2026-11-27T07:32:17.979Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 28, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -174,5 +174,5 @@
       }
     }
   ],
-  "evidenceWithheld": 31
+  "evidenceWithheld": 40
 }

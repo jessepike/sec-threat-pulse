@@ -3,13 +3,13 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-18-vanderbilt-universit-research-electronic-data-captu",
   "title": "Vanderbilt University Research Electronic Data Capture (REDCap): attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 67 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.8).",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 68 days old, so many systems are likely still unpatched. Ready-made attack tools are public. The severity score is critical (9.8).",
   "tier": "today",
   "rankScore": 6,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
     "Ready-made attack tools are public.",
-    "The confirmation is 8 days old.",
+    "The confirmation is 9 days old.",
     "3 products are affected."
   ],
   "rulesVersion": "v3",
@@ -78,7 +78,7 @@
   "kevDateAdded": "2026-11-18",
   "kevDueDate": "2026-11-21",
   "firstSeenAt": "2026-11-18T00:00:00.000Z",
-  "updatedAt": "2026-11-26T12:30:24.593Z",
+  "updatedAt": "2026-11-27T12:30:19.093Z",
   "newestEvidenceAt": "2026-11-20T20:40:33.282Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Nov 21, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {

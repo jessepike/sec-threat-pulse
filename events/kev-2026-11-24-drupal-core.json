@@ -3,12 +3,12 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-11-24-drupal-core",
   "title": "Drupal Core: attackers can run their own code",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is new today, so almost nothing is patched yet.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 1 days old, so many systems are likely still unpatched.",
   "tier": "now",
   "rankScore": 5,
   "rankWhy": [
     "Exploitation is confirmed by an authoritative source.",
-    "The confirmation is 2 days old."
+    "The confirmation is 3 days old."
   ],
   "rulesVersion": "v3",
   "ladder": {
@@ -58,15 +58,15 @@
     "doThis": "Ask whoever runs your website or store to update it."
   },
   "summary": "Drupal Core contains a not failing securely vulnerability that could allow an unauthenticated attacker to take over an existing site or execute arbitrary code via the Drupal installer. Under specific conditions, the attacker can use install.php to attempt to reinstall Drupal on the site.",
-  "cvss": null,
-  "epss": null,
+  "cvss": 8.1,
+  "epss": 0.11053,
   "exploitMaturity": "poc",
   "kevListed": true,
   "kevDateAdded": "2026-11-24",
   "kevDueDate": "2026-11-27",
   "firstSeenAt": "2026-11-24T00:00:00.000Z",
-  "updatedAt": "2026-11-26T01:30:26.101Z",
-  "newestEvidenceAt": "2026-11-26T14:06:52.052Z",
+  "updatedAt": "2026-11-27T01:00:05.889Z",
+  "newestEvidenceAt": "2026-11-27T14:00:05.782Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. CISA set Nov 27, 2026 as the deadline for US federal agencies. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -93,13 +93,37 @@
     "daysToKev": -2
   },
   "ladderSources": {
-    "talk": 4,
+    "talk": 5,
     "exposure": 0,
-    "attempts": 2,
-    "exploited": 2,
+    "attempts": 3,
+    "exploited": 3,
     "damage": 0
   },
   "evidence": [
+    {
+      "rung": "exploited",
+      "strength": "confirmed",
+      "title": "CISA Vulnrichment marks CVE-2026-132165 as actively exploited",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-132165",
+      "publishedAt": "2026-11-27T14:00:05.782Z",
+      "source": {
+        "id": "cvelist",
+        "name": "CVE List V5 and CISA Vulnrichment",
+        "attribution": "CVE List V5 (CVE Program) and CISA Vulnrichment (CC0)"
+      }
+    },
+    {
+      "rung": "talk",
+      "strength": "reported",
+      "title": "Drupal Warns of New Critical Flaw Exploited in the Wild",
+      "url": "https://securityaffairs.com/204085/security/drupal-warns-of-new-critical-flaw-exploited-in-the-wild.html",
+      "publishedAt": "2026-11-26T19:45:57.000Z",
+      "source": {
+        "id": "news-securityaffairs",
+        "name": "Security Affairs",
+        "attribution": "Headlines and links from Security Affairs"
+      }
+    },
     {
       "rung": "talk",
       "strength": "reported",
@@ -173,5 +197,5 @@
       }
     }
   ],
-  "evidenceWithheld": 68
+  "evidenceWithheld": 82
 }

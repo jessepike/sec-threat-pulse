@@ -3,7 +3,7 @@
   "url": "https://securitythreatpulse.com/events/kev-2026-10-28-linux-kernel",
   "title": "Linux Kernel: security flaw used in attacks",
   "verdict": "act_now",
-  "verdictReason": "Attacks are confirmed. The vulnerability is 187 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
+  "verdictReason": "Attacks are confirmed. The vulnerability is 188 days old, so many systems are likely still unpatched. Ready-made attack tools are public.",
   "tier": "now",
   "rankScore": 4,
   "rankWhy": [
@@ -65,8 +65,8 @@
   "kevDateAdded": "2026-10-28",
   "kevDueDate": "2026-10-31",
   "firstSeenAt": "2026-10-28T00:00:00.000Z",
-  "updatedAt": "2026-11-26T12:00:10.641Z",
-  "newestEvidenceAt": "2026-11-26T09:32:13.318Z",
+  "updatedAt": "2026-11-27T12:00:06.144Z",
+  "newestEvidenceAt": "2026-11-27T14:28:21.877Z",
   "fix": "CISA's instruction: apply the vendor's fix, or stop using the product if no fix exists. The deadline CISA set for US federal agencies, Oct 31, 2026, has passed. It is a US government deadline; use it as a guide.",
   "clock": {
     "disclosed": {
@@ -166,5 +166,5 @@
       }
     }
   ],
-  "evidenceWithheld": 69
+  "evidenceWithheld": 71
 }
