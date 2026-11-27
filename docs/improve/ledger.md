@@ -5,6 +5,7 @@ Reviewers: C = Codex, S = Claude on sonnet, O = Claude on opus (adversarial), G 
 
 | Date | Item | Target metric | Before | After | Result | Reviewers | PR |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-27 | None: nothing in the coverage lane scored above 0.5. Recheck of #60 (`cisa-ics`): gain holds | live.sourcesOk (recheck) | 30 | 30 | none | not run (no change) | |
 | 2026-11-25 | None: nothing in the coverage lane scored above 0.5 | none | | | none | not run (no change) | |
 | 2026-11-23 | None: nothing in the coverage lane scored above 0.5 | none | | | none | not run (no change) | |
 | 2026-11-20 | CISA ICS advisories as a keyless source (`cisa-ics`), tier 2 | repo.keylessSources (live.sourcesOk at the 7 day recheck, Nov 27) | 29 | 30 | kept | C a (after a P2 fix), S r then a, O a | #60 |
@@ -71,3 +72,11 @@ answers a Range request, so one small read lists the latest records, and each re
 (`<ecosystem>/<id>.json`) names its CVE aliases. It scores about 0.4: it would add one keyless source
 (30 to 31) and an independent Talk source for open source CVEs, but no verdict rule reads Talk,
 so it moves no accuracy or lead time metric. Parked in `ideas.md` as build ready.
+
+Nov 27, run 4. Gates clear (no PAUSE, no alert issue, no open improve pull request); live scorecard
+from the Nov 27 15:21 UTC snapshot, unchanged from Nov 25 (`live.sourcesOk` 30, `repo.keylessSources`
+30, `live.earlyActNowShare` 0). Recheck of the Nov 20 kept row (#60): `cisa-ics` is `ok` in the live
+snapshot and `live.sourcesOk` holds at 30, so the gain stands and nothing is reverted. Nothing
+shipped. The seven parked hosts (ENISA, Palo Alto Networks, Fortinet, Cisco, cisa.gov, MSRC, Ivanti)
+are still refused by the build container. GHSA through OSV still scores about 0.4. This is the third
+`none` in a row: the coverage lane is blocked until the owner allows those hosts or changes the lane.

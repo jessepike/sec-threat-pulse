@@ -28,7 +28,7 @@ its own and parks what needs the owner. Lane, then the metric it should move.
 
 - Let the build container reach the sources the coverage lane needs, so a fixture can be recorded:
   euvdservices.enisa.europa.eu, security.paloaltonetworks.com, www.fortiguard.com,
-  sec.cloudapps.cisco.com, www.cisa.gov, api.msrc.microsoft.com and www.ivanti.com (all still refused Nov 25). Today only GitHub, Google Cloud Storage, npm and a few
+  sec.cloudapps.cisco.com, www.cisa.gov, api.msrc.microsoft.com and www.ivanti.com (all still refused Nov 27). Today only GitHub, Google Cloud Storage, npm and a few
   others answer. The owner adds them under Allowed domains in the project's cloud environment
   (Nov 23). Until then the lane can only add sources hosted on GitHub.
 
